@@ -6,11 +6,11 @@
     </div>
 
     <div class="kt-portlet__body">
-        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="legalHeirsForm">
+        <form [formGroup]="legalHeirsForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Customers <strong class="matMandatory">*</strong>
                             </mat-label>
                             <!--<input matInput formControlName="CustomerID">-->
@@ -18,7 +18,7 @@
                                 <mat-option [value]="undefined">
                                     {{'--Select Customer-- '}}
                                 </mat-option>
-                                <mat-option  (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList"
+                                <mat-option (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList"
                                             [value]="obj.CustLoanAppID">
                                     {{obj.CustomerName}}
                                 </mat-option>
@@ -26,36 +26,36 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">CNIC/B FORM <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input matInput formControlName="Cnic" maxlength="13" autocomplete="off"
-                                   [mask]="maskEnums.cnic">
+                            <input [mask]="maskEnums.cnic" autocomplete="off" formControlName="Cnic" matInput
+                                   maxlength="13">
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Legal Heir Name <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input matInput formControlName="LegalHeirsName">
+                            <input formControlName="LegalHeirsName" matInput>
                         </mat-form-field>
                     </div>
 
                 </div>
                 <div class="form-group  kt-form__group row">
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">DOB(ddMMyyyy) <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="Dob"
-                                   [max]="today">
-                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <input [matDatepicker]="picker3" [max]="today" formControlName="Dob" matInput
+                                   readonly="readonly">
+                            <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
                             <mat-datepicker #picker3></mat-datepicker>
                             <!--<mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong></mat-error>-->
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Relationship <strong class="matMandatory">*</strong>
                             </mat-label>
                             <mat-select formControlName="RelationID">
@@ -75,25 +75,25 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Tel(Res)NO</mat-label>
-                            <input maxlength="7" matInput formControlName="PhoneOff" appNumberOnly>
+                            <input appNumberOnly formControlName="PhoneOff" matInput maxlength="7">
                         </mat-form-field>
                     </div>
 
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Cell No <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input maxlength="11" matInput formControlName="PhoneCell" appNumberOnly>
+                            <input appNumberOnly formControlName="PhoneCell" matInput maxlength="11">
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Gender <strong class="matMandatory">*</strong></mat-label>
-                            <mat-select formControlName="Gender" (selectionChange)="setRelationshipValue($event)">
+                            <mat-select (selectionChange)="setRelationshipValue($event)" formControlName="Gender">
                                 <mat-option *ngFor="let obj of GenderLov" [value]="obj.Value">
                                     {{obj.Name}}
                                 </mat-option>
@@ -104,14 +104,15 @@
                 </div>
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12 mb-2">
-                        <button type="button" class="btn btn-primary bg-green "
-                                mat-raised-button color="primary" *ngIf="currentActivity.C" (click)="onSaveLegalHeirsForm()">
+                        <button (click)="onSaveLegalHeirsForm()" *ngIf="currentActivity.C"
+                                class="btn btn-primary bg-green " color="primary" mat-raised-button
+                                type="button">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
-                        <button type="button"
-                                class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                color="danger" *ngIf="currentActivity.C" (click)="onClearLegalHeirsForm()">
+                        <button (click)="onClearLegalHeirsForm()"
+                                *ngIf="currentActivity.C"
+                                class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="danger" type="button">
                             <mat-icon class="mr-2"> clear_all</mat-icon>
                             Clear
                         </button>
@@ -142,8 +143,8 @@
                                     <td>{{legal.Dob}}</td>
                                     <td>{{legal.RelationName}}</td>
                                     <td>
-                                        <button type="button" *ngIf="currentActivity.D" class="btn btn-xs btn-primary"
-                                                (click)="onDeleteLegalHeirs(legal.ID,i)">Delete
+                                        <button (click)="onDeleteLegalHeirs(legal.ID,i)" *ngIf="currentActivity.D" class="btn btn-xs btn-primary"
+                                                type="button">Delete
                                         </button>
                                     </td>
                                 </tr>

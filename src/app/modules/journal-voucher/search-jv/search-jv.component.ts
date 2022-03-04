@@ -13,11 +13,9 @@ import {DatePipe} from "@angular/common";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
 import {CircleService} from "../../../shared/services/circle.service";
-import {KtDialogService} from "../../../shared/services/kt-dialog.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {JournalVocherData} from "../models/journal_voucher.model";
-import {Zone} from '../../../shared/models/zone.model';
 
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 import {CommonService} from "../../../shared/services/common.service";
@@ -42,7 +40,7 @@ export class SearchJvComponent implements OnInit {
     Math: any;
 
     //displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit','Status', 'View'];
-    displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];
+    displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount', 'Status', 'View'];
 
 
     branch: any;
@@ -131,7 +129,7 @@ export class SearchJvComponent implements OnInit {
         this.loadLOV();
         let userInfo = this.userUtilsService.getUserDetails();
 
-        if(userInfo.Branch){
+        if (userInfo.Branch) {
             let dateString = userInfo?.Branch?.WorkingDate;
             var day = parseInt(dateString?.substring(0, 2));
             var month = parseInt(dateString?.substring(2, 4));
@@ -140,7 +138,7 @@ export class SearchJvComponent implements OnInit {
             const branchWorkingDate = new Date(year, month - 1, day);
             this.JvSearchForm.controls.TransactionDate.setValue(branchWorkingDate);
             this.maxDate = new Date(year, month - 1, day);
-        }else{
+        } else {
             let dateString = '11012021';
             var day = parseInt(dateString?.substring(0, 2));
             var month = parseInt(dateString?.substring(2, 4));
@@ -306,6 +304,7 @@ export class SearchJvComponent implements OnInit {
     getAmountVisibilityStatus(status: any): boolean {
         return (status != undefined && (status == 'A' || status == 'S'))
     }
+
     CheckEidtStatus(jv: any) {
 
 
@@ -378,9 +377,9 @@ export class SearchJvComponent implements OnInit {
 
     checkMap(data) {
         if (data?.Lat?.length > 0) {
-            if(data.Lat=="0.0"){
+            if (data.Lat == "0.0") {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         } else {

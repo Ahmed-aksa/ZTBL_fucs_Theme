@@ -7,7 +7,6 @@
 
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {finalize} from 'rxjs/operators';
-import {Circle} from 'app/shared/models/circle.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CircleService} from '../../../shared/services/circle.service';
 import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
@@ -52,6 +51,15 @@ export class DeviceTrackingComponent implements OnInit {
     showViewAllBtn: boolean;
 
     device_locations: any;
+    countryRestriction = {
+        latLngBounds: {
+            north: 37.084107,
+            east: 77.823171,
+            south: 23.6345,
+            west: 60.872972,
+        },
+        strictBounds: true,
+    };
 
     constructor(
         private _circleService: CircleService,
@@ -62,16 +70,6 @@ export class DeviceTrackingComponent implements OnInit {
         public _geoFencingService: GeoFencingService
     ) {
     }
-
-    countryRestriction = {
-        latLngBounds: {
-            north: 37.084107,
-            east: 77.823171,
-            south: 23.6345,
-            west: 60.872972,
-        },
-        strictBounds: true,
-    };
 
     ngOnInit() {
         this.viewForm = this.fb.group({
@@ -200,17 +198,6 @@ export class DeviceTrackingComponent implements OnInit {
             });
     }
 
-    private setCurrentLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.lat = position.coords.latitude;
-                this.lng = position.coords.longitude;
-                this.zoom = 12;
-                //this.getAddress(this.latitude, this.longitude);
-            });
-        }
-    }
-
     deleteSelectedShape() {
         if (this.selectedShape) {
             this.selectedShape.setMap(null);
@@ -225,6 +212,17 @@ export class DeviceTrackingComponent implements OnInit {
 
         if (this.branch) {
             this.loadCirclesSinglePoints();
+        }
+    }
+
+    private setCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+                this.zoom = 12;
+                //this.getAddress(this.latitude, this.longitude);
+            });
         }
     }
 } //End of class

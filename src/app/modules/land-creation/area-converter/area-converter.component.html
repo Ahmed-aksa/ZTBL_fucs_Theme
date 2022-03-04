@@ -3,7 +3,9 @@
         <div class="kt-portlet__head-label flex">
             <h3 class="heading w-11/12">Area Convertor</h3>
 
-                <mat-icon class="mr-2 w-1/12 self-center justify-content-end text-red-500 "  [mat-dialog-close]="false" (click)="onCloseClick()" >cancel</mat-icon>
+            <mat-icon (click)="onCloseClick()" [mat-dialog-close]="false"
+                      class="mr-2 w-1/12 self-center justify-content-end text-red-500 ">cancel
+            </mat-icon>
 
         </div>
     </div>
@@ -15,7 +17,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Unit <strong class="matMandatory"></strong></mat-label>
                             <mat-select [(ngModel)]="Unit" [ngModelOptions]="{standalone: true}"
                             >
@@ -26,7 +28,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Convert Unit<strong class="matMandatory"></strong>
                             </mat-label>
                             <mat-select [(ngModel)]="ConvertUnit" [ngModelOptions]="{standalone: true}"
@@ -38,13 +40,13 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12">
-                        <mat-form-field class="mat-form-field-fluid w-6/12" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-6/12">
                             <mat-label class="customMatLabel">Area <strong class="matMandatory">*</strong></mat-label>
-                            <input matInput placeholder="" [(ngModel)]="Area"
-                                   [ngModelOptions]="{standalone: true}" maxlength="30" autocomplete="off"
-                                   ktNumberAndDecimal/>
+                            <input [(ngModel)]="Area" [ngModelOptions]="{standalone: true}" autocomplete="off"
+                                   ktNumberAndDecimal matInput maxlength="30"
+                                   placeholder=""/>
                         </mat-form-field>
-                        <button class="ml-2" mat-raised-button color="primary" (click)="AreaConverter()">
+                        <button (click)="AreaConverter()" class="ml-2" color="primary" mat-raised-button>
                             Convert
                         </button>
                     </div>
@@ -53,10 +55,10 @@
                 <div class="form-group kt-form__group row">
 
                     <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Result</mat-label>
-                            <input matInput [(ngModel)]="Result" [ngModelOptions]="{standalone: true}"
-                                   readonly="readonly" maxlength="30" autocomplete="off"/>
+                            <input [(ngModel)]="Result" [ngModelOptions]="{standalone: true}" autocomplete="off"
+                                   matInput maxlength="30" readonly="readonly"/>
                         </mat-form-field>
                     </div>
 

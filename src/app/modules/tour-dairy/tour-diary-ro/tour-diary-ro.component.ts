@@ -48,6 +48,7 @@ export class TourDiaryRoComponent implements OnInit {
 
     edit_mode: boolean = true;
     has_previous: boolean = false;
+    @ViewChild("timepicker") timepicker: any;
 
     constructor(
         private fb: FormBuilder,
@@ -83,8 +84,19 @@ export class TourDiaryRoComponent implements OnInit {
             localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone && this.data) {
-                this.edit(this.data)
+
+            if (this.data) {
+                if (!this.zone) {
+                    this.zone = {
+                        ZoneId: this.data.TourDiaries[0].ZoneId
+                    };
+                }
+
+                if (this.data.hasOwnProperty('TourDiaries'))
+                    this.edit(this.data.TourDiaries[0])
+                else {
+                    this.edit(this.data)
+                }
             }
         }, 1000);
     }
@@ -108,8 +120,6 @@ export class TourDiaryRoComponent implements OnInit {
         });
         this.setValue()
     }
-
-    @ViewChild("timepicker") timepicker: any;
 
     openFromIcon(timepicker: { open: () => void }) {
         // if (!this.formControlItem.disabled) {

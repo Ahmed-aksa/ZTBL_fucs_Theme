@@ -7,9 +7,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -20,157 +20,159 @@
     <!-- Header -->
 
 
-<div class="flex-inline flex-column">
-    <div class="collapse show" id="collapseExample">
-        <div class="card card-body">
-            <!-- Header -->
-            <div [formGroup]="listForm" class="mt-2">
+    <div class="flex-inline flex-column">
+        <div class="collapse show" id="collapseExample">
+            <div class="card card-body">
+                <!-- Header -->
+                <div [formGroup]="listForm" class="mt-2">
 
-                <div class="sm:flex grid" style="flex-wrap: wrap;">
+                    <div class="sm:flex grid" style="flex-wrap: wrap;">
 
-                    <div>
-                        <app-zone-branch-circle [form]="listForm" [show_circle]="true"
-                                                (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    </div>
-                    <div class="mx-2">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <div>
+                            <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="listForm"
+                                                    [show_circle]="true"></app-zone-branch-circle>
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">PP No.</mat-label>
-                                <input matInput placeholder="PP No." formControlName="PPNo" maxlength="30"
-                                       autocomplete="off"/>
-                            </mat-form-field>
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label class="customMatLabel">PP No.</mat-label>
+                                    <input autocomplete="off" formControlName="PPNo" matInput maxlength="30"
+                                           placeholder="PP No."/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label>Choose start date</mat-label>
+                                    <input (dateChange)="comparisonStartdateValidator()" [matDatepicker]="picker1" autocomplete="off"
+                                           formControlName="StartDate" matInput>
+
+                                    <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+
+                                    <mat-datepicker #picker1></mat-datepicker>
+
+                                    <mat-error *ngIf="listForm.controls['StartDate'].hasError('invaliddaterange')">
+                                        <strong>Start date cannot be greater than end date</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="hasError('StartDate', 'required')">Start Date
+                                        <strong>required</strong>
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width:225px;">
+
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label>Choose end date</mat-label>
+                                    <input (dateChange)="comparisonEnddateValidator()" [matDatepicker]="picker" autocomplete="off"
+                                           formControlName="EndDate" matInput>
+
+                                    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+
+                                    <mat-error *ngIf="listForm.controls['EndDate'].hasError('invaliddaterange')">
+                                        <strong>End date cannot be earlier than start date</strong>
+                                    </mat-error>
+
+                                    <mat-error *ngIf="hasError('EndDate', 'required')">End Date
+                                        <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 235px;">
+
+                                <button (click)="find()"
+                                        class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                        mat-raised-button type="button">
+                                    <mat-icon class="mr-2">search</mat-icon>
+                                    Find
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="mx-2">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label>Choose start date</mat-label>
-                                <input matInput [matDatepicker]="picker1" formControlName="StartDate"
-                                       (dateChange)="comparisonStartdateValidator()" autocomplete="off">
 
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-
-                                <mat-datepicker #picker1></mat-datepicker>
-
-                                <mat-error *ngIf="listForm.controls['StartDate'].hasError('invaliddaterange')">
-                                    <strong>Start date cannot be greater than end date</strong>
-                                </mat-error>
-                                <mat-error *ngIf="hasError('StartDate', 'required')">Start Date
-                                    <strong>required</strong>
-                                </mat-error>
-
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="mx-2">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width:225px;">
-
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label>Choose end date</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="EndDate"
-                                       (dateChange)="comparisonEnddateValidator()" autocomplete="off">
-
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-
-                                <mat-error *ngIf="listForm.controls['EndDate'].hasError('invaliddaterange')">
-                                    <strong>End date cannot be earlier than start date</strong>
-                                </mat-error>
-
-                                <mat-error *ngIf="hasError('EndDate', 'required')">End Date <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-
-                    </div>
-                    <div class="mx-2">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 235px;">
-
-                            <button mat-raised-button
-                                    class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                    type="button" (click)="find()">
-                                <mat-icon class="mr-2">search</mat-icon>
-                                Find
-                            </button>
-                        </div>
-                    </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-</div>
 
 
-    <div class="flex flex-auto overflow-y-scroll border shadow-xs rounded-sm bg-gray-50 "
-         style="flex-direction: column;" [style.height]="gridHeight">
+    <div [style.height]="gridHeight"
+         class="flex flex-auto overflow-y-scroll border shadow-xs rounded-sm bg-gray-50 " style="flex-direction: column;">
         <div class="example-table-container">
 
-            <table mat-table
-                   [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
+            <table [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
                    class="example-table"
-                   matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                   mat-table
+                   matSort matSortActive="created" matSortDirection="desc" matSortDisableClear>
                 <!-- CircleCodes Column -->
                 <ng-container matColumnDef="CircleCodes">
-                    <th mat-header-cell *matHeaderCellDef>Circle Code</th>
-                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CircleCodes}}</td>
+                    <th *matHeaderCellDef mat-header-cell>Circle Code</th>
+                    <td *matCellDef="let LocationHistories" mat-cell>{{LocationHistories.CircleCodes}}</td>
                 </ng-container>
 
                 <!-- Number Column -->
                 <ng-container matColumnDef="PPNo">
-                    <th mat-header-cell *matHeaderCellDef>PP No</th>
-                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</td>
+                    <th *matHeaderCellDef mat-header-cell>PP No</th>
+                    <td *matCellDef="let LocationHistories" mat-cell>{{LocationHistories.PPNo}}</td>
                 </ng-container>
 
 
                 <!-- Title Column -->
                 <ng-container matColumnDef="BranchCode">
-                    <th mat-header-cell *matHeaderCellDef>Branch Code</th>
-                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.BranchCode}}</td>
+                    <th *matHeaderCellDef mat-header-cell>Branch Code</th>
+                    <td *matCellDef="let LocationHistories" mat-cell>{{LocationHistories.BranchCode}}</td>
                 </ng-container>
 
                 <!-- StartTime Column -->
                 <ng-container matColumnDef="StartTime">
-                    <th mat-header-cell *matHeaderCellDef>Start Time</th>
-                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories?.TrackingStartTime}}</td>
+                    <th *matHeaderCellDef mat-header-cell>Start Time</th>
+                    <td *matCellDef="let LocationHistories" mat-cell>{{LocationHistories?.TrackingStartTime}}</td>
                 </ng-container>
 
                 <!-- StopTime Column -->
                 <ng-container matColumnDef="StopTime">
-                    <th mat-header-cell *matHeaderCellDef>Stop Time</th>
-                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories?.TrackingStopTime}}</td>
+                    <th *matHeaderCellDef mat-header-cell>Stop Time</th>
+                    <td *matCellDef="let LocationHistories" mat-cell>{{LocationHistories?.TrackingStopTime}}</td>
                 </ng-container>
 
                 <!-- Title Column -->
                 <ng-container matColumnDef="ApproxDistanceTraveled">
-                    <th mat-header-cell *matHeaderCellDef>Approximate Distance Traveled</th>
-                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories?.ApproxDistanceTraveled}}</td>
+                    <th *matHeaderCellDef mat-header-cell>Approximate Distance Traveled</th>
+                    <td *matCellDef="let LocationHistories" mat-cell>{{LocationHistories?.ApproxDistanceTraveled}}</td>
                 </ng-container>
 
 
                 <ng-container matColumnDef="View">
-                    <th mat-header-cell *matHeaderCellDef>Actions</th>
-                    <td mat-cell *matCellDef="let LocationHistories">
-                        <button mat-icon-button *ngIf="currentActivity.R" (click)="view(LocationHistories)">
+                    <th *matHeaderCellDef mat-header-cell>Actions</th>
+                    <td *matCellDef="let LocationHistories" mat-cell>
+                        <button (click)="view(LocationHistories)" *ngIf="currentActivity.R" mat-icon-button>
                             <mat-icon class="text-green" title="View Vendor">visibility</mat-icon>
                         </button>
                     </td>
                 </ng-container>
 
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
         </div>
 
     </div>
     <div class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                <span class="font-bold text-green">Items per page:</span>
+        <span class="font-bold text-green">Items per page:</span>
 
-        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                    display="inline"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
@@ -178,10 +180,10 @@
             <mat-option [value]="50">50</mat-option>
         </mat-select>
         <button (click)="paginate(1)">First</button>
-        <pagination-controls display="inline" (pageChange)="paginate($event)"
+        <pagination-controls (pageChange)="paginate($event)" display="inline"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>

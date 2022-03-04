@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
@@ -61,6 +61,7 @@ export class UserActivityBasedReportComponent implements OnInit {
     SelectedCircles: any = [];
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -75,8 +76,6 @@ export class UserActivityBasedReportComponent implements OnInit {
         private datepipe: DatePipe
     ) {
     }
-
-    public LovCall = new Lov();
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -171,10 +170,10 @@ export class UserActivityBasedReportComponent implements OnInit {
         }
     }
 
-    controlReset(){
+    controlReset() {
         this.bufricationForm.controls['PPNo'].setValue(null)
-        this.bufricationForm.controls['ToDate'].setValue( null)
-        this.bufricationForm.controls['FromDate'].setValue( null)
+        this.bufricationForm.controls['ToDate'].setValue(null)
+        this.bufricationForm.controls['FromDate'].setValue(null)
 
         this.bufricationForm.markAsUntouched();
         this.bufricationForm.markAsPristine();

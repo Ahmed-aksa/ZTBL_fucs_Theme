@@ -14,11 +14,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LovService} from '../../../shared/services/lov.service';
-import {
-    DateFormats,
-    Lov,
-    LovConfigurationKey,
-} from '../../../shared/classes/lov.class';
+import {DateFormats, Lov, LovConfigurationKey,} from '../../../shared/classes/lov.class';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {CircleService} from '../../../shared/services/circle.service';
@@ -26,15 +22,9 @@ import {UserUtilsService} from '../../../shared/services/users_utils.service';
 import {finalize} from 'rxjs/operators';
 import {ReschedulingService} from '../service/rescheduling.service';
 import {Loan} from '../../../shared/models/Loan.model';
-import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
 import {DatePipe} from '@angular/common';
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 @Component({

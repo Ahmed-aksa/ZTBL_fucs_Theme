@@ -11,22 +11,16 @@ import {MatSort, Sort} from "@angular/material/sort";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../shared/reducers";
 import {Observable, of} from "rxjs";
-import {
-    fromMatPaginator,
-    fromMatSort,
-    paginateRows,
-    sortRows
-} from "../../report-managment/apilogs-list/datasource-utils";
-import {PageEvent} from "@angular/material/paginator";
+import {fromMatSort, sortRows} from "../../report-managment/apilogs-list/datasource-utils";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-intimate-loaner-text',
-  templateUrl: './intimate-loaner-text.component.html',
-  styleUrls: ['./intimate-loaner-text.component.scss']
+    selector: 'app-intimate-loaner-text',
+    templateUrl: './intimate-loaner-text.component.html',
+    styleUrls: ['./intimate-loaner-text.component.scss']
 })
 export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Address', 'Lcno','GL','Ndd', 'Sl', 'Los'];
+    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Address', 'Lcno', 'GL', 'Ndd', 'Sl', 'Los'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -67,10 +61,10 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
         this.find()
     }
 
-    createForm(){
+    createForm() {
         this.notificationTable = this.fb.group({
-            Name:[],
-            Cnic:[]
+            Name: [],
+            Cnic: []
         })
     }
 
@@ -116,7 +110,6 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
         this.displayedRows$ = rows$.pipe(sortRows(sortEvents$));
 
     }
-
 
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {

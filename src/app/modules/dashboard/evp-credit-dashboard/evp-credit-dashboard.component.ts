@@ -1,12 +1,10 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {
-    ChartComponent
-} from "ng-apexcharts";
+import {ChartComponent} from "ng-apexcharts";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
-import { ChartOptions } from '../dashboard.component';
+import {ChartOptions} from '../dashboard.component';
 
 @Component({
     selector: 'app-evp-credit-dashboard',
@@ -41,7 +39,7 @@ export class EvpCreditDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.year=(new Date()).getFullYear().toString();
+        this.year = (new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
 
@@ -82,6 +80,6 @@ export class EvpCreditDashboardComponent implements OnInit {
     getFormatString(str: any) {
 
         const myArray = str.split("_");
-        return myArray[0] + " / " + myArray[1] +" (+/-)";
+        return myArray[0] + " / " + myArray[1] + " (+/-)";
     }
 }

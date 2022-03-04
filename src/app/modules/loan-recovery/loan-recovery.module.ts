@@ -14,8 +14,12 @@ import {SbsFaBranchComponent} from './sbs-fa-branch/sbs-fa-branch.component';
 import {LoanReceiptComponent} from './loan-receipt/loan-receipt.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {SearchPendingTransactionComponent} from './search-pending-transaction/search-pending-transaction.component';
-import {SearchRefferedbackTransactionComponent} from './search-refferedback-transaction/search-refferedback-transaction.component';
-import {SearchSbsPendingTransactionComponent} from './search-sbs-pending-transaction/search-sbs-pending-transaction.component';
+import {
+    SearchRefferedbackTransactionComponent
+} from './search-refferedback-transaction/search-refferedback-transaction.component';
+import {
+    SearchSbsPendingTransactionComponent
+} from './search-sbs-pending-transaction/search-sbs-pending-transaction.component';
 import {SearchRecoveryCommonComponent} from './search-recovery-common/search-recovery-common.component';
 import {SignatureDialogComponent} from './signature-dialog/signature-dialog.component';
 import {NgxPaginationModule} from 'ngx-pagination';

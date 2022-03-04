@@ -48,6 +48,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
     systemGenerated;
     data;
     currentActivity: Activity;
+    @ViewChild("timepicker") timepicker: any;
 
     constructor(
         private fb: FormBuilder,
@@ -77,9 +78,6 @@ export class TourDiaryApprovalBmComponent implements OnInit {
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
     }
-
-
-    @ViewChild("timepicker") timepicker: any;
 
     openFromIcon(timepicker: { open: () => void }) {
         timepicker.open();
@@ -137,14 +135,14 @@ export class TourDiaryApprovalBmComponent implements OnInit {
         //
         // }
         this.TourDiary = Object.assign(this.data);
-        ;
+
         if (!this.zone) {
             this.zone = {
                 ZoneId: this.data.ZoneId
             };
             this.branch = {
                 BranchId: this.data.BranchId,
-                BranchCode:this.data?.BranchCode
+                BranchCode: this.data?.BranchCode
             }
         }
         this.spinner.show();

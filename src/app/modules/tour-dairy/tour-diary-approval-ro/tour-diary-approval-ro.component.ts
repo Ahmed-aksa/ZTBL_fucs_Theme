@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -12,7 +12,6 @@ import {Router} from "@angular/router";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {finalize} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
-import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-tour/signature-pad-for-tour.component";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {Activity} from "../../../shared/models/activity.model";
 
@@ -109,11 +108,10 @@ export class TourDiaryApprovalRoComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        signatureDialogRef.afterClosed().subscribe((res)=>{
-            if(res == true){
+        signatureDialogRef.afterClosed().subscribe((res) => {
+            if (res == true) {
                 this.router.navigate(['/tour-diary/tour-diary-approval']);
-            }
-            else{
+            } else {
                 return
             }
         })
@@ -123,7 +121,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
     getTourDiaryDetail() {
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'BM')
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary, 'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -132,7 +130,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
             if (baseResponse.Success) {
 
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
             } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);

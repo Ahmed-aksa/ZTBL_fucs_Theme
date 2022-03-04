@@ -8,12 +8,13 @@
             </div>
             <div class="col-lg-3 col-sm-12 self-center">
                 <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
-                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
-                    Advance Filter
-                </button>
+                    <button aria-controls="collapseExample"
+                            aria-expanded="false"
+                            class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            color="primary" onclick="toggleCollapse()" type="button">
+                        <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
+                        Advance Filter
+                    </button>
                 </p>
             </div>
         </div>
@@ -34,29 +35,29 @@
                     <div class="sm:flex grid" style="flex-wrap: wrap;">
 
 
-                        <app-zone-branch-circle [form]="ndcForm" [show_circle]="false"
-                                                (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                        <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="ndcForm"
+                                                [show_circle]="false"></app-zone-branch-circle>
 
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label class="customMatLabel">Cnic</mat-label>
-                                    <input matInput placeholder="Enter Cnic" formControlName="Cnic" appNumberOnly
+                                    <input appNumberOnly autocomplete="off" formControlName="Cnic" matInput
                                            maxlength="13"
-                                           autocomplete="off"/>
+                                           placeholder="Enter Cnic"/>
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <button
-                                    class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                                     (click)="findCnic()"
+                                    class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                                     color="primary" type="button">
                                     <mat-icon class="mr-2">search</mat-icon>
                                     Search
                                 </button>
-                                <span class="cursor-pointer mt-2  mx-4" id="llcInquiryText" (click)="refresh()"><b
+                                <span (click)="refresh()" class="cursor-pointer mt-2  mx-4" id="llcInquiryText"><b
                                     class="-mt-4 text-green">Get All</b></span>
                             </div>
                         </div>
@@ -72,77 +73,79 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="mat-table__wrapper overflow-scroll border shadow-xs rounded-sm bg-gray-50"
-                     [style.height]="gridHeight">
-                    <mat-table class="lmat-elevation-z8"
-                               [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
+                <div [style.height]="gridHeight"
+                     class="mat-table__wrapper overflow-scroll border shadow-xs rounded-sm bg-gray-50">
+                    <mat-table [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}"
+                               class="lmat-elevation-z8">
                         <ng-container matColumnDef="Id">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Sr#</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request">{{request.srNo}}</mat-cell>
+                            <mat-header-cell *matHeaderCellDef [style.min-width]="">Sr#</mat-header-cell>
+                            <mat-cell *matCellDef="let request" [style.min-width]="">{{request.srNo}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="customer_cnic">
-                            <mat-header-cell style="min-width: 150px;" *matHeaderCellDef>Customer CNIC
+                            <mat-header-cell *matHeaderCellDef style="min-width: 150px;">Customer CNIC
                             </mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request" style="min-width: 150px;">
+                            <mat-cell *matCellDef="let request" [style.min-width]="" style="min-width: 150px;">
                                 <span>{{request.Cnic}}</span>
                             </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="name">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer Name</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request">
+                            <mat-header-cell *matHeaderCellDef [style.min-width]="">Customer Name</mat-header-cell>
+                            <mat-cell *matCellDef="let request" [style.min-width]="">
                                 <span>{{request.CustomerName}}</span></mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="current_status">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Current Status</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Status}}</span>
+                            <mat-header-cell *matHeaderCellDef [style.min-width]="">Current Status</mat-header-cell>
+                            <mat-cell *matCellDef="let request" [style.min-width]=""><span>{{request.Status}}</span>
                             </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="last_status">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Last Action</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.LastStatus}}</span>
+                            <mat-header-cell *matHeaderCellDef [style.min-width]="">Last Action</mat-header-cell>
+                            <mat-cell *matCellDef="let request" [style.min-width]=""><span>{{request.LastStatus}}</span>
                             </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="next_action_by">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Next Action By</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request">
+                            <mat-header-cell *matHeaderCellDef [style.min-width]="">Next Action By</mat-header-cell>
+                            <mat-cell *matCellDef="let request" [style.min-width]="">
                                 <span>{{request.ApprovalPendingWith}}</span></mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="request_by">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Requested By</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Ppno}}</span>
+                            <mat-header-cell *matHeaderCellDef [style.min-width]="">Requested By</mat-header-cell>
+                            <mat-cell *matCellDef="let request" [style.min-width]=""><span>{{request.Ppno}}</span>
                             </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="request_on">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Requested On</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CreatedOn}}</span>
+                            <mat-header-cell *matHeaderCellDef [style.min-width]="">Requested On</mat-header-cell>
+                            <mat-cell *matCellDef="let request" [style.min-width]=""><span>{{request.CreatedOn}}</span>
                             </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="actions">
                             <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                             <mat-cell *matCellDef="let request">
-                                <button mat-icon-button color="primary" *ngIf="currentActivity.U"
-                                        (click)="downloadFile(request.Cnic,request.NDCId)">
+                                <button (click)="downloadFile(request.Cnic,request.NDCId)" *ngIf="currentActivity.U" color="primary"
+                                        mat-icon-button>
                                     <mat-icon title="download">file_download</mat-icon>
                                 </button>
 
-                                <button mat-icon-button color="primary" *ngIf="submitDeleteStatus(request) && currentActivity.D"
-                                        (click)="DeleteUser(request)">
+                                <button (click)="DeleteUser(request)" *ngIf="submitDeleteStatus(request) && currentActivity.D"
+                                        color="primary"
+                                        mat-icon-button>
                                     <mat-icon title="Delete">delete</mat-icon>
                                 </button>
 
-                                <button mat-icon-button color="primary" *ngIf="submitSubmitStatus(request) && currentActivity.U"
-                                        (click)="SubmitUser(request)">
+                                <button (click)="SubmitUser(request)" *ngIf="submitSubmitStatus(request) && currentActivity.U"
+                                        color="primary"
+                                        mat-icon-button>
                                     <mat-icon>check_circle</mat-icon>
                                 </button>
 
-                                <button style="margin-left: 5px" mat-icon-button *ngIf="checkMap(request)"
-                                        color="primary" (click)="viewMap(request)">
+                                <button (click)="viewMap(request)" *ngIf="checkMap(request)" color="primary"
+                                        mat-icon-button style="margin-left: 5px">
                                     <mat-icon title="view benchmarking">location_on</mat-icon>
                                 </button>
 
@@ -155,11 +158,11 @@
 
                         <mat-row *matRowDef="let request; columns: ndc_requests_displayed_columns"></mat-row>
                     </mat-table>
-                    <div class="mat-table__message" *ngIf="!loading && request_data_source.data?.length==0">No records
+                    <div *ngIf="!loading && request_data_source.data?.length==0" class="mat-table__message">No records
                         found
                     </div>
                     <!-- Message for empty data  -->
-                    <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+                    <div *ngIf="loading" class="mat-table__message">Please wait....</div>
                 </div>
 
 
@@ -170,8 +173,9 @@
 
                 <div class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
                     <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                            <span class="font-bold text-green">Items per page:</span>
-                    <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="pageSize" (valueChange)="paginateRequest(1,$event)"
+                    <span class="font-bold text-green">Items per page:</span>
+                    <mat-select (valueChange)="paginateRequest(1,$event)" [(value)]="pageSize" class="border-2 pl-1 py-2"
+                                display="inline"
                                 style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
                         <mat-option [value]="5">5</mat-option>
                         <mat-option [value]="10">10</mat-option>
@@ -179,10 +183,10 @@
                         <mat-option [value]="50">50</mat-option>
                     </mat-select>
                     <button (click)="paginateRequest(1)">First</button>
-                    <pagination-controls id="ndcReq" display="inline" (pageChange)="paginateRequest($event)"
+                    <pagination-controls (pageChange)="paginateRequest($event)" display="inline" id="ndcReq"
                                          style="display: inline-block;"></pagination-controls>
                     <button (click)="paginateRequest(Math.ceil(ndcLength/pageSize))">Last</button>
-                    <p style="float:right;">Total <b  class="text-green">{{ndcLength}}</b> items</p>
+                    <p style="float:right;">Total <b class="text-green">{{ndcLength}}</b> items</p>
                 </div>
             </div>
         </div>
@@ -193,25 +197,25 @@
         </div>
 
 
-        <div class="mat-table__wrapper  overflow-scroll border shadow-xs rounded-sm bg-gray-50"
-             [style.height]="gridHeight">
-            <mat-table class="lmat-elevation-z8"
-                       [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSizePending, currentPage: pageIndexPending, totalItems: pendingLength}">
+        <div [style.height]="gridHeight"
+             class="mat-table__wrapper  overflow-scroll border shadow-xs rounded-sm bg-gray-50">
+            <mat-table [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSizePending, currentPage: pageIndexPending, totalItems: pendingLength}"
+                       class="lmat-elevation-z8">
                 <ng-container matColumnDef="customer_cnic">
-                    <mat-header-cell style="min-width: 150px;" [style.min-width]="" *matHeaderCellDef>Customer CNIC
+                    <mat-header-cell *matHeaderCellDef [style.min-width]="" style="min-width: 150px;">Customer CNIC
                     </mat-header-cell>
-                    <mat-cell style="min-width: 150px;" [style.min-width]="" *matCellDef="let request">
+                    <mat-cell *matCellDef="let request" [style.min-width]="" style="min-width: 150px;">
                         <span>{{request.Cnic}}</span></mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="customer_name">
-                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer Name</mat-header-cell>
-                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CustomerName}}</span>
+                    <mat-header-cell *matHeaderCellDef [style.min-width]="">Customer Name</mat-header-cell>
+                    <mat-cell *matCellDef="let request" [style.min-width]=""><span>{{request.CustomerName}}</span>
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="request_on">
-                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Requested On</mat-header-cell>
-                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CreatedOn}}</span>
+                    <mat-header-cell *matHeaderCellDef [style.min-width]="">Requested On</mat-header-cell>
+                    <mat-cell *matCellDef="let request" [style.min-width]=""><span>{{request.CreatedOn}}</span>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="pending_ndc_requests_displayed_columns;sticky:true;"
@@ -219,19 +223,20 @@
 
                 <mat-row *matRowDef="let request; columns: pending_ndc_requests_displayed_columns"></mat-row>
             </mat-table>
-            <div class="mat-table__message" *ngIf="!loading && pending_requests_data_source.data?.length==0">No records
+            <div *ngIf="!loading && pending_requests_data_source.data?.length==0" class="mat-table__message">No records
                 found
             </div>
             <!-- Message for empty data  -->
-            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+            <div *ngIf="loading" class="mat-table__message">Please wait....</div>
 
         </div>
 
         <div class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
             <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                    <span class="font-bold text-green">Items per page:</span>
+            <span class="font-bold text-green">Items per page:</span>
 
-            <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="pageSizePending" (valueChange)="paginatePending(1,$event)"
+            <mat-select (valueChange)="paginatePending(1,$event)" [(value)]="pageSizePending" class="border-2 pl-1 py-2"
+                        display="inline"
                         style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
                 <mat-option [value]="5">5</mat-option>
                 <mat-option [value]="10">10</mat-option>
@@ -239,10 +244,10 @@
                 <mat-option [value]="50">50</mat-option>
             </mat-select>
             <button (click)="paginatePending(1)">First</button>
-            <pagination-controls id="pendingReq" display="inline" (pageChange)="paginatePending($event)"
+            <pagination-controls (pageChange)="paginatePending($event)" display="inline" id="pendingReq"
                                  style="display: inline-block;"></pagination-controls>
             <button (click)="paginatePending(Math.ceil(pendingLength/pageSize))">Last</button>
-            <p style="float:right;">Total <b  class="text-green">{{pendingLength}}</b> items</p>
+            <p style="float:right;">Total <b class="text-green">{{pendingLength}}</b> items</p>
 
         </div>
 

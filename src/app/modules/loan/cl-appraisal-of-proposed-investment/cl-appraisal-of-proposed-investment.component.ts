@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectorRef, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSelectChange} from '@angular/material/select';
 import {Lov, LovConfigurationKey, regExps} from 'app/shared/classes/lov.class';
@@ -10,7 +10,6 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {$e} from "@angular/compiler/src/chars";
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
 
@@ -42,7 +41,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     selectedCrops: any;
     selectedCropsName: string;
     currentActivity: Activity;
-
+    hasFormErrors = false;
 
     constructor(private formBuilder: FormBuilder,
                 private _lovService: LovService,
@@ -54,8 +53,6 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
                 private toastr: ToastrService) {
 
     }
-
-    hasFormErrors = false;
 
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('Create Loan')
@@ -467,22 +464,19 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
         let existing
         let proposed
-        for(let i=0;i<this.productionArray?.length;i++){
-            if(this.productionArray[i].AppraisalType=='E')
-            {
-         existing=true;
+        for (let i = 0; i < this.productionArray?.length; i++) {
+            if (this.productionArray[i].AppraisalType == 'E') {
+                existing = true;
             }
-            if(this.productionArray[i].AppraisalType=='I')
-            {
-         proposed=true
+            if (this.productionArray[i].AppraisalType == 'I') {
+                proposed = true
             }
         }
 
-        if(existing!=true||proposed!=true){
+        if (existing != true || proposed != true) {
             this.layoutUtilsService.alertMessage("", "Both existing and proposed must be entered");
             return;
         }
-
 
 
         // if (!this.LoanAOPIForm.controls.UncultivatedLand.value) {
@@ -541,9 +535,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         liveStockAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         liveStockAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         liveStockAppriasalProposed.FutureValue = this.parseInt(this.getValue("LiveStockIncomeFutureControl"));
-        ;
+
         liveStockAppriasalProposed.PresentValue = this.parseInt(this.getValue("LiveStockIncomePresnetControl"));
-        ;
+
         liveStockAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         liveStockAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(liveStockAppriasalProposed);
@@ -556,9 +550,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         othersAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         othersAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         othersAppriasalProposed.FutureValue = this.parseInt(this.getValue("OthersFutureControl"));
-        ;
+
         othersAppriasalProposed.PresentValue = this.parseInt(this.getValue("OthersPresnetControl"));
-        ;
+
         othersAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         othersAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(othersAppriasalProposed);
@@ -571,9 +565,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         totalIncomeAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         totalIncomeAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         totalIncomeAppriasalProposed.FutureValue = this.parseInt(this.getValue("TotalIncomeFutureControl"));
-        ;
+
         totalIncomeAppriasalProposed.PresentValue = this.parseInt(this.getValue("TotalIncomePresnetControl"));
-        ;
+
         totalIncomeAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         totalIncomeAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(totalIncomeAppriasalProposed);
@@ -586,9 +580,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         cropRaisingAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         cropRaisingAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         cropRaisingAppriasalProposed.FutureValue = this.parseInt(this.getValue("CropRaisingFutureControl"));
-        ;
+
         cropRaisingAppriasalProposed.PresentValue = this.parseInt(this.getValue("CropRaisingPresnetControl"));
-        ;
+
         cropRaisingAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         cropRaisingAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(cropRaisingAppriasalProposed);
@@ -601,9 +595,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         liveStockFarmingAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         liveStockFarmingAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         liveStockFarmingAppriasalProposed.FutureValue = this.parseInt(this.getValue("LiveStockFarmingFutureControl"));
-        ;
+
         liveStockFarmingAppriasalProposed.PresentValue = this.parseInt(this.getValue("LiveStockFarmingPresnetControl"));
-        ;
+
         liveStockFarmingAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         liveStockFarmingAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(liveStockFarmingAppriasalProposed);
@@ -616,9 +610,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         otherExpenditureAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         otherExpenditureAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         otherExpenditureAppriasalProposed.FutureValue = this.parseInt(this.getValue("OtherExpenditureFutureControl"));
-        ;
+
         otherExpenditureAppriasalProposed.PresentValue = this.parseInt(this.getValue("OtherExpenditurePresnetControl"));
-        ;
+
         otherExpenditureAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         otherExpenditureAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(otherExpenditureAppriasalProposed);
@@ -631,9 +625,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         loanExpenditureAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         loanExpenditureAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         loanExpenditureAppriasalProposed.FutureValue = this.parseInt(this.getValue("LoanFutureControl"));
-        ;
+
         loanExpenditureAppriasalProposed.PresentValue = this.parseInt(this.getValue("LoanPresnetControl"));
-        ;
+
         loanExpenditureAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         loanExpenditureAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(loanExpenditureAppriasalProposed);
@@ -646,9 +640,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         expenditureAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         expenditureAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         expenditureAppriasalProposed.FutureValue = this.parseInt(this.getValue("ExpenditureFutureControl"));
-        ;
+
         expenditureAppriasalProposed.PresentValue = this.parseInt(this.getValue("ExpenditurePresnetControl"));
-        ;
+
         expenditureAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         expenditureAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(expenditureAppriasalProposed);
@@ -661,9 +655,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         netIncomeAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         netIncomeAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         netIncomeAppriasalProposed.FutureValue = this.parseInt(this.getValue("NetIncomeFutureControl"));
-        ;
+
         netIncomeAppriasalProposed.PresentValue = this.parseInt(this.getValue("NetIncomePresnetControl"));
-        ;
+
         netIncomeAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         netIncomeAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(netIncomeAppriasalProposed);
@@ -676,9 +670,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         increaseAppriasalProposed.LandNotCultivated = this.getValue("NocultivatedLand");
         increaseAppriasalProposed.LandUncultivaed = this.getValue("UncultivatedLand");
         increaseAppriasalProposed.FutureValue = this.parseInt(this.getValue("IncreaseFutureControl"));
-        ;
+
         increaseAppriasalProposed.PresentValue = this.parseInt(this.getValue("IncreasePresnetControl"));
-        ;
+
         increaseAppriasalProposed.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         increaseAppriasalProposed.Remarks = "";
         this.appraisalProposedList.push(increaseAppriasalProposed);

@@ -10,8 +10,8 @@ import {Store} from "@ngrx/store";
 import {CommonService} from "../../../shared/services/common.service";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {LandChargeCreationComponent} from "../land-charge-creation/land-charge-creation.component";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CustomerListDialogComponent} from "../customer-list-dialog/customer-list-dialog.component";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {AppState} from "../../../shared/reducers";
@@ -21,7 +21,6 @@ import {BaseRequestModel} from "../../../shared/models/base_request.model";
 import {Subject} from "rxjs";
 import {DatePipe} from "@angular/common";
 import {CircleService} from "../../../shared/services/circle.service";
-import {LandHistoryComponent} from "../land-history/land-history.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LandInfo} from 'app/shared/models/land-info.model';
 import {LandInfoDetails} from "../models/land-info-details.model";
@@ -31,7 +30,6 @@ import {LandService} from "../services/land.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {LargeFilesUploadComponent} from "../large-files-upload/large-files-upload.component";
 import {AreaConverterComponent} from "../area-converter/area-converter.component";
-import {KtDialogService} from "../../../shared/services/kt-dialog.service";
 import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
@@ -92,7 +90,6 @@ export class CustLandInformationComponent implements OnInit {
     public PostCodeLov: any;
     public PostCodeLovFull: any;
     public LandingProcedureLov: any;
-    private _onDestroy = new Subject<void>();
     public CustomerLov: any;
     public BranchLov: any;
     public ZoneLov: any;
@@ -160,6 +157,7 @@ export class CustLandInformationComponent implements OnInit {
     isLandHistory: boolean;
     today = new Date();
     LoggedInUserInfo: any;
+    private _onDestroy = new Subject<void>();
 
     constructor(
         private store: Store<AppState>,
@@ -225,18 +223,6 @@ export class CustLandInformationComponent implements OnInit {
             this.GetCustomerAllLandInfo(false);
             this.clearSaveCustomerButtonHide = false;
         }
-    }
-
-    private assignBranchAndZone() {
-        if (this.SelectedBranches?.length)
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            this.final_branch = this.SelectedBranches;
-        if (this.SelectedZones?.length)
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            this.final_zone = this.SelectedZones;
-
     }
 
     SelectionChangePushData(event: any) {
@@ -442,7 +428,6 @@ export class CustLandInformationComponent implements OnInit {
         this.TotalOfTotal = 0
     }
 
-
     changeZone(changedValue) {
         this.LandInfo.Zone = this.SelectedZones.filter((zone) => zone.ZoneId == changedValue.value).ZoneName;
         this.ZoneLov = this.SelectedZones.filter((zone) => zone.ZoneId == changedValue.value).ZoneName;
@@ -458,19 +443,6 @@ export class CustLandInformationComponent implements OnInit {
     changeBranch(changedValue) {
         this.LandInfo.Branch = this.SelectedBranches.filter((branch) => branch.BranchCode == changedValue.value).Name;
         this.BranchLov = this.SelectedBranches.filter((branch) => branch.BranchCode == changedValue.value);
-    }
-
-    private filterPostCode() {
-        // get the search keyword
-        let search = this.searchFilterCtrlPostCode.value;
-        this.PostCodeLov.LOVs = this.PostCodeLovFull.LOVs;
-        if (!search) {
-            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
-            this.PostCodeLov.LOVs = this.PostCodeLovFull.LOVs;
-        } else {
-            search = search.toLowerCase();
-            this.PostCodeLov.LOVs = this.PostCodeLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
     }
 
     createForm() {
@@ -1076,7 +1048,7 @@ export class CustLandInformationComponent implements OnInit {
     onKey(event: any) {
         var value = event.target.value;
         if (value == undefined || value == null || value == '') {
-            value=0;
+            value = 0;
         }
         // if(this.dynamicArray.length > value){
         //   this.dynamicArray.length = 0;
@@ -1380,6 +1352,31 @@ export class CustLandInformationComponent implements OnInit {
     ngOnDestroy() {
         if (this.navigationSubscription) {
             this.navigationSubscription.unsubscribe();
+        }
+    }
+
+    private assignBranchAndZone() {
+        if (this.SelectedBranches?.length)
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+        else
+            this.final_branch = this.SelectedBranches;
+        if (this.SelectedZones?.length)
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else
+            this.final_zone = this.SelectedZones;
+
+    }
+
+    private filterPostCode() {
+        // get the search keyword
+        let search = this.searchFilterCtrlPostCode.value;
+        this.PostCodeLov.LOVs = this.PostCodeLovFull.LOVs;
+        if (!search) {
+            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
+            this.PostCodeLov.LOVs = this.PostCodeLovFull.LOVs;
+        } else {
+            search = search.toLowerCase();
+            this.PostCodeLov.LOVs = this.PostCodeLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
         }
     }
 }

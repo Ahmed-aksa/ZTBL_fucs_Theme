@@ -1,10 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {
-    FormBuilder,
-    FormGroup,
-    Validators,
-    FormControl,
-} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators,} from '@angular/forms';
 
 // RXJS
 import {finalize} from 'rxjs/operators';
@@ -12,29 +7,19 @@ import {finalize} from 'rxjs/operators';
 import {DatePipe} from '@angular/common';
 
 import {NgxSpinnerService} from 'ngx-spinner';
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {
-    DateFormats,
-    Lov,
-    LovConfigurationKey,
-} from 'app/shared/classes/lov.class';
-import {
-    GlConfigrationsDetail,
-    Loan,
-    LoanApplicationPurpose,
-} from 'app/shared/models/Loan.model';
+import {DateFormats, Lov, LovConfigurationKey,} from 'app/shared/classes/lov.class';
+import {GlConfigrationsDetail, Loan, LoanApplicationPurpose,} from 'app/shared/models/Loan.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {MatDialog} from '@angular/material/dialog';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LoanService} from 'app/shared/services/loan.service';
 import {LovService} from 'app/shared/services/lov.service';
-import {ClGlSchemeCropConfigurationComponent} from '../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
+import {
+    ClGlSchemeCropConfigurationComponent
+} from '../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
 import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
@@ -565,7 +550,7 @@ export class ClPurposeComponent implements OnInit {
                 'Market Price Must be equal to sum of Equity and Loan Applied'
             );
             return;
-        }else if(MarketPrice != SumEquityLoan){
+        } else if (MarketPrice != SumEquityLoan) {
             this.layoutUtilsService.alertMessage(
                 '',
                 'Market Price Must be equal to sum of Equity and Loan Applied'

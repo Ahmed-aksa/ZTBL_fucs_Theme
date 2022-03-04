@@ -14,9 +14,9 @@
                     <mat-icon class="mr-2 text-white">visibility</mat-icon>
                     View Map
                 </button>
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -30,14 +30,14 @@
 
 
             <div class="flex" style="flex-wrap: wrap;">
-                <app-zone-branch-circle [form]="create_circ_form" [show_circle]="false" [show_branch]="true"
-                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="create_circ_form" [show_branch]="true"
+                                        [show_circle]="false"></app-zone-branch-circle>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                        <button mat-raised-button
+                        <button (click)="find()"
                                 class=" bg-gray-500 mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                type="button" (click)="find()">
+                                mat-raised-button type="button">
                             <mat-icon class="mr-2">search</mat-icon>
                             Find
                         </button>
@@ -55,7 +55,7 @@
         <!-- Products list -->
         <div class="flex flex-auto " style="flex-direction: column;">
             <div class="flex flex-col flex-auto sm:mb-2 sm:overflow-y-auto">
-                <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
+                <mat-table #sort1="matSort" #table [dataSource]="dataSource" class="lmat-elevation-z8" matSort
                            matSortActive="id" matSortDirection="asc" matSortDisableClear>
 
                     <ng-container matColumnDef="circleId">
@@ -74,12 +74,12 @@
                         <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
 
                         <mat-cell *matCellDef="let circle">
-                            <button mat-icon-button color="primary" (click)="editGeofencing(circle)"
-                                    *ngIf="circle.HasFence">
+                            <button (click)="editGeofencing(circle)" *ngIf="circle.HasFence" color="primary"
+                                    mat-icon-button>
                                 <mat-icon title="View">map</mat-icon>
                             </button>
-                            <button mat-icon-button color="primary" (click)="editGeofencing(circle)"
-                                    *ngIf="!circle.HasFence && _currentActivity?.C">
+                            <button (click)="editGeofencing(circle)" *ngIf="!circle.HasFence && _currentActivity?.C" color="primary"
+                                    mat-icon-button>
                                 <mat-icon title="Add">add</mat-icon>
                             </button>
                         </mat-cell>
@@ -91,15 +91,15 @@
                     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
                 </mat-table>
 
-                <div class="mat-table__message" *ngIf="!loadingdata && dataSource.data.length==0">No records found</div>
-                <div class="mat-table__message" *ngIf="loadingdata">Please wait....</div>
+                <div *ngIf="!loadingdata && dataSource.data.length==0" class="mat-table__message">No records found</div>
+                <div *ngIf="loadingdata" class="mat-table__message">Please wait....</div>
 
             </div>
 
         </div>
 
     </div>
-    <mat-paginator [length]="30" [pageSize]="30" [pageSizeOptions]="[30, 50, 100]"
+    <mat-paginator [length]="30" [pageSizeOptions]="[30, 50, 100]" [pageSize]="30"
                    [showFirstLastButtons]="true"></mat-paginator>
 
 </div>

@@ -7,9 +7,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center mt-2 ">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -22,28 +22,28 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="" [formGroup]="FilterForm">
+            <div [formGroup]="FilterForm" class="">
 
 
                 <div class="row">
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
-                            <mat-form-field class="w-full" appearance="outline">
-                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
-                                       autocomplete="off" formControlName="TranId"
-                                       appearance="outline">
+                            <mat-form-field appearance="outline" class="w-full">
+                                <input (keyup)="applyFilter($event.target.value)" appearance="outline" autocomplete="off"
+                                       formControlName="TranId" matInput
+                                       placeholder="Search">
                                 <!-- <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint> -->
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                            <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid  w-full">
                                 <mat-label>Choose start date</mat-label>
-                                <input matInput [matDatepicker]="picker1" formControlName="StartDate"
-                                       (dateChange)="comparisonStartdateValidator()" autocomplete="off">
+                                <input (dateChange)="comparisonStartdateValidator()" [matDatepicker]="picker1" autocomplete="off"
+                                       formControlName="StartDate" matInput>
 
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
 
                                 <mat-datepicker #picker1></mat-datepicker>
 
@@ -59,12 +59,12 @@
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Choose end date</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="EndDate"
-                                       (dateChange)="comparisonEnddateValidator()" autocomplete="off">
+                                <input (dateChange)="comparisonEnddateValidator()" [matDatepicker]="picker" autocomplete="off"
+                                       formControlName="EndDate" matInput>
 
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
 
                                 <mat-error *ngIf="FilterForm.controls['EndDate'].hasError('invaliddaterange')">
@@ -78,9 +78,9 @@
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <button mat-raised-button
+                            <button (click)="loadApiLogs()"
                                     class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500 mt-2"
-                                    type="button" (click)="loadApiLogs()">
+                                    mat-raised-button type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -93,8 +93,7 @@
     </div>
 
 
-
-    <section matSort class="mat-elevation-z2 mat-header-row bg-green api-table">
+    <section class="mat-elevation-z2 mat-header-row bg-green api-table" matSort>
         <span class="mat-header-cell text-white" mat-sort-header="Id" style="width: 10px;">ID</span>
         <span class="mat-header-cell text-white" mat-sort-header="TransactionId">Transaction ID</span>
         <span class="mat-header-cell text-white" mat-sort-header="ApiName">API Name</span>
@@ -102,15 +101,15 @@
         <span class="mat-header-cell text-white" mat-sort-header="ResponseTotalTime">Total Time Taken</span>
         <span class="mat-header-cell text-white" mat-sort-header="View">View</span>
     </section>
-    <mat-accordion displayMode="flat" multi class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1"
+    <mat-accordion class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1" displayMode="flat" multi
                    style="overflow-y:scroll;">
 
 
-        <mat-expansion-panel class="api-table shadow-none mb-4 p-0" *ngFor="let item of displayedRows$ |async"
-                             (click)="fetch3rdAPI($event,item)" #exppanel
+        <mat-expansion-panel #exppanel (click)="fetch3rdAPI($event,item)"
+                             *ngFor="let item of displayedRows$ |async" class="api-table shadow-none mb-4 p-0"
                              style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
-            <mat-expansion-panel-header style="font-size: 12px;"
-                                        class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+            <mat-expansion-panel-header class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border"
+                                        style="font-size: 12px;">
                 <span class="mat-cell py-6 self-center font-bold"
                       style="width: 10px; font-size: 12px;">{{item?.Id}}</span>
                 <span class="mat-cell py-6 self-center font-bold"
@@ -121,8 +120,8 @@
                 <span class="mat-cell py-6 self-center px-2 font-bold "
                       style="font-size: 12px;">{{item?.TotalTimeTaken}}</span>
                 <span class="mat-cell py-6 self-center">
-                    <button mat-icon-button color="primary" (click)="viewRequestResponse($event,item)">
-                                            <mat-icon  class="text-green" title="View">visibility</mat-icon>
+                    <button (click)="viewRequestResponse($event,item)" color="primary" mat-icon-button>
+                                            <mat-icon class="text-green" title="View">visibility</mat-icon>
                                         </button>
                 </span>
             </mat-expansion-panel-header>
@@ -147,9 +146,9 @@
                             <td>{{item?.CallDateTime | date}} {{item?.CallDateTime | date:'shortTime'}}</td>
                             <td>{{tp_item?.TotalTimeTaken}}</td>
                             <td>
-                                <button mat-icon-button color="primary"
-                                        (click)="viewRequestResponse($event,tp_item,true)">
-                                    <mat-icon  class="text-green" title="View">visibility</mat-icon>
+                                <button (click)="viewRequestResponse($event,tp_item,true)" color="primary"
+                                        mat-icon-button>
+                                    <mat-icon class="text-green" title="View">visibility</mat-icon>
                                 </button>
                             </td>
                         </tr>
@@ -164,8 +163,8 @@
     <mat-paginator #paginator
                    [length]="totalRows$ | async"
                    [pageIndex]="0"
-                   [pageSize]="10"
                    [pageSizeOptions]="[5, 10, 25, 100]"
+                   [pageSize]="10"
     ></mat-paginator>
 </div>
 

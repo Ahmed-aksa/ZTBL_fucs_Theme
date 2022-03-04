@@ -27,11 +27,10 @@ export class VillageWiseBenchMarkingService {
 
     public request = new BaseRequestModel();
     public activity = new Activity();
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
-
-    userInfo = this.userUtilsService.getUserDetails();
 
     getVillageBenchMark(circle, limit, offset, village, zone, branch) {
 

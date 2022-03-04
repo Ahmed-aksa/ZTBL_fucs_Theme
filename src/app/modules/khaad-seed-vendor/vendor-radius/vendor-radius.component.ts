@@ -3,9 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
-import {GoogleMapsAPIWrapper, MapsAPILoader} from '@agm/core';
+import {MapsAPILoader} from '@agm/core';
 import {CircleService} from 'app/shared/services/circle.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -53,6 +51,15 @@ export class VendorRadiusComponent implements OnInit {
     radiusForm: FormGroup;
 
     LoggedInUserInfo: BaseResponseModel;
+    countryRestriction = {
+        latLngBounds: {
+            north: 37.084107,
+            east: 77.823171,
+            south: 23.6345,
+            west: 60.872972
+        },
+        strictBounds: true
+    };
 
     constructor(
         private _circleService: CircleService,
@@ -68,16 +75,6 @@ export class VendorRadiusComponent implements OnInit {
         private _lovService: LovService
     ) {
     }
-
-    countryRestriction = {
-        latLngBounds: {
-            north: 37.084107,
-            east: 77.823171,
-            south: 23.6345,
-            west: 60.872972
-        },
-        strictBounds: true
-    };
 
     ngOnInit() {
 

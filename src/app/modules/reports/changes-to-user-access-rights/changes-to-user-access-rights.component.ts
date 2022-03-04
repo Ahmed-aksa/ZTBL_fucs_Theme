@@ -64,6 +64,7 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
     SelectedCircles: any = [];
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -80,8 +81,6 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
         private _reports: ReportsService,
     ) {
     }
-
-    public LovCall = new Lov();
 
     GetAllProfiles() {
 
@@ -199,10 +198,10 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
         }
     }
 
-    controlReset(){
+    controlReset() {
         this.bufricationForm.controls['ProfileID'].setValue(null)
-        this.bufricationForm.controls['ToDate'].setValue( null)
-        this.bufricationForm.controls['FromDate'].setValue( null)
+        this.bufricationForm.controls['ToDate'].setValue(null)
+        this.bufricationForm.controls['FromDate'].setValue(null)
 
         this.bufricationForm.markAsUntouched();
         this.bufricationForm.markAsPristine();

@@ -1,23 +1,14 @@
 // Angular
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    ChangeDetectionStrategy,
-    OnDestroy,
-    Input,
-    ChangeDetectorRef, Inject
-} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ChangeDetectorRef, Component, ElementRef, Inject, Input, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
-import {errorMessages, Lov, LovConfigurationKey, MaskEnum, regExps} from 'app/shared/classes/lov.class';
-import { Activity } from 'app/shared/models/activity.model';
+import {errorMessages, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
+import {Activity} from 'app/shared/models/activity.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {CreateCustomer} from 'app/shared/models/customer.model';
 import {CircleService} from 'app/shared/services/circle.service';
@@ -72,9 +63,9 @@ export class CustLoanlistComponent implements OnInit {
     zone: any;
     branch: any;
     itemsPerPage = 5;
+    currentActivity: Activity;
     private OffSet: number = 0;
     private pageIndex: any = 0;
-    currentActivity: Activity;
 
     constructor(
         public dialog: MatDialog,
@@ -139,8 +130,8 @@ export class CustLoanlistComponent implements OnInit {
 
 
     searchCustomer(is_first = false) {
-        if(!this.zone){
-            this.layoutUtilsService.alertElement("","Please Select Zone");
+        if (!this.zone) {
+            this.layoutUtilsService.alertElement("", "Please Select Zone");
             return;
         }
         if (is_first == true)

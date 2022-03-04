@@ -2,21 +2,9 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateFormats} from '../../../shared/classes/lov.class';
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-} from '@angular/material/core';
-import {
-    MAT_DIALOG_DATA,
-    MatDialog,
-    MatDialogRef,
-} from '@angular/material/dialog';
-import {
-    Customer,
-    Documents,
-    MarkDeceasedCustomer,
-} from '../../../shared/models/deceased_customer.model';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef,} from '@angular/material/dialog';
+import {Customer, Documents, MarkDeceasedCustomer,} from '../../../shared/models/deceased_customer.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -105,13 +93,9 @@ export class DeceasedCusComponent implements OnInit {
     disable_branch = true;
     single_branch = true;
     loading: boolean;
-    private _cdf: ChangeDetectorRef
     Zones: any = [];
-
-
     dataSource: MatTableDataSource<DeceasedCust>;
     LoggedInUserInfo: BaseResponseModel;
-
     ELEMENT_DATA: DeceasedCust[] = [];
     isEditMode;
     myModel: boolean = false;
@@ -120,19 +104,18 @@ export class DeceasedCusComponent implements OnInit {
     DeceasedCustomerAttachedFile = [];
     url: string
     public deceasedInfo = new Customer();
-
     cnicn;
     name;
     select: Selection[] = [
         {value: "0", viewValue: "NO"},
         {value: "1", viewValue: "Yes"},
     ];
+    isUserAdmin: boolean = false;
+    currentActivity: Activity;
+    private _cdf: ChangeDetectorRef
     private loggedInUserDetails: any;
     private final_branch: any;
     private final_zone: any;
-    isUserAdmin: boolean = false;
-    currentActivity : Activity;
-
 
     constructor(
         private fb: FormBuilder,
@@ -306,29 +289,6 @@ export class DeceasedCusComponent implements OnInit {
         });
     }
 
-    private assignBranchAndZone() {
-
-
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.loggedInUserDetails.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.loggedInUserDetails.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.loggedInUserDetails.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.loggedInUserDetails.Zone = this.final_zone;
-        }
-
-    }
-
-
     hasError(controlName: string, errorName: string): boolean {
         //
         return this.customerForm.controls[controlName].hasError(errorName);
@@ -394,10 +354,6 @@ export class DeceasedCusComponent implements OnInit {
 
     }
 
-    // onChange(e){
-    //
-    // }
-
     onChang(e) {
 
         if (e == false) {
@@ -409,6 +365,10 @@ export class DeceasedCusComponent implements OnInit {
         }
 
     }
+
+    // onChange(e){
+    //
+    // }
 
     previewImg() {
         // for(var a=0 ; this.DeceasedCustomerAttachedFile.length > a; a++)
@@ -552,18 +512,6 @@ export class DeceasedCusComponent implements OnInit {
         }
     }
 
-    // onTextChange(value)
-    // {
-    //   this.txtValue = value;
-    //   this.customerForm.reset();
-    //   if(this.txtValue == '')
-    //   {
-    //     this.isEmpty = true;
-    //   }
-
-    // }
-
-
     changed(value) {
         this.len = value.target.value;
         if (this.len.length <= 13) {
@@ -574,6 +522,17 @@ export class DeceasedCusComponent implements OnInit {
             this.customerForm.markAsPristine();
         }
     }
+
+    // onTextChange(value)
+    // {
+    //   this.txtValue = value;
+    //   this.customerForm.reset();
+    //   if(this.txtValue == '')
+    //   {
+    //     this.isEmpty = true;
+    //   }
+
+    // }
 
     MarkAsDeceasedCustomer() {
 
@@ -689,6 +648,28 @@ export class DeceasedCusComponent implements OnInit {
                     });
             }
         }
+    }
+
+    private assignBranchAndZone() {
+
+
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.loggedInUserDetails.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.loggedInUserDetails.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.loggedInUserDetails.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.loggedInUserDetails.Zone = this.final_zone;
+        }
+
     }
 
 }

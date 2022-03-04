@@ -10,8 +10,6 @@ import {LargeFilesUploadComponent} from './large-files-upload/large-files-upload
 import {LandHistoryComponent} from './land-history/land-history.component';
 import {SharedModule} from "../../shared/shared.module";
 import {RouterModule} from "@angular/router";
-import {KtDialogService} from "../../shared/services/kt-dialog.service";
-import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {CustomerModule} from "../customer/customer.module";
 
 

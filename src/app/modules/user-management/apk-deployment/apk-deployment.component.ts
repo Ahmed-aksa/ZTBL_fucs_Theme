@@ -2,19 +2,21 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 
 @Component({
-  selector: 'app-apk-deployment',
-  templateUrl: './apk-deployment.component.html',
-  styleUrls: ['./apk-deployment.component.scss']
+    selector: 'app-apk-deployment',
+    templateUrl: './apk-deployment.component.html',
+    styleUrls: ['./apk-deployment.component.scss']
 })
 export class ApkDeploymentComponent implements OnInit {
     image;
     video;
     pdf;
     apk;
+
     constructor(
         private layoutUtilsService: LayoutUtilsService,
         private cdRef: ChangeDetectorRef
-    ){}
+    ) {
+    }
 
     ngOnInit(): void {
 
@@ -115,61 +117,58 @@ export class ApkDeploymentComponent implements OnInit {
 
             var Name = file.name.split('.').pop();
             if (Name != undefined) {
-                    if (Name.toLowerCase() == "jpg" || Name.toLowerCase() == "png" || Name.toLowerCase() == "jpeg") {
+                if (Name.toLowerCase() == "jpg" || Name.toLowerCase() == "png" || Name.toLowerCase() == "jpeg") {
 
-                        for (let i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
+                    for (let i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
 
-                            reader.onload = (event: any) => {
-                                //this.images.push(event.target.result);
-                                this.image = file;
-                            }
-                            reader.readAsDataURL(event.target.files[i]);
+                        reader.onload = (event: any) => {
+                            //this.images.push(event.target.result);
+                            this.image = file;
                         }
-                        this.cdRef.detectChanges();
+                        reader.readAsDataURL(event.target.files[i]);
                     }
-                    else if (Name.toLowerCase() == "mp4" || Name.toLowerCase() == "webm" || Name.toLowerCase() == "mkv") {
+                    this.cdRef.detectChanges();
+                } else if (Name.toLowerCase() == "mp4" || Name.toLowerCase() == "webm" || Name.toLowerCase() == "mkv") {
 
-                        for (let i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
+                    for (let i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
 
-                            reader.onload = (event: any) => {
-                                //this.images.push(event.target.result);
-                                this.video = file;
-                            }
-                            reader.readAsDataURL(event.target.files[i]);
+                        reader.onload = (event: any) => {
+                            //this.images.push(event.target.result);
+                            this.video = file;
                         }
-                        this.cdRef.detectChanges();
+                        reader.readAsDataURL(event.target.files[i]);
                     }
-                    else if (Name.toLowerCase() == "pdf") {
+                    this.cdRef.detectChanges();
+                } else if (Name.toLowerCase() == "pdf") {
 
-                        for (let i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
+                    for (let i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
 
-                            reader.onload = (event: any) => {
-                                //this.images.push(event.target.result);
-                                this.pdf = file;
-                            }
-                            reader.readAsDataURL(event.target.files[i]);
+                        reader.onload = (event: any) => {
+                            //this.images.push(event.target.result);
+                            this.pdf = file;
                         }
-                        this.cdRef.detectChanges();
+                        reader.readAsDataURL(event.target.files[i]);
                     }
-                    else if (Name.toLowerCase() == "apk") {
+                    this.cdRef.detectChanges();
+                } else if (Name.toLowerCase() == "apk") {
 
-                        for (let i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
+                    for (let i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
 
-                            reader.onload = (event: any) => {
-                                //this.images.push(event.target.result);
-                                this.apk = file;
-                            }
-                            reader.readAsDataURL(event.target.files[i]);
+                        reader.onload = (event: any) => {
+                            //this.images.push(event.target.result);
+                            this.apk = file;
                         }
-                        this.cdRef.detectChanges();
-                    } else {
-                        this.layoutUtilsService.alertElement('', 'Please upload Image (png, jpg, jpeg), Video (mp4, webm, mkv), PDF or APK');
+                        reader.readAsDataURL(event.target.files[i]);
+                    }
+                    this.cdRef.detectChanges();
+                } else {
+                    this.layoutUtilsService.alertElement('', 'Please upload Image (png, jpg, jpeg), Video (mp4, webm, mkv), PDF or APK');
 
-                        return;
+                    return;
                 }
                 console.log()
             }
@@ -177,8 +176,10 @@ export class ApkDeploymentComponent implements OnInit {
         }
     }
 
-    Upload(){}
+    Upload() {
+    }
 
-    downloadFile(){}
+    downloadFile() {
+    }
 
 }

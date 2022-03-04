@@ -2,7 +2,7 @@
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label flex">
             <h3 class="heading w-11/12">{{getTitle()}}</h3>
-            <button type="button" class="button-red w-1/12 text-end" cdkFocusInitial (click)="onCloseClick()">
+            <button (click)="onCloseClick()" cdkFocusInitial class="button-red w-1/12 text-end" type="button">
                 <mat-icon class="text-danger">cancel</mat-icon>
             </button>
         </div>
@@ -12,32 +12,32 @@
             <div class="kt-portlet__body">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
                             <mat-label class="customMatLabel">GL Code <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input matInput placeholder="Enter GL Code" formControlName="GLCode" appNumberOnly/>
+                            <input appNumberOnly formControlName="GLCode" matInput placeholder="Enter GL Code"/>
                             <mat-error *ngIf="hasError('GLCode', 'required')">GL Code <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
                             <mat-label class="customMatLabel">Scheme Code <strong class="matMandatory"></strong>
                             </mat-label>
-                            <input matInput placeholder="Scheme Code" formControlName="SchemeCode" appNumberOnly/>
+                            <input appNumberOnly formControlName="SchemeCode" matInput placeholder="Scheme Code"/>
                             <!--<mat-error *ngIf="hasError('DevAmount', 'required')">GL Code <strong>required</strong></mat-error>-->
                         </mat-form-field>
                     </div>
                     <div class="col-lg-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
                             <mat-label class="customMatLabel">Crop Code<strong class="matMandatory"></strong>
                             </mat-label>
-                            <input matInput placeholder="Enter Crop Code" formControlName="CropCode" appNumberOnly/>
+                            <input appNumberOnly formControlName="CropCode" matInput placeholder="Enter Crop Code"/>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-3">
-                        <button type="button" (click)="SearchGLCode()" class="btn btn-primary mt-10p" mat-raised-button
-                                color="primary">
+                        <button (click)="SearchGLCode()" class="btn btn-primary mt-10p" color="primary" mat-raised-button
+                                type="button">
                             Find
                         </button>
                     </div>
@@ -119,75 +119,75 @@
 
                         <div class="mat-table__wrapper overflow-scroll ">
                             <mat-table
-                                [style.height]="gridHeight"
+                                #sort1="matSort"
                                 #table
                                 [dataSource]="dataSource | paginate: {itemsPerPage: size, currentPage: pageIndex,totalItems: length}"
+                                [style.height]="gridHeight"
                                 matSort
-                                #sort1="matSort"
                                 matSortActive="id"
                                 matSortDirection="asc"
                                 matSortDisableClear
                                 matSortDisabled>
 
                                 <ng-container matColumnDef="Id">
-                                    <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>Crop
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_IdWidth" mat-sort-header>Crop
                                         Code
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_IdWidth"
-                                              *matCellDef="let crop">{{crop.CropCode}}</mat-cell>
+                                    <mat-cell *matCellDef="let crop"
+                                              [style.min-width]="_IdWidth">{{crop.CropCode}}</mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="TransactionId">
-                                    <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_IdWidth" mat-sort-header>
                                         Disbursement Months
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_IdWidth"
-                                              *matCellDef="let crop">{{crop.CropPeriods}}</mat-cell>
+                                    <mat-cell *matCellDef="let crop"
+                                              [style.min-width]="_IdWidth">{{crop.CropPeriods}}</mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="ApiName">
-                                    <mat-header-cell [style.min-width]="_apiNameWidth" *matHeaderCellDef
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_apiNameWidth"
                                                      mat-sort-header>Fin Tenure
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_apiNameWidth"
-                                              *matCellDef="let apiLog">{{apiLog.APIName}}</mat-cell>
+                                    <mat-cell *matCellDef="let apiLog"
+                                              [style.min-width]="_apiNameWidth">{{apiLog.APIName}}</mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="CallDateTime">
-                                    <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_dateWidth" mat-sort-header>
                                         Grac Prd
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_dateWidth"
-                                              *matCellDef="let apiLog">{{apiLog.CallDateTime |date:'medium'}}</mat-cell>
+                                    <mat-cell *matCellDef="let apiLog"
+                                              [style.min-width]="_dateWidth">{{apiLog.CallDateTime |date:'medium'}}</mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="ResponseDateTime">
-                                    <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>No
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_dateWidth" mat-sort-header>No
                                         of Inst
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_dateWidth"
-                                              *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                                    <mat-cell *matCellDef="let apiLog"
+                                              [style.min-width]="_dateWidth">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Unit">
-                                    <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_dateWidth" mat-sort-header>
                                         Unit
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_dateWidth"
-                                              *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                                    <mat-cell *matCellDef="let apiLog"
+                                              [style.min-width]="_dateWidth">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Rate">
-                                    <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_dateWidth" mat-sort-header>
                                         Rate
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_dateWidth"
-                                              *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                                    <mat-cell *matCellDef="let apiLog"
+                                              [style.min-width]="_dateWidth">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="InstallmentFreq">
-                                    <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>
+                                    <mat-header-cell *matHeaderCellDef [style.min-width]="_dateWidth" mat-sort-header>
                                         Installment Freq
                                     </mat-header-cell>
-                                    <mat-cell [style.min-width]="_dateWidth"
-                                              *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                                    <mat-cell *matCellDef="let apiLog"
+                                              [style.min-width]="_dateWidth">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
                                 </ng-container>
 
                                 <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
@@ -202,9 +202,9 @@
                         </div>
 
                         <div class="mat-table__bottom">
-                            <pagination-controls class="my-pagination"
-                                                 (pageChange)="paginate($event)"></pagination-controls>
-                            <mat-select [(value)]="size" (valueChange)="paginate(pageIndex)"
+                            <pagination-controls (pageChange)="paginate($event)"
+                                                 class="my-pagination"></pagination-controls>
+                            <mat-select (valueChange)="paginate(pageIndex)" [(value)]="size"
                                         style="width: 50px;margin-left: 15px">
                                 <mat-option [value]="5">5</mat-option>
                                 <mat-option [value]="10">10</mat-option>
@@ -267,9 +267,9 @@
                 <div class="kt-form__actions kt-form__actions--solid">
                     <div class="row text-center">
                         <div class="col-lg-12">
-                            <button mat-raised-button color="primary" (click)="close()">Submit</button>&nbsp;&nbsp;
-                            <button type="button" class="button-red" mat-raised-button cdkFocusInitial
-                                    (click)="onCloseClick()">
+                            <button (click)="close()" color="primary" mat-raised-button>Submit</button>&nbsp;&nbsp;
+                            <button (click)="onCloseClick()" cdkFocusInitial class="button-red" mat-raised-button
+                                    type="button">
                                 Close
                             </button>
                         </div>

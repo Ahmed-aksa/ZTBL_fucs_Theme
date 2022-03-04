@@ -8,18 +8,18 @@ import {Component, OnInit} from '@angular/core';
 export class TargetsComponent implements OnInit {
 
     userGroup: any = [];
+    isHiddenTab: boolean = true
 
     constructor() {
     }
 
- isHiddenTab:boolean=true
     ngOnInit(): void {
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup;
     }
 
-    applyClass(){
-        if(this.userGroup?.length==1){
-           return "dash-tab";
+    applyClass() {
+        if (this.userGroup?.length == 1) {
+            return "dash-tab";
         }
     }
 }

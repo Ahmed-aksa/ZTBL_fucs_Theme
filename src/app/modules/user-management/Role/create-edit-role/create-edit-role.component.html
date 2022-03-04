@@ -1,15 +1,15 @@
 <div class="flex">
-    <h2 mat-dialog-title class="mb-0 w-11/12 heading mt-0">Create User Role</h2>
-    <mat-icon mat-dialog-close class="text-end w-1/12 text-danger self-center justify-content-end">cancel</mat-icon>
+    <h2 class="mb-0 w-11/12 heading mt-0" mat-dialog-title>Create User Role</h2>
+    <mat-icon class="text-end w-1/12 text-danger self-center justify-content-end" mat-dialog-close>cancel</mat-icon>
 </div>
 
 <mat-dialog-content class="mat-typography">
 
-    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" novalidate>
+    <form (ngSubmit)="onSubmit()" [formGroup]="roleForm" novalidate>
         <div class="flex gt-xs:flex-row mt-2">
             <mat-form-field class="flex-auto mr-3  w-6/12">
                 <mat-label>Profile Name</mat-label>
-                <input matInput id="ProfileName" placeholder="Role Code" formControlName="ProfileName">
+                <input formControlName="ProfileName" id="ProfileName" matInput placeholder="Role Code">
                 <!-- <mat-error *ngIf="errorHandling('ProfileName', 'required')">
                   You Must Provide Role Code
                </mat-error> -->
@@ -17,14 +17,14 @@
             </mat-form-field>
             <mat-form-field class="flex-auto   w-6/12">
                 <mat-label>Description</mat-label>
-                <input matInput id="ProfileDesc" placeholder="Role Name" formControlName="ProfileDesc">
+                <input formControlName="ProfileDesc" id="ProfileDesc" matInput placeholder="Role Name">
                 <!-- <mat-error *ngIf="errorHandling('ProfileDesc', 'required')">
                     You must provide Description
                  </mat-error> -->
             </mat-form-field>
         </div>
         <div class="flex gt-xs:flex-row mt-2">
-            <mat-form-field class="mat-form-field-fluid mr-4 w-6/12 map-fields" appearance="outline">
+            <mat-form-field appearance="outline" class="mat-form-field-fluid mr-4 w-6/12 map-fields">
                 <mat-label>Group</mat-label>
                 <mat-select formControlName="ProfileID">
                     <mat-option *ngFor="let lov of LOVs" [value]="lov?.Id">
@@ -35,16 +35,16 @@
         </div>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions class="py-3 border-t" align="end">
+<mat-dialog-actions align="end" class="py-3 border-t">
 
 
     <button
-        class=" bg-green"
-        mat-flat-button
+        (click)="onSubmit()"
         *ngIf="currentActivity.U"
         [color]="'primary'"
         [disabled]="viewLoading"
-        (click)="onSubmit()">
+        class=" bg-green"
+        mat-flat-button>
 
         <mat-icon class="mr-2">save</mat-icon>
         Save

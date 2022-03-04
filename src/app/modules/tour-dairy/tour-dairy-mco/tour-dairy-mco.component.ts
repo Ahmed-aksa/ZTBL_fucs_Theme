@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {CommonService} from "../../../shared/services/common.service";
-import {DatePipe, ViewportScroller} from "@angular/common";
+import {DatePipe, Location, ViewportScroller} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
@@ -14,8 +14,6 @@ import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
-import moment from 'moment';
-import {Location} from '@angular/common'
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -70,6 +68,23 @@ export class TourDiaryMcoComponent implements OnInit {
     @ViewChild("timepicker") timepicker: any;
     edit_mode: boolean = true;
 
+    constructor(
+        private fb: FormBuilder,
+        private userService: UserUtilsService,
+        private _common: CommonService,
+        private datePipe: DatePipe,
+        private tourDiaryService: TourDiaryService,
+        private layoutUtilsService: LayoutUtilsService,
+        private spinner: NgxSpinnerService,
+        private _cdf: ChangeDetectorRef,
+        private scroll: ViewportScroller,
+        private router: Router,
+        private toastr: ToastrService,
+        private location: Location
+    ) {
+
+    }
+
     /**
      * Lets the user click on the icon in the input.
      */
@@ -89,33 +104,6 @@ export class TourDiaryMcoComponent implements OnInit {
 
     }
 
-    /**
-     * Function to clear FormControl's value, called from the HTML template using the clear button
-     *
-     * @param $event - The Event's data object
-     */
-    onClear($event: Event) {
-        this.gridForm.controls['Name'].setValue(null);
-
-    }
-
-    constructor(
-        private fb: FormBuilder,
-        private userService: UserUtilsService,
-        private _common: CommonService,
-        private datePipe: DatePipe,
-        private tourDiaryService: TourDiaryService,
-        private layoutUtilsService: LayoutUtilsService,
-        private spinner: NgxSpinnerService,
-        private _cdf: ChangeDetectorRef,
-        private scroll: ViewportScroller,
-        private router: Router,
-        private toastr: ToastrService,
-        private location: Location
-    ) {
-
-    }
-
     ngOnInit(): void {
         this.currentActivity = this.userService.getActivity('Tour Diary For MCO');
         this.loggedInUser = this.userService.getUserDetails();
@@ -123,7 +111,7 @@ export class TourDiaryMcoComponent implements OnInit {
         this.createForm();
 
 
-        // this.gridForm.controls['ArrivalAtTime'].setValue("1:13 AM");
+        // this.gridForm.controls['ArrivalAtTime']?.setValue("1:13 AM");
     }
 
     ngAfterViewInit() {
@@ -140,15 +128,26 @@ export class TourDiaryMcoComponent implements OnInit {
             localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone && this.data) {
-                this.edit(this.data)
+
+            if (this.data) {
+                if (!this.zone) {
+                    this.zone = {
+                        ZoneId: this.data.TourDiaries[0].ZoneId
+                    };
+                }
+
+                if (this.data.hasOwnProperty('TourDiaries'))
+                    this.edit(this.data.TourDiaries[0])
+                else {
+                    this.edit(this.data)
+                }
             }
         }, 1000);
     }
 
     setValue() {
-        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
+        this.gridForm.controls['Name']?.setValue(this.loggedInUser.User.DisplayName);
+        this.gridForm.controls['Ppno']?.setValue(this.loggedInUser.User.UserName);
     }
 
     createForm() {
@@ -433,34 +432,36 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     edit(mcoDiary) {
-        // this.gridForm.controls['Name'].setValue(mcoDiary.Name);
-        // this.gridForm.controls['Ppno'].setValue(mcoDiary.Ppno);
+        // this.gridForm.controls['Name']?.setValue(mcoDiary.Name);
+        // this.gridForm.controls['Ppno']?.setValue(mcoDiary.Ppno);
         if (mcoDiary?.DiaryId) {
             this.checkDisable = false;
         }
-        this.gridForm.controls['CircleId'].setValue(mcoDiary?.CircleId?.toString());
-        this.gridForm.controls['DiaryId'].setValue(mcoDiary?.DiaryId);
-        this.gridForm.controls['TourPlanId'].setValue(mcoDiary?.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary?.TourDate));
-        this.gridForm.controls['DepartureFromPlace'].setValue(mcoDiary?.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime'].setValue(mcoDiary?.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(mcoDiary?.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime'].setValue(mcoDiary?.ArrivalAtTime);
-        this.gridForm.controls['DisbNoOfCasesReceived'].setValue(mcoDiary?.DisbNoOfCasesReceived);
-        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue(mcoDiary?.DisbNoOfCasesAppraised);
-        this.gridForm.controls['DisbNoOfRecordVerified'].setValue(mcoDiary?.DisbNoOfRecordVerified);
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue(mcoDiary?.DisbNoOfSanctionedAuthorized);
-        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue(mcoDiary?.DisbSanctionLetterDelivered);
-        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue(mcoDiary?.DisbSupplyOrderDelivered);
-        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue(mcoDiary?.NoOfSanctnMutationVerified);
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue(mcoDiary?.NoOfUtilizationChecked);
-        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue(mcoDiary?.RecNoOfNoticeDelivered);
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue(mcoDiary?.RecNoOfLegalNoticeDelivered);
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(mcoDiary?.RecNoOfDefaulterContacted);
-        this.gridForm.controls['TOTFarmersContacted'].setValue(mcoDiary?.TOTFarmersContacted);
-        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(mcoDiary?.TOTNoOfFarmersVisisted);
-        this.gridForm.controls['AnyOtherWorkDone'].setValue(mcoDiary?.AnyOtherWorkDone);
-        this.gridForm.controls['Remarks'].setValue(mcoDiary?.Remarks);
+        this.gridForm.controls['ZoneId']?.setValue(mcoDiary?.ZoneId?.toString());
+        this.gridForm.controls['BranchCode']?.setValue(mcoDiary?.BranchCode?.toString());
+        this.gridForm.controls['CircleId']?.setValue(mcoDiary?.CircleId?.toString());
+        this.gridForm.controls['DiaryId']?.setValue(mcoDiary?.DiaryId);
+        this.gridForm.controls['TourPlanId']?.setValue(mcoDiary?.TourPlanId);
+        this.gridForm.controls['TourDate']?.setValue(this._common.stringToDate(mcoDiary?.TourDate));
+        this.gridForm.controls['DepartureFromPlace']?.setValue(mcoDiary?.DepartureFromPlace);
+        this.gridForm.controls['DepartureFromTime']?.setValue(mcoDiary?.DepartureFromTime);
+        this.gridForm.controls['ArrivalAtPlace']?.setValue(mcoDiary?.ArrivalAtPlace);
+        this.gridForm.controls['ArrivalAtTime']?.setValue(mcoDiary?.ArrivalAtTime);
+        this.gridForm.controls['DisbNoOfCasesReceived']?.setValue(mcoDiary?.DisbNoOfCasesReceived);
+        this.gridForm.controls['DisbNoOfCasesAppraised']?.setValue(mcoDiary?.DisbNoOfCasesAppraised);
+        this.gridForm.controls['DisbNoOfRecordVerified']?.setValue(mcoDiary?.DisbNoOfRecordVerified);
+        this.gridForm.controls['DisbNoOfSanctionedAuthorized']?.setValue(mcoDiary?.DisbNoOfSanctionedAuthorized);
+        this.gridForm.controls['DisbSanctionLetterDelivered']?.setValue(mcoDiary?.DisbSanctionLetterDelivered);
+        this.gridForm.controls['DisbSupplyOrderDelivered']?.setValue(mcoDiary?.DisbSupplyOrderDelivered);
+        this.gridForm.controls['NoOfSanctnMutationVerified']?.setValue(mcoDiary?.NoOfSanctnMutationVerified);
+        this.gridForm.controls['NoOfUtilizationChecked']?.setValue(mcoDiary?.NoOfUtilizationChecked);
+        this.gridForm.controls['RecNoOfNoticeDelivered']?.setValue(mcoDiary?.RecNoOfNoticeDelivered);
+        this.gridForm.controls['RecNoOfLegalNoticeDelivered']?.setValue(mcoDiary?.RecNoOfLegalNoticeDelivered);
+        this.gridForm.controls['RecNoOfDefaulterContacted']?.setValue(mcoDiary?.RecNoOfDefaulterContacted);
+        this.gridForm.controls['TOTFarmersContacted']?.setValue(mcoDiary?.TOTFarmersContacted);
+        this.gridForm.controls['TOTNoOfFarmersVisisted']?.setValue(mcoDiary?.TOTNoOfFarmersVisisted);
+        this.gridForm.controls['AnyOtherWorkDone']?.setValue(mcoDiary?.AnyOtherWorkDone);
+        this.gridForm.controls['Remarks']?.setValue(mcoDiary?.Remarks);
 
         // this._cdf.detectChanges();
         // this.createForm()
@@ -542,53 +543,38 @@ export class TourDiaryMcoComponent implements OnInit {
         this.GetTourPlan()
     }
 
-    getTourDiary(val) {
-        //
-        // this.spinner.show();
-        // this.tourDiary
-        //     .SearchTourDiary(this.zone,this.branch,val?.value)
-        //     .pipe(finalize(() => {
-        //         this.spinner.hide();
-        //     }))
-        //     .subscribe((baseResponse) => {
-        //         if (baseResponse.Success) {
-        //
-        //             // this.TargetDuration = baseResponse.Target.TargetDuration;
-        //             // this.TourPlan=baseResponse?.TourPlan?.TourPlans;
-        //         } else {
-        //             this.layoutUtilsService.alertElement(
-        //                 '',
-        //                 baseResponse.Message,
-        //                 baseResponse.Code
-        //             );
-        //         }
-        //     });
-    }
 
     GetTourPlan() {
-        this.spinner.show();
-        this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'MCO')
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    ;
-                    this.TourDiaryList = [];
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
-                    this.Calculations();
-                } else {
-                    this.TourPlan = null;
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
+        if (this.data.hasOwnProperty('TourDiaries')) {
+            this.TourDiaryList = [];
+            this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
+            this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
+        } else {
+            this.spinner.show();
+            this.tourDiaryService
+                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'MCO')
+                .pipe(finalize(() => {
+                    this.spinner.hide();
+                }))
+                .subscribe((baseResponse) => {
+                    if (baseResponse.Success) {
+
+                        this.TourDiaryList = [];
+                        this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                        this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                        this.Calculations();
+                    } else {
+                        this.TourPlan = null;
+                        this.layoutUtilsService.alertElement(
+                            '',
+                            baseResponse.Message,
+                            baseResponse.Code
+                        );
+                    }
+                });
+        }
 
     }
 

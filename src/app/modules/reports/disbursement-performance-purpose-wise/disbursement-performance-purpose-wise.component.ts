@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {ReportsService} from "../service/reports.service";
@@ -44,6 +43,7 @@ export class DisbursementPerformancePurposeWiseComponent implements OnInit {
 
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -58,14 +58,11 @@ export class DisbursementPerformancePurposeWiseComponent implements OnInit {
     ) {
     }
 
-    public LovCall = new Lov();
-
-
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
 
-        if(this.LoggedInUserInfo.Branch){
+        if (this.LoggedInUserInfo.Branch) {
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
@@ -73,7 +70,7 @@ export class DisbursementPerformancePurposeWiseComponent implements OnInit {
 
             const branchWorkingDate = new Date(year, month - 1, day);
             this.bufricationForm.controls['WorkingDate'].setValue(branchWorkingDate);
-        }else{
+        } else {
             let dateString = this.datepipe.transform(this.workingDate, 'ddMMyyyy');
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));

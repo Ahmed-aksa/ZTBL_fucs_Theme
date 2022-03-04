@@ -26,11 +26,10 @@ export class KhaadSeedVendorService {
 
     public request = new BaseRequestModel();
     public activity = new Activity();
+    userDetail = this.userUtilsService.getUserDetails();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
-
-    userDetail = this.userUtilsService.getUserDetails();
 
     getTypeLov(userInfo) {
         //

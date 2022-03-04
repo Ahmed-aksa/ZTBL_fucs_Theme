@@ -13,12 +13,12 @@ import {finalize} from "rxjs/operators";
 import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
-  selector: 'app-print-loan-booklet',
-  templateUrl: './print-loan-booklet.component.html',
-  styleUrls: ['./print-loan-booklet.component.scss']
+    selector: 'app-print-loan-booklet',
+    templateUrl: './print-loan-booklet.component.html',
+    styleUrls: ['./print-loan-booklet.component.scss']
 })
-export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
-    displayedColumns = ['Sr', 'Description','DocumentType', 'Print'];
+export class PrintLoanBookletComponent implements OnInit, AfterViewInit {
+    displayedColumns = ['Sr', 'Description', 'DocumentType', 'Print'];
     dataSource: MatTableDataSource<any>;
     bufricationForm: FormGroup;
     gridHeight: any;
@@ -27,7 +27,7 @@ export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
     LoggedInUserInfo: BaseResponseModel;
     statusLov: any;
     loading = false;
-    bookletDetail:any;
+    bookletDetail: any;
     bookletList: any;
 
     public reports = new Bufrication();
@@ -41,6 +41,7 @@ export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
 
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -53,8 +54,6 @@ export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
         private _reports: ReportsService,
     ) {
     }
-
-    public LovCall = new Lov();
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -100,7 +99,7 @@ export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
             })
     }
 
-    print(report){
+    print(report) {
         this.reports.ReportsNo = "30";
         this.reports.ReportFormatType = "2";
         this.reports.OrgHeadInfoId = report.OrgHeadInfo;

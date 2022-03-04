@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {Subject, timer} from 'rxjs';
 import {finalize, takeUntil, takeWhile, tap} from 'rxjs/operators';
 import {AuthService} from 'app/core/auth/auth.service';
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 
 @Component({

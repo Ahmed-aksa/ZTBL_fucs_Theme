@@ -1,11 +1,11 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormArray} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateFormats, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {DateFormats} from 'app/shared/classes/lov.class';
 import {
     CorporateSuret,
     CorporateSurety,
@@ -68,6 +68,33 @@ export class ClLoanWitnessComponent implements OnInit {
     funded_lovs: any;
 
     currentActivity: Activity
+    /**********************************************************************************************************/
+    personalSuretiesForm: FormGroup;
+    personalSureties = new PersonalSureties();
+    /**********************************************************************************************************/
+    corporateSuretiesForm: FormGroup;
+
+    /**********************************************************************************************************/
+    /*                        Personal Sureties                                                               */
+    corporateSureties = new CorporateSurety();
+    loanRefrencesForm: FormGroup;
+    loanRefrences = new LoanRefrences();
+    loanWitnessForm: FormGroup;
+    loanWitness = new LoanWitness();
+
+    /**********************************************************************************************************/
+    /*                        Corporate sureties                                                              */
+    loanPastPaidForm: FormGroup;
+    loanPastPaid = new LoanPastPaid();
+    currentLoansForm: FormGroup;
+    currentLoans = new CurrentLoans();
+    //CheckListForm: FormGroup;
+    loanDocumentCheckListArray: LoanDocumentCheckList[] = [];
+
+    /**********************************************************************************************************/
+    /*                        Loan Refrences                                                                  */
+    /**********************************************************************************************************/
+    today = new Date();
 
     constructor
     (
@@ -107,12 +134,6 @@ export class ClLoanWitnessComponent implements OnInit {
 
     }
 
-    /**********************************************************************************************************/
-    /*                        Personal Sureties                                                               */
-    /**********************************************************************************************************/
-    personalSuretiesForm: FormGroup;
-    personalSureties = new PersonalSureties();
-
     hasError(controlName: string, errorName: string): boolean {
         return this.personalSuretiesForm?.controls[controlName].hasError(errorName);
     }
@@ -134,7 +155,6 @@ export class ClLoanWitnessComponent implements OnInit {
         });
 
     }
-
 
     onSavePersonalSuretiesForm() {
 
@@ -201,12 +221,6 @@ export class ClLoanWitnessComponent implements OnInit {
         });
     }
 
-    /**********************************************************************************************************/
-    /*                        Corporate sureties                                                              */
-    /**********************************************************************************************************/
-    corporateSuretiesForm: FormGroup;
-    corporateSureties = new CorporateSurety();
-
     hasErrorCorporateSuretiesForm(controlName: string, errorName: string): boolean {
         return this.corporateSuretiesForm?.controls[controlName].hasError(errorName);
     }
@@ -265,16 +279,13 @@ export class ClLoanWitnessComponent implements OnInit {
         });
     }
 
-    /**********************************************************************************************************/
-    /*                        Loan Refrences                                                                  */
-    /**********************************************************************************************************/
-
-    loanRefrencesForm: FormGroup;
-    loanRefrences = new LoanRefrences();
-
     hasErrorLoanRefrencesForm(controlName: string, errorName: string): boolean {
         return this.loanRefrencesForm?.controls[controlName].hasError(errorName);
     }
+
+    /**********************************************************************************************************/
+    /*                        Loan Witness                                                                    */
+    /**********************************************************************************************************/
 
     createLoanRefrencesForm() {
         this.loanRefrencesForm = this.formBuilder.group({
@@ -312,6 +323,10 @@ export class ClLoanWitnessComponent implements OnInit {
         this.isSubmittedCorporateSuretiesForm = false;
     }
 
+    /**********************************************************************************************************/
+    /*                        Loan Past Paid                                                                  */
+    /**********************************************************************************************************/
+
     onClearLoanPastPaidForm() {
         this.loanPastPaidForm.reset()
         this.isSubmittedLoanPastPaidForm = false;
@@ -321,7 +336,6 @@ export class ClLoanWitnessComponent implements OnInit {
         this.currentLoansForm.reset()
         this.isSubmittedCurrentLoansForm = false;
     }
-
 
     onSaveLoanRefrencesForm() {
         if (this.loanDetail == null || this.loanDetail == undefined) {
@@ -386,13 +400,6 @@ export class ClLoanWitnessComponent implements OnInit {
         });
     }
 
-    /**********************************************************************************************************/
-    /*                        Loan Witness                                                                    */
-    /**********************************************************************************************************/
-
-    loanWitnessForm: FormGroup;
-    loanWitness = new LoanWitness();
-
     hasErrorLoanWitnessForm(controlName: string, errorName: string): boolean {
         return this.loanWitnessForm?.controls[controlName].hasError(errorName);
     }
@@ -405,6 +412,10 @@ export class ClLoanWitnessComponent implements OnInit {
             WitnessesID: [this.loanWitness.WitnessesID]
         });
     }
+
+    /**********************************************************************************************************/
+    /*                        Current Loans                                                                  */
+    /**********************************************************************************************************/
 
     onSaveLoanWitnessForm() {
         if (this.loanDetail == null || this.loanDetail == undefined) {
@@ -472,13 +483,6 @@ export class ClLoanWitnessComponent implements OnInit {
         });
     }
 
-    /**********************************************************************************************************/
-    /*                        Loan Past Paid                                                                  */
-    /**********************************************************************************************************/
-
-    loanPastPaidForm: FormGroup;
-    loanPastPaid = new LoanPastPaid();
-
     hasErrorLoanPastPaidForm(controlName: string, errorName: string): boolean {
         return this.loanPastPaidForm?.controls[controlName].hasError(errorName);
     }
@@ -492,7 +496,6 @@ export class ClLoanWitnessComponent implements OnInit {
             PaidLoanID: [this.loanPastPaid?.PaidLoanID]
         });
     }
-
 
     onSaveLoanPastPaidForm() {
 
@@ -539,11 +542,9 @@ export class ClLoanWitnessComponent implements OnInit {
     }
 
     /**********************************************************************************************************/
-    /*                        Current Loans                                                                  */
-    /**********************************************************************************************************/
+    /*                        Get Data                                                                        */
 
-    currentLoansForm: FormGroup;
-    currentLoans = new CurrentLoans();
+    /**********************************************************************************************************/
 
     hasErrorCurrentLoansForm(controlName: string, errorName: string): boolean {
         return this.currentLoansForm?.controls[controlName].hasError(errorName);
@@ -564,11 +565,6 @@ export class ClLoanWitnessComponent implements OnInit {
         });
     }
 
-    /**********************************************************************************************************/
-    /*                        Get Data                                                                        */
-
-    /**********************************************************************************************************/
-
     getPersonalSuretiesForm() {
     }
 
@@ -584,9 +580,13 @@ export class ClLoanWitnessComponent implements OnInit {
     getLoanPastPaidForm() {
     }
 
+
+    /**********************************************************************************************************/
+    /*                        Documents Attached                                                              */
+    /**********************************************************************************************************/
+
     getCurrentLoansForm() {
     }
-
 
     onSaveCurrentLoansForm() {
 
@@ -635,17 +635,6 @@ export class ClLoanWitnessComponent implements OnInit {
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
-
-
-    /**********************************************************************************************************/
-    /*                        Documents Attached                                                              */
-    /**********************************************************************************************************/
-
-
-    //CheckListForm: FormGroup;
-    loanDocumentCheckListArray: LoanDocumentCheckList[] = [];
-    today = new Date();
-
 
     getCheckList() {
 

@@ -74,7 +74,8 @@ export class ViewTourPlanComponent implements OnInit {
     branch: any;
     circle: any;
     children: [any][any] = [];
-
+    //Start ZBC
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -108,9 +109,6 @@ export class ViewTourPlanComponent implements OnInit {
         this.settingZBC();
 
     }
-
-    //Start ZBC
-    userInfo = this.userUtilsService.getUserDetails();
 
     settingZBC() {
 

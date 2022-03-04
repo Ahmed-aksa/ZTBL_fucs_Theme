@@ -12,13 +12,13 @@
                  style="padding:0px !important;overflow-x: hidden !important;max-height: 70vh !important;">
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="pull-right" (click)="clearSignature()"
+                        <label (click)="clearSignature()" class="pull-right"
                                style="padding:5px;font-weight:bold;text-decoration:underline;color: #0f298f !important;cursor: pointer;font-size: 16px;">Clear</label>
                     </div>
                 </div>
                 <br/>
-                <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
-                               (onEndEvent)="drawComplete()"></signature-pad>
+                <signature-pad (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"
+                               [options]="signaturePadOptions"></signature-pad>
                 <br/>
             </div>
 
@@ -27,12 +27,12 @@
                     <div class="row">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-10 mt-3 mb-3">
-                            <button mat-raised-button color="primary" (click)="close(false)" [disabled]="submitted">
+                            <button (click)="close(false)" [disabled]="submitted" color="primary" mat-raised-button>
                                 Cancel
                             </button>
 
-                            <button mat-raised-button color="primary" class="ml-2 pull-right" (click)="saveSignature()"
-                                    [disabled]="!isSignatureAdded">Next
+                            <button (click)="saveSignature()" [disabled]="!isSignatureAdded" class="ml-2 pull-right" color="primary"
+                                    mat-raised-button>Next
                             </button>
                         </div>
 

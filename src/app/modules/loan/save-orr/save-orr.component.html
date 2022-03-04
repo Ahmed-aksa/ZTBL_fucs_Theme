@@ -2,7 +2,7 @@
     class="px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">Applying ORR</div>
     <!-- Header -->
-    <div class="form-group kt-form__group row" *ngIf="dataFetched && ApplicationHeader">
+    <div *ngIf="dataFetched && ApplicationHeader" class="form-group kt-form__group row">
         <div class="col-lg-12">
             <!--            <h3 class="heading">sam</h3>-->
             <div class="table-responsive">
@@ -44,13 +44,13 @@
 
         </div>
     </div>
-    <div *ngIf="!showFinalOrrTable" class="pt-4" [formGroup]="ORRForm">
+    <div *ngIf="!showFinalOrrTable" [formGroup]="ORRForm" class="pt-4">
         <!--    application header-->
 
 
         <div class="row">
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label>Soil/Irrigation Type <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="SoilTypeORRID">
                         <mat-option *ngFor="let obj of SoilIrrigation" [value]="obj.GradeID">
@@ -62,7 +62,7 @@
                 </mat-form-field>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label>Land Ownership <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="LandOwnershipORRID">
                         <mat-option *ngFor="let obj of LandOwnership" [value]="obj.GradeID">
@@ -74,7 +74,7 @@
                 </mat-form-field>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label>Availability Of Market <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="MarketAvailabilityORRID">
                         <mat-option *ngFor="let obj of AvailabilityMarket" [value]="obj.GradeID">
@@ -86,7 +86,7 @@
                 </mat-form-field>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label>Net Income <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="NetIncodeORRID">
                         <mat-option *ngFor="let obj of NetIncome" [value]="obj.GradeID">
@@ -105,7 +105,7 @@
         <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
             <div class="flex flex-col flex-auto sm:mb-2 overflow-x-hidden sm:overflow-y-auto">
                 <div *ngIf="!showFinalOrrTable">
-                    <div class="form-group kt-form__group row" *ngIf="dataFetched && ApplicationORR.length>0">
+                    <div *ngIf="dataFetched && ApplicationORR.length>0" class="form-group kt-form__group row">
                         <div class="col-lg-12">
                             <h3 class="heading">Application</h3>
                             <div class="table-responsive">
@@ -137,7 +137,7 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row " *ngIf="dataFetched && CustomerORR.length>0">
+                    <div *ngIf="dataFetched && CustomerORR.length>0" class="form-group kt-form__group row ">
 
                         <div class="col-lg-12">
                             <div class="table-responsive">
@@ -157,7 +157,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-<!--                                    {{CustomerORR|json}}-->
+                                    <!--                                    {{CustomerORR|json}}-->
                                     <tr *ngFor="let obj of CustomerORR; let i = index;">
                                         <td style="min-width: 150px;">{{obj.Cnic}}</td>
                                         <td>{{obj.CustomerName}}</td>
@@ -165,7 +165,7 @@
                                         <td>{{obj.Dob}}</td>
                                         <td>{{obj.CustAgeORR}}</td>
                                         <td>
-                                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                                 <mat-select [(ngModel)]="obj.EcibORRID"
                                                             [ngModelOptions]="{standalone: true}">
                                                     <mat-option *ngFor="let obj of Cib" [value]="obj.GradeID">
@@ -176,27 +176,28 @@
                                         </td>
                                         <!--<td>{{obj.CustMarketRepORR}}</td>-->
                                         <td>
-                                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                                 <mat-label class="customMatLabel">Default Days<strong
                                                     class="matMandatory">*</strong>
                                                 </mat-label>
-                                                <input appNumberOnly matInput placeholder="0" [(ngModel)]="obj.DefaultDays" maxlength="5"
-                                                       autocomplete="off"
-                                                       [ngModelOptions]="{standalone: true}"/>
+                                                <input [(ngModel)]="obj.DefaultDays" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                                       autocomplete="off" matInput
+                                                       maxlength="5"
+                                                       placeholder="0"/>
                                             </mat-form-field>
                                         </td>
                                         <td>
-                                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                                 <mat-label class="customMatLabel">Experience<strong
                                                     class="matMandatory">*</strong>
                                                 </mat-label>
-                                                <input matInput [(ngModel)]="obj.Experience" maxlength="8"
-                                                       autocomplete="off" [ngModelOptions]="{standalone: true}"/>
+                                                <input [(ngModel)]="obj.Experience" [ngModelOptions]="{standalone: true}" autocomplete="off"
+                                                       matInput maxlength="8"/>
                                             </mat-form-field>
                                         </td>
 
                                         <td>
-                                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                                 <mat-select [(ngModel)]="obj.MarketReputationORRID"
                                                             [ngModelOptions]="{standalone: true}">
                                                     <mat-option *ngFor="let obj of MarketReputation"
@@ -212,8 +213,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group kt-form__group row"
-                         *ngIf="dataFetched && GlProposalORR && GlProposalORR.length>0">
+                    <div *ngIf="dataFetched && GlProposalORR && GlProposalORR.length>0"
+                         class="form-group kt-form__group row">
                         <div class="col-lg-12">
                             <h3 class="heading">Proposals/GL</h3>
                             <div class="table-responsive">
@@ -234,12 +235,13 @@
                                         <td>{{obj.GlOrr}}</td>
                                         <td>{{obj.AmountRequired}}</td>
                                         <td>
-                                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                                 <mat-label class="customMatLabel">Amount Recommended<strong
                                                     class="matMandatory">*</strong>
                                                 </mat-label>
-                                                <input appNumberOnly matInput [(ngModel)]="obj.RecommendedAmount" maxlength="8"
-                                                       autocomplete="off" [ngModelOptions]="{standalone: true}"/>
+                                                <input [(ngModel)]="obj.RecommendedAmount" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                                       autocomplete="off"
+                                                       matInput maxlength="8"/>
                                             </mat-form-field>
                                         </td>
                                     </tr>
@@ -250,8 +252,8 @@
                     </div>
 
                 </div>
-                <div class="secondPage" *ngIf="showFinalOrrTable">
-                    <div class="form-group kt-form__group row" *ngIf="dataFetched && submitArray?.length>0">
+                <div *ngIf="showFinalOrrTable" class="secondPage">
+                    <div *ngIf="dataFetched && submitArray?.length>0" class="form-group kt-form__group row">
                         <div class="col-lg-12">
                             <h3>Final ORR</h3>
                             <div class="table-responsive">
@@ -281,72 +283,76 @@
                         <div class="col-lg-12 col-sm-12 kt-margin-bottom-20-mobile mt-2">
 
 
-                            <mat-checkbox class="example-margin pb-2" [checked]="Orrapplied"
-                                          (change)="Orrapplied = !Orrapplied">
+                            <mat-checkbox (change)="Orrapplied = !Orrapplied" [checked]="Orrapplied"
+                                          class="example-margin pb-2">
                                 ORR Applied
                             </mat-checkbox>
 
-                            <div   class="row" >
+                            <div class="row">
                                 <div class="col-lg-12">
 
-<!--                                    <kt-calculate-dbr [checkk]="'1'"></kt-calculate-dbr>-->
+                                    <!--                                    <kt-calculate-dbr [checkk]="'1'"></kt-calculate-dbr>-->
                                     <div [formGroup]="DBRForm"
                                          class=" flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
                                         <div class="heading">Calculate DBR</div>
                                         <!-- Header -->
 
                                         <!-- Main -->
-                                        <div class="flex flex-auto overflow-y-scroll" >
+                                        <div class="flex flex-auto overflow-y-scroll">
 
                                             <!-- Products list -->
-                                            <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
-                                                <div class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden sm:overflow-y-auto">
-<!--                                                    <div class="form-group kt-form__group row" *ngIf="ApplicationHeader">-->
-<!--                                                        <div class="col-lg-12">-->
-<!--                                                            &lt;!&ndash;            <h3 class="heading">sam</h3>&ndash;&gt;-->
-<!--                                                            <div class="table-responsive">-->
-<!--                                                                <table class="table table-striped">-->
-<!--                                                                    <thead>-->
-<!--                                                                    <tr class="table-header-background">-->
-<!--                                                                        <th>Branch</th>-->
-<!--                                                                        <th>Circle</th>-->
-<!--                                                                        <th>LC #</th>-->
-<!--                                                                        <th>LC Auto#</th>-->
-<!--                                                                        <th>LA File/Booklet#</th>-->
-<!--                                                                        <th>Application Date</th>-->
-<!--                                                                        <th>Status</th>-->
-<!--                                                                        <th>Status (Post Sanction)</th>-->
-<!--                                                                        <th>Dev Amount</th>-->
-<!--                                                                        <th>Prod Amount</th>-->
-<!--                                                                        <th>DEPOSIT ACC#</th>-->
-<!--                                                                        <th>Sanction Date</th>-->
-<!--                                                                    </tr>-->
-<!--                                                                    </thead>-->
-<!--                                                                    <tbody>-->
-<!--                                                                    <tr>-->
-<!--                                                                        <td>{{ApplicationHeader?.BranchName}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.CircleCode}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.LoanCaseNo}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.LoanAutoNo}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.AppNumberManual}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.AppDate}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.StatusName}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.StatusNamePS}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.DevAmount}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.ProdAmount}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.AccountNo}}</td>-->
-<!--                                                                        <td>{{ApplicationHeader?.SanctionDate}}</td>-->
-<!--                                                                    </tr>-->
-<!--                                                                    </tbody>-->
-<!--                                                                </table>-->
-<!--                                                            </div>-->
+                                            <div class="flex flex-auto overflow-y-scroll overflow-x-hidden"
+                                                 style="flex-direction: column;">
+                                                <div
+                                                    class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden sm:overflow-y-auto">
+                                                    <!--                                                    <div class="form-group kt-form__group row" *ngIf="ApplicationHeader">-->
+                                                    <!--                                                        <div class="col-lg-12">-->
+                                                    <!--                                                            &lt;!&ndash;            <h3 class="heading">sam</h3>&ndash;&gt;-->
+                                                    <!--                                                            <div class="table-responsive">-->
+                                                    <!--                                                                <table class="table table-striped">-->
+                                                    <!--                                                                    <thead>-->
+                                                    <!--                                                                    <tr class="table-header-background">-->
+                                                    <!--                                                                        <th>Branch</th>-->
+                                                    <!--                                                                        <th>Circle</th>-->
+                                                    <!--                                                                        <th>LC #</th>-->
+                                                    <!--                                                                        <th>LC Auto#</th>-->
+                                                    <!--                                                                        <th>LA File/Booklet#</th>-->
+                                                    <!--                                                                        <th>Application Date</th>-->
+                                                    <!--                                                                        <th>Status</th>-->
+                                                    <!--                                                                        <th>Status (Post Sanction)</th>-->
+                                                    <!--                                                                        <th>Dev Amount</th>-->
+                                                    <!--                                                                        <th>Prod Amount</th>-->
+                                                    <!--                                                                        <th>DEPOSIT ACC#</th>-->
+                                                    <!--                                                                        <th>Sanction Date</th>-->
+                                                    <!--                                                                    </tr>-->
+                                                    <!--                                                                    </thead>-->
+                                                    <!--                                                                    <tbody>-->
+                                                    <!--                                                                    <tr>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.BranchName}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.CircleCode}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.LoanCaseNo}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.LoanAutoNo}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.AppNumberManual}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.AppDate}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.StatusName}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.StatusNamePS}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.DevAmount}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.ProdAmount}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.AccountNo}}</td>-->
+                                                    <!--                                                                        <td>{{ApplicationHeader?.SanctionDate}}</td>-->
+                                                    <!--                                                                    </tr>-->
+                                                    <!--                                                                    </tbody>-->
+                                                    <!--                                                                </table>-->
+                                                    <!--                                                            </div>-->
 
-<!--                                                        </div>-->
-<!--                                                    </div>-->
+                                                    <!--                                                        </div>-->
+                                                    <!--                                                    </div>-->
                                                     <div class="kt-portlet__head-label pt-3">
-                                                        <h5 class="sub-heading">Salary/Income from Different Sources:</h5>
+                                                        <h5 class="sub-heading">Salary/Income from Different
+                                                            Sources:</h5>
                                                     </div>
-                                                    <table class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
+                                                    <table
+                                                        class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
                                                         <thead>
                                                         <tr class="table-header-background">
                                                             <th class="col-lg-9">Item Name</th>
@@ -358,12 +364,21 @@
                                                             <td class="col-lg-9">{{item.ItemName}}</td>
                                                             <td class="col-lg-3">
                                                                 <form class="kt-form kt-form--group-seperator-dashed">
-                                                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                                                        <mat-label class="customMatLabel"> {{item.ItemName}} <strong
-                                                                            class="matMandatory">* </strong></mat-label>
-                                                                        <input [readonly]="isReadOnly" matInput (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{item.ItemName}} + '"
-                                                                               id="{{item.ID}}" value="{{item.Value}}" (keydown)="onIncomeChange($event)" (keyup)="onIncomeChange($event)"
-                                                                               autocomplete="off"/>
+                                                                    <mat-form-field appearance="outline"
+                                                                                    class="mat-form-field-fluid">
+                                                                        <mat-label
+                                                                            class="customMatLabel"> {{item.ItemName}}
+                                                                            <strong
+                                                                                class="matMandatory">* </strong>
+                                                                        </mat-label>
+                                                                        <input (keydown)="onIncomeChange($event)" (keypress)="numberOnly($event)"
+                                                                               (keyup)="onIncomeChange($event)"
+                                                                               [readonly]="isReadOnly" autocomplete="off"
+                                                                               id="{{item.ID}}"
+                                                                               matInput maxlength="8"
+                                                                               placeholder="Enter '+ {{item.ItemName}} + '"
+                                                                               type="text"
+                                                                               value="{{item.Value}}"/>
                                                                     </mat-form-field>
                                                                 </form>
                                                             </td>
@@ -375,7 +390,8 @@
                                                         <h5 class="sub-heading">Loan/Liabilities:</h5>
                                                     </div>
 
-                                                    <table class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
+                                                    <table
+                                                        class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
                                                         <thead>
                                                         <tr class="table-header-background">
                                                             <th class="col-lg-9">Item Name</th>
@@ -387,12 +403,19 @@
                                                         <tr *ngFor="let liab of dataSourcee.DBRLiabilitiesList">
                                                             <td class="col-lg-9">{{liab.ItemName}}</td>
                                                             <td class="col-lg-3">
-                                                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                                                    <mat-label class="customMatLabel"> {{liab.ItemName}} <strong
-                                                                        class="matMandatory">* </strong></mat-label>
-                                                                    <input matInput [readonly]="isReadOnly" (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{liab.ItemName}} + '"
-                                                                           id="{{liab.ID}}" value="{{liab.Value}}"  (keydown)="onLiabChange($event)" (keyup)="onLiabChange($event)"
-                                                                           autocomplete="off"/>
+                                                                <mat-form-field appearance="outline"
+                                                                                class="mat-form-field-fluid">
+                                                                    <mat-label class="customMatLabel"> {{liab.ItemName}}
+                                                                        <strong
+                                                                            class="matMandatory">* </strong></mat-label>
+                                                                    <input (keydown)="onLiabChange($event)" (keypress)="numberOnly($event)"
+                                                                           (keyup)="onLiabChange($event)" [readonly]="isReadOnly"
+                                                                           autocomplete="off"
+                                                                           id="{{liab.ID}}"
+                                                                           matInput maxlength="8"
+                                                                           placeholder="Enter '+ {{liab.ItemName}} + '"
+                                                                           type="text"
+                                                                           value="{{liab.Value}}"/>
                                                                 </mat-form-field>
                                                             </td>
                                                         </tr>
@@ -400,63 +423,76 @@
                                                     </table>
                                                     <div class="flex">
                                                         <div class="mx-2">
-                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                                    <mat-label class="customMatLabel">Total Debts/Liabilities</mat-label>
-                                                                    <input matInput readonly appNumberOnly formControlName="Liabilites"
-                                                                           maxlength="13" autocomplete="off"/>
+                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                                                                 style="width: 225px;">
+                                                                <mat-form-field appearance="outline"
+                                                                                class="mat-form-field-fluid w-full">
+                                                                    <mat-label class="customMatLabel">Total
+                                                                        Debts/Liabilities
+                                                                    </mat-label>
+                                                                    <input appNumberOnly autocomplete="off" formControlName="Liabilites"
+                                                                           matInput
+                                                                           maxlength="13" readonly/>
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
                                                         <div class="mx-2">
-                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                                    <mat-label class="customMatLabel">Total Income</mat-label>
-                                                                    <input matInput readonly appNumberOnly formControlName="Income"
-                                                                           maxlength="13" autocomplete="off"/>
+                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                                                                 style="width: 225px;">
+                                                                <mat-form-field appearance="outline"
+                                                                                class="mat-form-field-fluid w-full">
+                                                                    <mat-label class="customMatLabel">Total Income
+                                                                    </mat-label>
+                                                                    <input appNumberOnly autocomplete="off" formControlName="Income"
+                                                                           matInput
+                                                                           maxlength="13" readonly/>
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
                                                         <div class="mx-2">
-                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                                                                 style="width: 225px;">
+                                                                <mat-form-field appearance="outline"
+                                                                                class="mat-form-field-fluid w-full">
                                                                     <mat-label class="customMatLabel">DBR</mat-label>
-                                                                    <input matInput readonly appNumberOnly formControlName="DBR"
-                                                                           maxlength="13" autocomplete="off"/>
+                                                                    <input appNumberOnly autocomplete="off" formControlName="DBR"
+                                                                           matInput
+                                                                           maxlength="13" readonly/>
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
                                                     </div>
 
 
-<!--                                                    <div class="row">-->
-<!--                                                        <div class="col-lg-12 mt-1p ml-1p mb-1p">-->
-<!--                                                            <button type="button" *ngIf="!isReadOnly" (click)="saveLoanDbr()" class="btn btn-primary bg-green" mat-raised-button-->
-<!--                                                                    color="primary">-->
-<!--                                                                <mat-icon class="mr-2">save</mat-icon>-->
-<!--                                                                Save & Submit DBR-->
-<!--                                                            </button>-->
-<!--                                                            <button *ngIf="!isReadOnly" type="button"-->
-<!--                                                                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"-->
-<!--                                                                    mat-raised-button color="danger">-->
-<!--                                                                <mat-icon class="mr-2">cancel</mat-icon>-->
-<!--                                                                Close-->
-<!--                                                            </button>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
+                                                    <!--                                                    <div class="row">-->
+                                                    <!--                                                        <div class="col-lg-12 mt-1p ml-1p mb-1p">-->
+                                                    <!--                                                            <button type="button" *ngIf="!isReadOnly" (click)="saveLoanDbr()" class="btn btn-primary bg-green" mat-raised-button-->
+                                                    <!--                                                                    color="primary">-->
+                                                    <!--                                                                <mat-icon class="mr-2">save</mat-icon>-->
+                                                    <!--                                                                Save & Submit DBR-->
+                                                    <!--                                                            </button>-->
+                                                    <!--                                                            <button *ngIf="!isReadOnly" type="button"-->
+                                                    <!--                                                                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"-->
+                                                    <!--                                                                    mat-raised-button color="danger">-->
+                                                    <!--                                                                <mat-icon class="mr-2">cancel</mat-icon>-->
+                                                    <!--                                                                Close-->
+                                                    <!--                                                            </button>-->
+                                                    <!--                                                        </div>-->
+                                                    <!--                                                    </div>-->
                                                 </div>
 
                                             </div>
 
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div>
                             </div>
                         </div>
-                        <div>
-                        </div>
+
+
                     </div>
-
-
 
 
                 </div>
@@ -466,36 +502,33 @@
 
 
         </div>
+        <div *ngIf="showFinalOrrTable" class="secondPage row">
 
+        </div>
 
     </div>
-    <div *ngIf="showFinalOrrTable" class="secondPage row">
-
-    </div>
-
-</div>
-
-
-
 
 
     <div class="form-group kt-form__group mb-2 row">
         <div class="col-lg-12 kt-margin-bottom-20-mobile">
-            <button type="button" *ngIf="showFinalOrrTable && currentActivity.C" (click)="saveLoanDbr()" class="mr-2 btn btn-primary bg-green" mat-raised-button
-                    color="primary">
+            <button (click)="saveLoanDbr()" *ngIf="showFinalOrrTable && currentActivity.C" class="mr-2 btn btn-primary bg-green"
+                    color="primary" mat-raised-button
+                    type="button">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save & Submit DBR
             </button>
-            <button *ngIf="currentActivity.U" class="bg-green" mat-raised-button color="primary" (click)="SaveOrSubmit()" [disabled]="submitted">
+            <button (click)="SaveOrSubmit()" *ngIf="currentActivity.U" [disabled]="submitted" class="bg-green"
+                    color="primary" mat-raised-button>
                 <mat-icon class="mr-2">save</mat-icon>
                 {{showFinalOrrTable ? "Submit" : "Save"}}</button>
             <!--            *ngIf="submitArray?.length>0"-->
 
-            <button  mat-raised-button color="primary" class="ml-2" (click)="togglePage()"
-                     [disabled]="submitted">
+            <button (click)="togglePage()" [disabled]="submitted" class="ml-2" color="primary"
+                    mat-raised-button>
                 <mat-icon>navigate_next</mat-icon>
                 {{showFinalOrrTable ? "Back" : "Next"}}</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span *ngIf="currentActivity.C" id="llcInquiryText" class="cursor-pointer" (click)="goToPendingList()"><b>Pending List</b></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span (click)="goToPendingList()" *ngIf="currentActivity.C" class="cursor-pointer"
+                                          id="llcInquiryText"><b>Pending List</b></span>
             <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
         </div>
     </div>

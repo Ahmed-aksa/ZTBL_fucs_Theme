@@ -2,12 +2,12 @@
     class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">EVP(Operation Division)</div>
 
-    <form name="form" #f="ngForm" novalidate>
+    <form #f="ngForm" name="form" novalidate>
         <div class="form-row row pt-2">
             <div class="form-group col-lg-3">
-                <mat-form-field class="mat-form-field-fluid w-full mb-0" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full mb-0">
                     <mat-label class="customMatLabel">Year</mat-label>
-                    <mat-select [(ngModel)]="year" name="year" #Year="ngModel"
+                    <mat-select #Year="ngModel" [(ngModel)]="year" name="year"
                                 required>
 
                         <mat-option *ngFor="let single_year of years;let i=index"
@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="form-group col-lg-3">
-                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button
-                        (click)="getData()">
+                <button (click)="getData()" class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary"
+                        mat-raised-button>
                     <mat-icon class="mr-2">search</mat-icon>
                     Search
                 </button>
@@ -38,18 +38,18 @@
         <div class=" overflow-x-hidden overflow-y-scroll">
             <div class="row pb-4">
                 <div class="col-lg-6 mb-3">
-                    <div class="shadow-sm border graph-box"  style="height: 365px;" >
-                        <div id="chart" *ngIf="chartOptions" class=" mt-0 py-3">
-                            <apx-chart [series]="chartOptions?.series"
-                                       [chart]="chartOptions?.chart"
-                                       [labels]="chartOptions?.labels"
-                                       [title]="chartOptions?.title"
-                                       [theme]="chartOptions?.theme"
-                                       [tooltip]="chartOptions.tooltip"
-                                       [dataLabels]="chartOptions.dataLabels"
-                                       [responsive]="chartOptions?.responsive"
-                                       [noData]="chartOptions.noData"
+                    <div class="shadow-sm border graph-box" style="height: 365px;">
+                        <div *ngIf="chartOptions" class=" mt-0 py-3" id="chart">
+                            <apx-chart [chart]="chartOptions?.chart"
                                        [colors]="chartOptions?.colors"
+                                       [dataLabels]="chartOptions.dataLabels"
+                                       [labels]="chartOptions?.labels"
+                                       [noData]="chartOptions.noData"
+                                       [responsive]="chartOptions?.responsive"
+                                       [series]="chartOptions?.series"
+                                       [theme]="chartOptions?.theme"
+                                       [title]="chartOptions?.title"
+                                       [tooltip]="chartOptions.tooltip"
                             ></apx-chart>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     <table class="table  table-striped">
                         <tbody>
                         <tr *ngFor="let item of ResourcesCount">
-                            <td style [innerHTML]="item.Value"></td>
+                            <td [innerHTML]="item.Value" style></td>
                             <td>{{item.Key}}</td>
                         </tr>
                         </tbody>
@@ -71,43 +71,43 @@
                 <div class="col-lg-6 table-responsive">
                     <table class="table table-striped">
                         <p class="heading mb-2 text-lg">Utilization/Mutations</p>
-                <table class="table  table-striped">
-                    <thead>
-                      <tr class="table-header-background">
-                        <th scope="col"></th>
-                        <th scope="col">Utilization</th>
-                        <th scope="col">Mutations</th>
-                        <th scope="col">Audit Para</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Opening Balance</td>
-                            <td>{{UtilizationMutation?.UtilizationOpenningBalance}}</td>
-                            <td>{{UtilizationMutation?.MutationOpenningBalance}}</td>
-                            <td>{{UtilizationMutation?.AuditParaOpenningBalance}}</td>
-                        </tr>
-                        <tr>
-                            <td>Added during the year</td>
-                            <td>{{UtilizationMutation?.UtilizationAdded}}</td>
-                            <td>{{UtilizationMutation?.MutationAdded}}</td>
-                            <td>{{UtilizationMutation?.AuditParaAdded}}</td>
-                        </tr>
-                        <tr>
-                            <td>Checked / Settled</td>
-                            <td>{{UtilizationMutation?.UtilizationChecked}}</td>
-                            <td>{{UtilizationMutation?.MutationChecked}}</td>
-                            <td>{{UtilizationMutation?.AuditParaChecked}}</td>
-                        </tr>
-                        <tr>
-                            <td>Outstanding</td>
-                            <td>{{UtilizationMutation?.UtilizationOutstanding}}</td>
-                            <td>{{UtilizationMutation?.MutationOutstanding}}</td>
-                            <td>{{UtilizationMutation?.AuditParaOutstanding}}</td>
-                        </tr>
+                        <table class="table  table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th scope="col"></th>
+                                <th scope="col">Utilization</th>
+                                <th scope="col">Mutations</th>
+                                <th scope="col">Audit Para</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Opening Balance</td>
+                                <td>{{UtilizationMutation?.UtilizationOpenningBalance}}</td>
+                                <td>{{UtilizationMutation?.MutationOpenningBalance}}</td>
+                                <td>{{UtilizationMutation?.AuditParaOpenningBalance}}</td>
+                            </tr>
+                            <tr>
+                                <td>Added during the year</td>
+                                <td>{{UtilizationMutation?.UtilizationAdded}}</td>
+                                <td>{{UtilizationMutation?.MutationAdded}}</td>
+                                <td>{{UtilizationMutation?.AuditParaAdded}}</td>
+                            </tr>
+                            <tr>
+                                <td>Checked / Settled</td>
+                                <td>{{UtilizationMutation?.UtilizationChecked}}</td>
+                                <td>{{UtilizationMutation?.MutationChecked}}</td>
+                                <td>{{UtilizationMutation?.AuditParaChecked}}</td>
+                            </tr>
+                            <tr>
+                                <td>Outstanding</td>
+                                <td>{{UtilizationMutation?.UtilizationOutstanding}}</td>
+                                <td>{{UtilizationMutation?.MutationOutstanding}}</td>
+                                <td>{{UtilizationMutation?.AuditParaOutstanding}}</td>
+                            </tr>
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
                     </table>
                 </div>
             </div>

@@ -5,8 +5,10 @@
     <div class="row py-3 pb-0">
         <div class="col-lg-12 col-sm-12">
             <div class="heading">{{getTitle()}}
-                <button mat-raised-button color="primary" *ngIf="createCustomer.CustomerStatus=='A'"
-                        style="float:right;" (click)="viewHistory()"><mat-icon class="mr-2">history</mat-icon>View History
+                <button (click)="viewHistory()" *ngIf="createCustomer.CustomerStatus=='A'" color="primary"
+                        mat-raised-button style="float:right;">
+                    <mat-icon class="mr-2">history</mat-icon>
+                    View History
                 </button>
             </div>
         </div>
@@ -24,34 +26,34 @@
                                     <div *ngIf="images">
                                         <div *ngFor="let url of images">
                                             <img
-                                                style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;"
+                                                [src]="url"
                                                 class="rounded-circle text-right border border-green-900"
-                                                mat-card-md-image [src]="url">
+                                                mat-card-md-image style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;">
                                         </div>
                                     </div>
                                     <!--<button style="display: block;margin-left: auto;margin-right: auto;" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
                                     <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">-->
-                                    <input *ngIf="HideShowSaveButton && currentActivity.C"
-                                           style="display: block;margin-left: auto;margin-right: auto;"
-                                           id="uploadprofile"
+                                    <input (change)="onFileChange($event)"
+                                           *ngIf="HideShowSaveButton && currentActivity.C"
+                                           accept="image/x-png,image/jpg,image/jpeg"
                                            formControlName="file"
-                                           type="file" name="myfile" (change)="onFileChange($event)"
-                                           accept="image/x-png,image/jpg,image/jpeg"/>
+                                           id="uploadprofile" name="myfile" style="display: block;margin-left: auto;margin-right: auto;"
+                                           type="file"/>
 
                                 </div>
 
                             </div>
                             <div class="flex" style="flex-wrap: wrap;">
-                                <app-zone-branch-circle [show_circle]="false" [should_filter]="false"
-                                                        [form]="roleForm"
-                                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="roleForm"
+                                                        [should_filter]="false"
+                                                        [show_circle]="false"></app-zone-branch-circle>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">CNIC <strong class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input on-focusout="cnicfocusout()" matInput placeholder="Enter CNIC"
-                                               formControlName="Cnic" maxlength="30" autocomplete="off"
-                                               [mask]="maskEnums.cnic"
+                                        <input [mask]="maskEnums.cnic" autocomplete="off" formControlName="Cnic"
+                                               matInput maxlength="30" on-focusout="cnicfocusout()"
+                                               placeholder="Enter CNIC"
                                                readonly
                                         />
                                         <mat-error *ngIf="hasError('Cnic', 'required')"><strong>CNIC required</strong>
@@ -62,12 +64,12 @@
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Select Gender <strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <mat-select formControlName="Gender" (selectionChange)="GenderChange($event)"
-                                                    [disabled]="isGenderDisabled">
+                                        <mat-select (selectionChange)="GenderChange($event)" [disabled]="isGenderDisabled"
+                                                    formControlName="Gender">
                                             <mat-option *ngFor="let obj of GenderLov?.LOVs" [value]="obj.Value">
                                                 {{obj.Name}}
                                             </mat-option>
@@ -75,11 +77,11 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <!--<mat-label>Select Marital Status</mat-label>-->
                                         <mat-label class="customMatLabel">Select Marital Status</mat-label>
-                                        <mat-select formControlName="MaritalStatus"
-                                                    (selectionChange)="GenderChange($event)">
+                                        <mat-select (selectionChange)="GenderChange($event)"
+                                                    formControlName="MaritalStatus">
                                             <mat-option *ngFor="let obj of MaritalStatusLov?.LOVs" [value]="obj.Value">
                                                 {{obj.Name}}
                                             </mat-option>
@@ -90,30 +92,30 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2  mb-2"
                                      style="width: 225px;">
 
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Customer Name <strong
                                             class="matMandatory">*</strong></mat-label>
 
-                                        <input matInput placeholder="Enter Name" appAlphabetOnly
-                                               formControlName="CustomerName" maxlength="50" autocomplete="off"
+                                        <input appAlphabetOnly autocomplete="off" formControlName="CustomerName"
+                                               matInput maxlength="50" placeholder="Enter Name"
                                                readonly/>
                                         <mat-error *ngIf="hasError('CustomerName', 'required')">Name
                                             <strong>required</strong>
                                         </mat-error>
-                                        <mat-hint align="end" *ngIf="UrduName!=undefined && UrduName!=''"
+                                        <mat-hint *ngIf="UrduName!=undefined && UrduName!=''" align="end"
                                                   class="text-md text-black"> {{UrduName}}</mat-hint>
                                     </mat-form-field>
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 mb-2"
                                      style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Father Name <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <mat-hint align="end" *ngIf="UrduFatherName!=undefined && UrduFatherName!=''"
+                                        <mat-hint *ngIf="UrduFatherName!=undefined && UrduFatherName!=''" align="end"
                                                   class="text-md text-black py-2"> {{UrduFatherName}}</mat-hint>
-                                        <input matInput placeholder="Enter Father Name"
-                                               formControlName="FatherName" maxlength="50" autocomplete="off"
-                                               appAlphabetOnly
+                                        <input appAlphabetOnly autocomplete="off"
+                                               formControlName="FatherName" matInput maxlength="50"
+                                               placeholder="Enter Father Name"
                                                readonly/>
                                         <mat-error *ngIf="hasError('FatherName', 'required')">Father Name
                                             <strong>required</strong></mat-error>
@@ -121,37 +123,37 @@
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Father / Husband CNIC</mat-label>
-                                        <input matInput placeholder="Enter Father / Husband CNIC"
-                                               formControlName="FatherOrHusbandCnic" maxlength="15" autocomplete="off"
-                                               appNumberOnly/>
+                                        <input appNumberOnly autocomplete="off"
+                                               formControlName="FatherOrHusbandCnic" matInput maxlength="15"
+                                               placeholder="Enter Father / Husband CNIC"/>
                                         <!-- <mat-error *ngIf="hasError('FatherOrHusbandCnic', 'required')">Father / Husband CNIC<strong>required</strong></mat-error>
                                         <mat-error *ngIf="hasError('FatherOrHusbandCnic', 'pattern')"><strong>{{errors.cnic}}</strong></mat-error>
                                         <mat-hint align="left">Please Enter Father/Husband CNIC </mat-hint> -->
                                     </mat-form-field>
                                 </div>
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;"
-                                     *ngIf="HusbandNameShow">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                <div *ngIf="HusbandNameShow" class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                     style="width: 225px;">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Husband Name <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput placeholder="Enter Husband Name" formControlName="HusbandName"
-                                               maxlength="50" autocomplete="off" appAlphabetOnly/>
+                                        <input appAlphabetOnly autocomplete="off" formControlName="HusbandName"
+                                               matInput maxlength="50" placeholder="Enter Husband Name"/>
                                         <mat-error *ngIf="hasError('HusbandName', 'required')">Husband Name
                                             <strong>required</strong></mat-error>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!--<mat-label>Select DOB</mat-label>--> <!---->
                                         <mat-label class="customMatLabel">Select Date of Birth <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input readonly="readonly" matInput [matDatepicker]="picker3"
-                                               formControlName="Dob" [max]="todayMax"
-                                               autocomplete="off" [disabled]="true">
-                                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                        <input [disabled]="true" [matDatepicker]="picker3" [max]="todayMax"
+                                               autocomplete="off" formControlName="Dob"
+                                               matInput readonly="readonly">
+                                        <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
                                         <mat-datepicker #picker3></mat-datepicker>
                                         <mat-error *ngIf="hasError('Dob', 'required')">DOB <strong>required</strong>
                                         </mat-error>
@@ -160,15 +162,15 @@
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
 
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!--<mat-label>CNIC Issue Date</mat-label>-->
                                         <mat-label class="customMatLabel">Enter CNIC Issue Date <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input [max]="todayMax" readonly="readonly" matInput [matDatepicker]="picker1"
-                                               formControlName="CnicIssueDate" [max]="CurrentDate"
-                                               autocomplete="off">
-                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                        <mat-datepicker (closed)="onPickerClosed()" #picker1></mat-datepicker>
+                                        <input [matDatepicker]="picker1" [max]="todayMax" [max]="CurrentDate" autocomplete="off"
+                                               formControlName="CnicIssueDate" matInput
+                                               readonly="readonly">
+                                        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1 (closed)="onPickerClosed()"></mat-datepicker>
                                         <mat-error *ngIf="hasError('CnicIssueDate', 'required')">CNIC Issue Date
                                             <strong>required</strong>
                                         </mat-error>
@@ -179,17 +181,17 @@
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!-- <mat-label>Select CNIC Expiry</mat-label>-->
                                         <mat-label class="customMatLabel">Enter CNIC Expiry Date <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input readonly="readonly" [disabled]="CnicExpiryreadoly" matInput
-                                               [matDatepicker]="picker2" formControlName="CnicExpiry"
-                                               autocomplete="off">
+                                        <input [disabled]="CnicExpiryreadoly" [matDatepicker]="picker2" autocomplete="off"
+                                               formControlName="CnicExpiry" matInput
+                                               readonly="readonly">
                                         <!--                                <input readonly="readonly" [disabled]="CnicExpiryreadoly" matInput-->
                                         <!--                                       [matDatepicker]="picker2" formControlName="CnicExpiry"-->
                                         <!--                                       autocomplete="off" [min]="todayMin">-->
-                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                         <mat-error *ngIf="hasError('CnicExpiry', 'required')">CNIC Expiry Date
                                             <strong>required</strong></mat-error>
@@ -212,35 +214,35 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Mother Name <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput placeholder="Enter Mother Name" formControlName="MotherName"
-                                               maxlength="30" autocomplete="off" appAlphabetOnly readonly/>
+                                        <input appAlphabetOnly autocomplete="off" formControlName="MotherName"
+                                               matInput maxlength="30" placeholder="Enter Mother Name" readonly/>
                                         <mat-error *ngIf="hasError('MotherName', 'required')">Mother Name
                                             <strong>required</strong></mat-error>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Mark of Identification <strong
                                             class="matMandatory"></strong></mat-label>
-                                        <input matInput placeholder="Enter Mark of Identification"
-                                               formControlName="MarkOfIdentification" maxlength="30" autocomplete="off"
-                                               appAlphabetOnly/>
+                                        <input appAlphabetOnly autocomplete="off"
+                                               formControlName="MarkOfIdentification" matInput maxlength="30"
+                                               placeholder="Enter Mark of Identification"/>
                                         <mat-error *ngIf="hasError('MarkOfIdentification', 'required')">Mark of
                                             Identification
                                             <strong>required</strong></mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Ntn No. <strong
                                             class="matMandatory"></strong>
                                         </mat-label>
-                                        <input on-focusout="checkSequentialNtn()" matInput placeholder="Enter Ntn No"
-                                               formControlName="Ntn" maxlength="13" autocomplete="off" appNumberOnly/>
+                                        <input appNumberOnly autocomplete="off" formControlName="Ntn"
+                                               matInput maxlength="13" on-focusout="checkSequentialNtn()" placeholder="Enter Ntn No"/>
                                         <mat-error *ngIf="hasError('Ntn', 'required')">Ntn No <strong>required</strong>
                                         </mat-error>
                                         <mat-error *ngIf="hasError('Ntn', 'pattern')"><strong>{{errors.ntn}}</strong>
@@ -250,7 +252,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!--<mat-label>Select District</mat-label>-->
                                         <mat-label class="customMatLabel">Select District<strong>*</strong></mat-label>
                                         <mat-select formControlName="District" placeholderLabel="Search District..."
@@ -265,7 +267,7 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Select Risk Category <strong
                                             class="matMandatory">*</strong></mat-label>
                                         <mat-select formControlName="RiskCategory">
@@ -279,19 +281,19 @@
                                     <div class="form-group kt-form__group row">
 
                                         <div class="col-lg-5 kt-margin-bottom-20-mobile">
-                                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
-                                                <input matInput readonly="readonly" value="+923" id="tel_code"/>
+                                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
+                                                <input id="tel_code" matInput readonly="readonly" value="+923"/>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-lg-7 pl-0 kt-margin-bottom-20-mobile">
-                                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                                 <mat-label class="customMatLabel">Enter Cell No <strong
                                                     class="matMandatory">*</strong></mat-label>
-                                                <input on-focusout="checkSequentialCell()" matInput
-                                                       placeholder="Enter Cell No"
-                                                       formControlName="CellNumber" minlength="9" maxlength="9"
-                                                       autocomplete="off"
-                                                       appNumberOnly/>
+                                                <input appNumberOnly autocomplete="off"
+                                                       formControlName="CellNumber"
+                                                       matInput maxlength="9" minlength="9"
+                                                       on-focusout="checkSequentialCell()"
+                                                       placeholder="Enter Cell No"/>
                                                 <mat-error *ngIf="hasError('CellNumber', 'required')">Cell No
                                                     <strong>required</strong></mat-error>
                                                 <mat-error *ngIf="hasError('CellNumber', 'pattern')">
@@ -305,17 +307,17 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-1 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
-                                        <input matInput readonly="readonly" value="+923" id="tel_code_2"/>
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
+                                        <input id="tel_code_2" matInput readonly="readonly" value="+923"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Phone Number</mat-label>
-                                        <input on-focusout="checkSequentialPhone()" matInput
-                                               placeholder="Enter Residence No"
-                                               formControlName="PhoneNumber" maxlength="9" autocomplete="off"
-                                               appNumberOnly/>
+                                        <input appNumberOnly autocomplete="off"
+                                               formControlName="PhoneNumber"
+                                               matInput maxlength="9" on-focusout="checkSequentialPhone()"
+                                               placeholder="Enter Residence No"/>
                                         <mat-error *ngIf="hasError('PhoneNumber', 'required')">Residence No
                                             <strong>required</strong></mat-error>
                                         <mat-error *ngIf="hasError('PhoneNumber', 'pattern')">
@@ -339,12 +341,12 @@
                             </div>
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Office Phone Number <strong
                                             class="matMandatory"></strong></mat-label>
-                                        <input matInput placeholder="Enter Office No"
+                                        <input appNumberOnly autocomplete="off"
                                                formControlName="OfficePhoneNumber"
-                                               maxlength="13" autocomplete="off" appNumberOnly/>
+                                               matInput maxlength="13" placeholder="Enter Office No"/>
                                         <mat-error *ngIf="hasError('OfficePhoneNumber', 'required')">Office No
                                             <strong>required</strong></mat-error>
                                         <mat-error *ngIf="hasError('OfficePhoneNumber', 'pattern')">
@@ -353,12 +355,12 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Fax Number <strong
                                             class="matMandatory"></strong></mat-label>
-                                        <input on-focusout="checkSequentialFax()" matInput placeholder="Enter Fax No"
-                                               formControlName="FaxNumber" maxlength="13" autocomplete="off"
-                                               appNumberOnly/>
+                                        <input appNumberOnly autocomplete="off" formControlName="FaxNumber"
+                                               matInput maxlength="13" on-focusout="checkSequentialFax()"
+                                               placeholder="Enter Fax No"/>
                                         <mat-error *ngIf="hasError('FaxNumber', 'required')">Fax No
                                             <strong>required</strong>
                                         </mat-error>
@@ -370,12 +372,12 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Email <strong
                                             class="matMandatory"></strong>
                                         </mat-label>
-                                        <input matInput placeholder="Enter Email" formControlName="Email" maxlength="30"
-                                               autocomplete="off"/>
+                                        <input autocomplete="off" formControlName="Email" matInput maxlength="30"
+                                               placeholder="Enter Email"/>
                                         <mat-error *ngIf="hasError('Email', 'required')">Email <strong>required</strong>
                                         </mat-error>
                                         <mat-error *ngIf="hasError('Email', 'pattern')">
@@ -385,7 +387,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!-- <mat-label>Select Borrower Status</mat-label>-->
                                         <mat-label class="customMatLabel">Select Borrower Status <strong
                                             class="matMandatory">*</strong></mat-label>
@@ -400,7 +402,7 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!-- <mat-label>Select Education</mat-label>-->
                                         <mat-label class="customMatLabel">Select Education <strong
                                             class="matMandatory">*</strong></mat-label>
@@ -412,7 +414,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!--  <mat-label>Select Caste</mat-label>-->
                                         <mat-label class="customMatLabel">Select Caste <strong
                                             class="matMandatory">*</strong>
@@ -426,7 +428,7 @@
                                 </div>
 
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Select Religion <strong
                                             class="matMandatory">*</strong></mat-label>
                                         <!--  <mat-label>Select Religion</mat-label>-->
@@ -438,12 +440,12 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile mb-2">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Birth Place</mat-label>
-                                        <mat-hint align="end" *ngIf="UrduBirthPlace!=undefined && UrduBirthPlace!=''"
+                                        <mat-hint *ngIf="UrduBirthPlace!=undefined && UrduBirthPlace!=''" align="end"
                                                   class="text-md text-black">{{UrduBirthPlace}}</mat-hint>
-                                        <input matInput placeholder="Enter Birth Place" formControlName="BirthPlace"
-                                               maxlength="30" autocomplete="off" readonly/>
+                                        <input autocomplete="off" formControlName="BirthPlace" matInput
+                                               maxlength="30" placeholder="Enter Birth Place" readonly/>
                                         <mat-error *ngIf="hasError('BirthPlace', 'required')">Birth Place
                                             <strong>required</strong></mat-error>
                                         <!-- <mat-hint align="left">Please Enter Birth Place</mat-hint> -->
@@ -454,12 +456,12 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Select Citizenship <strong
                                             class="matMandatory">*</strong></mat-label>
                                         <!--<mat-label>Select Citizenship</mat-label>-->
-                                        <mat-select formControlName="Citizenship"
-                                                    (selectionChange)="CitizenshipChange($event)">
+                                        <mat-select (selectionChange)="CitizenshipChange($event)"
+                                                    formControlName="Citizenship">
                                             <mat-option *ngFor="let obj of CitizenshipLov?.LOVs" [value]="obj.Id">
                                                 {{obj.Name}}
                                             </mat-option>
@@ -469,13 +471,13 @@
                                 </div>
 
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Passport No <strong
                                             *ngIf="PassportSterik"
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input matInput placeholder="Enter Passport No" formControlName="PassportNumber"
-                                               maxlength="15" autocomplete="off" appNumberOnly/>
+                                        <input appNumberOnly autocomplete="off" formControlName="PassportNumber"
+                                               matInput maxlength="15" placeholder="Enter Passport No"/>
                                         <mat-error *ngIf="hasError('PassportNumber', 'required')">Passport
                                             No<strong>required</strong></mat-error>
                                         <mat-hint align="left">Please Enter Passport No</mat-hint>
@@ -483,7 +485,7 @@
                                 </div>
 
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!--   <mat-label>Select Premises Flag</mat-label>-->
                                         <mat-label class="customMatLabel">Select Premises Flag <strong
                                             class="matMandatory"></strong></mat-label>
@@ -495,12 +497,12 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Business Prof Pos <strong
                                             class="matMandatory"></strong></mat-label>
-                                        <input matInput placeholder="Enter Business Prof Pos"
-                                               formControlName="BusinessProfPos"
-                                               maxlength="30" autocomplete="off"/>
+                                        <input autocomplete="off" formControlName="BusinessProfPos"
+                                               matInput
+                                               maxlength="30" placeholder="Enter Business Prof Pos"/>
                                         <mat-error *ngIf="hasError('BusinessProfPos', 'required')">Business Prof Pos
                                             <strong>required</strong>
                                         </mat-error>
@@ -523,12 +525,12 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Family No <strong
                                             class="matMandatory"></strong>
                                         </mat-label>
-                                        <input matInput placeholder="Enter Family No" formControlName="FamilyNumber"
-                                               maxlength="8" autocomplete="off"/>
+                                        <input autocomplete="off" formControlName="FamilyNumber" matInput
+                                               maxlength="8" placeholder="Enter Family No"/>
                                         <mat-error *ngIf="hasError('FamilyNumber', 'required')">Family No
                                             <strong>required</strong></mat-error>
                                         <mat-error *ngIf="hasError('FamilyNumber', 'pattern')">
@@ -537,12 +539,12 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!--  <mat-label>Occupation</mat-label>-->
                                         <mat-label class="customMatLabel">Select Occupation <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <mat-select formControlName="Occupation"
-                                                    (selectionChange)="OccupationChange($event)"
+                                        <mat-select (selectionChange)="OccupationChange($event)"
+                                                    formControlName="Occupation"
                                                     placeholderLabel="Search Occupation...">
                                             <mat-option *ngFor="let obj of OccupationLov?.LOVs" [value]="obj.Id">
                                                 {{obj.Name}}
@@ -551,14 +553,14 @@
                                     </mat-form-field>
                                 </div>
 
-                                <div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="div_EmployeeShow">
+                                <div *ngIf="div_EmployeeShow" class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Emp PP No <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput placeholder="Enter Emp PP No" formControlName="BankEmp"
+                                        <input autocomplete="off" formControlName="BankEmp" matInput
                                                maxlength="30"
-                                               autocomplete="off"/>
+                                               placeholder="Enter Emp PP No"/>
                                         <mat-error *ngIf="hasError('BankEmp', 'required')">Emp PP No
                                             <strong>required</strong>
                                         </mat-error>
@@ -579,7 +581,7 @@
                                     <!--                                    <strong>{{errors.PostCode}}</strong></mat-error>-->
                                     <!--                                <mat-hint align="left">Please enter Postal Code</mat-hint>-->
                                     <!--                            </mat-form-field>-->
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <!--<mat-label>Select Post Code</mat-label>-->
                                         <mat-label class="customMatLabel">Select Post Code <strong
                                             class="matMandatory">*</strong></mat-label>
@@ -597,14 +599,14 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Current Address <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <mat-hint align="end"
-                                                  *ngIf="UrduCurrentAddress!=undefined && UrduCurrentAddress!=''"
+                                        <mat-hint *ngIf="UrduCurrentAddress!=undefined && UrduCurrentAddress!=''"
+                                                  align="end"
                                                   class="text-md text-black">{{UrduCurrentAddress}}</mat-hint>
-                                        <input matInput placeholder="Enter Current Address"
-                                               formControlName="CurrentAddress" maxlength="150" autocomplete="off"/>
+                                        <input autocomplete="off" formControlName="CurrentAddress"
+                                               matInput maxlength="150" placeholder="Enter Current Address"/>
                                         <mat-error *ngIf="hasError('CurrentAddress', 'required')">Current Address
                                             <strong>required</strong>
                                         </mat-error>
@@ -616,15 +618,15 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Permanent Address <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <mat-hint align="end"
-                                                  *ngIf="UrduPermanentAddress!=undefined && UrduPermanentAddress!=''"
+                                        <mat-hint *ngIf="UrduPermanentAddress!=undefined && UrduPermanentAddress!=''"
+                                                  align="end"
                                                   class="text-md text-black">{{UrduPermanentAddress}}</mat-hint>
-                                        <input [readonly]="PresentAddressreadoly" matInput
-                                               placeholder="Enter Permanent Address"
-                                               formControlName="PermanentAddress" maxlength="150" autocomplete="off"
+                                        <input [readonly]="PresentAddressreadoly" autocomplete="off"
+                                               formControlName="PermanentAddress"
+                                               matInput maxlength="150" placeholder="Enter Permanent Address"
                                                readonly/>
                                         <mat-error *ngIf="hasError('PermanentAddress', 'required')">Permanent Address
                                             <strong>required</strong>
@@ -637,13 +639,13 @@
 
                             <div class="form-group kt-form__group row mb-3">
                                 <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
                                         <mat-label class="customMatLabel">Enter Remarks <strong
                                             class="matMandatory"></strong>
                                         </mat-label>
-                                        <input matInput placeholder="Enter Remarks" formControlName="Remarks"
+                                        <input autocomplete="off" formControlName="Remarks" matInput
                                                maxlength="30"
-                                               autocomplete="off"/>
+                                               placeholder="Enter Remarks"/>
                                         <mat-error *ngIf="hasError('Remarks', 'required')">Remarks
                                             <strong>required</strong>
                                         </mat-error>
@@ -659,25 +661,27 @@
             </div>
             <div class="kt-form__actions kt-form__actions--solid flex-height-">
                 <div class="row text-right py-2">
-                    <div class="col-lg-12" *ngIf="HideShowSaveButton">
+                    <div *ngIf="HideShowSaveButton" class="col-lg-12">
                         <!--<button type="button" class="button-red pull-left" mat-raised-button cdkFocusInitial>
                           Cancel
                         </button>-->
-                        <button type="button" class="btn btn-primary bg-green" *ngIf="currentActivity.C" mat-raised-button color="primary"
-                                (click)="onSubmit(false)" [disabled]="viewLoading || submitted">
+                        <button (click)="onSubmit(false)" *ngIf="currentActivity.C" [disabled]="viewLoading || submitted"
+                                class="btn btn-primary bg-green" color="primary"
+                                mat-raised-button type="button">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
-                        <button type="button" mat-raised-button type="button"
-                                class="mx-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500 text-white"
+                        <button (click)="submitDocuments()" *ngIf="currentActivity.U" class="mx-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500 text-white"
                                 mat-raised-button
-                                *ngIf="currentActivity.U"
-                                (click)="submitDocuments()">
+                                mat-raised-button
+                                type="button"
+                                type="button">
                             <mat-icon class="mr-2">check_circle</mat-icon>
                             Submit Documents
                         </button>
-                        <button type="button" class="btn btn-primary" mat-raised-button color="primary" *ngIf="currentActivity.U"
-                                (click)="onSubmit(true)" [disabled]="viewLoading || submitted">
+                        <button (click)="onSubmit(true)" *ngIf="currentActivity.U" [disabled]="viewLoading || submitted" class="btn btn-primary"
+                                color="primary"
+                                mat-raised-button type="button">
                             <mat-icon class="mr-2">check_circle</mat-icon>
                             Submit
                         </button>
@@ -711,11 +715,11 @@
                 <td>{{single_images?.type_description}}</td>
                 <td>{{single_images?.file_description}}</td>
                 <td>
-                    <button mat-icon-button (click)="previewImg(single_images.url)" color="primary">
+                    <button (click)="previewImg(single_images.url)" color="primary" mat-icon-button>
                         <mat-icon>visibility</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" (click)="deleteImage(single_images.customer_document)"
-                            *ngIf="HideShowSaveButton && currentActivity.D">
+                    <button (click)="deleteImage(single_images.customer_document)" *ngIf="HideShowSaveButton && currentActivity.D" color="warn"
+                            mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

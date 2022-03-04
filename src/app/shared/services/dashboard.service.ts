@@ -278,7 +278,7 @@ export class DashboardService {
             return resultArray
         }, [])
 
-        debugger;
+        
         if(result.length > 3){
             // inorder to fix the table view as per given view in FSD.
             [result[1], result[3]] = [result[3], result[1]];

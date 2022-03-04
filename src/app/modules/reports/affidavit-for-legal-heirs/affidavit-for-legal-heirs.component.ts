@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
+import {DateFormats, Lov} from "../../../shared/classes/lov.class";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {ReportsService} from "../service/reports.service";
@@ -46,6 +45,12 @@ export class AffidavitForLegalHeirsComponent implements OnInit {
 
 
     user: any = {}
+    public LovCall = new Lov();
+    select: Selection[] = [
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '3', description: 'MS Excel (Formatted)'},
+        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
 
     constructor(
         private fb: FormBuilder,
@@ -58,14 +63,6 @@ export class AffidavitForLegalHeirsComponent implements OnInit {
         private _reports: ReportsService,
     ) {
     }
-
-    public LovCall = new Lov();
-
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '3', description: 'MS Excel (Formatted)'},
-        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();

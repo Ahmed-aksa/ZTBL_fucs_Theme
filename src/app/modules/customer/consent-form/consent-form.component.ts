@@ -15,6 +15,10 @@ export class ConsentFormComponent implements OnInit {
 
     viewLoading = false;
     Remarks: string = "";
+    /**
+     * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
+     */
+    agreed: boolean = false;
 
     /**
      * Component constructor
@@ -29,11 +33,6 @@ export class ConsentFormComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {
     }
-
-    /**
-     * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
-     */
-    agreed: boolean = false;
 
     /**
      * On init

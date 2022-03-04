@@ -24,7 +24,6 @@ export class ViewTourTabComponent implements OnInit {
     @Input('circle') circle: any;
     dataSource = new MatTableDataSource();
     itemsPerPage = 10;
-    private OffSet: number;
     pageIndex: any;
     dv: number | any; //use later
     children: [any][any] = [];
@@ -32,7 +31,7 @@ export class ViewTourTabComponent implements OnInit {
     Math: any;
     loggedInUser: any;
     currentActivity: Activity
-
+    private OffSet: number;
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -132,7 +131,7 @@ export class ViewTourTabComponent implements OnInit {
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm);
         this.spinner.show();
-        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id,this.loggedInUser.User.UserName)
+        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id, this.loggedInUser.User.UserName)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -202,29 +201,30 @@ export class ViewTourTabComponent implements OnInit {
         //     return "Refer Back";
         // }
     }
-    dateChange(date:string){
+
+    dateChange(date: string) {
         var day = date.slice(0, 2),
             month = date.slice(2, 4),
             year = date.slice(4, 8);
         return day + "-" + month + "-" + year;
     }
 
-    ViewSign(val){
-        if(val == "" || val == null || val == undefined){
+    ViewSign(val) {
+        if (val == "" || val == null || val == undefined) {
             return false
-        }else{
+        } else {
             return true
 
         }
     }
 
-    DisplaySign(url: any){
+    DisplaySign(url: any) {
 
 
-            const dialogRef = this.dialogRef.open(ViewFileComponent, {
-                width: '100vh',
-                height: '100vh',
-                data: {url: url}
-            });
-        }
+        const dialogRef = this.dialogRef.open(ViewFileComponent, {
+            width: '100vh',
+            height: '100vh',
+            data: {url: url}
+        });
+    }
 }

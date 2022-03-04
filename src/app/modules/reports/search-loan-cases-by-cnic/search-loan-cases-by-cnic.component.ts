@@ -12,8 +12,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
@@ -31,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./search-loan-cases-by-cnic.component.scss']
 })
 export class SearchLoanCasesByCnicComponent implements OnInit {
-    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Address','Lcno', 'Agps', 'Bcl', 'Los'];
+    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Address', 'Lcno', 'Agps', 'Bcl', 'Los'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();

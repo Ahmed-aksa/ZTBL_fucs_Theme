@@ -1,4 +1,5 @@
-<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
@@ -6,10 +7,10 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1   py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                        type="button"
-                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
+                <button aria-controls="collapseExample"
+                        aria-expanded="false"
+                        class="mt-1   py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" data-bs-target="#collapseExample"
+                        data-bs-toggle="collapse" type="button">
                     <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -26,11 +27,11 @@
 
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="referbackForm" [show_circle]="false"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="referbackForm"
+                                            [show_circle]="false"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Select Nature</mat-label>
                                 <mat-select formControlName="Nature">
                                     <mat-option *ngFor="let nature of Nature" [value]="nature.Id">
@@ -42,12 +43,12 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong>
                                 </mat-label>
-                                <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30"
-                                       autocomplete="off"
-                                       appNumberOnly/>
+                                <input appNumberOnly autocomplete="off" formControlName="VoucherNo" matInput
+                                       maxlength="30"
+                                       placeholder="Voucher No"/>
                                 <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No
                                     <strong>required</strong></mat-error>
                             </mat-form-field>
@@ -56,9 +57,9 @@
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Select Status</mat-label>
-                                <mat-select formControlName="Status" [disabled]="true">
+                                <mat-select [disabled]="true" formControlName="Status">
                                     <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
                                         {{status.Name}}
                                     </mat-option>
@@ -68,8 +69,8 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button class="mt-2 bg-gray-500" mat-raised-button color="primary"
-                                    type="button" (click)="find()">
+                            <button (click)="find()" class="mt-2 bg-gray-500" color="primary"
+                                    mat-raised-button type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -84,14 +85,15 @@
     </div>
 
 
-    <div class="flex flex-auto  border shadow-xs rounded-sm bg-gray-50" style="flex-direction: column;overflow-y: scroll">
+    <div class="flex flex-auto  border shadow-xs rounded-sm bg-gray-50"
+         style="flex-direction: column;overflow-y: scroll">
         <div class="example-table-container">
             <!--[style.height]="gridHeight"-->
             <mat-table
+                #sort1="matSort"
                 #table
                 [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
                 matSort
-                #sort1="matSort"
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear>
@@ -134,8 +136,8 @@
                 <ng-container matColumnDef="View">
                     <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                     <mat-cell *matCellDef="let jv">
-                        <button mat-icon-button color="primary" *ngIf="CheckViewStatus(jv)"
-                                (click)="viewJv(jv)">
+                        <button (click)="viewJv(jv)" *ngIf="CheckViewStatus(jv)" color="primary"
+                                mat-icon-button>
                             <mat-icon class="text-green" style="margin-left: 2px;" title="View jv">visibility</mat-icon>
                         </button>
                     </mat-cell>
@@ -144,8 +146,8 @@
                 <ng-container matColumnDef="Edit">
                     <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
                     <mat-cell *matCellDef="let jv">
-                        <button mat-icon-button color="primary" *ngIf="CheckEditStatus(jv) && currentActivity.U"
-                                (click)="editJv(jv)">
+                        <button (click)="editJv(jv)" *ngIf="CheckEditStatus(jv) && currentActivity.U" color="primary"
+                                mat-icon-button>
                             <mat-icon style="margin-left: 2px;" title="View jv">edit</mat-icon>
                         </button>
                     </mat-cell>
@@ -165,9 +167,10 @@
         </div>
     </div>
     <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                <span class="font-bold text-green">Items per page:</span>
+        <span class="font-bold text-green">Items per page:</span>
 
-        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                    display="inline"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
@@ -176,10 +179,10 @@
             <mat-option [value]="1000">1000</mat-option>
         </mat-select>
         <button (click)="paginate(1)">First</button>
-        <pagination-controls display="inline" (pageChange)="paginate($event)"
+        <pagination-controls (pageChange)="paginate($event)" display="inline"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(Math.Ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>

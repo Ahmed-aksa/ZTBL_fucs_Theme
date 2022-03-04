@@ -17,20 +17,22 @@
 
     <div class="mt-2">
         <div class="col-lg-12">
-            <div class="" [formGroup]="notificationTable">
+            <div [formGroup]="notificationTable" class="">
                 <div class="flex" style="flex-wrap: wrap;">
 
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Name</mat-label>
-                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Name" formControlName="Name">
+                            <input (keyup)="applyFilter($event.target.value)" formControlName="Name" matInput
+                                   placeholder="Name">
                         </mat-form-field>
                     </div>
 
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Cnic</mat-label>
-                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Cnic" formControlName="Cnic" appNumberOnly>
+                            <input (keyup)="applyFilter($event.target.value)" appNumberOnly formControlName="Cnic"
+                                   matInput placeholder="Cnic">
                         </mat-form-field>
                     </div>
                 </div>
@@ -56,14 +58,14 @@
         <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
             <!--[style.height]="gridHeight"-->
             <mat-table
-                class="lmat-elevation-z8 overflow-scroll"
-                [style.height]="gridHeight"
+                #sort1="matSort"
                 #table
                 [dataSource]="
                     dataSource
                 "
+                [style.height]="gridHeight"
+                class="lmat-elevation-z8 overflow-scroll"
                 matSort
-                #sort1="matSort"
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear
@@ -89,8 +91,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="Cnic">
-                    <mat-header-cell style="min-width: 120px;" *matHeaderCellDef>CNIC</mat-header-cell>
-                    <mat-cell style="min-width: 120px;" *matCellDef="let notification">{{
+                    <mat-header-cell *matHeaderCellDef style="min-width: 120px;">CNIC</mat-header-cell>
+                    <mat-cell *matCellDef="let notification" style="min-width: 120px;">{{
                         notification.Cnic
                         }}</mat-cell>
                 </ng-container>
@@ -117,7 +119,7 @@
                     >Legal Notice Date
                     </mat-header-cell
                     >
-                    <mat-cell class="text-center" *matCellDef="let notification">{{
+                    <mat-cell *matCellDef="let notification" class="text-center">{{
                         notification.LegalNoticeDate
                         }}</mat-cell>
                 </ng-container>
@@ -127,7 +129,7 @@
                     >Demand Notice Date
                     </mat-header-cell
                     >
-                    <mat-cell class="text-center" *matCellDef="let notification">{{
+                    <mat-cell *matCellDef="let notification" class="text-center">{{
                         notification.DemandNoticeDate
                         }}</mat-cell>
                 </ng-container>
@@ -174,7 +176,7 @@
                 ></mat-row>
             </mat-table>
 
-            <div class="mat-table__message" *ngIf="loading">
+            <div *ngIf="loading" class="mat-table__message">
                 Please wait....
             </div>
 

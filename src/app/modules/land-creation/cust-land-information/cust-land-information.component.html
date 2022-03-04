@@ -1,11 +1,11 @@
 <div
-    class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-scroll bg-card dark:bg-transparent"
-    [formGroup]="LandInformationForm">
+    [formGroup]="LandInformationForm"
+    class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-scroll bg-card dark:bg-transparent">
     <div class="heading">Customer Land Information</div>
     <div class="row">
         <div class="col-lg-12 col-sm-2 text-right pr-8">
-            <button mat-raised-button color="primary" type="button" class="ml-2" (click)="ViewLandHistory()"
-                    *ngIf="isFormReadonly">
+            <button (click)="ViewLandHistory()" *ngIf="isFormReadonly" class="ml-2" color="primary" mat-raised-button
+                    type="button">
                 <mat-icon class="mr-2">remove_red_eye</mat-icon>
                 View Land History
             </button>
@@ -20,20 +20,20 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                    <mat-form-field *ngIf="single_zone" appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                        <mat-select [(ngModel)]="selected_z" [disabled]="disable_zone" formControlName="Zone">
                             <mat-option [value]="SelectedZones?.ZoneId">
                                 {{SelectedZones?.ZoneName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                    <mat-form-field *ngIf="!single_zone" appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                                    (selectionChange)="changeZone($event)">
-                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                        [disabled]="disable_zone">
+                        <mat-select (selectionChange)="changeZone($event)" [(ngModel)]="selected_z" [disabled]="disable_zone"
+                                    formControlName="Zone">
+                            <mat-option *ngFor="let zone of SelectedZones" [disabled]="disable_zone"
+                                        [value]="zone?.ZoneId">
                                 {{zone?.ZoneName}}
                             </mat-option>
                         </mat-select>
@@ -45,18 +45,18 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                    (selectionChange)="changeBranch($event)"
-                                    *ngIf="!single_branch">
+                        <mat-select (selectionChange)="changeBranch($event)" *ngIf="!single_branch" [(ngModel)]="selected_b"
+                                    [disabled]="disable_branch"
+                                    formControlName="Branch">
                             <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
                             >
                                 {{branch?.Name}}
                             </mat-option>
                         </mat-select>
-                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                    *ngIf="single_branch">
+                        <mat-select *ngIf="single_branch" [(ngModel)]="selected_b" [disabled]="disable_branch"
+                                    formControlName="Branch">
                             <mat-option [value]="SelectedBranches?.BranchCode"
                             >
                                 {{SelectedBranches?.Name}}
@@ -65,15 +65,15 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12" *ngIf="PostCodeLov">
+            <div *ngIf="PostCodeLov" class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Post Code <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select formControlName="PostCode" [disabled]="isFormReadonly">
+                        <mat-select [disabled]="isFormReadonly" formControlName="PostCode">
                             <mat-option>
-                                <ngx-mat-select-search placeholderLabel="Search Post Code..."
+                                <ngx-mat-select-search [formControl]="searchFilterCtrlPostCode"
                                                        noEntriesFoundLabel="'No result Found'"
-                                                       [formControl]="searchFilterCtrlPostCode">
+                                                       placeholderLabel="Search Post Code...">
                                 </ngx-mat-select-search>
                             </mat-option>
                             <mat-option *ngFor="let obj of PostCodeLov.LOVs" [value]="obj.Value">
@@ -85,12 +85,12 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12" *ngIf="LandingProcedureLov">
+            <div *ngIf="LandingProcedureLov" class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Lending Procedure <strong class="matMandatory"></strong>
                         </mat-label>
-                        <mat-select formControlName="LandingProcedure" [disabled]="isFormReadonly">
+                        <mat-select [disabled]="isFormReadonly" formControlName="LandingProcedure">
                             <mat-option *ngFor="let obj of LandingProcedureLov.LOVs" [value]="obj.Value">
                                 {{obj.Name}}
                             </mat-option>
@@ -105,12 +105,12 @@
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Passbook/Reference No <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input [readonly]="isFormReadonly" matInput placeholder="Enter Passbook NO" appNumberOnly
+                        <input [readonly]="isFormReadonly" appAlphaNumSpecial appNumberOnly autocomplete="off"
                                formControlName="PassbookNO"
-                               maxlength="30" autocomplete="off" appAlphaNumSpecial/>
+                               matInput maxlength="30" placeholder="Enter Passbook NO"/>
                         <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook/Reference No
                             <strong>required</strong>
                         </mat-error>
@@ -119,11 +119,11 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Total Area <strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Total Area" [readonly]="isFormReadonly"
+                        <input [readonly]="isFormReadonly" appNumberOnly autocomplete="off"
                                formControlName="TotalArea"
-                               maxlength="30" autocomplete="off" appNumberOnly/>
+                               matInput maxlength="30" placeholder="Enter Total Area"/>
                         <mat-error *ngIf="hasError('TotalArea', 'required')">Total Area <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
@@ -131,25 +131,25 @@
             </div>
             <div class="col-lg-3 col-sm-12 text-center self-center">
                 <div
-                    class="cursor-pointer border bg-green h-10 mx-auto w-full place-content-center px-3 rounded-md flex"
-                    (click)="AreaConvertor()">
-                    <img class="cursor-pointer calculator-img  w-6"
-                         src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg"
-                         alt="Calculator"/>
+                    (click)="AreaConvertor()"
+                    class="cursor-pointer border bg-green h-10 mx-auto w-full place-content-center px-3 rounded-md flex">
+                    <img alt="Calculator"
+                         class="cursor-pointer calculator-img  w-6"
+                         src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg"/>
                     <p class="ml-2 mb-0 self-center">Area Convertor</p>
 
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Date of Issuance(ddMMyyyy) <strong
                             class="matMandatory">*</strong>
                         </mat-label>
-                        <input readonly="readonly" matInput [matDatepicker]="picker" formControlName="DateIssue"
-                               maxlength="30"
-                               autocomplete="off" [max]="today" [disabled]="isFormReadonly"/>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <input [disabled]="isFormReadonly" [matDatepicker]="picker" [max]="today" autocomplete="off"
+                               formControlName="DateIssue"
+                               matInput maxlength="30" readonly="readonly"/>
+                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
 
                         <mat-error *ngIf="hasError('DateIssue', 'required')">Date Issuance <strong>required</strong>
@@ -164,10 +164,10 @@
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label>Place of Issuance: <strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="isFormReadonly" matInput formControlName="PlaceofIssuePB"
-                               placeholder="Add area of issuance" maxlength="200" autocomplete="off"/>
+                        <input [readonly]="isFormReadonly" autocomplete="off" formControlName="PlaceofIssuePB"
+                               matInput maxlength="200" placeholder="Add area of issuance"/>
                         <mat-error *ngIf="hasError('PlaceofIssuePB', 'required')">Place of Issuance
                             <strong>required</strong>
                         </mat-error>
@@ -176,10 +176,10 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label>Land Complete Address: <strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="isFormReadonly" matInput formControlName="CompleteAddress"
-                               placeholder="Complete Address" maxlength="200" autocomplete="off"/>
+                        <input [readonly]="isFormReadonly" autocomplete="off" formControlName="CompleteAddress"
+                               matInput maxlength="200" placeholder="Complete Address"/>
                         <mat-error *ngIf="hasError('CompleteAddress', 'required')">Land Complete Address
                             <strong>required</strong></mat-error>
                     </mat-form-field>
@@ -187,22 +187,22 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Auto Number <strong class="matMandatory"></strong></mat-label>
-                        <input matInput placeholder="Land Auto Code" readonly="readonly" formControlName="LandAutoCode"
-                               maxlength="30" autocomplete="off"/>
+                        <input autocomplete="off" formControlName="LandAutoCode" matInput maxlength="30"
+                               placeholder="Land Auto Code" readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">No of Customers: <strong class="matMandatory"></strong>
                         </mat-label>
-                        <input [readonly]="isFormReadonly" matInput placeholder="Number Of Customer"
-                               formControlName="NumberOfCustomer" (keyup)="onKey($event)" maxlength="2" min="1"
-                               autocomplete="off"
-                               appNumberOnly/>
+                        <input (keyup)="onKey($event)" [readonly]="isFormReadonly" appNumberOnly
+                               autocomplete="off" formControlName="NumberOfCustomer" matInput maxlength="2"
+                               min="1"
+                               placeholder="Number Of Customer"/>
                         <!--<mat-error *ngIf="hasError('FamilyNumber', 'required')">Family No <strong>required</strong></mat-error>-->
                     </mat-form-field>
                 </div>
@@ -215,8 +215,8 @@
             <div class="col-lg-6 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                    <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                            type="button" (click)="viewCustomrePage()">
+                    <button (click)="viewCustomrePage()"
+                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button">
                         <mat-icon class="mr-2">remove_red_eye</mat-icon>
                         View
                     </button>
@@ -244,63 +244,64 @@
                 <tbody>
                 <tr *ngFor="let dynamic of dynamicArray; let i = index;">
                     <td>
-                        <input [(ngModel)]="dynamicArray[i].cnic" [readonly]="dynamicArray[i].isReadOnly"
-                               [ngModelOptions]="{standalone: true}" class="form-control" type="text" size="6"
-                               [mask]="maskEnums.cnic"/>
+                        <input [(ngModel)]="dynamicArray[i].cnic" [mask]="maskEnums.cnic"
+                               [ngModelOptions]="{standalone: true}" [readonly]="dynamicArray[i].isReadOnly" class="form-control" size="6"
+                               type="text"/>
                     </td>
                     <td>
-                        <input type="checkbox" id="vehicle1" name="vehicle1" checked value="Bike" disabled>
+                        <input checked disabled id="vehicle1" name="vehicle1" type="checkbox" value="Bike">
                         <label for="vehicle1" style="padding-left:5px;font-size:1rem !important;"> Owner</label>
                     </td>
                     <td>
-                        <input [(ngModel)]="dynamicArray[i].customerName" class="form-control" readonly="readonly"
-                               [ngModelOptions]="{standalone: true}" type="text"/>
+                        <input [(ngModel)]="dynamicArray[i].customerName" [ngModelOptions]="{standalone: true}" class="form-control"
+                               readonly="readonly" type="text"/>
                     </td>
                     <td>
-                        <input [(ngModel)]="dynamicArray[i].fatherName" class="form-control" readonly="readonly"
-                               [ngModelOptions]="{standalone: true}" type="text"/>
+                        <input [(ngModel)]="dynamicArray[i].fatherName" [ngModelOptions]="{standalone: true}" class="form-control"
+                               readonly="readonly" type="text"/>
                     </td>
                     <td>
-                        <input [(ngModel)]="dynamicArray[i].area" class="form-control" readonly="readonly"
-                               [ngModelOptions]="{standalone: true}" type="text" size="6"/>
+                        <input [(ngModel)]="dynamicArray[i].area" [ngModelOptions]="{standalone: true}" class="form-control"
+                               readonly="readonly" size="6" type="text"/>
                     </td>
                     <td (click)="searchCustomer(i)" *ngIf="!isFormReadonly || !NumberOfCustomerDisable">
                         <p class="btn btn-primary" style="background-color: #01671B; border:none;">Attach</p>
                     </td>
-                    <td (click)="deleteRow(i)" style="cursor:pointer;"
-                        *ngIf="(!isFormReadonly|| !NumberOfCustomerDisable) && currentActivity?.D">
+                    <td (click)="deleteRow(i)" *ngIf="(!isFormReadonly|| !NumberOfCustomerDisable) && currentActivity?.D"
+                        style="cursor:pointer;">
                         <p class="btn btn-warning">Remove</p>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <button *ngIf="currentActivity?.C" class="py-2" mat-raised-button color="primary" style="background-color: #01671B;" type="button"
-                    (click)="saveCustomerLandInfo()">
+            <button (click)="saveCustomerLandInfo()" *ngIf="currentActivity?.C" class="py-2" color="primary"
+                    mat-raised-button style="background-color: #01671B;"
+                    type="button">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save
             </button>
-            <button mat-raised-button color="primary" type="button"
-                    class="ml-2 mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                    (click)="clearSaveCustomerLandInfo()"
-                    *ngIf="!isFormReadonly && currentActivity?.C">
+            <button (click)="clearSaveCustomerLandInfo()" *ngIf="!isFormReadonly && currentActivity?.C" class="ml-2 mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                    color="primary"
+                    mat-raised-button
+                    type="button">
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Clear
             </button>
         </div>
-        <mat-form-field class="mat-form-field-fluid w-4/12 py-2" appearance="outline">
+        <mat-form-field appearance="outline" class="mat-form-field-fluid w-4/12 py-2">
             <mat-label>Select Customer:</mat-label>
-            <mat-select formControlName="LandCustID" (selectionChange)="SelectionChangePushData($event)">
+            <mat-select (selectionChange)="SelectionChangePushData($event)" formControlName="LandCustID">
                 <mat-option *ngFor="let obj of CustomerLov" [value]="obj.LandCustID">
                     {{obj.CustomerName}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <div class="example-table-container owner-ship-table border shadow-xs rounded-sm bg-gray-50" *ngIf="ShowTable">
+        <div *ngIf="ShowTable" class="example-table-container owner-ship-table border shadow-xs rounded-sm bg-gray-50">
             <table class="table table-striped mb-0">
                 <tr class="table-header-background">
                     <th></th>
                     <th class="px-2 border-r border-l">Ownership Area (Marla)</th>
-                    <th colspan="6" class="text-center">Development Area (Marla)</th>
+                    <th class="text-center" colspan="6">Development Area (Marla)</th>
                 </tr>
                 <tr class="table-header-background">
                     <th class="px-2 border-r">Land Type</th>
@@ -315,56 +316,56 @@
                 <tr class=" border-0 values-row">
                     <td class=" border-r border-gray-200">Barani</td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="BArea" (keyup)="onKeyInputCalculateValue($event)"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   name="BArea" matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="BArea" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly" appNumberOnly
+                                   matInput min="0" name="BArea" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="BAreaOwned" name="BAreaOwned" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="BAreaOwned" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput
+                                   min="0" name="BAreaOwned"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="BLeasedIn" name="BLeasedIn"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="BLeasedIn" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput
+                                   min="0" name="BLeasedIn" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input [readonly]="isFormReadonly" type="text" [(ngModel)]="BLeasedOut" name="BLeasedOut"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="BLeasedOut" [ngModelOptions]="{standalone: true}" [readonly]="isFormReadonly"
+                                   appNumberOnly
+                                   matInput min="0"
+                                   name="BLeasedOut" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="BFimalyOperated" name="BFimalyOperated"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="BFimalyOperated" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput
+                                   min="0" name="BFimalyOperated" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="BUnderCustomhiring" name="BUnderCustomhiring"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="BUnderCustomhiring" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput
+                                   min="0" name="BUnderCustomhiring" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="BTotal" name="BTotal" readonly="readonly"
-                                   [ngModelOptions]="{standalone: true}" matInput min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="BTotal" [ngModelOptions]="{standalone: true}" matInput min="0"
+                                   name="BTotal" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -372,58 +373,58 @@
                 <tr class=" border-0">
                     <td class="px-2 border-r border-gray-200">Irrigated</td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="IArea" [ngModelOptions]="{standalone: true}" name="IArea"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="IArea" [ngModelOptions]="{standalone: true}" [readonly]="isFormReadonly"
+                                   appNumberOnly
+                                   matInput min="0" name="IArea" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="IAreaOwned" readonly="readonly"
-                                   [ngModelOptions]="{standalone: true}" name="IAreaOwned"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="IAreaOwned" [ngModelOptions]="{standalone: true}"
+                                   appNumberOnly matInput
+                                   min="0"
+                                   name="IAreaOwned" placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="ILeasedIn" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="ILeasedIn" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="ILeasedOut" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="ILeasedOut" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="IFimalyOperated" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="IFimalyOperated" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="IUnderCustomhiring" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="IUnderCustomhiring" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="ITotal" readonly="readonly"
-                                   [ngModelOptions]="{standalone: true}" placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="ITotal" [ngModelOptions]="{standalone: true}"
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -431,57 +432,57 @@
                 <tr class=" border-0">
                     <td class="px-2 border-r border-gray-200">Un-Cultivated</td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnArea" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnArea" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnAreaOwned" readonly="readonly"
-                                   [ngModelOptions]="{standalone: true}" placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnAreaOwned" [ngModelOptions]="{standalone: true}"
+                                   appNumberOnly matInput
+                                   min="0" placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnLeasedIn" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnLeasedIn" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnLeasedOut" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnLeasedOut" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnFimalyOperated" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnFimalyOperated" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnUnderCustomhiring" [ngModelOptions]="{standalone: true}"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnUnderCustomhiring" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly"
+                                   appNumberOnly matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}"
+                                   type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnTotal" readonly="readonly"
-                                   [ngModelOptions]="{standalone: true}" placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnTotal" [ngModelOptions]="{standalone: true}"
+                                   appNumberOnly matInput
+                                   min="0" placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -489,56 +490,56 @@
                 <tr class=" border-0">
                     <td class="px-2 border-r border-gray-200">Un-cultivable</td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnAArea" (keyup)="onKeyInputCalculateValue($event)"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnAArea" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly" appNumberOnly
+                                   matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnAAreaOwned" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnAAreaOwned" [ngModelOptions]="{standalone: true}"
+                                   appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnALeasedIn" (keyup)="onKeyInputCalculateValue($event)"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnALeasedIn" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly" appNumberOnly
+                                   matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnALeasedOut" placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnALeasedOut" [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly" appNumberOnly
+                                   matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnAFimalyOperated"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnAFimalyOperated"
+                                   [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly" appNumberOnly
+                                   matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnAUnderCustomhiring"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0" [readonly]="isFormReadonly"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnAUnderCustomhiring"
+                                   [ngModelOptions]="{standalone: true}"
+                                   [readonly]="isFormReadonly" appNumberOnly
+                                   matInput min="0" placeholder="{{landDetailMarlaPlaceholder}}" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnATotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input (keyup)="onKeyInputCalculateValue($event)" [(ngModel)]="UnATotal" [ngModelOptions]="{standalone: true}"
+                                   appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -546,52 +547,52 @@
                 <tr class="border-0">
                     <td class="px-2 border-r border-gray-200">Total Area</td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="AreaTotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="AreaTotal" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="AreaOwnedTotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="AreaOwnedTotal" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="LeasedInTotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="LeasedInTotal" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="LeasedOutTotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="LeasedOutTotal" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="FamilyOperatedTotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="FamilyOperatedTotal" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="UnderCustomHiringTotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="UnderCustomHiringTotal" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input type="text" [(ngModel)]="TotalOfTotal" readonly="readonly"
-                                   placeholder="{{landDetailMarlaPlaceholder}}" [ngModelOptions]="{standalone: true}"
-                                   matInput appNumberOnly min="0"/>
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                            <input [(ngModel)]="TotalOfTotal" [ngModelOptions]="{standalone: true}" appNumberOnly
+                                   matInput min="0"
+                                   placeholder="{{landDetailMarlaPlaceholder}}" readonly="readonly" type="text"/>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -599,16 +600,16 @@
         </div>
     </div>
     <div>
-        <span style="color:red;" [innerHTML]="errorMessage"></span>
+        <span [innerHTML]="errorMessage" style="color:red;"></span>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 " *ngIf="LandingProcedureLov">
-                <mat-form-field class="mat-form-field-fluid w-full " appearance="outline">
+            <div *ngIf="LandingProcedureLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full ">
                     <mat-label class="customMatLabel">Remarks: <strong class="matMandatory"></strong></mat-label>
-                    <input [readonly]="isFormReadonly" matInput placeholder="Remarks" formControlName="Remarks"
+                    <input [readonly]="isFormReadonly" autocomplete="off" formControlName="Remarks" matInput
                            maxlength="200"
-                           autocomplete="off"/>
+                           placeholder="Remarks"/>
                 </mat-form-field>
             </div>
         </div>
@@ -616,26 +617,27 @@
 
     <div class="form-group kt-form__group row pb-4">
         <div class="col-lg-12 kt-margin-bottom-20-mobile">
-            <button style="background-color: #01671B;" class="mr-2" mat-raised-button type="button" color="primary"
-                    (click)="saveCustomerLandInfoDetails()"
-                    [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                    *ngIf="ShowTable && !isFormReadonly && currentActivity?.C">
+            <button (click)="saveCustomerLandInfoDetails()" *ngIf="ShowTable && !isFormReadonly && currentActivity?.C" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" class="mr-2" color="primary"
+                    mat-raised-button
+                    style="background-color: #01671B;"
+                    type="button">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save
             </button>
-            <button mat-raised-button type="button" color="primary" (click)="landChargeCreation()"
-                    *ngIf="AllowchargeCreation && currentActivity?.C">
+            <button (click)="landChargeCreation()" *ngIf="AllowchargeCreation && currentActivity?.C" color="primary" mat-raised-button
+                    type="button">
                 <mat-icon class="mr-2">create</mat-icon>
                 Land Charge Creation
             </button>
-            <button mat-raised-button color="primary" (click)="landUploadFiles()" type="button"
-                    *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId && !isFormReadonly && currentActivity?.C" class="ml-2 bg-green">
+            <button (click)="landUploadFiles()" *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId && !isFormReadonly && currentActivity?.C" class="ml-2 bg-green" color="primary"
+                    mat-raised-button
+                    type="button">
                 <mat-icon class="mr-2">cloud_upload</mat-icon>
                 Upload Documents
             </button>
-            <button mat-raised-button color="primary" class="ml-2" type="button" (click)="submitCustomerLandInfo()"
-                    [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                    *ngIf="AllowSubmit && !isFormReadonly && currentActivity?.U">
+            <button (click)="submitCustomerLandInfo()" *ngIf="AllowSubmit && !isFormReadonly && currentActivity?.U" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" class="ml-2" color="primary"
+                    mat-raised-button
+                    type="button">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>

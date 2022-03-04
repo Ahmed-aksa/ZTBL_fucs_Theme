@@ -77,9 +77,9 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     public LovCall = new Lov();
     public search = new Loan();
     LoanTypes: any = [];
+    currentActivity: Activity;
     private rcSearch: any;
     private loading: boolean;
-    currentActivity: Activity;
 
     constructor(
         private spinner: NgxSpinnerService,

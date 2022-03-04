@@ -1,4 +1,5 @@
-<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
 
     <div class="row pt-3">
@@ -8,9 +9,9 @@
         <div class="col-lg-3 col-sm-12 self-center">
 
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -19,55 +20,57 @@
         </div>
     </div>
 
-<div id="Kt-portlet-margin-top">
+    <div id="Kt-portlet-margin-top">
 
-    <div class="collapse show" id="collapseExample">
-        <div class="card card-body">
-            <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
+        <div class="collapse show" id="collapseExample">
+            <div class="card card-body">
+                <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
 
-                <div class="kt-form">
+                    <div class="kt-form">
 
-                    <div class="kt-portlet__body">
+                        <div class="kt-portlet__body">
 
-                        <div class="col-lg-12">
-                            <div class="flex" style="flex-wrap: wrap;">
+                            <div class="col-lg-12">
+                                <div class="flex" style="flex-wrap: wrap;">
 
-                                <app-zone-branch-circle [form]="bufricationForm" [show_circle]="false"
-                                                        [is_required_circle]="false" [show_branch]="true" [required_branch]="true"
-                                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="bufricationForm"
+                                                            [is_required_circle]="false" [required_branch]="true"
+                                                            [show_branch]="true"
+                                                            [show_circle]="false"></app-zone-branch-circle>
 
 
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                            <mat-label class="customMatLabel">Cnic</mat-label>
+                                            <input appNumberOnly autocomplete="off" formControlName="Cnic"
+                                                   matInput maxlength="30" placeholder="Enter Cnic"/>
+                                        </mat-form-field>
+                                    </div>
 
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Cnic</mat-label>
-                                        <input matInput placeholder="Enter Cnic" formControlName="Cnic"
-                                               maxlength="30" autocomplete="off" appNumberOnly/>
-                                    </mat-form-field>
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+
+                                        <button (click)="find()" class="bg-gray-500" color="primary" mat-raised-button>
+                                            <mat-icon class="mr-2">search</mat-icon>
+                                            Find
+                                        </button>
+                                    </div>
+
                                 </div>
 
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-
-                                    <button class="bg-gray-500" mat-raised-button color="primary" (click)="find()">
-                                        <mat-icon class="mr-2">search</mat-icon>
-                                        Find
-                                    </button>
-                                </div>
 
                             </div>
 
-
                         </div>
-
                     </div>
-                </div>
 
 
-            </form>
+                </form>
+            </div>
         </div>
+
+
     </div>
-
-
-</div>
 
 </div>

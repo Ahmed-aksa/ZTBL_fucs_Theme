@@ -1,26 +1,16 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    ChangeDetectionStrategy,
-    OnDestroy,
-    ChangeDetectorRef
-} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Activity} from 'app/shared/models/activity.model';
-import {Branch} from 'app/shared/models/branch.model';
 import {Circle} from 'app/shared/models/circle.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 
 
 import {finalize} from 'rxjs/operators';
 import {GeofencingEditComponent} from '../geofencing-edit/geofencing-edit.component';
-import {Zone} from '../utils/zone.model'
 import {DataService} from '../../../../shared/services/data-service.model'
 import {CircleService} from 'app/shared/services/circle.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';

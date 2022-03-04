@@ -1,6 +1,6 @@
 <div
-    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-hidden bg-card dark:bg-transparent"
-    [formGroup]="customerForm">
+    [formGroup]="customerForm"
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-hidden bg-card dark:bg-transparent">
     <div class="heading mt-3">Loan Utilization
     </div>
 
@@ -11,22 +11,22 @@
 
 
             <div class="flex" style="flex-wrap: wrap;">
-                <app-zone-branch-circle [form]="customerForm" [show_circle]="false"
-                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="customerForm"
+                                        [show_circle]="false"></app-zone-branch-circle>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">LC NO#</mat-label>
-                            <input readonly appNumberOnly matInput placeholder="Enter LC No#"
-                                   formControlName="LoanCaseNo"
-                                   maxlength="13" autocomplete="off"/>
+                            <input appNumberOnly autocomplete="off" formControlName="LoanCaseNo" matInput
+                                   maxlength="13"
+                                   placeholder="Enter LC No#" readonly/>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Loan GL</mat-label>
                                 <!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
                                 <mat-select [disabled]="'true'" formControlName="LoanDisbID">
@@ -47,34 +47,34 @@
                 </div>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Gl Sub Code</mat-label>
-                            <input readonly appNumberOnly matInput placeholder="Gl Sub Code" formControlName="GlSubCode"
-                                   maxlength="13" autocomplete="off"/>
+                            <input appNumberOnly autocomplete="off" formControlName="GlSubCode" matInput maxlength="13"
+                                   placeholder="Gl Sub Code" readonly/>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Crop Code</mat-label>
-                            <input readonly appNumberOnly matInput placeholder="CropCode" formControlName="CropCode"
-                                   maxlength="13" autocomplete="off"/>
+                            <input appNumberOnly autocomplete="off" formControlName="CropCode" matInput maxlength="13"
+                                   placeholder="CropCode" readonly/>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Scheme Code</mat-label>
-                            <input readonly appNumberOnly matInput placeholder="SchemeCode" formControlName="SchemeCode"
-                                   maxlength="13" autocomplete="off"/>
+                            <input appNumberOnly autocomplete="off" formControlName="SchemeCode" matInput maxlength="13"
+                                   placeholder="SchemeCode" readonly/>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <input matInput hidden formControlName="Status" maxlength="13" autocomplete="off"/>
+                        <input autocomplete="off" formControlName="Status" hidden matInput maxlength="13"/>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
             <mat-tab-group class="mt-1" mat-align-tabs="start">
 
                 <!-- Applicants -->
-                <mat-tab label="Applicants" class="px-0">
+                <mat-tab class="px-0" label="Applicants">
                     <div *ngIf="LoanApplicants" class="table-responsive px-0  border shadow-xs rounded-sm bg-gray-50">
                         <table class="table table-striped">
                             <thead>
@@ -199,9 +199,9 @@
 
         <div class="row py-2">
             <div class="col-lg-12 col-sm-12">
-                <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
-                       accept="image/jpg, image/jpeg" (change)="onSelectFile($event)"/>
-                <div class="mt-2 overflow-scroll" *ngIf="imageUrl.length>0 && visible"
+                <input (change)="onSelectFile($event)" (click)="ifResetRequired()" *ngIf="!viewonly" accept="image/jpg, image/jpeg"
+                       formControlName="file" type='file'/>
+                <div *ngIf="imageUrl.length>0 && visible" class="mt-2 overflow-scroll"
                      style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
                     <div *ngFor='let url of imageUrl; let i = index'>
                         <!-- <button *ngIf="!viewonly" (click)="removeImage(url,i)">
@@ -210,8 +210,9 @@
                         <div class="row">
                             <div class="col-lg-12  text-right relative">
                                 <div class="bg-white float-right">
-                                    <button mat-icon-button *ngIf="!viewonly && currentActivity.D" (click)="removeImage(url,i)"
-                                            class="close-button float-right absolute right-4 top-0 bg-red-500">
+                                    <button (click)="removeImage(url,i)" *ngIf="!viewonly && currentActivity.D"
+                                            class="close-button float-right absolute right-4 top-0 bg-red-500"
+                                            mat-icon-button>
                                         <!-- X -->
                                         <mat-icon class="close-icon w-12 h-12 text-white bg-danger">close</mat-icon>
                                     </button>
@@ -219,11 +220,11 @@
                             </div>
                         </div>
                         <div style="width: 240px; position: relative;">
-                            <img [src]="url" (click)="previewImg(url)">
-                            <button *ngIf="viewonly"
+                            <img (click)="previewImg(url)" [src]="url">
+                            <button (click)="viewMap(i,false)"
+                                    *ngIf="viewonly"
                                     class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                    style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;"
-                                    mat-flat-button (click)="viewMap(i,false)">
+                                    mat-flat-button style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;">
                                 <mat-icon>location_on</mat-icon>
                             </button>
                         </div>
@@ -243,22 +244,24 @@
         </div>
 
         <div>
-            <input [required] *ngIf="!viewonly && currentActivity.C" (click)="ifResetRequiredV()" formControlName="fileV" type='file'
-                   accept="video/*" (change)="onSelectFileV($event)"/>
+            <input (change)="onSelectFileV($event)" (click)="ifResetRequiredV()" *ngIf="!viewonly && currentActivity.C"
+                   [required] accept="video/*"
+                   formControlName="fileV" type='file'/>
         </div>
 
         <ng-container class="py-2">
             <div *ngIf="videoUrl.length>0 && visible"
                  style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
-                <div class="item m-2" *ngFor="let url of videoUrl;let i = index">
+                <div *ngFor="let url of videoUrl;let i = index" class="item m-2">
                     <!-- <button *ngIf="!viewonly" (click)="removeVideo(url,i)">
                         X
                     </button> -->
                     <div class="row">
                         <div class="col-lg-12 text-right relative">
                             <div class="bg-white float-right">
-                                <button mat-icon-button *ngIf="!viewonly && currentActivity.D" (click)="removeVideo(url,i)"
-                                        class="close-button float-right absolute right-4 top bg-red-500">
+                                <button (click)="removeVideo(url,i)" *ngIf="!viewonly && currentActivity.D"
+                                        class="close-button float-right absolute right-4 top bg-red-500"
+                                        mat-icon-button>
                                     <!-- X -->
                                     <mat-icon class="close-icon text-white w-12 h-12 text-white bg-danger">close
                                     </mat-icon>
@@ -269,13 +272,13 @@
                     <!-- <button type="button" class="btn-close" aria-label="Close" (click)="removeVideo(i)"></button> -->
                     <div style="position: relative; width: 240px;">
                         <!-- <video (loadedmetadata)="getDuration($event,i)"  height="240px" width="320px" [src]="url" controls></video> -->
-                        <video style="height: 240px;" height="240" controls [attr.src]="url"
-                               (loadedmetadata)="getDuration($event,i)">
+                        <video (loadedmetadata)="getDuration($event,i)" [attr.src]="url" controls height="240"
+                               style="height: 240px;">
                         </video>
-                        <button *ngIf="viewonly"
+                        <button (click)="viewMap(i,true)"
+                                *ngIf="viewonly"
                                 class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;"
-                                mat-flat-button (click)="viewMap(i,true)">
+                                mat-flat-button style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;">
                             <mat-icon>location_on</mat-icon>
                         </button>
 
@@ -292,11 +295,11 @@
             <!--            </mat-form-field>-->
 
             <div class="col-md-12 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full h-24" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full h-24">
                     <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="20"
-                           autocomplete="off"
-                           [readonly]='remarksFeild'/>
+                    <input [readonly]='remarksFeild' autocomplete="off" formControlName="Remarks" matInput
+                           maxlength="20"
+                           placeholder="Enter Remarks"/>
                 </mat-form-field>
             </div>
         </div>
@@ -305,26 +308,28 @@
     <div class="row">
         <div class="col-lg-12 text-right">
             <div class="float-right mr-4 mt-2 border-t py-2">
-                <button class="ml-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                        *ngIf="isSave && currentActivity.C" mat-raised-button (click)="save()">
+                <button (click)="save()"
+                        *ngIf="isSave && currentActivity.C" class="ml-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button>
                     <mat-icon class="mr-2">save</mat-icon>
                     Save
                 </button>
-                <button class="ml-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                        *ngIf="isSubmit && currentActivity.U" mat-raised-button color="primary" (click)="changeStatus('S')">
+                <button (click)="changeStatus('S')"
+                        *ngIf="isSubmit && currentActivity.U" class="ml-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary"
+                        mat-raised-button>
                     <mat-icon class="mr-2">check_circle</mat-icon>
                     Submit
                 </button>
-                <button class="ml-2" *ngIf="isReffer && currentActivity.U" mat-raised-button color="primary" (click)="changeStatus('R')">
+                <button (click)="changeStatus('R')" *ngIf="isReffer && currentActivity.U" class="ml-2" color="primary"
+                        mat-raised-button>
                     Reffer
                     Back
                 </button>
-                <button class="ml-2" *ngIf="isAuthorize && currentActivity.U" mat-raised-button color="primary"
-                        (click)="changeStatus('A')">
+                <button (click)="changeStatus('A')" *ngIf="isAuthorize && currentActivity.U" class="ml-2" color="primary"
+                        mat-raised-button>
                     Authorize
                 </button>
-                <button *ngIf="isDelete && currentActivity.D" class="ml-2 bg-danger" mat-raised-button color="primary"
-                        (click)="changeStatus('C')">
+                <button (click)="changeStatus('C')" *ngIf="isDelete && currentActivity.D" class="ml-2 bg-danger" color="primary"
+                        mat-raised-button>
                     <mat-icon class="mr-2 ">delete_forever</mat-icon>
                     Delete
                 </button>

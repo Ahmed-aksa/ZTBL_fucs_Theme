@@ -20,9 +20,6 @@ import {finalize} from 'rxjs/operators';
 import {AppState} from "../../../shared/reducers";
 import {Store} from "@ngrx/store";
 import {LoanUtilizationService} from "../service/loan-utilization.service";
-import {Circle} from 'app/shared/models/circle.model';
-import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -78,18 +75,14 @@ export class SearchLoanUtilizationComponent implements OnInit {
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
-    private _loanUtilizationSearch = new LoanUtilizationSearch;
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
     loanutilizationStatusLov;
     matTableLenght: any;
     dv: number | any; //use later
-
     maxDate: any;
-
     Math: any;
-
     Limit: any;
     OffSet: number = 0;
     //pagination
@@ -98,7 +91,13 @@ export class SearchLoanUtilizationComponent implements OnInit {
     pageIndex = 1;
     LoggedInUserInfo: BaseResponseModel;
     currentActivity: Activity
-
+    userInfo = this.userUtilsService.getUserDetails();
+    searchLoan;
+    minDate: Date;
+    fromdate: string;
+    todate: string;
+    Today = this._common.workingDate();
+    private _loanUtilizationSearch = new LoanUtilizationSearch;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -152,9 +151,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.circle = event.final_circle;
     }
 
-    userInfo = this.userUtilsService.getUserDetails();
-
-
     ngAfterViewInit() {
 
         this.dataSource.paginator = this.paginator;
@@ -170,12 +166,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
         //this.loanutilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
-    searchLoan;
-
     show() {
         this.searchLoan = Object.assign(this.loanutilizationSearch);
     }
-
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
@@ -198,7 +191,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     }
 
-
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
@@ -207,18 +199,13 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
-
     paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
     }
 
-
     hasError(controlName: string, errorName: string): boolean {
         return this.loanutilizationSearch.controls[controlName].hasError(errorName);
     }
-
-    minDate: Date;
-    fromdate: string;
 
     setFromDate() {
 
@@ -266,8 +253,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
         }
     }
 
-    todate: string;
-
     setToDate() {
 
 
@@ -306,8 +291,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
             }
         }
     }
-
-    Today = this._common.workingDate();
 
     getToday() {
         // Today

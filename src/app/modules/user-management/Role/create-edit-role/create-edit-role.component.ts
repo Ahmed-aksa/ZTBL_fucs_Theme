@@ -1,13 +1,10 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DateAdapter} from '@angular/material/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FuseAlertService} from '@fuse/components/alert';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {ProfileService} from 'app/shared/services/profile.service';
 import {each} from 'lodash';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {ToastrService} from 'ngx-toastr';
 import {Observable, Subscription} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Profile} from '../../activity/activity.model';

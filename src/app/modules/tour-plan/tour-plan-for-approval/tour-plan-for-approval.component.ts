@@ -16,13 +16,9 @@ import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {finalize, map} from "rxjs/operators";
+import {finalize} from "rxjs/operators";
 import {TourPlan} from '../Model/tour-plan.model';
-import moment from "moment";
-import {SignatureDailogDairyComponent} from "../../tour-dairy/signature-dailog-dairy/signature-dailog-dairy.component";
 import {SignaturePadForTourComponent} from "../signature-pad-for-tour/signature-pad-for-tour.component";
-import {data} from "autoprefixer";
-import {environment} from "../../../../environments/environment";
 import {ToastrService} from "ngx-toastr";
 import {HttpClient} from "@angular/common/http";
 
@@ -79,7 +75,8 @@ export class TourPlanForApprovalComponent implements OnInit {
     branch: any;
     circle: any;
     children: [any][any] = [];
-
+    //Start ZBC
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -111,9 +108,6 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.settingZBC();
 
     }
-
-    //Start ZBC
-    userInfo = this.userUtilsService.getUserDetails();
 
     settingZBC() {
 

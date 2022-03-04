@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -22,13 +22,13 @@
 
 
     <div class="collapse show" id="collapseExample">
-        <button *ngIf="showViewAllBtn" type="button" class="btn btn-primary" mat-raised-button color="primary"
-                (click)="loadAll()" style="margin-right: 20px;">View All
+        <button (click)="loadAll()" *ngIf="showViewAllBtn" class="btn btn-primary" color="primary" mat-raised-button
+                style="margin-right: 20px;" type="button">View All
         </button>
         <div class="card card-body">
             <div class="row">
-                <app-zone-branch-circle [form]="viewForm" [show_circle]="false" [show_branch]="true"
-                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="viewForm" [show_branch]="true"
+                                        [show_circle]="false"></app-zone-branch-circle>
             </div>
         </div>
     </div>
@@ -38,13 +38,13 @@
 
     <!-- Products list -->
     <div class="flex flex-auto" style="flex-direction: column;">
-        <agm-map style="width: 500px; overflow: scroll;"
-                 #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng" [mapTypeControlOptions]="controlOptions"
-                 [mapTypeControl]="true" (mapReady)="onMapReady($event)" [restriction]="countryRestriction"
+        <agm-map #gm
+                 (mapReady)="onMapReady($event)" [latitude]="lat" [longitude]="lng" [mapTypeControlOptions]="controlOptions" [mapTypeControl]="true"
+                 [restriction]="countryRestriction" [zoom]="zoom" style="width: 500px; overflow: scroll;"
                  style="height: 58vh !important;">
 
-            <agm-marker *ngFor="let m of fenceMarkers; let i = index"
-                        (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedMarker(i, infowindow)"
+            <agm-marker (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedMarker(i, infowindow)"
+                        *ngFor="let m of fenceMarkers; let i = index"
                         [latitude]="m.lat" [longitude]="m.lng" [title]="m.CircleCode">
 
                 <agm-info-window #infowindow>

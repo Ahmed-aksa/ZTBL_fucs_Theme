@@ -13,28 +13,24 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MakeReschedule} from 'app/shared/models/Loan.model';
 import {NgxSpinnerService} from "ngx-spinner";
 import {LovService} from "../../../shared/services/lov.service";
 import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {CircleService} from "../../../shared/services/circle.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {NewGlCodeComponent} from "./new-gl-code/new-gl-code.component";
 import {finalize} from "rxjs/operators";
-import {Branch} from 'app/shared/models/branch.model';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import {Circle} from 'app/shared/models/circle.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {ReschedulingService} from '../service/rescheduling.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {BufricationOfOsBalancesLcComponent} from "../../reports/bufrication-of-os-balances-lc/bufrication-of-os-balances-lc.component";
 import {UploadDocumentsComponent} from "./upload-documents/upload-documents.component";
 import {Activity} from "../../../shared/models/activity.model";
 

@@ -1,4 +1,4 @@
-export class TourDiaryMCO{
+export class TourDiaryMCO {
     DiaryId: string;
     TourPlanId: string;
     BranchId: string;
@@ -33,7 +33,7 @@ export class TourDiaryMCO{
     CreatedBy: string;
 }
 
-export class TourDiaryRC{
+export class TourDiaryRC {
 
     DiaryId: string;
     TourPlanId: string;
@@ -55,7 +55,7 @@ export class TourDiaryRC{
 
 }
 
-export class TourDiaryRO{
+export class TourDiaryRO {
 
     DiaryId: string;
     TourPlanId: string;
@@ -77,7 +77,7 @@ export class TourDiaryRO{
 
 }
 
-export class TourDiaryZM{
+export class TourDiaryZM {
 
     DiaryId: string;
     TourPlanId: string;
@@ -99,33 +99,33 @@ export class TourDiaryZM{
     CreatedBy: string;
 }
 
-export class TourDiaryZC{
+export class TourDiaryZC {
     Name: string;
     Ppno: string;
     Month: string;
-    Date:string;
-    DiaryId:string;
-    TourPlanId:string;
-    BranchId:string;
-    ZoneId:string;
-    CircleId:string;
-    TourDate:string;
-    DepartureFromPlace:string;
-    DepartureFromTime:string;
-    ArrivalAtPlace:string;
-    ArrivalAtTime:string;
-    Remarks:string;
+    Date: string;
+    DiaryId: string;
+    TourPlanId: string;
+    BranchId: string;
+    ZoneId: string;
+    CircleId: string;
+    TourDate: string;
+    DepartureFromPlace: string;
+    DepartureFromTime: string;
+    ArrivalAtPlace: string;
+    ArrivalAtTime: string;
+    Remarks: string;
     LoanCasesInRecoverySchedule: string;
-    GeneralAdmissionComplaints:string;
-    CashManagementCompliance:string;
-    AuditReports:string;
-    OutstandingParas:string;
-    Settlements:string;
-    Status:string;
-    CreatedBy:string;
+    GeneralAdmissionComplaints: string;
+    CashManagementCompliance: string;
+    AuditReports: string;
+    OutstandingParas: string;
+    Settlements: string;
+    Status: string;
+    CreatedBy: string;
 }
 
-export class TourDiaryPC{
+export class TourDiaryPC {
 
     DiaryId: string;
     TourPlanId: string;

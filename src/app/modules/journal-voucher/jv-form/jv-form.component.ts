@@ -10,10 +10,12 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {DatePipe} from "@angular/common";
-import {expand, finalize} from "rxjs/operators";
+import {finalize} from "rxjs/operators";
 import {
-    AccountDetailModel, DisbursementGLModel,
-    MasterCodes, RecoveryCustomer,
+    AccountDetailModel,
+    DisbursementGLModel,
+    MasterCodes,
+    RecoveryCustomer,
     RecoveryDataModel,
     RecoveryLoanTransaction,
     SubProposalGLModel
@@ -145,6 +147,8 @@ export class JvFormComponent implements OnInit, OnDestroy {
     jvm: any = [];
 
     newDynamic: any = {};
+    len;
+    isEmpty;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -266,7 +270,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
-
 
     async loadLOV() {
         this.heads = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Glhead});
@@ -476,7 +479,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
             });
     }
 
-
     changeMasterCode() {
 
         var masterCode = this.masterCodes.filter(x => x.LnTransactionMasterID == this.JvForm.controls.MasterTrCode.value)[0];
@@ -604,13 +606,13 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
         var myjournalVocherData: any = {};
         myjournalVocherData.AccountID = this.JvForm.controls.DepositAccID.value;
-        ;
+
         myjournalVocherData.AdviceNo = this.JvForm.controls.AdviceNo.value;
-        ;
+
         myjournalVocherData.Amount = this.JvForm.controls.Amount.value;
         myjournalVocherData.CaCode = this.journalVocherData.CaCode;
         myjournalVocherData.ContraBranchId = this.JvForm.controls.ContraBranchCode.value;
-        ;
+
         myjournalVocherData.ContraVoucherNo = this.journalVocherData.ContraVoucherNo;
         myjournalVocherData.DdPoType = this.JvForm.controls.GlHead.value;
         myjournalVocherData.DdPono = '';
@@ -628,11 +630,11 @@ export class JvFormComponent implements OnInit, OnDestroy {
         myjournalVocherData.Nature = this.JvForm.controls.GlHead.value;
         myjournalVocherData.Note = this.journalVocherData.Note;
         myjournalVocherData.OrgDeptID = this.JvForm.controls.OrgDeptID.value;
-        ;
+
         myjournalVocherData.Prefix = '';
         myjournalVocherData.RecordNo = this.journalVocherData.RecordNo;
         myjournalVocherData.RoCode = this.JvForm.controls.RoCode.value;
-        ;
+
         myjournalVocherData.Samlc = this.journalVocherData.Samlc;
         myjournalVocherData.TrCode = this.JvForm.controls.TrCode.value;
         myjournalVocherData.TrMasterIDJv = this.journalVocherData.TransactionMasterID;
@@ -791,7 +793,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
         });
         this.jvGl = tempArr
     }
-
 
     submitJv() {
 
@@ -994,9 +995,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
             });
     }
-
-    len;
-    isEmpty;
 
     changed(value) {
         this.len = value.target.value;

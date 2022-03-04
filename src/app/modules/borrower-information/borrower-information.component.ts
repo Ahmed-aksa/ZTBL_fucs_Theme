@@ -13,8 +13,6 @@ import {MatTableDataSource} from '@angular/material/table';
 import {BorrowerInformationService} from './service/borrower-information.service';
 import {CircleService} from '../../shared/services/circle.service';
 import {BaseResponseModel} from '../../shared/models/base_response.model';
-import {Branch} from '../../shared/models/branch.model';
-import {Zone} from '../../shared/models/zone.model';
 import {UserUtilsService} from '../../shared/services/users_utils.service';
 
 @Component({

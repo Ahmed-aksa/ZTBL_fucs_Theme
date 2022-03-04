@@ -1,7 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {
-    ChartComponent,
-} from "ng-apexcharts";
+import {ChartComponent,} from "ng-apexcharts";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -28,13 +26,13 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.year=(new Date()).getFullYear().toString();
+        this.year = (new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
     }
 
     assignRoleData(DashboardReport: any) {
-        
+
         if (!DashboardReport?.RecoveryAchievement) {
             return
         }

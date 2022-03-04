@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -23,27 +23,27 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="py-2" [formGroup]="getVillageBenchmarkForm">
+            <div [formGroup]="getVillageBenchmarkForm" class="py-2">
 
 
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="getVillageBenchmarkForm" [show_circle]="true"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="getVillageBenchmarkForm"
+                                            [show_circle]="true"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Village Name</mat-label>
-                                <input matInput placeholder="Enter Village Name" formControlName="VillageName"
-                                       maxlength="30" autocomplete="off"/>
+                                <input autocomplete="off" formControlName="VillageName" matInput
+                                       maxlength="30" placeholder="Enter Village Name"/>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <button mat-raised-button class="bg-gray-500 mat-primary mt-2"
-                                    type="button" (click)="search()">
+                            <button (click)="search()" class="bg-gray-500 mat-primary mt-2"
+                                    mat-raised-button type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -58,70 +58,70 @@
 
     <!-- Header -->
 
-    <div class="mat-table__wrapper overflow-y-scroll border shadow-xs rounded-sm bg-gray-50"
-         [style.height]="gridHeight">
+    <div [style.height]="gridHeight"
+         class="mat-table__wrapper overflow-y-scroll border shadow-xs rounded-sm bg-gray-50">
         <!--[style.height]="gridHeight"-->
         <mat-table
+            #sort1="matSort"
             #table
             [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
             matSort
-            #sort1="matSort"
             matSortActive="id"
             matSortDirection="asc"
             matSortDisableClear>
             CircleCode
 
             <ng-container matColumnDef="CircleCode">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>Circle Code.</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.CircleCode}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">Circle Code.</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.CircleCode}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="VillageName">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>Village Name</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.VillageName}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">Village Name</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.VillageName}}</mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="FarmSize">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>Farm Size</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.FarmSize}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">Farm Size</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.FarmSize}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="NoOfFarmer">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>No Of Farmers</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.NoOfFarmer}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">No Of Farmers</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.NoOfFarmer}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="MaleCount">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>Male Count</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.MaleCount}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">Male Count</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.MaleCount}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="FemaleCount">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>Female Count</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.FemaleCount}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">Female Count</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.FemaleCount}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="TransGenderCount">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>TransGender Count</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.TransGenderCount}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">TransGender Count</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.TransGenderCount}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="AverageLoanSize">
-                <mat-header-cell class="place-content-center" *matHeaderCellDef>Average Loan Size</mat-header-cell>
-                <mat-cell class="place-content-center"
-                          *matCellDef="let VillageBenchMark">{{VillageBenchMark.AverageLoanSize}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center">Average Loan Size</mat-header-cell>
+                <mat-cell *matCellDef="let VillageBenchMark"
+                          class="place-content-center">{{VillageBenchMark.AverageLoanSize}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="AgriBusinessPotential">
-                <mat-header-cell class="place-content-center text-center" *matHeaderCellDef>Agri Business Potential
+                <mat-header-cell *matHeaderCellDef class="place-content-center text-center">Agri Business Potential
                 </mat-header-cell>
                 <mat-cell *matCellDef="let VillageBenchMark" class="place-content-center"
                           style="width: 50px; text-align:center;">
@@ -134,25 +134,25 @@
             </ng-container>
 
             <ng-container matColumnDef="Delete">
-                <mat-header-cell class="place-content-center text" *matHeaderCellDef>Action</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="place-content-center text">Action</mat-header-cell>
                 <mat-cell *matCellDef="let VillageBenchMark">
                     <div style="flex-wrap: wrap; width:100; display: flex;">
-                        <button  mat-icon-button *ngIf="checkViewStatus(VillageBenchMark) && currentActivity.C"
-                        color="primary" (click)="viewVillageBenchMark(VillageBenchMark)">
-                             <mat-icon class="text-green" title="view benchmarking">visibility</mat-icon>
-                         </button>
-                        <button  mat-icon-button *ngIf="checkEditStatus(VillageBenchMark) && currentActivity.U"
-                        color="primary" (click)="editVillageBenchMark(VillageBenchMark)">
-                             <mat-icon title="edit benchmarking">edit</mat-icon>
+                        <button (click)="viewVillageBenchMark(VillageBenchMark)" *ngIf="checkViewStatus(VillageBenchMark) && currentActivity.C"
+                                color="primary" mat-icon-button>
+                            <mat-icon class="text-green" title="view benchmarking">visibility</mat-icon>
+                        </button>
+                        <button (click)="editVillageBenchMark(VillageBenchMark)" *ngIf="checkEditStatus(VillageBenchMark) && currentActivity.U"
+                                color="primary" mat-icon-button>
+                            <mat-icon title="edit benchmarking">edit</mat-icon>
                         </button>
 
-                        <button  mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark) && currentActivity.D"
-                                 (click)="deleteVillageBenchMark(VillageBenchMark)">
+                        <button (click)="deleteVillageBenchMark(VillageBenchMark)" *ngIf="checkDeleteStatus(VillageBenchMark) && currentActivity.D"
+                                mat-icon-button>
                             <mat-icon class=" text-red-500" title="delete benchmarking">delete</mat-icon>
                         </button>
 
-                        <button  mat-icon-button *ngIf="checkMap(VillageBenchMark)" color="primary"
-                                (click)="viewMap(VillageBenchMark)">
+                        <button (click)="viewMap(VillageBenchMark)" *ngIf="checkMap(VillageBenchMark)" color="primary"
+                                mat-icon-button>
                             <mat-icon title="view location of benchmarking">location_on</mat-icon>
                         </button>
                     </div>
@@ -176,9 +176,10 @@
 
     </div>
     <div *ngIf="matTableLenght" class=" pt-4 mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                <span class="font-bold text-green">Items per page:</span>
+        <span class="font-bold text-green">Items per page:</span>
 
-        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                    display="inline"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
@@ -187,10 +188,10 @@
             <mat-option [value]="100">100</mat-option>
         </mat-select>
         <button (click)="paginate(1)">First</button>
-        <pagination-controls display="inline" (pageChange)="paginate($event)"
+        <pagination-controls (pageChange)="paginate($event)" display="inline"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>

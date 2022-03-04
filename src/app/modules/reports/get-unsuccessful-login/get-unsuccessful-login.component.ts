@@ -1,8 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
-import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {Lov} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -15,12 +14,12 @@ import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
-  selector: 'app-get-unsuccessful-login',
-  templateUrl: './get-unsuccessful-login.component.html',
-  styleUrls: ['./get-unsuccessful-login.component.scss']
+    selector: 'app-get-unsuccessful-login',
+    templateUrl: './get-unsuccessful-login.component.html',
+    styleUrls: ['./get-unsuccessful-login.component.scss']
 })
 export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['PPNO', 'Zone','Branch', 'Employee', 'EmployeeGroup', 'EmployeeLocation', 'IP', 'Date'];
+    displayedColumns = ['PPNO', 'Zone', 'Branch', 'Employee', 'EmployeeGroup', 'EmployeeLocation', 'IP', 'Date'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
@@ -38,14 +37,12 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
     LoggedInUserInfo: BaseResponseModel;
 
     user: any = {}
-    private branch: any;
-    private zone: any;
-    private circle: any;
-
     statusLov: any;
     public LovCall = new Lov();
     currentActivity: Activity;
-
+    private branch: any;
+    private zone: any;
+    private circle: any;
 
     constructor(
         private fb: FormBuilder,

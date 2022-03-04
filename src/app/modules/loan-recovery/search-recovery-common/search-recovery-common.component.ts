@@ -1,13 +1,13 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-var */
-import {Router, ActivatedRoute} from '@angular/router';
-import {DatePipe, formatDate} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {finalize} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {OnInit, Component, ChangeDetectorRef, Input, ViewChild, ElementRef} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanReceiptComponent} from '../loan-receipt/loan-receipt.component';
 import {SignatureDialogComponent} from '../signature-dialog/signature-dialog.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -17,10 +17,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatDialog} from '@angular/material/dialog';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
-import {KtDialogService} from 'app/shared/services/kt-dialog.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
-import {CommonService} from 'app/shared/services/common.service';
 import {RecoveryService} from 'app/shared/services/recovery.service';
 import {
     AccountDetailModel,

@@ -1,13 +1,11 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, NavigationError, NavigationStart, Router, Event} from '@angular/router';
+import {NavigationStart, Router} from '@angular/router';
 import {environment} from 'environments/environment';
 import {EncryptDecryptService} from './shared/services/encrypt_decrypt.service';
 import * as Forge from 'node-forge';
-import * as NodeRSA from 'node-rsa';
 import {AuthGuard} from './core/auth/guards/auth.guard';
-import {Observable, of} from 'rxjs';
-import {take} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {CommonService} from "./shared/services/common.service";
 
 @Component({
@@ -25,7 +23,7 @@ export class AppComponent implements OnInit {
             var event1 = event;
             if (event instanceof NavigationStart) {
                 if (event1?.url) {
-                    if (!event1?.url.includes('auth') && !event1?.url.includes('sign-out') && !event1.url.includes('v_id')) {
+                    if (!event1?.url.includes('auth') && !event1?.url.includes('sign-out')) {
                         var user = localStorage.getItem("ZTBLUser")
                         if (user) {
                             var userdate = JSON.parse(user);
@@ -39,6 +37,11 @@ export class AppComponent implements OnInit {
                                     ismatch = true;
                                 }
                             });
+                            event1.url=event1.url.replace('%23', '#');
+                            debugger;
+                            if (event1.url.includes('query') || event1.url.includes('tour-diary')) {
+                                ismatch = true;
+                            }
                             if (!ismatch) {
                                 if (!event1?.url.includes('dashboard')) {
                                     this.router.navigate(["/dashboard"])
@@ -49,17 +52,6 @@ export class AppComponent implements OnInit {
                     }
                 }
             }
-
-            // if (event instanceof NavigationEnd) {
-            //     // Hide loading indicator
-            // }
-
-            // if (event instanceof NavigationError) {
-            //     // Hide loading indicator
-
-            //     // Present error to user
-            //     console.log(event.error);
-            // }
         });
     }
 
@@ -86,5 +78,6 @@ export class AppComponent implements OnInit {
         });
         return key
     }
+
 
 }

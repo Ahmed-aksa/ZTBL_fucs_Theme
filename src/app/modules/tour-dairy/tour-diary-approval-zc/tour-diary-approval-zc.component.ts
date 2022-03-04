@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
 import {MatDialog} from "@angular/material/dialog";
@@ -12,7 +12,7 @@ import {DateFormats} from "../../../shared/classes/lov.class";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import { TourDiary } from '../set-target/Models/tour-diary.model';
+import {TourDiary} from '../set-target/Models/tour-diary.model';
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {Activity} from "../../../shared/models/activity.model";
 
@@ -40,11 +40,11 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     zone: any;
     branch: any;
     circle: any;
-    Format24:boolean=true;
+    Format24: boolean = true;
     date: any;
     btnText = 'Save';
     TourDiaryList;
-    isUpdate:boolean=false;
+    isUpdate: boolean = false;
     data;
     systemGenerated: any;
     currentActivity: Activity;
@@ -82,7 +82,7 @@ export class TourDiaryApprovalZcComponent implements OnInit {
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
 
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'RC')
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary, 'RC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -91,7 +91,7 @@ export class TourDiaryApprovalZcComponent implements OnInit {
 
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -144,11 +144,10 @@ export class TourDiaryApprovalZcComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        signatureDialogRef.afterClosed().subscribe((res)=>{
-            if(res == true){
+        signatureDialogRef.afterClosed().subscribe((res) => {
+            if (res == true) {
                 this.router.navigate(['/tour-diary/tour-diary-approval']);
-            }
-            else{
+            } else {
                 return
             }
         })

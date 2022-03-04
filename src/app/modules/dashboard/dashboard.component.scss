@@ -1,38 +1,41 @@
-  .md-tab.md-disabled {
+.md-tab.md-disabled {
     display: none;
-  }
+}
 
-  .mat-tab-body-wrapper{
+.mat-tab-body-wrapper {
     height: 100% !important;
-  }
-  foreignObject{
-  .apexcharts-legend{
-    overflow: hidden;
-  }
 }
 
-.dash-ttab{
-  .mat-tab-label-active{
-    height: 31px !important;
-      width: 100%;
-  }
-  .mat-tab-label{
-    height: 31px !important;
-    width: 100%;
-    border:1px solid #01671B;
-  }
-  .mat-tab-label-container{
-    margin-bottom: 0.5rem !important;
-  }
+foreignObject {
+    .apexcharts-legend {
+        overflow: hidden;
+    }
 }
 
-.dash-tab{
+.dash-ttab {
+    .mat-tab-label-active {
+        height: 31px !important;
+        width: 100%;
+    }
 
-.mat-tab-labels{
-.mat-tab-label-active{
-  display: none;
+    .mat-tab-label {
+        height: 31px !important;
+        width: 100%;
+        border: 1px solid #01671B;
+    }
+
+    .mat-tab-label-container {
+        margin-bottom: 0.5rem !important;
+    }
 }
-}
+
+.dash-tab {
+
+    .mat-tab-labels {
+        .mat-tab-label-active {
+            display: none;
+        }
+    }
 
 }
 
@@ -44,15 +47,15 @@
 .apexcharts-legend,
 .apexcharts-canvas:hover,
 .apexcharts-canvas:focus {
-overflow-x: hidden;
-overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
-.apexcharts-align-center{
-  overflow-x: hidden;
-  overflow-y: hidden;
+.apexcharts-align-center {
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-.apexcharts-align-center:hover{
-  overflow: scroll;
+.apexcharts-align-center:hover {
+    overflow: scroll;
 }

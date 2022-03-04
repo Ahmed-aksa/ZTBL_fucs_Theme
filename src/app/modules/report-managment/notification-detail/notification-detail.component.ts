@@ -42,17 +42,6 @@ export class NotificationDetailsComponent implements OnInit {
     viewColor = "#ecbd00";
 
     ///////////////////
-
-
-    constructor(public dialogRef: MatDialogRef<NotificationDetailsComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any,
-                private _circleService: CircleService,
-                private layoutUtilsService: LayoutUtilsService,
-                private _userService: UserService,
-                private _cdf: ChangeDetectorRef
-    ) {
-    }
-
     countryRestriction = {
         latLngBounds: {
             north: 37.0841069,
@@ -63,6 +52,14 @@ export class NotificationDetailsComponent implements OnInit {
         strictBounds: true
     };
 
+    constructor(public dialogRef: MatDialogRef<NotificationDetailsComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: any,
+                private _circleService: CircleService,
+                private layoutUtilsService: LayoutUtilsService,
+                private _userService: UserService,
+                private _cdf: ChangeDetectorRef
+    ) {
+    }
 
     ngOnInit() {
         this.zoom = 0;

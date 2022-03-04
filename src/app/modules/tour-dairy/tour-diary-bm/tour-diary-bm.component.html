@@ -1,13 +1,13 @@
 <div
-    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent"
-    #container>
+    #container
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
             <div class="heading" style="display: flex;justify-content: space-between">TOUR DIARY & PROGRESS REPORT OF
                 BRANCH MANAGER
-                <button mat-flat-button color="primary" (click)="previousPage()" *ngIf="has_previous">Back To List
+                <button (click)="previousPage()" *ngIf="has_previous" color="primary" mat-flat-button>Back To List
                 </button>
             </div>
             <!--            <button (click)="assignValues()">DO it</button>-->
@@ -28,50 +28,50 @@
                         <div class="col-lg-12">
                             <div class="flex" style="flex-wrap: wrap;">
 
-                                <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
+                                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="gridForm"
                                                         [is_required_circle]="false" [should_filter]="false"
-                                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                                        [show_circle]="false"></app-zone-branch-circle>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">Name of Officer<strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput formControlName="NameOfOfficer" autocomplete="off"
+                                        <input autocomplete="off" formControlName="NameOfOfficer" matInput
                                                placeholder="Name of Officer"
                                                readonly="readonly"/>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input matInput formControlName="PPNO" autocomplete="off" readonly="readonly"
-                                               placeholder="PPNO"/>
+                                        <input autocomplete="off" formControlName="PPNO" matInput placeholder="PPNO"
+                                               readonly="readonly"/>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">Tour Date<strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
-                                               maxlength="8"
-                                               autocomplete="off" [max]="maxDate" (dateChange)="setDate()"
-                                               appNumberOnly placeholder="TourDate"/>
-                                        <mat-datepicker-toggle matSuffix [for]="picker2"
-                                                               [disabled]="!edit_mode && currentActivity.R"></mat-datepicker-toggle>
+                                        <input (dateChange)="setDate()" [matDatepicker]="picker2" [max]="maxDate" appNumberOnly
+                                               autocomplete="off"
+                                               formControlName="TourDate" matInput maxlength="8"
+                                               placeholder="TourDate" readonly/>
+                                        <mat-datepicker-toggle [disabled]="!edit_mode && currentActivity.R" [for]="picker2"
+                                                               matSuffix></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">Tour Plan<strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <mat-select formControlName="TourPlanId"
+                                        <mat-select (selectionChange)="getTourDiary($event)"
                                                     [disabled]="!edit_mode && currentActivity.R"
-                                                    (selectionChange)="getTourDiary($event)">
+                                                    formControlName="TourPlanId">
                                             <mat-option>
                                                 Select
                                             </mat-option>
@@ -91,25 +91,25 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Departure Place<strong
                                                 class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off"
+                                            <input autocomplete="off" formControlName="DepartureFromPlace" matInput
                                                    placeholder="Departure Place"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Departure Time<strong
                                                 class="matMandatory">*</strong></mat-label>
-                                            <input type="text" matInput [ngxTimepicker]="timepickerDeparture"
-                                                   [format]="DateFormat()" readonly
-                                                   [disabled]="!edit_mode && currentActivity.R"
-                                                   formControlName="DepartureFromTime" placeholder="Departure Time"/>
-                                            <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix
-                                                      (click)="openFromIcon(timepickerDeparture)">schedule
+                                            <input [disabled]="!edit_mode && currentActivity.R" [format]="DateFormat()" [ngxTimepicker]="timepickerDeparture"
+                                                   formControlName="DepartureFromTime" matInput
+                                                   placeholder="Departure Time"
+                                                   readonly type="text"/>
+                                            <mat-icon (click)="openFromIcon(timepickerDeparture)" *ngIf="edit_mode" class="cursor-pointer"
+                                                      matSuffix>schedule
                                             </mat-icon>
                                             <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
                                         </mat-form-field>
@@ -124,25 +124,25 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Arrival Place<strong class="matMandatory">*</strong>
                                             </mat-label>
-                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off"
+                                            <input autocomplete="off" formControlName="ArrivalAtPlace" matInput
                                                    placeholder="Arrival Place"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Arrival Time<strong
                                                 class="matMandatory">*</strong></mat-label>
-                                            <input type="text" matInput [ngxTimepicker]="timepickerArrival"
-                                                   [format]="DateFormat()" readonly
-                                                   [disabled]="!edit_mode && currentActivity.R"
-                                                   formControlName="ArrivalAtTime"/>
-                                            <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix
-                                                      (click)="openFromIcon(timepickerArrival)">schedule
+                                            <input [disabled]="!edit_mode && currentActivity.R" [format]="DateFormat()" [ngxTimepicker]="timepickerArrival"
+                                                   formControlName="ArrivalAtTime" matInput
+                                                   readonly
+                                                   type="text"/>
+                                            <mat-icon (click)="openFromIcon(timepickerArrival)" *ngIf="edit_mode" class="cursor-pointer"
+                                                      matSuffix>schedule
                                             </mat-icon>
                                             <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
                                         </mat-form-field>
@@ -158,23 +158,23 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">No. of New Borrowers Contacted</mat-label>
-                                            <input appNumberOnly matInput formControlName="DisbNoOfNewBorrowerContacted"
-                                                   placeholder="No. of New Borrowers Contacted"
-                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" appNumberOnly autocomplete="off"
+                                                   formControlName="DisbNoOfNewBorrowerContacted"
+                                                   matInput placeholder="No. of New Borrowers Contacted"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 240px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">No. Of Borrowers Of Roll-Over Cases
                                             </mat-label>
-                                            <input appNumberOnly matInput
+                                            <input [readonly]="!edit_mode && currentActivity.R" appNumberOnly
+                                                   autocomplete="off"
                                                    formControlName="DisbBorrowerRollOverCasesContacted"
-                                                   placeholder="No. Of Borrowers Of Roll-Over Cases"
-                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
+                                                   matInput placeholder="No. Of Borrowers Of Roll-Over Cases"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -188,21 +188,21 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">No. Of Defaulters Contacted</mat-label>
-                                            <input appNumberOnly matInput formControlName="RecNoOfDefaulterContacted"
-                                                   placeholder="No. Of Defaulters Contacted"
-                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" appNumberOnly autocomplete="off"
+                                                   formControlName="RecNoOfDefaulterContacted"
+                                                   matInput placeholder="No. Of Defaulters Contacted"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Amount Recovered With L.C. No.</mat-label>
-                                            <input appNumberOnly matInput formControlName="RecAmountRecoveredWithLCNo"
-                                                   placeholder="Amount Recovered With L.C. No."
-                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" appNumberOnly autocomplete="off"
+                                                   formControlName="RecAmountRecoveredWithLCNo"
+                                                   matInput placeholder="Amount Recovered With L.C. No."/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -213,12 +213,12 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">No. Of Utilizations Checked
                                             </mat-label>
-                                            <input appNumberOnly matInput formControlName="NoOfUtilizationChecked"
-                                                   placeholder="No. Of Utilizations Checked"
-                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" appNumberOnly autocomplete="off"
+                                                   formControlName="NoOfUtilizationChecked"
+                                                   matInput placeholder="No. Of Utilizations Checked"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -232,21 +232,21 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Progressive Farmers Contacted</mat-label>
-                                            <input appNumberOnly matInput formControlName="TOTFarmersContacted"
-                                                   placeholder="Progressive Farmers Contacted"
-                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" appNumberOnly autocomplete="off"
+                                                   formControlName="TOTFarmersContacted"
+                                                   matInput placeholder="Progressive Farmers Contacted"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">No. Of Farms Visited</mat-label>
-                                            <input appNumberOnly matInput formControlName="TOTNoOfFarmersVisisted"
-                                                   placeholder="No. Of Farms Visited"
-                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" appNumberOnly autocomplete="off"
+                                                   formControlName="TOTNoOfFarmersVisisted"
+                                                   matInput placeholder="No. Of Farms Visited"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -257,20 +257,20 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Any Other Work Done</mat-label>
-                                            <input matInput formControlName="AnyOtherWorkDone" autocomplete="off"
-                                                   placeholder="Any Other Work Done"
-                                                   [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" autocomplete="off" formControlName="AnyOtherWorkDone"
+                                                   matInput
+                                                   placeholder="Any Other Work Done"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input matInput formControlName="Remarks" autocomplete="off"
-                                                   placeholder="Remarks" [readonly]="!edit_mode && currentActivity.R"/>
+                                            <input [readonly]="!edit_mode && currentActivity.R" autocomplete="off" formControlName="Remarks"
+                                                   matInput placeholder="Remarks"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -281,27 +281,27 @@
 
                         <div class="row mt-2 mr-1">
                             <div class="col-lg-12 text-right">
-                                <button type="button" *ngIf="isUpdate==false && currentActivity.C && edit_mode"
-                                        class="mr-2 bg-green" mat-raised-button color="primary"
-                                        (click)="saveTourDiary()">
+                                <button (click)="saveTourDiary()" *ngIf="isUpdate==false && currentActivity.C && edit_mode"
+                                        class="mr-2 bg-green" color="primary" mat-raised-button
+                                        type="button">
                                     <mat-icon class="mr-2">save</mat-icon>
                                     Save
                                 </button>
-                                <button type="button" *ngIf="isUpdate==true && currentActivity.U && edit_mode"
-                                        class="mr-2 bg-green" mat-raised-button color="primary"
-                                        (click)="saveTourDiary()">
+                                <button (click)="saveTourDiary()" *ngIf="isUpdate==true && currentActivity.U && edit_mode"
+                                        class="mr-2 bg-green" color="primary" mat-raised-button
+                                        type="button">
                                     <mat-icon class="mr-2">save</mat-icon>
                                     Update
                                 </button>
-                                <button type="button" *ngIf="isUpdate==true && currentActivity.U && edit_mode"
-                                        mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
+                                <button (click)="changeStatus('','S')" *ngIf="isUpdate==true && currentActivity.U && edit_mode"
+                                        class="mr-2" color="primary" mat-raised-button type="button">
                                     <mat-icon class="mr-2">check_circle</mat-icon>
                                     Submit
                                 </button>
-                                <button type="button"
-                                        class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                        mat-raised-button color="danger" *ngIf="currentActivity.C && edit_mode"
-                                        (click)="onClearForm()">
+                                <button (click)="onClearForm()"
+                                        *ngIf="currentActivity.C && edit_mode"
+                                        class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="danger" mat-raised-button
+                                        type="button">
                                     <mat-icon class="mr-2"> clear_all</mat-icon>
                                     Clear
                                 </button>
@@ -312,21 +312,21 @@
                             <table class="table">
                                 <thead>
                                 <tr class="table-header-background text-center">
-                                    <th rowspan="2" class="border-r border-gray-400">Date</th>
-                                    <th rowspan="2" class="border-r border-gray-400">Tour Plan</th>
-                                    <th colspan="2" class="border-r border-gray-400">Departure from</th>
-                                    <th colspan="2" class="border-r border-gray-400">Arrival at</th>
-                                    <th colspan="2" class="border-r border-gray-400">Disbursements</th>
-                                    <th colspan="2" class="border-r border-gray-400">Recovery</th>
-                                    <th rowspan="2" class="border-r border-gray-400">No. of utilizations checked as per
+                                    <th class="border-r border-gray-400" rowspan="2">Date</th>
+                                    <th class="border-r border-gray-400" rowspan="2">Tour Plan</th>
+                                    <th class="border-r border-gray-400" colspan="2">Departure from</th>
+                                    <th class="border-r border-gray-400" colspan="2">Arrival at</th>
+                                    <th class="border-r border-gray-400" colspan="2">Disbursements</th>
+                                    <th class="border-r border-gray-400" colspan="2">Recovery</th>
+                                    <th class="border-r border-gray-400" rowspan="2">No. of utilizations checked as per
                                         quota
                                     </th>
-                                    <th colspan="2" class="border-r border-gray-400">
+                                    <th class="border-r border-gray-400" colspan="2">
                                         Transfer of Technology
                                     </th>
-                                    <th rowspan="2" class="border-r border-gray-400">Any other work done</th>
-                                    <th rowspan="2" class="border-r border-gray-400">Remarks</th>
-                                    <th rowspan="2" class="border-r border-gray-400">Actions</th>
+                                    <th class="border-r border-gray-400" rowspan="2">Any other work done</th>
+                                    <th class="border-r border-gray-400" rowspan="2">Remarks</th>
+                                    <th class="border-r border-gray-400" rowspan="2">Actions</th>
                                 </tr>
                                 <tr class="table-header-background text-center">
                                     <th class="border-r border-gray-400">Place</th>
@@ -345,113 +345,113 @@
                                 <tbody>
                                 <tr *ngFor="let single_list of TourDiaryList">
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list?.TourDate">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.TourDate" matInput readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list?.PlanPurposeName">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.PlanPurposeName" matInput readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.DepartureFromPlace">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.DepartureFromPlace" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.DepartureFromTime">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.DepartureFromTime" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list?.ArrivalAtPlace">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.ArrivalAtPlace" matInput readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list?.ArrivalAtTime">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.ArrivalAtTime" matInput readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.DisbNoOfNewBorrowerContacted">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.DisbNoOfNewBorrowerContacted" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.DisbBorrowerRollOverCasesContacted">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.DisbBorrowerRollOverCasesContacted" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.RecNoOfDefaulterContacted">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.RecNoOfDefaulterContacted" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.RecAmountRecoveredWithLCNo">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full">
+                                            <input [value]="single_list?.RecAmountRecoveredWithLCNo" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 13rem !important">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.NoOfUtilizationChecked">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full" style="width: 13rem !important">
+                                            <input [value]="single_list?.NoOfUtilizationChecked" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 13rem !important">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.TOTFarmersContacted">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full" style="width: 13rem !important">
+                                            <input [value]="single_list?.TOTFarmersContacted" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 13rem !important">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list?.TOTNoOfFarmersVisisted">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full" style="width: 13rem !important">
+                                            <input [value]="single_list?.TOTNoOfFarmersVisisted" matInput
+                                                   readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 13rem !important">
-                                            <input matInput readonly="readonly" [value]="single_list?.AnyOtherWorkDone">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full" style="width: 13rem !important">
+                                            <input [value]="single_list?.AnyOtherWorkDone" matInput readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 13rem !important">
-                                            <input matInput readonly="readonly" [value]="single_list?.Remarks">
+                                        <mat-form-field appearance="outline"
+                                                        class=" mat-form-field-fluid w-full" style="width: 13rem !important">
+                                            <input [value]="single_list?.Remarks" matInput readonly="readonly">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
                                         <button
-                                            *ngIf="checkStatus(single_list, 'edit') && currentActivity.U && edit_mode"
-                                            mat-icon-button (click)="editData(single_list); container.scrollTop = 0">
+                                            (click)="editData(single_list); container.scrollTop = 0"
+                                            *ngIf="checkStatus(single_list, 'edit') && currentActivity.U && edit_mode" mat-icon-button>
                                             <mat-icon>edit</mat-icon>
                                         </button>
                                         <button
-                                            *ngIf="checkStatus(single_list, 'delete') && currentActivity.D && edit_mode"
-                                            mat-icon-button (click)="deleteData(single_list)">
+                                            (click)="deleteData(single_list)"
+                                            *ngIf="checkStatus(single_list, 'delete') && currentActivity.D && edit_mode" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
                                         </button>
                                     </td>
@@ -468,7 +468,7 @@
                             <table class="table ">
                                 <thead>
                                 <tr class="table-header-background text-center">
-                                    <th colspan="6" class="border-r border-gray-400">
+                                    <th class="border-r border-gray-400" colspan="6">
                                         Disbursement
                                     </th>
                                 </tr>
@@ -506,24 +506,24 @@
                             <table class="table ">
                                 <thead>
                                 <tr class="table-header-background text-center">
-                                    <th colspan="15" class="border-r border-gray-400">RECOVERY</th>
+                                    <th class="border-r border-gray-400" colspan="15">RECOVERY</th>
                                 </tr>
                                 </thead>
                                 <thead>
                                 <tr class="table-header-background text-center">
                                     <!-- UTILIZATIONS -->
-                                    <th colspan="3" class="border-r border-gray-400">Amount in default up to the month
+                                    <th class="border-r border-gray-400" colspan="3">Amount in default up to the month
                                         under report (TARGET)
                                     </th>
-                                    <th colspan="3" class="border-r border-gray-400">Recovery during the month under
+                                    <th class="border-r border-gray-400" colspan="3">Recovery during the month under
                                         report
                                     </th>
-                                    <th colspan="3" class="border-r border-gray-400">Balance Recoverable</th>
-                                    <th colspan="3" class="border-r border-gray-400">Recovery during corresponding
+                                    <th class="border-r border-gray-400" colspan="3">Balance Recoverable</th>
+                                    <th class="border-r border-gray-400" colspan="3">Recovery during corresponding
                                         period
                                     </th>
-                                    <th rowspan="2" class="border-r border-gray-400">Increase/Deficit</th>
-                                    <th colspan="2" class="border-r border-gray-400">
+                                    <th class="border-r border-gray-400" rowspan="2">Increase/Deficit</th>
+                                    <th class="border-r border-gray-400" colspan="2">
                                         Reschedulement/Restructuring/Write-off/Remission cases of the branch visited
                                     </th>
                                 </tr>

@@ -7,6 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class PyramidChartComponent implements OnInit {
     @Input() item: any;
+
     // isData = true;
 
     constructor() {

@@ -11,15 +11,15 @@ import {TargetsTrackingComponent} from './targets-tracking/targets-tracking.comp
 import {TourPlanForApprovalComponent} from './tour-plan-for-approval/tour-plan-for-approval.component';
 import {SignaturePadForTourComponent} from './signature-pad-for-tour/signature-pad-for-tour.component';
 import {SignaturePadModule} from "angular2-signaturepad";
-import { TourApprovalTabComponent } from './tour-approval-tab/tour-approval-tab.component';
+import {TourApprovalTabComponent} from './tour-approval-tab/tour-approval-tab.component';
 import {ViewTourPlanComponent} from "./view-tour-plan/view-tour-plan.component";
 import {ViewTourTabComponent} from "./view-tour-tab/view-tour-tab.component";
 import {CreateTourPlanZCComponent} from "./create-tour-plan-zc/create-tour-plan-zc.component";
-import { CreateTourPlanZmComponent } from './create-tour-plan-zm/create-tour-plan-zm.component';
-import { CreateTourPlanPcComponent } from './create-tour-plan-pc/create-tour-plan-pc.component';
-import { CreateTourPlanRoComponent } from './create-tour-plan-ro/create-tour-plan-ro.component';
-import { CreateTourPlanRcComponent } from './create-tour-plan-rc/create-tour-plan-rc.component';
-import { CreateTourPlanBmComponent } from './create-tour-plan-bm/create-tour-plan-bm.component';
+import {CreateTourPlanZmComponent} from './create-tour-plan-zm/create-tour-plan-zm.component';
+import {CreateTourPlanPcComponent} from './create-tour-plan-pc/create-tour-plan-pc.component';
+import {CreateTourPlanRoComponent} from './create-tour-plan-ro/create-tour-plan-ro.component';
+import {CreateTourPlanRcComponent} from './create-tour-plan-rc/create-tour-plan-rc.component';
+import {CreateTourPlanBmComponent} from './create-tour-plan-bm/create-tour-plan-bm.component';
 import {SearchTourPlanTabComponent} from "./search-tour-plan-tab/search-tour-plan-tab.component";
 
 export let AppInjector: Injector;
@@ -32,7 +32,7 @@ const routing = [
     {
         path: "create-tour-plan-mco",
         component: CreateTourPlanMcoComponent,
-    },{
+    }, {
         path: "create-tour-plan-bm",
         component: CreateTourPlanBmComponent,
     },

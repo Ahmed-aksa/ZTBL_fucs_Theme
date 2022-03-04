@@ -19,8 +19,8 @@
 
                     <div *ngIf="images.length>0">
                         <div *ngFor="let url of images">
-                            <img style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;"
-                                 class="rounded-circle text-right" mat-card-md-image [src]="url">
+                            <img [src]="url"
+                                 class="rounded-circle text-right" mat-card-md-image style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;">
                         </div>
                     </div>
 
@@ -28,17 +28,17 @@
                     <div class="form-group kt-form__group row">
 
                         <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                 <mat-label class="customMatLabel">Name</mat-label>
-                                <input matInput placeholder="Enter Name" formControlName="Name" autocomplete="off"
+                                <input autocomplete="off" formControlName="Name" matInput placeholder="Enter Name"
                                        readonly/>
                             </mat-form-field>
                         </div>
 
                         <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                 <mat-label class="customMatLabel">Type</mat-label>
-                                <input matInput placeholder="Enter Type" formControlName="TypeName" autocomplete="off"
+                                <input autocomplete="off" formControlName="TypeName" matInput placeholder="Enter Type"
                                        readonly/>
                             </mat-form-field>
                         </div>
@@ -48,18 +48,18 @@
                     <div class="form-group kt-form__group row">
 
                         <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                 <mat-label class="customMatLabel">Phone Number</mat-label>
-                                <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="PhoneNumber"
-                                       appNumberOnly autocomplete="off" readonly/>
+                                <input appNumberOnly autocomplete="off" formControlName="PhoneNumber"
+                                       matInput placeholder="Enter Vendor's Phone Number'" readonly/>
                             </mat-form-field>
                         </div>
 
                         <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                 <mat-label class="customMatLabel">Business Description</mat-label>
-                                <input matInput placeholder="Enter Business Description" formControlName="Description"
-                                       autocomplete="off" readonly/>
+                                <input autocomplete="off" formControlName="Description" matInput
+                                       placeholder="Enter Business Description" readonly/>
                             </mat-form-field>
                         </div>
 
@@ -67,10 +67,10 @@
 
                     <div class="form-group kt-form__group row">
                         <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                 <mat-label class="customMatLabel">Address</mat-label>
-                                <input matInput placeholder="Enter Vendor Address" formControlName="Address"
-                                       autocomplete="off" readonly/>
+                                <input autocomplete="off" formControlName="Address" matInput
+                                       placeholder="Enter Vendor Address" readonly/>
                             </mat-form-field>
                         </div>
 
@@ -86,7 +86,7 @@
 
     <div class="form-group kt-form__group row">
         <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex justify-content-center">
-            <button mat-raised-button class="org-button button-red " (click)="close(0)">Close</button>
+            <button (click)="close(0)" class="org-button button-red " mat-raised-button>Close</button>
         </div>
     </div>
 

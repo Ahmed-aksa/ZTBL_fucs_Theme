@@ -1,6 +1,6 @@
 <div>
     <div class="heading">Images
-        <button mat-icon-button (click)="dialogRef.close()" color="warn" style="float: right">
+        <button (click)="dialogRef.close()" color="warn" mat-icon-button style="float: right">
             <mat-icon>cancel</mat-icon>
         </button>
     </div>
@@ -8,28 +8,28 @@
     <!--    </ng-image-slider>-->
 
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators"
-                    *ngFor="let single_image of images;let i=index" data-bs-slide-to="{{i}}" class="active"
-                    aria-current="true"></button>
+            <button *ngFor="let single_image of images;let i=index" aria-current="true"
+                    class="active" data-bs-slide-to="{{i}}" data-bs-target="#carouselExampleIndicators"
+                    type="button"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item" *ngFor="let single_image of images; let i=index" [class]="i==0?'active':''">
-                <img [src]="single_image.image" class="d-block w-100" style="height: 83vh;" [alt]="single_image"
+            <div *ngFor="let single_image of images; let i=index" [class]="i==0?'active':''" class="carousel-item">
+                <img [alt]="single_image" [src]="single_image.image" class="d-block w-100" style="height: 83vh;"
                 >
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleIndicators"
                 style="background: black"
-                data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                type="button">
+            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleIndicators"
                 style="background: black"
-                data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                type="button">
+            <span aria-hidden="true" class="carousel-control-next-icon"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>

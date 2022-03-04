@@ -11,7 +11,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
@@ -30,7 +29,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./fa-view-circle-wise.component.scss']
 })
 export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Name', 'FatherName', 'Cnic','Caste', 'Address', 'Lcno','GL','PD','CD','Ndd', 'Los', 'OtherCharges'];
+    displayedColumns = ['Zone', 'Branch', 'Circle', 'Name', 'FatherName', 'Cnic', 'Caste', 'Address', 'Lcno', 'GL', 'PD', 'CD', 'Ndd', 'Los', 'OtherCharges'];
     searchCnicForm: FormGroup;
     loaded = true;
 
@@ -48,13 +47,11 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
     dataSource: MatTableDataSource<searchLoanCasesByCnic>;
 
     LoggedInUserInfo: BaseResponseModel;
+    statusLov: any;
+    public LovCall = new Lov();
     private branch: any;
     private zone: any;
     private circle: any;
-
-    statusLov: any;
-    public LovCall = new Lov();
-
 
     constructor(
         private fb: FormBuilder,

@@ -3,16 +3,16 @@
         <div class="kt-portlet__body">
 
             <div class="form-group kt-form__group flex " style="flex-wrap: wrap;">
-                <app-zone-branch-circle [form]="applicationHeaderForm" [show_circle]="false"
+                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="applicationHeaderForm"
                                         [should_filter]="false"
-                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                        [show_circle]="false"></app-zone-branch-circle>
                 <div class="col-lg-4 col-sm-12  kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Application Date <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="AppDate"
-                               [max]="today" autocomplete="off">
-                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <input [matDatepicker]="picker3" [max]="today" autocomplete="off" formControlName="AppDate"
+                               matInput readonly="readonly">
+                        <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
                         <mat-datepicker #picker3></mat-datepicker>
                         <mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong>
                         </mat-error>
@@ -21,14 +21,14 @@
 
 
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Loan Type <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select formControlName="DevProdFlag" (selectionChange)="onChangeLoanType($event)">
+                        <mat-select (selectionChange)="onChangeLoanType($event)" formControlName="DevProdFlag">
                             <mat-option>
-                                <ngx-mat-select-search placeholderLabel="Search Loan Type..."
-                                                       (focusout)="validateLoanTypeOnFocusOut()"
+                                <ngx-mat-select-search (focusout)="validateLoanTypeOnFocusOut()"
+                                                       (keyup)="searchLoanType($event.target.value)"
                                                        noEntriesFoundLabel="No Loan Type Found"
-                                                       (keyup)="searchLoanType($event.target.value)">
+                                                       placeholderLabel="Search Loan Type...">
                                 </ngx-mat-select-search>
                             </mat-option>
                             <mat-option *ngFor="let loanType of SelectedLoanType" [value]="loanType.Value">
@@ -40,29 +40,31 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Development Loan Amount <strong
                             class="matMandatory">*</strong></mat-label>
-                        <input matInput maxlength="9" placeholder="Enter Development Loan Amount" formControlName="DevAmount"
-                               appNumberOnly/>
+                        <input appNumberOnly formControlName="DevAmount" matInput
+                               maxlength="9"
+                               placeholder="Enter Development Loan Amount"/>
                         <mat-error *ngIf="hasError('DevAmount', 'required')">Development Loan Amount
                             <strong>required</strong></mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Production Loan Amount <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input matInput maxlength="9" placeholder="Enter Production Loan Amount" formControlName="ProdAmount"
-                               appNumberOnly/>
+                        <input appNumberOnly formControlName="ProdAmount" matInput
+                               maxlength="9"
+                               placeholder="Enter Production Loan Amount"/>
                         <mat-error *ngIf="hasError('ProdAmount', 'required')">Production Loan Amount
                             <strong>required</strong></mat-error>
                     </mat-form-field>
                 </div>
 
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <input matInput placeholder="Enter Lc Old No" formControlName="LoanCaseNo" autocomplete="off"
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                        <input autocomplete="off" formControlName="LoanCaseNo" matInput placeholder="Enter Lc Old No"
                                readonly/>
                     </mat-form-field>
 
@@ -70,22 +72,23 @@
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
 
 
-                    <button *ngIf="currentActivity.C" [disabled]="checkDisable()" type="button" class="mt-2 btn btn-primary w-full"
-                            mat-raised-button color="primary" (click)="getLcNoAutoAssignedByApi()">
+                    <button (click)="getLcNoAutoAssignedByApi()" *ngIf="currentActivity.C" [disabled]="checkDisable()"
+                            class="mt-2 btn btn-primary w-full"
+                            color="primary" mat-raised-button type="button">
                         Check LC #
                     </button>
                 </div>
 
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Loan Category <strong class="matMandatory">*</strong>
                         </mat-label>
                         <mat-select formControlName="CategoryID">
                             <mat-option>
-                                <ngx-mat-select-search placeholderLabel="Search Loan Category..."
-                                                       (focusout)="validateLoanCategoryOnFocusOut()"
+                                <ngx-mat-select-search (focusout)="validateLoanCategoryOnFocusOut()"
+                                                       (keyup)="searchLoanCategory($event.target.value)"
                                                        noEntriesFoundLabel="No Loan Category Found"
-                                                       (keyup)="searchLoanCategory($event.target.value)">
+                                                       placeholderLabel="Search Loan Category...">
                                 </ngx-mat-select-search>
                             </mat-option>
                             <mat-option *ngFor="let loanCategory of SelectedLoanCategory" [value]="loanCategory.Id">
@@ -97,11 +100,12 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">LA File/booklet No <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input appNumberOnly matInput maxlength="12" placeholder="Enter Booklet No" formControlName="AppNumberManual"
-                               autocomplete="off"/>
+                        <input appNumberOnly autocomplete="off" formControlName="AppNumberManual" matInput
+                               maxlength="12"
+                               placeholder="Enter Booklet No"/>
                         <mat-error *ngIf="hasError('AppNumberManual', 'required')">LA File/booklet No
                             <strong>required</strong></mat-error>
                     </mat-form-field>
@@ -115,11 +119,11 @@
                 <!--          </mat-form-field>-->
                 <!--        </div>-->
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Deposit Acc# <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input matInput placeholder="Enter Deposit Account" formControlName="RefDepositAcc"
-                               maxlength="14" autocomplete="off"/>
+                        <input autocomplete="off" formControlName="RefDepositAcc" matInput
+                               maxlength="14" placeholder="Enter Deposit Account"/>
                         <mat-error *ngIf="hasError('RefDepositAcc', 'required')">Deposit Account
                             <strong>required</strong></mat-error>
                         <mat-error *ngIf="hasError('RefDepositAcc', 'minLength')">Deposit Account minimum length
@@ -127,9 +131,10 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4  col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Reference Number(PITB)</mat-label>
-                        <input appNumberOnly matInput maxlength="20" placeholder="Enter Reference Number(PITB)" formControlName="ApplicantionTitle"/>
+                        <input appNumberOnly formControlName="ApplicantionTitle" matInput maxlength="20"
+                               placeholder="Enter Reference Number(PITB)"/>
                         <!--  <mat-error *ngIf="hasError('Zone', 'required')">Zone <strong>required</strong></mat-error>-->
                     </mat-form-field>
                 </div>
@@ -141,14 +146,15 @@
 </form>
 <div class="form-group kt-form__group row pt-2 ml-0.5">
     <div class="col-lg-12 pl-1">
-        <button style="background-color: #01671B;" [disabled]="isSaveApplicationHeaderInProgress" type="button"
-                class="btn btn-primary" mat-raised-button color="primary" *ngIf="currentActivity.C" (click)="onSaveApplicationHeader()">
+        <button (click)="onSaveApplicationHeader()" *ngIf="currentActivity.C" [disabled]="isSaveApplicationHeaderInProgress"
+                class="btn btn-primary" color="primary" mat-raised-button style="background-color: #01671B;"
+                type="button">
             <mat-icon class="mr-2">save</mat-icon>
             Save
         </button>
-        <button type="button"
-                class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                mat-raised-button color="danger" *ngIf="currentActivity.C" (click)="onClearSavApplicationHeader()">
+        <button (click)="onClearSavApplicationHeader()"
+                *ngIf="currentActivity.C"
+                class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="danger" mat-raised-button type="button">
             <mat-icon class="mr-2"> clear_all</mat-icon>
             Clear
         </button>

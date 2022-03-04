@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {DateFormats} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -10,7 +10,6 @@ import {finalize} from 'rxjs/operators';
 import {Bufrication} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
 import {ToastrService} from "ngx-toastr";
-import {MatDialogRef} from '@angular/material/dialog';
 import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -56,12 +55,10 @@ export class LoanInformationDetailComponent implements OnInit {
     }
 
 
-
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
     }
-
 
 
     createForm() {
@@ -87,7 +84,7 @@ export class LoanInformationDetailComponent implements OnInit {
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "25";
 
-        if(this.branch.WorkingDate == undefined){
+        if (this.branch.WorkingDate == undefined) {
             this.branch.WorkingDate = this.reports.WorkingDate;
         }
 
@@ -112,11 +109,11 @@ export class LoanInformationDetailComponent implements OnInit {
             })
     }
 
-    download(report){
+    download(report) {
         this.spinner.show();
-        this.reports.LoanInformation= report;
+        this.reports.LoanInformation = report;
         //this.reports.ReportFormatType = '2';
-        this._reports.CustomDownloads(report, 'LoanInfoDetail',this.zone, this.branch)
+        this._reports.CustomDownloads(report, 'LoanInfoDetail', this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

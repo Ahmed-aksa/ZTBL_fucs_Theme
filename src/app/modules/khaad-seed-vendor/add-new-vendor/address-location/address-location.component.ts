@@ -14,7 +14,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {MapsAPILoader} from '@agm/core';
 import {Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 
 @Component({
@@ -50,6 +50,16 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
 
     @ViewChild('search')
     public searchElementRef: ElementRef;
+    //Pakistan Geolocation
+    countryRestriction = {
+        latLngBounds: {
+            north: 37.084107,
+            east: 77.823171,
+            south: 23.6345,
+            west: 60.872972
+        },
+        strictBounds: true
+    };
 
     constructor(
         public dialogRef: MatDialogRef<AddressLocationComponent>,
@@ -102,6 +112,14 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
         }
     }
 
+    // click($event: google.maps.IconMouseEvent){
+    //
+    //
+    //   //this.googleMap.setMap(null)
+    //   this.PreviousLocation = []
+    //   //this.addmarker(event.coords.lat, event.coords.lng)
+
+    // }
 
     ///////////////////Os Change Set Map
     onMapReady(map: google.maps.Map) {
@@ -118,26 +136,6 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
             });
         });
     }
-
-    // click($event: google.maps.IconMouseEvent){
-    //
-    //
-    //   //this.googleMap.setMap(null)
-    //   this.PreviousLocation = []
-    //   //this.addmarker(event.coords.lat, event.coords.lng)
-
-    // }
-
-    //Pakistan Geolocation
-    countryRestriction = {
-        latLngBounds: {
-            north: 37.084107,
-            east: 77.823171,
-            south: 23.6345,
-            west: 60.872972
-        },
-        strictBounds: true
-    };
 
     close(result: any): void {
         this.dialogRef.close(result);

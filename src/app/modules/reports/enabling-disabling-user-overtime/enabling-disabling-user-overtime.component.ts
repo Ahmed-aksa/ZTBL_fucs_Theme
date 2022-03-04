@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
@@ -61,6 +61,7 @@ export class EnablingDisablingUserOvertimeComponent implements OnInit {
     SelectedCircles: any = [];
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -74,8 +75,6 @@ export class EnablingDisablingUserOvertimeComponent implements OnInit {
         private _reports: ReportsService,
     ) {
     }
-
-    public LovCall = new Lov();
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -137,7 +136,6 @@ export class EnablingDisablingUserOvertimeComponent implements OnInit {
     }
 
 
-
     createForm() {
         this.bufricationForm = this.fb.group({
             WorkingDate: [null, Validators.required],
@@ -145,7 +143,7 @@ export class EnablingDisablingUserOvertimeComponent implements OnInit {
         })
     }
 
-    controlReset(){
+    controlReset() {
     }
 
     find() {

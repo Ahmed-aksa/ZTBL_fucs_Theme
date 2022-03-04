@@ -9,12 +9,13 @@
             </div>
             <div class="col-lg-3 col-sm-12 self-center">
                 <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
-                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
-                    Advance Filter
-                </button>
+                    <button aria-controls="collapseExample"
+                            aria-expanded="false"
+                            class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            color="primary" onclick="toggleCollapse()" type="button">
+                        <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
+                        Advance Filter
+                    </button>
                 </p>
             </div>
         </div>
@@ -23,24 +24,24 @@
         <div class="collapse show" id="collapseExample">
             <div class="card card-body">
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="customerForm" [show_circle]="false" [should_filter]="false"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="customerForm" [should_filter]="false"
+                                            [show_circle]="false"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">CNIC#</mat-label>
-                                <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic"
-                                       formControlName="Cnic" maxlength="13" autocomplete="off"/>
+                                <input (keyup)="changed($event)" appNumberOnly autocomplete="off" formControlName="Cnic"
+                                       matInput maxlength="13" placeholder="Enter Cnic"/>
 
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <input *ngIf="currentActivity.C" type="button" mat-raised-button color="primary"
-                                   class=" mat-raised-button mat-button-base mat-primary searchLCBtn mt-2 bg-gray-500"
-                                   value="Find" (click)="find()"
-                                   [disabled]="viewOnly"/>
+                            <input (click)="find()" *ngIf="currentActivity.C" [disabled]="viewOnly" class=" mat-raised-button mat-button-base mat-primary searchLCBtn mt-2 bg-gray-500"
+                                   color="primary"
+                                   mat-raised-button type="button"
+                                   value="Find"/>
 
                         </div>
                     </div>
@@ -81,13 +82,13 @@
                 </div>
 
                 <div class="form-group kt-form__group row">
-                    <div class="col-lg-12 kt-margin-bottom-20-mobile mb-3 py-2" *ngIf="!viewOnly && currentActivity.C">
+                    <div *ngIf="!viewOnly && currentActivity.C" class="col-lg-12 kt-margin-bottom-20-mobile mb-3 py-2">
                         <span class="customMatLabel">Attach Scaned Death Certificate:</span>
-                        <input formControlName="file" type="file" accept="image/jpg, image/jpeg"
-                               (change)="onFileChange($event)"/>
-                        <input type="button" mat-raised-button color="primary"
-                               class=" mat-raised-button ml-2 mat-button-base mat-primary searchLCBtn" *ngIf="!visible"
-                               value="Preview" (click)="previewImg()"/>
+                        <input (change)="onFileChange($event)" accept="image/jpg, image/jpeg" formControlName="file"
+                               type="file"/>
+                        <input (click)="previewImg()" *ngIf="!visible" class=" mat-raised-button ml-2 mat-button-base mat-primary searchLCBtn"
+                               color="primary" mat-raised-button
+                               type="button" value="Preview"/>
                         <!-- <button class="ml-2" mat-raised-button color="primary" *ngIf="!visible" (click)="previewImg()">Preview</button> -->
                     </div>
                 </div>
@@ -115,62 +116,63 @@
                             <!-- <tr *ngFor="let cus of DeceasedCustomerInf"> -->
                             <tr>
                                 <td>
-                                    <input  style=" width: 170px; word-break: break-all;" matInput formControlName="Cn"
-                                           placeholder=""
-                                           maxlength="13" autocomplete="off" readonly/>
+                                    <input autocomplete="off" formControlName="Cn" matInput
+                                           maxlength="13"
+                                           placeholder="" readonly style=" width: 170px; word-break: break-all;"/>
                                 </td>
                                 <td>
-                                    <input  style="width: 170px; word-break: break-all;" matInput
-                                           formControlName="CustomerName"
-                                           placeholder="" maxlength="30" autocomplete="off" readonly/>
+                                    <input autocomplete="off" formControlName="CustomerName"
+                                           matInput
+                                           maxlength="30" placeholder="" readonly style="width: 170px; word-break: break-all;"/>
                                 </td>
                                 <td>
-                                    <input  style="width:200px;  word-break: break-all;" matInput
-                                           formControlName="FatherName"
-                                           placeholder="" maxlength="30" autocomplete="off" readonly/>
+                                    <input autocomplete="off" formControlName="FatherName"
+                                           matInput
+                                           maxlength="30" placeholder="" readonly style="width:200px;  word-break: break-all;"/>
                                 </td>
                                 <td>
                                     <!-- <input type="date" matInput formControlName="DateofDeath"  placeholder="ddMMyyyy" maxlength="13" autocomplete="off"/> -->
 
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                         <mat-label class="customMatLabel">Date of Death <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input readonly matInput [matDatepicker]="picker" placeholder="ddMMyyyy"
-                                               formControlName="DateofDeath" autocomplete="off" [max]="getToday()"
-                                               [disabled]="viewOnly">
+                                        <input [disabled]="viewOnly" [matDatepicker]="picker" [max]="getToday()" autocomplete="off"
+                                               formControlName="DateofDeath" matInput placeholder="ddMMyyyy"
+                                               readonly>
 
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                         <mat-error *ngIf="hasError('DateofDeath', 'required')">Date of Death <strong>required</strong>
                                         </mat-error>
                                     </mat-form-field>
                                 </td>
                                 <td>
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                         <mat-label class="customMatLabel">Nadra No <strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input appNumberOnly [readonly]="viewOnly" matInput formControlName="NadraNo" placeholder=""
+                                        <input [readonly]="viewOnly" appNumberOnly autocomplete="off" formControlName="NadraNo"
+                                               matInput
                                                maxlength="13"
-                                               autocomplete="off"/>
+                                               placeholder=""/>
                                         <mat-error *ngIf="hasError('NadraNo', 'required')">Nadra Number
                                             <strong>required</strong></mat-error>
                                     </mat-form-field>
                                 </td>
                                 <td>
                                     <!-- certificate verified -->
-                                    <mat-checkbox [checked]="myModel"
-                                                  (click)="onChang(myModel)" [disabled]="viewOnly"></mat-checkbox>
+                                    <mat-checkbox (click)="onChang(myModel)"
+                                                  [checked]="myModel" [disabled]="viewOnly"></mat-checkbox>
                                 </td>
                                 <td>
                                     <!-- <mat-form-field class="mt-4"> -->
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                         <mat-label class="customMatLabel">Legal Heir<strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
                                         <mat-select #sel (selectionChange)="OnChangeDisable(sel.value)"
-                                                    formControlName="LegalHeirPay"
-                                                    placeholder="--Select--" [disabled]="viewOnly">
+                                                    [disabled]="viewOnly"
+                                                    formControlName="LegalHeirPay" placeholder="--Select--">
                                             <mat-option>--Select--</mat-option>
                                             <mat-option *ngFor="let slct of select" [value]="slct.value">
                                                 {{slct.viewValue}}
@@ -182,35 +184,35 @@
 
                                 </td>
                                 <td>
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                        <input matInput [disabled]='visible' formControlName="DetailSourceIncome"
-                                               placeholder="" maxlength="200" autocomplete="off"/>
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                        <input [disabled]='visible' autocomplete="off" formControlName="DetailSourceIncome"
+                                               matInput maxlength="200" placeholder=""/>
                                         <mat-error *ngIf="hasError('DetailSourceIncome', 'required')">Please Add Details
                                         </mat-error>
                                     </mat-form-field>
                                 </td>
                                 <td>
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                         <mat-label class="customMatLabel">Maker Remarks <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input [readonly]="viewOnly" matInput formControlName="MakerRemarks"
-                                               placeholder="" maxlength="13"
-                                               autocomplete="off"/>
+                                        <input [readonly]="viewOnly" autocomplete="off" formControlName="MakerRemarks"
+                                               matInput maxlength="13"
+                                               placeholder=""/>
                                         <mat-error *ngIf="hasError('MakerRemarks', 'required')">Maker Remarks <strong>required</strong>
                                         </mat-error>
                                     </mat-form-field>
                                 </td>
                                 <td>
-                                    <input type="button" mat-raised-button color="primary" *ngIf="currentActivity.C"
-                                           class="bg-green mat-raised-button mat-button-base mat-primary searchLCBtn"
-                                           value="Mark as Deceased" (click)="MarkAsDeceasedCustomer()"
-                                           [disabled]="viewOnly"/>
+                                    <input (click)="MarkAsDeceasedCustomer()" *ngIf="currentActivity.C" [disabled]="viewOnly" class="bg-green mat-raised-button mat-button-base mat-primary searchLCBtn"
+                                           color="primary"
+                                           mat-raised-button type="button"
+                                           value="Mark as Deceased"/>
                                     <!-- <a class=".text-danger" (click)="MarkAsDeceasedCustomer()">Mark as Deceased</a> -->
                                 </td>
                             </tr>
                             </tbody>
-                            <input hidden matInput formControlName="DeceasedID" placeholder="" maxlength="13"
-                                   autocomplete="off"/>
+                            <input autocomplete="off" formControlName="DeceasedID" hidden matInput maxlength="13"
+                                   placeholder=""/>
                         </table>
                     </div>
                 </div>
@@ -224,13 +226,13 @@
                 <div class="mat-table__wrapper">
                     <!--[style.height]="gridHeight"-->
                     <mat-table
-                               #table
-                               [dataSource]="dataSource"
-                               matSort
-                               #sort1="matSort"
-                               matSortActive="id"
-                               matSortDirection="asc"
-                               matSortDisableClear>
+                        #sort1="matSort"
+                        #table
+                        [dataSource]="dataSource"
+                        matSort
+                        matSortActive="id"
+                        matSortDirection="asc"
+                        matSortDisableClear>
                         <ng-container matColumnDef="lcno">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Loan Case #</mat-header-cell>
                             <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.LoanCaseNo}}</mat-cell>
@@ -311,10 +313,10 @@
 
                 <div class="form-group kt-form__group row pb-2">
                     <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field *ngIf="visible && !DeceasedCustomerAttachedFile" class="mat-form-field-fluid"
-                                        appearance="outline">
+                        <mat-form-field *ngIf="visible && !DeceasedCustomerAttachedFile" appearance="outline"
+                                        class="mat-form-field-fluid">
                             <mat-label class="customMatLabel"><em>No Response is made so far.</em></mat-label>
-                            <input matInput placeholder="No Response is made so far." maxlength="13" autocomplete="off"
+                            <input autocomplete="off" matInput maxlength="13" placeholder="No Response is made so far."
                                    readonly="readonly"/>
                         </mat-form-field>
                         <!-- <app-image-viewer [imageURL]="imageUrl" [open]="viewerOpen" (close)="viewerOpen = false"></app-image-viewer> -->
@@ -341,7 +343,9 @@
 
 
                                 <td style="cursor: pointer;">
-                                    <mat-icon *ngIf="currentActivity.R" class="text-green" (click)="viewDocument(img.ID)">remove_red_eye</mat-icon>
+                                    <mat-icon (click)="viewDocument(img.ID)" *ngIf="currentActivity.R"
+                                              class="text-green">remove_red_eye
+                                    </mat-icon>
 
                                 </td>
 

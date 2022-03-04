@@ -68,11 +68,10 @@ export class NdcRequestsService {
             'ZoneName': 'SAHIWAL'
         }
     };
+    userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
-
-    userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     getRequests(user, limit, offset, final_zone, final_branch) {
         var circleIds = [];
@@ -166,7 +165,7 @@ export class NdcRequestsService {
             Zone: this.userInfo.Zone
         };
         // var r = JSON.stringify(request)
-        // 
+        //
         //
         //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
         //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -219,7 +218,7 @@ export class NdcRequestsService {
             Zone: this.userInfo.Zone
         };
         // var r = JSON.stringify(request)
-        // 
+        //
         //
         //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
         //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(

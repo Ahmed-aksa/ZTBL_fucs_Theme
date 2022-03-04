@@ -24,6 +24,13 @@ export class DynamicFlatNode {
  */
 @Injectable({providedIn: "root"})
 export class DynamicDatabase {
+    //this.jv.getChildNodesWithCode()
+    rootLevelNodes: string[] = ["ZTBL"];
+    dataMap = new Map<string, string[]>([]);
+
+    constructor(public _journalVoucherService: JournalVoucherService) {
+    }
+
     /** Initial data from database */
     initialData(): DynamicFlatNode[] {
 
@@ -31,14 +38,6 @@ export class DynamicDatabase {
             (name) => new DynamicFlatNode(name, 0, true)
         );
     }
-
-    //this.jv.getChildNodesWithCode()
-    rootLevelNodes: string[] = ["ZTBL"];
-
-    constructor(public _journalVoucherService: JournalVoucherService) {
-    }
-
-    dataMap = new Map<string, string[]>([]);
 
     async getChildren(node: string, id: string) {
 
@@ -134,6 +133,12 @@ export class DynamicDatabase {
 export class DynamicDataSource {
     dataChange = new BehaviorSubject<DynamicFlatNode[]>([]);
 
+    constructor(
+        private _treeControl: FlatTreeControl<DynamicFlatNode>,
+        private _database: DynamicDatabase
+    ) {
+    }
+
     get data(): DynamicFlatNode[] {
         return this.dataChange.value;
     }
@@ -141,12 +146,6 @@ export class DynamicDataSource {
     set data(value: DynamicFlatNode[]) {
         this._treeControl.dataNodes = value;
         this.dataChange.next(value);
-    }
-
-    constructor(
-        private _treeControl: FlatTreeControl<DynamicFlatNode>,
-        private _database: DynamicDatabase
-    ) {
     }
 
     connect(collectionViewer: CollectionViewer): Observable<DynamicFlatNode[]> {
@@ -231,6 +230,9 @@ export class DynamicDataSource {
 export class JvOrganizationalStructureComponentComponent implements OnInit {
     treeClick: any;
     treeCode: any;
+    treeControl: FlatTreeControl<DynamicFlatNode>;
+    dataSource: DynamicDataSource;
+    checklistSelection = new SelectionModel<DynamicFlatNode>(true /* multiple */);
 
     constructor(
         database: DynamicDatabase,
@@ -247,10 +249,6 @@ export class JvOrganizationalStructureComponentComponent implements OnInit {
         this.dataSource.data = database.initialData();
     }
 
-    treeControl: FlatTreeControl<DynamicFlatNode>;
-
-    dataSource: DynamicDataSource;
-
     getLevel = (node: DynamicFlatNode) => {
         return node.level;
     };
@@ -262,7 +260,6 @@ export class JvOrganizationalStructureComponentComponent implements OnInit {
     hasChild = (_: number, _nodeData: DynamicFlatNode) => {
         return _nodeData.expandable;
     };
-    checklistSelection = new SelectionModel<DynamicFlatNode>(true /* multiple */);
 
     /** Whether part of the descendants are selected */
     descendantsPartiallySelected(node: DynamicFlatNode): boolean {

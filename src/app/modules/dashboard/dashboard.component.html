@@ -2,12 +2,12 @@
     class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
 
     <mat-tab-group [ngClass]="{'dash-tab': userGroup.length == 1}"
+                   animationDuration="200ms"
                    class="pt-3 flex  flex-auto dash-ttab  shadow-xs rounded-sm pb-3"
-                   style="flex-direction: column; overflow-y: scroll"
-                   animationDuration="200ms" style="background-color: white;">
+                   style="flex-direction: column; overflow-y: scroll" style="background-color: white;">
         <ng-container *ngFor="let item of userGroup">
 
-            <mat-tab *ngIf=" item.ProfileID=='56'" ng-disable="visibleFlag" label="MCO">
+            <mat-tab *ngIf=" item.ProfileID=='56'" label="MCO" ng-disable="visibleFlag">
                 <app-mco-dashborad [ProfileID]="item.ProfileID"></app-mco-dashborad>
             </mat-tab>
 
@@ -23,15 +23,15 @@
                 <app-zonal-chief-dashboard [ProfileID]="item.ProfileID"></app-zonal-chief-dashboard>
             </mat-tab>
 
-            <mat-tab label="EVP (Operations Division)" *ngIf="item.ProfileID =='202'">
+            <mat-tab *ngIf="item.ProfileID =='202'" label="EVP (Operations Division)">
                 <app-evp-od-dashboard [ProfileID]="item.ProfileID"></app-evp-od-dashboard>
             </mat-tab>
 
-            <mat-tab label="EVP (Credit Division)" *ngIf="item.ProfileID =='200'">
+            <mat-tab *ngIf="item.ProfileID =='200'" label="EVP (Credit Division)">
                 <app-evp-credit-dashboard [ProfileID]="item.ProfileID"></app-evp-credit-dashboard>
             </mat-tab>
 
-            <mat-tab label="EVP (Recovery & SAM Division)" *ngIf="item.ProfileID =='201'">
+            <mat-tab *ngIf="item.ProfileID =='201'" label="EVP (Recovery & SAM Division)">
                 <app-recovery-sam-division [ProfileID]="item.ProfileID"></app-recovery-sam-division>
             </mat-tab>
 
@@ -39,13 +39,13 @@
             <!--                <app-recovery-available [ProfileID]="item.ProfileID"></app-recovery-available>-->
             <!--            </mat-tab>-->
 
-            <mat-tab label="President ZTBL" *ngIf="item.ProfileID =='204'">
+            <mat-tab *ngIf="item.ProfileID =='204'" label="President ZTBL">
                 <app-president-ztbl [ProfileID]="item.ProfileID"></app-president-ztbl>
             </mat-tab>
-            <mat-tab label="Regional Chief" *ngIf="item.ProfileID =='203'">
+            <mat-tab *ngIf="item.ProfileID =='203'" label="Regional Chief">
                 <app-regional-cheif [ProfileID]="item.ProfileID"></app-regional-cheif>
             </mat-tab>
-            <mat-tab label="Provincial Chief " *ngIf="item.ProfileID =='205'">
+            <mat-tab *ngIf="item.ProfileID =='205'" label="Provincial Chief ">
                 <app-provincial-chief [ProfileID]="item.ProfileID"></app-provincial-chief>
             </mat-tab>
         </ng-container>

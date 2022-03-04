@@ -48,6 +48,7 @@ export class TourDiaryBmComponent implements OnInit {
 
     edit_mode: boolean = true;
     has_previous: boolean = false;
+    @ViewChild("timepicker") timepicker: any;
 
     constructor(
         private fb: FormBuilder,
@@ -82,8 +83,19 @@ export class TourDiaryBmComponent implements OnInit {
             localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone && this.data) {
-                this.editData(this.data)
+
+            if (this.data) {
+                if (!this.zone) {
+                    this.zone = {
+                        ZoneId: this.data.TourDiaries[0].ZoneId
+                    };
+                }
+
+                if (this.data.hasOwnProperty('TourDiaries'))
+                    this.editData(this.data.TourDiaries[0])
+                else {
+                    this.editData(this.data)
+                }
             }
         }, 1000);
     }
@@ -129,8 +141,6 @@ export class TourDiaryBmComponent implements OnInit {
         });
         this.setValue();
     }
-
-    @ViewChild("timepicker") timepicker: any;
 
     openFromIcon(timepicker: { open: () => void }) {
         timepicker.open();
@@ -274,29 +284,35 @@ export class TourDiaryBmComponent implements OnInit {
 
 
     GetTourPlan() {
+        if (this.data.hasOwnProperty('TourDiaries')) {
+            this.TourDiaryList = [];
+            this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
+            this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
+        } else {
+            this.spinner.show();
+            this.tourDiaryService
+                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'BM')
+                .pipe(finalize(() => {
+                    this.spinner.hide();
+                }))
+                .subscribe((baseResponse) => {
+                    if (baseResponse.Success) {
+                        this.TourDiaryList = [];
+                        this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                        this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                    } else {
 
-        this.spinner.show();
-        this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'BM')
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    this.TourDiaryList = [];
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
-                } else {
-
-                    this.TourPlan = null;
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
+                        this.TourPlan = null;
+                        this.layoutUtilsService.alertElement(
+                            '',
+                            baseResponse.Message,
+                            baseResponse.Code
+                        );
+                    }
+                });
+        }
     }
 
     assignValues() {

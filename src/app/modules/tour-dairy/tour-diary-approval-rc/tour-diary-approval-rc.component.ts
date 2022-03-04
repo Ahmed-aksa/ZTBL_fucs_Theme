@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -59,7 +59,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For RC')
         this.data = JSON.parse(localStorage.getItem('TourDiary'));
         if (JSON.parse(localStorage.getItem('TourDiary'))) {
@@ -106,12 +106,12 @@ export class TourDiaryApprovalRcComponent implements OnInit {
 
 
     getAllData(data) {
-        
+
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
-        
-        if(this.zone){
+
+        if (this.zone) {
             this.getTourDiaryDetail();
         }
 

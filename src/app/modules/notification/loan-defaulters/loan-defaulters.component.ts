@@ -15,12 +15,12 @@ import {MatSort, Sort} from "@angular/material/sort";
 import {fromMatSort, sortRows} from "../../report-managment/apilogs-list/datasource-utils";
 
 @Component({
-  selector: 'app-loan-defaulters',
-  templateUrl: './loan-defaulters.component.html',
-  styleUrls: ['./loan-defaulters.component.scss']
+    selector: 'app-loan-defaulters',
+    templateUrl: './loan-defaulters.component.html',
+    styleUrls: ['./loan-defaulters.component.scss']
 })
 export class LoanDefaultersComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Caste','Address', 'Lcno', 'GL','kks','Ndd','Sl','Tsa', 'Los'];
+    displayedColumns = ['Zone', 'Branch', 'Cnic', 'Name', 'FatherName', 'Caste', 'Address', 'Lcno', 'GL', 'kks', 'Ndd', 'Sl', 'Tsa', 'Los'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -60,10 +60,10 @@ export class LoanDefaultersComponent implements OnInit, AfterViewInit {
         this.find()
     }
 
-    createForm(){
+    createForm() {
         this.notificationTable = this.fb.group({
-            Name:[],
-            Cnic:[]
+            Name: [],
+            Cnic: []
         })
     }
 

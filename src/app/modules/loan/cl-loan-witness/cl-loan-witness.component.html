@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="kt-portlet__body">
-        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="personalSuretiesForm">
+        <form [formGroup]="personalSuretiesForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12">
@@ -30,106 +30,130 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td >
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
-                                            <mat-hint class="text-red-500 text-xs" *ngIf="hasError('Cnic', 'required') && isSubmittedPersonalSuretiesForm" >Cnic
+                                    <td>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="Cnic" matInput maxlength="13"/>
+                                            <mat-hint *ngIf="hasError('Cnic', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500 text-xs">
+                                                Cnic
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="25" appAlphabetOnly formControlName="FullName"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('FullName', 'required') && isSubmittedPersonalSuretiesForm" >Full Name
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appAlphabetOnly formControlName="FullName" matInput maxlength="25"/>
+                                            <mat-hint *ngIf="hasError('FullName', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Full Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="2" appNumberOnly formControlName="Percentage"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('Percentage', 'required') && isSubmittedPersonalSuretiesForm" >Percentage
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="Percentage" matInput maxlength="2"/>
+                                            <mat-hint *ngIf="hasError('Percentage', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Percentage
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="150" formControlName="Address"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('Address', 'required') && isSubmittedPersonalSuretiesForm" >Address
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="Address" matInput maxlength="150"/>
+                                            <mat-hint *ngIf="hasError('Address', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Address
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="11" appNumberOnly formControlName="Phone"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('Phone', 'required') && isSubmittedPersonalSuretiesForm" >Phone
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="Phone" matInput maxlength="11"/>
+                                            <mat-hint *ngIf="hasError('Phone', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Phone
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appNumberOnly maxlength="14" formControlName="AccountNo"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('AccountNo', 'required') && isSubmittedPersonalSuretiesForm" >Account No.
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="AccountNo" matInput maxlength="14"/>
+                                            <mat-hint *ngIf="hasError('AccountNo', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Account No.
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" appAlphaNumericField
-                                                   formControlName="SourceofIncome"/>
-                                                   <mat-hint class="text-red-500" *ngIf="hasError('SourceofIncome', 'required') && isSubmittedPersonalSuretiesForm" >Source of Income
-                                                    <strong>required</strong></mat-hint>
-                                        </mat-form-field>
-
-                                    </td>
-                                    <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="8" appNumberOnly
-                                                   formControlName="AnnualIncome"/>
-                                                   <mat-hint class="text-red-500" *ngIf="hasError('AnnualIncome', 'required') && isSubmittedPersonalSuretiesForm" >Annual Income
-                                                    <strong>required</strong></mat-hint>
-                                        </mat-form-field>
-
-                                    </td>
-                                    <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="9" appNumberOnly formControlName="AssetValue"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('AssetValue', 'required') && isSubmittedPersonalSuretiesForm" >Asset Value
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appAlphaNumericField formControlName="SourceofIncome" matInput
+                                                   maxlength="13"/>
+                                            <mat-hint *ngIf="hasError('SourceofIncome', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Source of Income
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="9" appNumberOnly formControlName="PresentDues"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('PresentDues', 'required') && isSubmittedPersonalSuretiesForm" >Present Dues
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="AnnualIncome" matInput
+                                                   maxlength="8"/>
+                                            <mat-hint *ngIf="hasError('AnnualIncome', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Annual Income
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid"
-                                                        appearance="outline">
-                                            <input matInput appNumberOnly formControlName="NetValue" maxlength="9"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasError('NetValue', 'required') && isSubmittedPersonalSuretiesForm" >Net Value
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="AssetValue" matInput maxlength="9"/>
+                                            <mat-hint *ngIf="hasError('AssetValue', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Asset Value
+                                                <strong>required</strong></mat-hint>
+                                        </mat-form-field>
+
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="PresentDues" matInput maxlength="9"/>
+                                            <mat-hint *ngIf="hasError('PresentDues', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Present Dues
+                                                <strong>required</strong></mat-hint>
+                                        </mat-form-field>
+
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline"
+                                                        class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="NetValue" matInput maxlength="9"/>
+                                            <mat-hint *ngIf="hasError('NetValue', 'required') && isSubmittedPersonalSuretiesForm"
+                                                      class="text-red-500">
+                                                Net Value
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
                                         <div class="flex">
-                                            <button  type="button" class=" mr-3 flex font-bold items-center	"
-                                                 color="primary" *ngIf="currentActivity.C" (click)="onSavePersonalSuretiesForm()">
+                                            <button (click)="onSavePersonalSuretiesForm()" *ngIf="currentActivity.C"
+                                                    class=" mr-3 flex font-bold items-center	" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
-                                            <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanSuretiesForm()">
+                                            <button (click)="onClearLoanSuretiesForm()" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -141,56 +165,57 @@
                                 </tbody>
                             </table>
                         </div>
-                        </div>
-                            <div class="form-group kt-form__group row mt-3 pr-0">
-                                <div class="col-lg-12  pr-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" *ngIf="loanPersonalSuretiesArray.length !=0">
-                                            <thead>
-                                            <tr class="table-header-background">
-                                                <th>CNIC</th>
-                                                <th>Name</th>
-                                                <th>Percentage</th>
-                                                <th>Address</th>
-                                                <th>Phone</th>
-                                                <th>Account No</th>
-                                                <th>Source Of Income</th>
-                                                <th>Annual Income</th>
-                                                <th>Asset Value</th>
-                                                <th>Present Dues</th>
-                                                <th>Net Value</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="">
-                                            <tr *ngFor="let loan of loanPersonalSuretiesArray; let i = index;">
-                                                <td>{{loan.Cnic}}</td>
-                                                <td>{{loan.FullName}}</td>
-                                                <td>{{loan.Percentage}}</td>
-                                                <td>{{loan.Address}}</td>
-                                                <td>{{loan.Phone}}</td>
-                                                <td>{{loan.AccountNo}}</td>
-                                                <td>{{loan.SourceofIncome}}</td>
-                                                <td>{{loan.AnnualIncome}}</td>
-                                                <td>{{loan.AssetValue}}</td>
-                                                <td>{{loan.PresentDues}}</td>
-                                                <td>{{loan.NetValue}}</td>
+                    </div>
+                    <div class="form-group kt-form__group row mt-3 pr-0">
+                        <div class="col-lg-12  pr-0">
+                            <div class="table-responsive">
+                                <table *ngIf="loanPersonalSuretiesArray.length !=0" class="table table-striped">
+                                    <thead>
+                                    <tr class="table-header-background">
+                                        <th>CNIC</th>
+                                        <th>Name</th>
+                                        <th>Percentage</th>
+                                        <th>Address</th>
+                                        <th>Phone</th>
+                                        <th>Account No</th>
+                                        <th>Source Of Income</th>
+                                        <th>Annual Income</th>
+                                        <th>Asset Value</th>
+                                        <th>Present Dues</th>
+                                        <th>Net Value</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <tr *ngFor="let loan of loanPersonalSuretiesArray; let i = index;">
+                                        <td>{{loan.Cnic}}</td>
+                                        <td>{{loan.FullName}}</td>
+                                        <td>{{loan.Percentage}}</td>
+                                        <td>{{loan.Address}}</td>
+                                        <td>{{loan.Phone}}</td>
+                                        <td>{{loan.AccountNo}}</td>
+                                        <td>{{loan.SourceofIncome}}</td>
+                                        <td>{{loan.AnnualIncome}}</td>
+                                        <td>{{loan.AssetValue}}</td>
+                                        <td>{{loan.PresentDues}}</td>
+                                        <td>{{loan.NetValue}}</td>
 
 
-                                                <td>
-                                                    <button *ngIf="currentActivity.U" type="button" class="flex  font-bold  items-center"
-                                                        color="primary" (click)="onEditPersonalSureties(loan)">
-                                                        <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
-                                                        Edit
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
+                                        <td>
+                                            <button (click)="onEditPersonalSureties(loan)" *ngIf="currentActivity.U"
+                                                    class="flex  font-bold  items-center"
+                                                    color="primary" type="button">
+                                                <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
+                                                Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
+
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -206,7 +231,7 @@
         </div>
     </div>
     <div class="kt-portlet__body">
-        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="corporateSuretiesForm">
+        <form [formGroup]="corporateSuretiesForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12 ">
@@ -223,44 +248,51 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" formControlName="CompanyName"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCorporateSuretiesForm('CompanyName', 'required') && isSubmittedCorporateSuretiesForm" >CompanyName
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="CompanyName" matInput maxlength="50"/>
+                                            <mat-hint *ngIf="hasErrorCorporateSuretiesForm('CompanyName', 'required') && isSubmittedCorporateSuretiesForm"
+                                                      class="text-red-500">
+                                                CompanyName
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input readonly="readonly" matInput [matDatepicker]="picker3"
-                                                   formControlName="MemorandumDate">
-                                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input [matDatepicker]="picker3" formControlName="MemorandumDate" matInput
+                                                   readonly="readonly">
+                                            <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
                                             <mat-datepicker #picker3></mat-datepicker>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCorporateSuretiesForm('MemorandumDate', 'required') && isSubmittedCorporateSuretiesForm" >MemorandumDate
+                                            <mat-hint *ngIf="hasErrorCorporateSuretiesForm('MemorandumDate', 'required') && isSubmittedCorporateSuretiesForm"
+                                                      class="text-red-500">
+                                                MemorandumDate
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input appNumberOnly matInput maxlength="50" formControlName="RefrenceNo"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCorporateSuretiesForm('RefrenceNo', 'required') && isSubmittedCorporateSuretiesForm" >Refrence No.
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="RefrenceNo" matInput maxlength="50"/>
+                                            <mat-hint *ngIf="hasErrorCorporateSuretiesForm('RefrenceNo', 'required') && isSubmittedCorporateSuretiesForm"
+                                                      class="text-red-500">
+                                                Refrence No.
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-
 
 
                                         <div class="flex">
-                                            <button *ngIf="currentActivity.C"  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" (click)="onSaveCorporateSuretiesForm()">
+                                            <button (click)="onSaveCorporateSuretiesForm()" *ngIf="currentActivity.C"
+                                                    class=" mr-3 flex  font-bold  items-center"
+                                                    color="primary" type="button">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
-                                            <button *ngIf="currentActivity.C"  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" (click)="onClearCorporateSuretiesForm()">
+                                            <button (click)="onClearCorporateSuretiesForm()" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center"
+                                                    color="primary" type="button">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -275,7 +307,7 @@
                             <div class="form-group kt-form__group row pr-0">
                                 <div class="col-lg-12 pr-0">
                                     <div class="table-responsive">
-                                        <table class="table table-striped" *ngIf="loanCorporateSuretyArray.length!=0">
+                                        <table *ngIf="loanCorporateSuretyArray.length!=0" class="table table-striped">
                                             <thead>
                                             <tr class="table-header-background">
                                                 <th>Company Name</th>
@@ -293,11 +325,12 @@
 
 
                                                 <td>
-                                                    <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.C" (click)="onEditLoanCorporateSuretyArray(loan)">
-                                                    <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
-                                                    Edit
-                                                </button>
+                                                    <button (click)="onEditLoanCorporateSuretyArray(loan)" *ngIf="currentActivity.C"
+                                                            class="flex  font-bold  items-center" color="primary"
+                                                            type="button">
+                                                        <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
+                                                        Edit
+                                                    </button>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -322,7 +355,7 @@
         </div>
     </div>
     <div class="kt-portlet__body">
-        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanRefrencesForm">
+        <form [formGroup]="loanRefrencesForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12">
@@ -343,52 +376,62 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Cnic', 'required') && isSubmittedLoanRefrencesForm" >Cnic
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="Cnic" matInput maxlength="13"/>
+                                            <mat-hint *ngIf="hasErrorLoanRefrencesForm('Cnic', 'required') && isSubmittedLoanRefrencesForm"
+                                                      class="text-red-500">
+                                                Cnic
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="25" appAlphabetOnly formControlName="Name"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Name', 'required') && isSubmittedLoanRefrencesForm" >Name
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appAlphabetOnly formControlName="Name" matInput maxlength="25"/>
+                                            <mat-hint *ngIf="hasErrorLoanRefrencesForm('Name', 'required') && isSubmittedLoanRefrencesForm"
+                                                      class="text-red-500">
+                                                Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="150" formControlName="Address"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Address', 'required') && isSubmittedLoanRefrencesForm" >Address
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="Address" matInput maxlength="150"/>
+                                            <mat-hint *ngIf="hasErrorLoanRefrencesForm('Address', 'required') && isSubmittedLoanRefrencesForm"
+                                                      class="text-red-500">
+                                                Address
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="11" appNumberOnly formControlName="Phone"/>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="Phone" matInput maxlength="11"/>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="11" appAlphaNumericField formControlName="Fax"/>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appAlphaNumericField formControlName="Fax" matInput maxlength="11"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" formControlName="Email"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Email', 'email') && isSubmittedLoanRefrencesForm" >Email Format Incorrect
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="Email" matInput maxlength="50"/>
+                                            <mat-hint *ngIf="hasErrorLoanRefrencesForm('Email', 'email') && isSubmittedLoanRefrencesForm"
+                                                      class="text-red-500">
+                                                Email Format Incorrect
                                             </mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input appNumberOnly matInput maxlength="13" formControlName="Ntn"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Ntn', 'required') && isSubmittedLoanRefrencesForm" >Ntn
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="Ntn" matInput maxlength="13"/>
+                                            <mat-hint *ngIf="hasErrorLoanRefrencesForm('Ntn', 'required') && isSubmittedLoanRefrencesForm"
+                                                      class="text-red-500">
+                                                Ntn
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
@@ -396,13 +439,15 @@
                                     <td>
 
                                         <div class="flex">
-                                            <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveLoanRefrencesForm()">
+                                            <button (click)="onSaveLoanRefrencesForm()" *ngIf="currentActivity.C"
+                                                    class=" mr-3 flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
-                                            <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanRefrencesForm()">
+                                            <button (click)="onClearLoanRefrencesForm()" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -412,54 +457,55 @@
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="form-group kt-form__group row mt-3 pr-0">
+                        <div class="col-lg-12 pr-0">
+                            <div class="table-responsive">
+                                <table *ngIf="loanRefrenceArray.length!=0" class="table table-striped">
+                                    <thead>
+                                    <tr class="table-header-background">
+                                        <th>ID</th>
+                                        <th>CNIC</th>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Phone</th>
+                                        <th>FAX</th>
+                                        <th>Email</th>
+                                        <th>NTN</th>
+                                        <th></th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <tr *ngFor="let loan of loanRefrenceArray; let i = index;">
+                                        <td>{{i + 1}}</td>
+                                        <td>{{loan.Cnic}}</td>
+                                        <td>{{loan.Name}}</td>
+                                        <td>{{loan.Address}}</td>
+                                        <td>{{loan.Phone}}</td>
+                                        <td>{{loan.Fax}}</td>
+                                        <td>{{loan.Email}}</td>
+                                        <td>{{loan.Ntn}}</td>
+
+
+                                        <td>
+                                            <button (click)="onEditRefrence(loan)" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
+                                                <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
+                                                Edit
+                                            </button>
+
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            </div>
-                            <div class="form-group kt-form__group row mt-3 pr-0">
-                                <div class="col-lg-12 pr-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" *ngIf="loanRefrenceArray.length!=0">
-                                            <thead>
-                                            <tr class="table-header-background">
-                                                <th>ID</th>
-                                                <th>CNIC</th>
-                                                <th>Name</th>
-                                                <th>Address</th>
-                                                <th>Phone</th>
-                                                <th>FAX</th>
-                                                <th>Email</th>
-                                                <th>NTN</th>
-                                                <th></th>
 
-                                            </tr>
-                                            </thead>
-                                            <tbody class="">
-                                            <tr *ngFor="let loan of loanRefrenceArray; let i = index;">
-                                                <td>{{i + 1}}</td>
-                                                <td>{{loan.Cnic}}</td>
-                                                <td>{{loan.Name}}</td>
-                                                <td>{{loan.Address}}</td>
-                                                <td>{{loan.Phone}}</td>
-                                                <td>{{loan.Fax}}</td>
-                                                <td>{{loan.Email}}</td>
-                                                <td>{{loan.Ntn}}</td>
-
-
-                                                <td>
-                                                    <button  type="button" class="flex  font-bold  items-center"
-                                                        color="primary" *ngIf="currentActivity.C" (click)="onEditRefrence(loan)">
-                                                        <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
-                                                        Edit
-                                                     </button>
-
-
-                                                   </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -475,7 +521,7 @@
         </div>
     </div>
     <div class="kt-portlet__body">
-        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanWitnessForm">
+        <form [formGroup]="loanWitnessForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12">
@@ -492,25 +538,31 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanWitnessForm('Cnic', 'required') && isSubmittedLoanWitnessForm" >Cnic
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="Cnic" matInput maxlength="13"/>
+                                            <mat-hint *ngIf="hasErrorLoanWitnessForm('Cnic', 'required') && isSubmittedLoanWitnessForm"
+                                                      class="text-red-500">
+                                                Cnic
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="25" formControlName="WitnessName"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanWitnessForm('WitnessName', 'required') && isSubmittedLoanWitnessForm" >Witness Name
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="WitnessName" matInput maxlength="25"/>
+                                            <mat-hint *ngIf="hasErrorLoanWitnessForm('WitnessName', 'required') && isSubmittedLoanWitnessForm"
+                                                      class="text-red-500">
+                                                Witness Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="150" formControlName="WitnessAddress"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanWitnessForm('WitnessAddress', 'required') && isSubmittedLoanWitnessForm" >Witness Address
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="WitnessAddress" matInput maxlength="150"/>
+                                            <mat-hint *ngIf="hasErrorLoanWitnessForm('WitnessAddress', 'required') && isSubmittedLoanWitnessForm"
+                                                      class="text-red-500">
+                                                Witness Address
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
@@ -518,13 +570,15 @@
                                     <td>
 
                                         <div class="flex">
-                                            <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveLoanWitnessForm()">
+                                            <button (click)="onSaveLoanWitnessForm()" *ngIf="currentActivity.C"
+                                                    class=" mr-3 flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
-                                            <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanWitnessForm()">
+                                            <button (click)="onClearLoanWitnessForm()" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class="text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -534,43 +588,44 @@
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="form-group kt-form__group row pr-0">
+                        <div class="col-lg-12 pr-0">
+                            <div class="table-responsive">
+                                <table *ngIf="loanWitnessArray.length!=0" class="table table-striped">
+                                    <thead>
+                                    <tr class="table-header-background">
+                                        <th>Cnic</th>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th></th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <tr *ngFor="let loan of loanWitnessArray; let i = index;">
+                                        <td>{{loan.Cnic}}</td>
+                                        <td>{{loan.WitnessName}}</td>
+                                        <td>{{loan.WitnessAddress}}</td>
+
+
+                                        <td>
+
+                                            <button (click)="onEditLoanWitnessArray(loan)" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
+                                                <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
+                                                Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            </div>
-                            <div class="form-group kt-form__group row pr-0">
-                                <div class="col-lg-12 pr-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" *ngIf="loanWitnessArray.length!=0">
-                                            <thead>
-                                            <tr class="table-header-background">
-                                                <th>Cnic</th>
-                                                <th>Name</th>
-                                                <th>Address</th>
-                                                <th></th>
 
-                                            </tr>
-                                            </thead>
-                                            <tbody class="">
-                                            <tr *ngFor="let loan of loanWitnessArray; let i = index;">
-                                                <td>{{loan.Cnic}}</td>
-                                                <td>{{loan.WitnessName}}</td>
-                                                <td>{{loan.WitnessAddress}}</td>
-
-
-                                                <td>
-
-                                                    <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.C" (click)="onEditLoanWitnessArray(loan)">
-                                                    <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
-                                                    Edit
-                                                 </button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -586,7 +641,7 @@
         </div>
     </div>
     <div class="kt-portlet__body">
-        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanPastPaidForm">
+        <form [formGroup]="loanPastPaidForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12">
@@ -604,36 +659,42 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" formControlName="BankName"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanPastPaidForm('BankName', 'required') && isSubmittedLoanPastPaidForm" >Bank Name
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="BankName" matInput maxlength="50"/>
+                                            <mat-hint *ngIf="hasErrorLoanPastPaidForm('BankName', 'required') && isSubmittedLoanPastPaidForm"
+                                                      class="text-red-500">
+                                                Bank Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="7" appNumberOnly formControlName="AmountToPaid"/>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="AmountToPaid" matInput maxlength="7"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input readonly="readonly" matInput [matDatepicker]="picker4"
-                                                   formControlName="DueDate">
-                                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input [matDatepicker]="picker4" formControlName="DueDate" matInput
+                                                   readonly="readonly">
+                                            <mat-datepicker-toggle [for]="picker4" matSuffix></mat-datepicker-toggle>
                                             <mat-datepicker #picker4></mat-datepicker>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanPastPaidForm('DueDate', 'required') && isSubmittedLoanPastPaidForm" >Due Date
+                                            <mat-hint *ngIf="hasErrorLoanPastPaidForm('DueDate', 'required') && isSubmittedLoanPastPaidForm"
+                                                      class="text-red-500">
+                                                Due Date
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input readonly="readonly" matInput [matDatepicker]="picker5"
-                                                   formControlName="LastPaidDate">
-                                            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input [matDatepicker]="picker5" formControlName="LastPaidDate" matInput
+                                                   readonly="readonly">
+                                            <mat-datepicker-toggle [for]="picker5" matSuffix></mat-datepicker-toggle>
                                             <mat-datepicker #picker5></mat-datepicker>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorLoanPastPaidForm('LastPaidDate', 'required') && isSubmittedLoanPastPaidForm" >Last Paid Date
+                                            <mat-hint *ngIf="hasErrorLoanPastPaidForm('LastPaidDate', 'required') && isSubmittedLoanPastPaidForm"
+                                                      class="text-red-500">
+                                                Last Paid Date
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
@@ -641,13 +702,15 @@
                                     <td>
 
                                         <div class="flex">
-                                            <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveLoanPastPaidForm()">
+                                            <button (click)="onSaveLoanPastPaidForm()" *ngIf="currentActivity.C"
+                                                    class=" mr-3 flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
-                                            <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanPastPaidForm()">
+                                            <button (click)="onClearLoanPastPaidForm()" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -655,50 +718,49 @@
                                         </div>
 
 
-
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group kt-form__group row mt-3 pr-0">
+                        <div class="col-lg-12 pr-0">
+                            <div class="table-responsive">
+                                <table *ngIf="loanPastPaidArray.length!=0" class="table table-striped">
+                                    <thead>
+                                    <tr class="table-header-background">
+                                        <th>Bank Name</th>
+                                        <th>Due Amount</th>
+                                        <th>Due Date</th>
+                                        <th>Last Payment On</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <tr *ngFor="let loan of loanPastPaidArray; let i = index;">
+                                        <td>{{loan.BankName}}</td>
+                                        <td>{{loan.AmountToPaid}}</td>
+                                        <td>{{loan.DueDate}}</td>
+                                        <td>{{loan.LastPaidDate}}</td>
+
+
+                                        <td>
+
+                                            <button (click)="onEditLoanPastPaidArray(loan)" class="flex  font-bold  items-center"
+                                                    color="primary" type="button">
+                                                <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
+                                                Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            </div>
 
-                            <div class="form-group kt-form__group row mt-3 pr-0">
-                                <div class="col-lg-12 pr-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" *ngIf="loanPastPaidArray.length!=0">
-                                            <thead>
-                                            <tr class="table-header-background">
-                                                <th>Bank Name</th>
-                                                <th>Due Amount</th>
-                                                <th>Due Date</th>
-                                                <th>Last Payment On</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="">
-                                            <tr *ngFor="let loan of loanPastPaidArray; let i = index;">
-                                                <td>{{loan.BankName}}</td>
-                                                <td>{{loan.AmountToPaid}}</td>
-                                                <td>{{loan.DueDate}}</td>
-                                                <td>{{loan.LastPaidDate}}</td>
-
-
-                                                <td>
-
-                                                    <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary"  (click)="onEditLoanPastPaidArray(loan)">
-                                                    <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
-                                                    Edit
-                                                 </button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -714,7 +776,7 @@
         </div>
     </div>
     <div class="kt-portlet__body">
-        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="currentLoansForm">
+        <form [formGroup]="currentLoansForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12">
@@ -737,87 +799,105 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="PurposeDetail"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('DueDate', 'required') && isSubmittedCurrentLoansForm" >Due Date
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="PurposeDetail" matInput/>
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('DueDate', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Due Date
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" formControlName="BankName"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('BankName', 'required') && isSubmittedCurrentLoansForm" >Bank Name
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="BankName" matInput maxlength="50"/>
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('BankName', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Bank Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input maxlength="8" matInput appNumberOnly formControlName="TotalDebit"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('TotalDebit', 'required') && isSubmittedCurrentLoansForm" >Total Debit
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="TotalDebit" matInput maxlength="8"/>
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('TotalDebit', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Total Debit
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="GurenteeDetail"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('GurenteeDetail', 'required') && isSubmittedCurrentLoansForm" >Gurentee Detail
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input formControlName="GurenteeDetail" matInput/>
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('GurenteeDetail', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Gurentee Detail
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input readonly="readonly" matInput [matDatepicker]="picker6"
-                                                   formControlName="DateDebitAcheive" [max]="today">
-                                            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input [matDatepicker]="picker6" [max]="today" formControlName="DateDebitAcheive"
+                                                   matInput readonly="readonly">
+                                            <mat-datepicker-toggle [for]="picker6" matSuffix></mat-datepicker-toggle>
                                             <mat-datepicker #picker6></mat-datepicker>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('DateDebitAcheive', 'required') && isSubmittedCurrentLoansForm" >Date Debit Acheive
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('DateDebitAcheive', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Date Debit Acheive
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input appNumberOnly matInput formControlName="AmountToPaid"/>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('AmountToPaid', 'required') && isSubmittedCurrentLoansForm" >Amount To Paid
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input appNumberOnly formControlName="AmountToPaid" matInput/>
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('AmountToPaid', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Amount To Paid
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input readonly="readonly" matInput [matDatepicker]="picker7"
-                                                   formControlName="DueDate">
-                                            <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                            <input [matDatepicker]="picker7" formControlName="DueDate" matInput
+                                                   readonly="readonly">
+                                            <mat-datepicker-toggle [for]="picker7" matSuffix></mat-datepicker-toggle>
                                             <mat-datepicker #picker7></mat-datepicker>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('DueDate', 'required') && isSubmittedCurrentLoansForm" >Due Date
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('DueDate', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Due Date
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                             <mat-select formControlName="Status">
                                                 <mat-option *ngFor="let obj of status_lovs?.LOVs" [value]="obj?.Value">
                                                     {{obj.Name}}
                                                 </mat-option>
                                             </mat-select>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('Status', 'required') && isSubmittedCurrentLoansForm" >Status
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('Status', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Status
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                             <mat-select formControlName="FundNonfundFlag">
                                                 <mat-option *ngFor="let obj of funded_lovs?.LOVs" [value]="obj?.Value">
                                                     {{obj.Name}}
                                                 </mat-option>
                                             </mat-select>
-                                            <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('FundNonfundFlag', 'required') && isSubmittedCurrentLoansForm" >Fund Non-fund Flag
+                                            <mat-hint *ngIf="hasErrorCurrentLoansForm('FundNonfundFlag', 'required') && isSubmittedCurrentLoansForm"
+                                                      class="text-red-500">
+                                                Fund Non-fund Flag
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
 
@@ -825,13 +905,15 @@
                                     <td>
 
                                         <div class="flex">
-                                            <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveCurrentLoansForm()">
+                                            <button (click)="onSaveCurrentLoansForm()" *ngIf="currentActivity.C"
+                                                    class=" mr-3 flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
-                                            <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearCurrentLoansForm()">
+                                            <button (click)="onClearCurrentLoansForm()" *ngIf="currentActivity.C"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -841,57 +923,57 @@
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group kt-form__group row mt-3 pr-0">
+                        <div class="col-lg-12 pr-0">
+                            <div class="table-responsive">
+                                <table *ngIf="loanCurrentList.length !=0" class="table table-striped">
+                                    <thead>
+                                    <tr class="table-header-background">
+                                        <th>Purpose</th>
+                                        <th>Bank Name</th>
+                                        <th>Total Loan</th>
+                                        <th>Security/Surety</th>
+                                        <th>Date Loan Availed</th>
+                                        <th>Outstanding Amount</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                        <th>Facility</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <tr *ngFor="let loan of loanCurrentList; let i = index;">
+                                        <td>{{loan.PurposeDetail}}</td>
+                                        <td>{{loan.BankName}}</td>
+                                        <td>{{loan.TotalDebit}}</td>
+                                        <td>{{loan.GurenteeDetail}}</td>
+                                        <td>{{loan.DateDebitAcheive}}</td>
+                                        <td>{{loan.AmountToPaid}}</td>
+                                        <td>{{loan.DueDate}}</td>
+                                        <td>{{loan.StatusName}}</td>
+                                        <td>{{loan.FundNonfundFlagName}}</td>
+
+
+                                        <td>
+                                            <button (click)="onEditLoanCurrentList(loan)" *ngIf="currentActivity.U"
+                                                    class="flex  font-bold  items-center" color="primary"
+                                                    type="button">
+                                                <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
+                                                Edit
+                                            </button>
+
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            </div>
 
-                            <div class="form-group kt-form__group row mt-3 pr-0">
-                                <div class="col-lg-12 pr-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" *ngIf="loanCurrentList.length !=0">
-                                            <thead>
-                                            <tr class="table-header-background">
-                                                <th>Purpose</th>
-                                                <th>Bank Name</th>
-                                                <th>Total Loan</th>
-                                                <th>Security/Surety</th>
-                                                <th>Date Loan Availed</th>
-                                                <th>Outstanding Amount</th>
-                                                <th>Due Date</th>
-                                                <th>Status</th>
-                                                <th>Facility</th>
-                                                <th> </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="">
-                                            <tr *ngFor="let loan of loanCurrentList; let i = index;">
-                                                <td>{{loan.PurposeDetail}}</td>
-                                                <td>{{loan.BankName}}</td>
-                                                <td>{{loan.TotalDebit}}</td>
-                                                <td>{{loan.GurenteeDetail}}</td>
-                                                <td>{{loan.DateDebitAcheive}}</td>
-                                                <td>{{loan.AmountToPaid}}</td>
-                                                <td>{{loan.DueDate}}</td>
-                                                <td>{{loan.StatusName}}</td>
-                                                <td>{{loan.FundNonfundFlagName}}</td>
-
-
-                                                <td>
-                                                    <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" *ngIf="currentActivity.U"  (click)="onEditLoanCurrentList(loan)">
-                                                    <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
-                                                    Edit
-                                                 </button>
-
-
-
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -911,15 +993,16 @@
             <div class="kt-form">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary float-right"
-                                (click)="getCheckList()">Refresh Check List
+                        <button (click)="getCheckList()"
+                                class="mat-focus-indicator mat-flat-button mat-button-base mat-primary float-right">Refresh Check List
                         </button>
                     </div>
                     <div class="col-lg-12 kt-margin-bottom-20-mobile">
                         <div *ngFor="let doc of loanDocumentsCheckList; let i = index;"
                              style="display:inline; margin-right:1%">
-                            <mat-checkbox class="text-md py-2" [value]="doc.DocumentID" (change)="setUnsetDocumentCheckBox($event)"
-                                          [checked]="CheckAttached(doc.isAttached)">
+                            <mat-checkbox (change)="setUnsetDocumentCheckBox($event)" [checked]="CheckAttached(doc.isAttached)"
+                                          [value]="doc.DocumentID"
+                                          class="text-md py-2">
                                 {{doc.DocName}}
                             </mat-checkbox>
 
@@ -929,14 +1012,14 @@
 
                 <div class="form-group kt-form__group row mt-2">
                     <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                        <button style="background-color: #01671B;"
-                                class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                *ngIf="currentActivity.C" (click)="saveCheckList()">
+                        <button (click)="saveCheckList()"
+                                *ngIf="currentActivity.C"
+                                class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" style="background-color: #01671B;">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
-                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary mx-2"
-                                *ngIf="currentActivity.U" (click)="submitLoanApplication()">
+                        <button (click)="submitLoanApplication()"
+                                *ngIf="currentActivity.U" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary mx-2">
                             <mat-icon class="mr-2">check_circle</mat-icon>
                             Submit
                         </button>

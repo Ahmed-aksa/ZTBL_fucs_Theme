@@ -82,15 +82,14 @@ export class LandChargeCreationComponent implements OnInit {
     NamePattern = '[a-zA-Z0-9]*';
 
     loggedInUserInfo: any;
-
-    private _onDestroy = new Subject<void>();
-
     UnitConverter = [{id: "1", name: "Kanal"}, {id: "2", name: "Acre"}, {id: "3", name: "Gunta"}]
     UnitConverterd = [{id: "1", name: "Marla"}]
-
     public searchFilterCtrlProvince: FormControl = new FormControl();
     public searchFilterCtrlDistrict: FormControl = new FormControl();
     public searchFilterCtrlTehsil: FormControl = new FormControl();
+    dynamicArray: Array<DynamicGrid> = [];
+    newDynamic: any = {};
+    private _onDestroy = new Subject<void>();
 
     constructor(
         public dialogRef: MatDialogRef<LandChargeCreationComponent>,
@@ -110,10 +109,6 @@ export class LandChargeCreationComponent implements OnInit {
         private _common: CommonService) {
     }
 
-    dynamicArray: Array<DynamicGrid> = [];
-    newDynamic: any = {};
-
-
     ngOnInit() {
 
 
@@ -122,7 +117,7 @@ export class LandChargeCreationComponent implements OnInit {
         this.loggedInUserInfo = this.userUtilsService.getUserDetails();
         this.ConvertUnit = "1";
         this.isFormReadonly = false;
-        ;
+
         this.LandInfo = this.data.landInfo;
         this.TrainId = this.data.TrainId;
         if (this.data.landChargCreation != null && this.data.landChargCreation != undefined) {
@@ -131,7 +126,7 @@ export class LandChargeCreationComponent implements OnInit {
 
         if (this.LandInfo.Status != undefined && this.LandInfo.Status != '') {
 
-            if ((this.LandInfo.Status == '1' || this.LandInfo.Status == '4') &&  this.data.createdByUserId == this.loggedInUserInfo.User.UserId) {
+            if ((this.LandInfo.Status == '1' || this.LandInfo.Status == '4') && this.data.createdByUserId == this.loggedInUserInfo.User.UserId) {
                 this.isFormReadonly = false;
             } else {
                 this.isFormReadonly = true;
@@ -249,63 +244,6 @@ export class LandChargeCreationComponent implements OnInit {
         this.spinner.hide();
     }
 
-
-    private filterProvince() {
-
-
-        // get the search keyword
-        let search = this.searchFilterCtrlProvince.value;
-
-        this.ProvinceLov.LOVs = this.ProvinceLovFull.LOVs;
-
-        if (!search) {
-            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
-
-            this.ProvinceLov.LOVs = this.ProvinceLovFull.LOVs;
-
-        } else {
-            search = search.toLowerCase();
-            this.ProvinceLov.LOVs = this.ProvinceLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-
-    }
-
-    private filterDistrict() {
-
-        // get the search keyword
-        let search = this.searchFilterCtrlDistrict.value;
-        this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
-
-        if (!search) {
-            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
-
-            this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
-
-        } else {
-            search = search.toLowerCase();
-            this.DistrictLov.LOVs = this.DistrictLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-
-    }
-
-    private filterTehsil() {
-
-        // get the search keyword
-        let search = this.searchFilterCtrlTehsil.value;
-        this.TehsilLov.LOVs = this.TehsilLovFull.LOVs;
-
-        if (!search) {
-            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
-
-            this.TehsilLov.LOVs = this.TehsilLovFull.LOVs;
-
-        } else {
-            search = search.toLowerCase();
-            this.TehsilLov.LOVs = this.TehsilLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-
-    }
-
     searchDist(circleId) {
         circleId = circleId.toLowerCase();
         if (circleId != null && circleId != undefined && circleId != "")
@@ -320,7 +258,7 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     searchTehsil(circleId) {
-        
+
         circleId = circleId.toLowerCase();
         if (circleId != null && circleId != undefined && circleId != "")
             this.TehsilLovDataSelected = this.TehsilLovData.filter(x => x.Name.toLowerCase().indexOf(circleId) > -1);
@@ -343,7 +281,6 @@ export class LandChargeCreationComponent implements OnInit {
 
         }
     }
-
 
     AreaConverter() {
 
@@ -391,11 +328,11 @@ export class LandChargeCreationComponent implements OnInit {
         }
         return true;
     }
+
     getTitle(): string {
 
         return "Land Charge Creation Information"
     }
-
 
     hasError(controlName: string, errorName: string): boolean {
         return this.LandInformationForm.controls[controlName].hasError(errorName);
@@ -430,7 +367,6 @@ export class LandChargeCreationComponent implements OnInit {
         this.DistrictLovDataSelected = this.DistrictLovData;
         this.TehsilLov = [];
     }
-
 
     async GetTehsils(Id) {
 
@@ -493,7 +429,6 @@ export class LandChargeCreationComponent implements OnInit {
 
     }
 
-
     addRow() {
         this.newDynamic = {
             khata: "",
@@ -550,7 +485,6 @@ export class LandChargeCreationComponent implements OnInit {
     onAlertClose($event) {
         this.hasFormErrors = false;
     }
-
 
     saveLandChargeCreationDetails() {
 
@@ -701,7 +635,6 @@ export class LandChargeCreationComponent implements OnInit {
             });
     }
 
-
     validateNumber(value: string): boolean {
 
         if (value.indexOf("-") == -1 && value.indexOf("/") == -1 && value.indexOf("-/") == -1 && value.indexOf("/-") == -1)
@@ -736,7 +669,6 @@ export class LandChargeCreationComponent implements OnInit {
         }
     }
 
-
     deleteLandChargeCreationDetails(ccDetailId) {
 
         var landChargeCreationObj = new LandChargeCreation();
@@ -769,6 +701,62 @@ export class LandChargeCreationComponent implements OnInit {
                 ChargeCreationDetails: this.landChargeCreationDetails
             }
         }); // Keep only this row
+    }
+
+    private filterProvince() {
+
+
+        // get the search keyword
+        let search = this.searchFilterCtrlProvince.value;
+
+        this.ProvinceLov.LOVs = this.ProvinceLovFull.LOVs;
+
+        if (!search) {
+            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
+
+            this.ProvinceLov.LOVs = this.ProvinceLovFull.LOVs;
+
+        } else {
+            search = search.toLowerCase();
+            this.ProvinceLov.LOVs = this.ProvinceLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+        }
+
+    }
+
+    private filterDistrict() {
+
+        // get the search keyword
+        let search = this.searchFilterCtrlDistrict.value;
+        this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
+
+        if (!search) {
+            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
+
+            this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
+
+        } else {
+            search = search.toLowerCase();
+            this.DistrictLov.LOVs = this.DistrictLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+        }
+
+    }
+
+    private filterTehsil() {
+
+        // get the search keyword
+        let search = this.searchFilterCtrlTehsil.value;
+        this.TehsilLov.LOVs = this.TehsilLovFull.LOVs;
+
+        if (!search) {
+            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
+
+            this.TehsilLov.LOVs = this.TehsilLovFull.LOVs;
+
+        } else {
+            search = search.toLowerCase();
+            this.TehsilLov.LOVs = this.TehsilLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+        }
+
     }
 
 }

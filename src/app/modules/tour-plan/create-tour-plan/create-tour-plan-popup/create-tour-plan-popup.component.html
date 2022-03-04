@@ -7,11 +7,11 @@
         <div class="row">
             <div class="col-lg-11">
                 <div class="heading">
-                    Select  Date(s)
+                    Select Date(s)
                 </div>
             </div>
             <div class="col-lg-1 text-end align-self-center">
-                <button type="button" id="kt_login_signup_cancel" (click)="onCloseClick(0)">
+                <button (click)="onCloseClick(0)" id="kt_login_signup_cancel" type="button">
                     <mat-icon class="text-danger">cancel</mat-icon>
                 </button>
             </div>
@@ -26,7 +26,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form class="kt-form" [formGroup]="TragetForm" autocomplete="off">
+                <form [formGroup]="TragetForm" autocomplete="off" class="kt-form">
                     <div class="form-group my-2 mb-0">
                     </div>
                     <!--begin::Action-->
@@ -34,24 +34,30 @@
                         <div class="row">
                             <div class="col-lg-12 text-end pr-16">
 
-                                <mat-icon class="mr-2 bg-green rounded-full text-sm  w-8 h-8 p-2" type="button" id="kt_login_signin_submit" (click)="backDate()">arrow_back_ios</mat-icon>
+                                <mat-icon (click)="backDate()" class="mr-2 bg-green rounded-full text-sm  w-8 h-8 p-2"
+                                          id="kt_login_signin_submit" type="button">arrow_back_ios
+                                </mat-icon>
 
 
-                            <mat-icon type="button" class="bg-green rounded-full text-sm p-2 w-8 h-8" id="kt_login_signin_submit" (click)="foewardDate()">arrow_forward_ios</mat-icon>
+                                <mat-icon (click)="foewardDate()" class="bg-green rounded-full text-sm p-2 w-8 h-8"
+                                          id="kt_login_signin_submit" type="button">arrow_forward_ios
+                                </mat-icon>
 
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <ng-container *ngFor="let item of daylist; let row=index" class="mx-2">
-                                    <label for="check-{{row}}"  style="cursor: pointer;" [style.BackgroundColor]="item.isCheck!=true?'green !important':''"
-                                    [style.Color]="item.isCheck!=true?'white !important':''"
-                                    class="m-2 p-2 px-1 text-sm bg-gray-500 w-32 text-center text-white rounded-full"> {{item.date | date}}</label>
-                                    <input id="check-{{row}}" [disabled]="isCheckDisable(item, row)" (click)="submit(item)"  [checked]="item.isCheck"
-                                    (change)="item.isCheck = !item.isCheck" [hidden]="true"   type="checkbox">
+                                    <label [style.BackgroundColor]="item.isCheck!=true?'green !important':''" [style.Color]="item.isCheck!=true?'white !important':''"
+                                           class="m-2 p-2 px-1 text-sm bg-gray-500 w-32 text-center text-white rounded-full"
+                                           for="check-{{row}}"
+                                           style="cursor: pointer;"> {{item.date | date}}</label>
+                                    <input (change)="item.isCheck = !item.isCheck" (click)="submit(item)"
+                                           [checked]="item.isCheck" [disabled]="isCheckDisable(item, row)"
+                                           [hidden]="true" id="check-{{row}}" type="checkbox">
                                 </ng-container>
-                                
-                               
+
+
                             </div>
                             <!-- <div class="col-lg-12 text-end border-t">
 

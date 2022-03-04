@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -171,7 +171,7 @@ export class ClSearchLoanComponent implements OnInit {
                         this.loading = false;
                         this.matTableLenght = true;
                         this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
-console.log(this.dataSource.data);
+                        console.log(this.dataSource.data);
                         this.dv = this.dataSource.data;
 
                         this.totalItems = baseResponse.Loan.ApplicationHeaderList.length;
@@ -212,9 +212,9 @@ console.log(this.dataSource.data);
 
     CheckEditStatus(loan) {
 
-if(loan.AppStatus=="4"){
-    return false;
-}
+        if (loan.AppStatus == "4") {
+            return false;
+        }
         if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
             return true
         } else {
@@ -233,9 +233,9 @@ if(loan.AppStatus=="4"){
     checkMap(data) {
 
         if (data?.Latitude?.length > 0) {
-            if(data.Lat=="0.0"){
+            if (data.Lat == "0.0") {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         } else {

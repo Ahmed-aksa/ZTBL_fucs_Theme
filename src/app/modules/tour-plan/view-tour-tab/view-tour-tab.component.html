@@ -3,9 +3,9 @@
 
         <!--           table -->
 
-        <div class="custom-accordion   rounded-lg my-2 py-3 bg-white shadow-sm border"
-             *ngFor="let activity of TourPlans?.TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
-            <div class="custom-accordion-head border-0 flex" (click)="toggleAccordion(i,activity.UserId)"
+        <div *ngFor="let activity of TourPlans?.TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;"
+             class="custom-accordion   rounded-lg my-2 py-3 bg-white shadow-sm border">
+            <div (click)="toggleAccordion(i,activity.UserId)" class="custom-accordion-head border-0 flex"
                  style="cursor: pointer;justify-content: space-between;">
                 <div class=" self-center ml-8 w-64">
                     <span class=" text-green">
@@ -54,15 +54,16 @@
                         <td style="width: 20%">{{child?.CircleCode ? child?.CircleCode : "-"}}</td>
                         <td style="width: 20%">{{child.VisitedDate ? dateChange(child?.VisitedDate) : '-'}}</td>
                         <td style="width: 20%">{{child.PurposeName ? child.PurposeName : '-'}}</td>
-                        <td style="width: 20%" [title]="child.Remarks">
+                        <td [title]="child.Remarks" style="width: 20%">
                             <p class="remarks-box mt-2">
                                 {{child.Remarks.slice(0, 30)}}
                             </p>
                         </td>
                         <td style="width: 20%">{{child?.StatusName}}</td>
                         <td>
-                            <button mat-icon-button color="primary" *ngIf="ViewSign(child.Signature) && currentActivity.R"
-                                    (click)="DisplaySign(child.Signature)">
+                            <button (click)="DisplaySign(child.Signature)" *ngIf="ViewSign(child.Signature) && currentActivity.R"
+                                    color="primary"
+                                    mat-icon-button>
                                 <mat-icon class="text-green" title="View land">visibility</mat-icon>
                             </button>
                         </td>
@@ -78,7 +79,7 @@
     <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
     <span class="font-bold text-green">Items per page:</span>
 
-    <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+    <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2" display="inline"
                 style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
         <mat-option [value]="5">5</mat-option>
         <mat-option [value]="10">10</mat-option>
@@ -86,7 +87,7 @@
         <mat-option [value]="50">50</mat-option>
     </mat-select>
     <button (click)="paginate(1)">First</button>
-    <pagination-controls display="inline" (pageChange)="paginate($event)"
+    <pagination-controls (pageChange)="paginate($event)" display="inline"
                          style="display: inline-block;"></pagination-controls>
     <button (click)="paginate(Math.ceil(TourPlans?.length/itemsPerPage))">Last</button>
     <p style="float:right;">Total <b class="text-green">{{TourPlans?.length}}</b> items</p>

@@ -1,14 +1,5 @@
 // Angular
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    ChangeDetectionStrategy,
-    OnDestroy,
-    Input,
-    ChangeDetectorRef,
-} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
@@ -16,13 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
-import {
-    errorMessages,
-    Lov,
-    LovConfigurationKey,
-    MaskEnum,
-    regExps,
-} from 'app/shared/classes/lov.class';
+import {errorMessages, Lov, LovConfigurationKey, MaskEnum, regExps,} from 'app/shared/classes/lov.class';
 import {CreateCustomer} from 'app/shared/models/customer.model';
 import {CustomerService} from 'app/shared/services/customer.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
@@ -137,8 +122,8 @@ export class CustomerListComponent implements OnInit {
     }
 
     searchCustomer(is_first = false) {
-        if(!this.zone){
-            this.layoutUtilsService.alertElement("","Please Select Zone");
+        if (!this.zone) {
+            this.layoutUtilsService.alertElement("", "Please Select Zone");
             return;
         }
         if (is_first == true) {

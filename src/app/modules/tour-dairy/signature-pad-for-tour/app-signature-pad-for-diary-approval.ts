@@ -2,8 +2,6 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {SignaturePad} from "angular2-signaturepad";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {environment} from "../../../../environments/environment";
-import {map} from "rxjs/operators";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {HttpClient} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
 
@@ -57,7 +55,7 @@ export class SignaturePadForDiaryApproval implements OnInit {
     }
 
     close(bySystem: Boolean): void {
-        
+
         this.dialogRef.close(bySystem);
     }
 
@@ -69,9 +67,9 @@ export class SignaturePadForDiaryApproval implements OnInit {
     }
 
     submit() {
-        let diaries=[]
-        for(let i=0;i<this.data?.data?.length;i++){
-            diaries.push((this.data?.data[i]?.ProfileID).toString()+"#"+(this.data?.data[i]?.DiaryId).toString())
+        let diaries = []
+        for (let i = 0; i < this.data?.data?.length; i++) {
+            diaries.push((this.data?.data[i]?.ProfileID).toString() + "#" + (this.data?.data[i]?.DiaryId).toString())
         }
         let formdata = new FormData();
         formdata.append('UserID', String(this.data.userId));

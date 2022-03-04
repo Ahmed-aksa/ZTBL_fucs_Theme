@@ -13,7 +13,6 @@ import {finalize} from 'rxjs/operators';
 import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-fancing-modal.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {PaginationService} from "ngx-pagination";
 import {PaginatorService} from "../../../shared/services/paginator.service";
 import {Activity} from "../../../shared/models/activity.model";
 

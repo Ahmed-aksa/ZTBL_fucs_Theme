@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectorRef, Input} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormControl, AbstractControl} from '@angular/forms';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoanReceiptComponent} from '../loan-receipt/loan-receipt.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SignatureDialogComponent} from '../signature-dialog/signature-dialog.component';
@@ -10,10 +10,7 @@ import {DateFormats, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classe
 import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
-import {KtDialogService} from 'app/shared/services/kt-dialog.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {LovService} from 'app/shared/services/lov.service';
-import {CustomerService} from 'app/shared/services/customer.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {CommonService} from 'app/shared/services/common.service';
@@ -188,6 +185,21 @@ export class RecoveryFormComponent implements OnInit {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
+    get recoveryThroughValidator() {
+        const validator = this.RecoveryForm.get('RecoveryThroughType').validator ? this.RecoveryForm.get('RecoveryThroughType').validator({} as AbstractControl) : '';
+        if (validator && validator.required) {
+            return true;
+        }
+    }
+
+    get coordinatorValidator() {
+        const validator = this.RecoveryForm.get('CoordinatorID').validator ? this.RecoveryForm.get('CoordinatorID').validator({} as AbstractControl) : '';
+        if (validator && validator.required) {
+            return true;
+        }
+
+    }
+
     ngOnInit() {
         if (this.router.url == '/loan-recovery/sbs-fa-branch' || this.router.url.startsWith('/loan-recovery/sbs-fa-branch'))
             this.currentActivity = this.userUtilsService.getActivity('SBS Recovery');
@@ -292,33 +304,6 @@ export class RecoveryFormComponent implements OnInit {
     ngAfterViewInit() {
         this.spinner.hide();
         console.log(this.currentActivity);
-    }
-
-    private filterCoordinator() {
-        let search = this.searchFilterCtrlCoordinator.value;
-        this.Coordinators = this.AllCoordinators;
-        if (!search) {
-            this.Coordinators = this.AllCoordinators;
-        } else {
-            search = search.toLowerCase();
-            this.Coordinators = this.Coordinators.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-    }
-
-
-    get recoveryThroughValidator() {
-        const validator = this.RecoveryForm.get('RecoveryThroughType').validator ? this.RecoveryForm.get('RecoveryThroughType').validator({} as AbstractControl) : '';
-        if (validator && validator.required) {
-            return true;
-        }
-    }
-
-    get coordinatorValidator() {
-        const validator = this.RecoveryForm.get('CoordinatorID').validator ? this.RecoveryForm.get('CoordinatorID').validator({} as AbstractControl) : '';
-        if (validator && validator.required) {
-            return true;
-        }
-
     }
 
     async loadLOV() {
@@ -475,7 +460,6 @@ export class RecoveryFormComponent implements OnInit {
 
     }
 
-
     getAccountDetail() {
         var loanDisbID = this.RecoveryForm.controls.DisbursementID.value;
         var type = this.RecoveryForm.controls.TransactionType.value;
@@ -519,7 +503,6 @@ export class RecoveryFormComponent implements OnInit {
 
             });
     }
-
 
     getSubProposalGL(isSearchClicked = false) {
         var contraBranchCode = this.RecoveryForm.controls.ContraBranchCode.value;
@@ -1032,7 +1015,6 @@ export class RecoveryFormComponent implements OnInit {
         //}
     }
 
-
     deleteRecovery() {
         var transactionID = this.RecoveryForm.controls.TransactionID.value;
         this.spinner.show();
@@ -1116,5 +1098,16 @@ export class RecoveryFormComponent implements OnInit {
         this.circle = event.final_circle;
         this.zone = event.final_zone;
         this.branch = event.final_branch;
+    }
+
+    private filterCoordinator() {
+        let search = this.searchFilterCtrlCoordinator.value;
+        this.Coordinators = this.AllCoordinators;
+        if (!search) {
+            this.Coordinators = this.AllCoordinators;
+        } else {
+            search = search.toLowerCase();
+            this.Coordinators = this.Coordinators.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+        }
     }
 }

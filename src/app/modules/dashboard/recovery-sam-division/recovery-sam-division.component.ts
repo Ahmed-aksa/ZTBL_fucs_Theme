@@ -1,7 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {
-    ChartComponent
-} from "ng-apexcharts";
+import {ChartComponent} from "ng-apexcharts";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
 import {DashboardService} from "../../../shared/services/dashboard.service";

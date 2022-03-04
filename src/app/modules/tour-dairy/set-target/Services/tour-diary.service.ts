@@ -6,12 +6,10 @@ import {HttpUtilsService} from '../../../../shared/services/http_utils.service';
 import {UserUtilsService} from '../../../../shared/services/users_utils.service';
 import {DatePipe} from '@angular/common';
 import {CommonService} from '../../../../shared/services/common.service';
-import {Customer} from '../../../../shared/models/deceased_customer.model';
 import {map} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../../shared/models/base_response.model';
 import {environment} from '../../../../../environments/environment';
 import {Profile} from "../../../user-management/activity/activity.model";
-import {Target} from "../Models/set-target.model";
 import {TourPlan} from "../../../tour-plan/Model/tour-plan.model";
 import moment, {Moment} from "moment";
 
@@ -24,15 +22,7 @@ export class TourDiaryService {
     public request = new BaseRequestModel();
     public activity = new Activity();
     userInfo = this.userUtilsService.getUserDetails();
-
-    constructor(
-        private http: HttpClient,
-        private httpUtils: HttpUtilsService,
-        private userUtilsService: UserUtilsService,
-        private datePipe: DatePipe,
-        private _common: CommonService
-    ) {
-    }
+    Profile = new Profile();
 
     // SearchTourDiary(zone,branch,TourDiary) {
     //     this.request = new BaseRequestModel();
@@ -49,6 +39,14 @@ export class TourDiaryService {
     //         .pipe(map((res: BaseResponseModel) => res));
     // }
 
+    constructor(
+        private http: HttpClient,
+        private httpUtils: HttpUtilsService,
+        private userUtilsService: UserUtilsService,
+        private datePipe: DatePipe,
+        private _common: CommonService
+    ) {
+    }
 
     ChanageTourStatus(tourPlan: TourPlan) {
         this.request = new BaseRequestModel();
@@ -92,7 +90,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    GetScheduleBaseTourPlan(zone, branch, date, role) {
+    GetScheduleBaseTourPlan(zone, branch, date, role, query = null) {
 
         this.request = new BaseRequestModel();
 
@@ -100,7 +98,7 @@ export class TourDiaryService {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
         let request = new BaseRequestModel();
-
+        let TourDiary = null;
         request.Zone = zone;
         request.Branch = branch;
         request.User = userInfo.User;
@@ -111,9 +109,14 @@ export class TourDiaryService {
             "Status": "A",
             "EndDate": date,
         }
-        let TourDiary = {
-            "TourDate": date,
-        }
+        if (!query) //query for diary documents purpose
+            TourDiary = {
+                "TourDate": date,
+            }
+        else
+            TourDiary = {
+                "Query": query
+            }
 
         userInfo.User.ProfileId = this.getProfileId(role)
         request.TourPlan = TourPlan;
@@ -126,8 +129,6 @@ export class TourDiaryService {
             map((res: BaseResponseModel) => res)
         );
     }
-
-    Profile = new Profile();
 
     GetTargets(value: string, zone, branch, circle, UserID) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -428,6 +429,22 @@ export class TourDiaryService {
         interMedDt.setMinutes((time.split(' ')[0]).split(':')[1]);
         return interMedDt
     }
+
+    getTourDiaryDetailForDocument(query: string) {
+        this.request = new BaseRequestModel();
+        var userInfo = this.userUtilsService.getUserDetails();
+        this.request.User = userInfo.User;
+        this.request.TourDiary = {
+            Query: query
+        };
+        return this.http
+            .post<any>(
+                `${environment.apiUrl}/TourPlanAndDiary/GetTourDiaryDetailForReport`,
+                this.request
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
 }
 
 export class Targets {

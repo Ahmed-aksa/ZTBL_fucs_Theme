@@ -11,8 +11,7 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {TourPlan} from "../Model/tour-plan.model";
 import {DEVICELOCATION} from "../../../shared/models/default.model";
 import {Observable} from 'rxjs';
-import {Moment} from "moment";
-import moment from 'moment';
+import moment, {Moment} from "moment";
 
 @Injectable({
     providedIn: 'root'
@@ -23,11 +22,10 @@ export class TourPlanService {
     public activity = new Activity();
     public deviceLocation = new DEVICELOCATION;
     public circle = new Circle;
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
-
-    userInfo = this.userUtilsService.getUserDetails();
 
     getProfileId(role) {
 

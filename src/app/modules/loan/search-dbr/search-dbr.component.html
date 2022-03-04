@@ -9,9 +9,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" data-bs-target="#collapseExample"
+                        data-bs-toggle="collapse" type="button">
                     <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
                     <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
                     Advance Filter
@@ -22,57 +22,57 @@
 
 
     <div class="collapse show" id="collapseExample">
-        <div class="card card-body" [formGroup]="loanSearch">
+        <div [formGroup]="loanSearch" class="card card-body">
             <div class="flex" style="flex-wrap: wrap;">
-                <app-zone-branch-circle [form]="loanSearch" [show_circle]="false"
-                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-<!--                ****************Application Date*********************-->
-<!--                <div class="mx-2">-->
-<!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
-<!--                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                            <mat-label>Application Date(ddMMyyyy)</mat-label>-->
-<!--                            <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy"-->
-<!--                                   autocomplete="off" formControlName="Appdt">-->
-<!--                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
-<!--                            <mat-datepicker #picker3></mat-datepicker>-->
-<!--                        </mat-form-field>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="loanSearch"
+                                        [show_circle]="false"></app-zone-branch-circle>
+                <!--                ****************Application Date*********************-->
+                <!--                <div class="mx-2">-->
+                <!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
+                <!--                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                <!--                            <mat-label>Application Date(ddMMyyyy)</mat-label>-->
+                <!--                            <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy"-->
+                <!--                                   autocomplete="off" formControlName="Appdt">-->
+                <!--                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
+                <!--                            <mat-datepicker #picker3></mat-datepicker>-->
+                <!--                        </mat-form-field>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-<!--                **********************Booklet*****************************    -->
-<!--                <div class="mx-2">-->
-<!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
-<!--                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">-->
-<!--                            <mat-label>LA File/Booklet#</mat-label>-->
-<!--                            <input matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">-->
-<!--                        </mat-form-field>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                **************************Status********************** -->
-<!--                <div class="mx-2">-->
-<!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
-<!--                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">-->
-<!--                            <mat-label>Status</mat-label>-->
-<!--                            <mat-select disabled formControlName="Status">-->
-<!--                                <mat-option>-->
-<!--                                    <ngx-mat-select-search placeholderLabel="Search Loan Status..."-->
-<!--                                                           (focusout)="validateLoanStatusOnFocusOut()"-->
-<!--                                                           noEntriesFoundLabel="No Loan Status Found"-->
-<!--                                                           (keyup)="searchLoanStatus($event.target.value)">-->
-<!--                                    </ngx-mat-select-search>-->
-<!--                                </mat-option>-->
-<!--                                <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">-->
-<!--                                    {{loanStatus.Name }}-->
-<!--                                </mat-option>-->
-<!--                            </mat-select>-->
-<!--                        </mat-form-field>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                **********************Booklet*****************************    -->
+                <!--                <div class="mx-2">-->
+                <!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
+                <!--                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">-->
+                <!--                            <mat-label>LA File/Booklet#</mat-label>-->
+                <!--                            <input matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">-->
+                <!--                        </mat-form-field>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                **************************Status********************** -->
+                <!--                <div class="mx-2">-->
+                <!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
+                <!--                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">-->
+                <!--                            <mat-label>Status</mat-label>-->
+                <!--                            <mat-select disabled formControlName="Status">-->
+                <!--                                <mat-option>-->
+                <!--                                    <ngx-mat-select-search placeholderLabel="Search Loan Status..."-->
+                <!--                                                           (focusout)="validateLoanStatusOnFocusOut()"-->
+                <!--                                                           noEntriesFoundLabel="No Loan Status Found"-->
+                <!--                                                           (keyup)="searchLoanStatus($event.target.value)">-->
+                <!--                                    </ngx-mat-select-search>-->
+                <!--                                </mat-option>-->
+                <!--                                <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">-->
+                <!--                                    {{loanStatus.Name }}-->
+                <!--                                </mat-option>-->
+                <!--                            </mat-select>-->
+                <!--                        </mat-form-field>-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid  w-full">
                             <mat-label>Loan Case#</mat-label>
-                            <input appNumberOnly matInput placeholder="Enter Loan Case Number" formControlName="LcNo">
+                            <input appNumberOnly formControlName="LcNo" matInput placeholder="Enter Loan Case Number">
                         </mat-form-field>
 
                     </div>
@@ -80,7 +80,7 @@
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <div class="flex flex-shrink-0 items-center mt-2 mb-2">
-                            <button class="bg-gray-500" (click)="searchDBR(true)" mat-flat-button [color]="'primary'">
+                            <button (click)="searchDBR(true)" [color]="'primary'" class="bg-gray-500" mat-flat-button>
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -100,11 +100,11 @@
             <!-- Products list -->
             <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
                 <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto">
-                    <mat-table class="lmat-elevation-z8"
+                    <mat-table #sort1="matSort"
                                #table
                                [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                               class="lmat-elevation-z8"
                                matSort
-                               #sort1="matSort"
                                matSortActive="id"
                                matSortDirection="asc"
                                matSortDisableClear>
@@ -155,15 +155,16 @@
                             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                             <mat-cell *matCellDef="let loan">
 
-<!--            <a class="self-center cursor-pointer text-green" (click)="ApplyOrr(loan)"> Apply ORR</a>-->
+                                <!--            <a class="self-center cursor-pointer text-green" (click)="ApplyOrr(loan)"> Apply ORR</a>-->
 
-                        <button mat-icon-button color="primary" (click)="EditDBR(loan)"
-                                *ngIf="CheckEditStatus(loan) && currentActivity.U">
-                            <mat-icon style="margin-left: 5px;" title="Edit DBR">edit</mat-icon>
-                        </button>
-                        <button mat-icon-button color="primary" *ngIf="currentActivity.R" (click)="ViewDBR(loan)">
-                            <mat-icon style="margin-left: 5px;" title="View DBR">visibility</mat-icon>
-                        </button>
+                                <button (click)="EditDBR(loan)" *ngIf="CheckEditStatus(loan) && currentActivity.U" color="primary"
+                                        mat-icon-button>
+                                    <mat-icon style="margin-left: 5px;" title="Edit DBR">edit</mat-icon>
+                                </button>
+                                <button (click)="ViewDBR(loan)" *ngIf="currentActivity.R" color="primary"
+                                        mat-icon-button>
+                                    <mat-icon style="margin-left: 5px;" title="View DBR">visibility</mat-icon>
+                                </button>
                             </mat-cell>
                         </ng-container>
 
@@ -172,13 +173,15 @@
 
                         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
                     </mat-table>
-<!--                    <div class="mat-table__message" *ngIf="dataSource.data.length==0">No records found</div>-->
+                    <!--                    <div class="mat-table__message" *ngIf="dataSource.data.length==0">No records found</div>-->
                 </div>
-                <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
+                <div *ngIf="matTableLenght" class="mat-select"
+                     style="padding:0px 5px; font-size: 13px; margin-top:10px;">
                     <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                            <span class="font-bold text-green">Items per page:</span>
+                    <span class="font-bold text-green">Items per page:</span>
 
-                    <mat-select  class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                                display="inline"
                                 style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
                         <mat-option [value]="5">5</mat-option>
                         <mat-option [value]="10">10</mat-option>
@@ -186,7 +189,7 @@
                         <mat-option [value]="50">50</mat-option>
                     </mat-select>
                     <button (click)="paginate(1)">First</button>
-                    <pagination-controls display="inline" (pageChange)="paginate($event)"
+                    <pagination-controls (pageChange)="paginate($event)" display="inline"
                                          style="display: inline-block;"></pagination-controls>
                     <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
                     <p style="float:right;">Total <b>{{totalItems}}</b> items</p>

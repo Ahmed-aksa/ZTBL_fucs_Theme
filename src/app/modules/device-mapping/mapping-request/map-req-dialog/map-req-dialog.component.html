@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-12 text-right">
                     <div class="text-right">
-                        <button mat-icon-button color="primary" (click)="close(0)">
+                        <button (click)="close(0)" color="primary" mat-icon-button>
                             <mat-icon>close</mat-icon>
                         </button>
                     </div>
@@ -37,21 +37,22 @@
                 <td>{{request.NotificationText}}</td>
                 <td>{{request.RequestedTimeInString}}</td>
                 <td class="text-center">
-                    <button mat-icon-button color="primary"
-                            (click)="viewStatus(request)">
+                    <button (click)="viewStatus(request)" color="primary"
+                            mat-icon-button>
                         <mat-icon title="View">info</mat-icon>
                     </button>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No Record Found</div>
-        <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        <div *ngIf="!loading && !matTableLenght" class="mat-table__message">No Record Found</div>
+        <div *ngIf="loading" class="mat-table__message">Please wait....</div>
 
         <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                    <span class="font-bold text-green">Items per page:</span>
+            <span class="font-bold text-green">Items per page:</span>
 
-            <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+            <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                        display="inline"
                         style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
                 <mat-option [value]="5">5</mat-option>
                 <mat-option [value]="10">10</mat-option>
@@ -59,10 +60,10 @@
                 <mat-option [value]="50">50</mat-option>
             </mat-select>
             <button (click)="paginate(1)">First</button>
-            <pagination-controls display="inline" (pageChange)="paginate($event)"
+            <pagination-controls (pageChange)="paginate($event)" display="inline"
                                  style="display: inline-block;"></pagination-controls>
             <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-            <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
+            <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>
 
         </div>
     </div>

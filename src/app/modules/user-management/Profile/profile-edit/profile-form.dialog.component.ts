@@ -1,15 +1,13 @@
-import {Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
-import {Observable, of, Subscription} from 'rxjs';
-import {Store, select} from '@ngrx/store';
-import {delay, finalize} from 'rxjs/operators';
-import {FormGroup, Validators, FormBuilder, FormArray, FormControl} from '@angular/forms';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {finalize} from 'rxjs/operators';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {Activity, Profile} from '../../activity/activity.model';
 import {ProfileService} from 'app/shared/services/profile.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
-import {KtDialogService} from 'app/shared/services/kt-dialog.service';
 import {ActivityService} from '../../activity/activity.serivce';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -58,8 +56,8 @@ export class ProfileFormDialogComponent implements OnInit {
     SingleProfile: any;
     isLoading: boolean = false;
     _currentActivity: Activity = new Activity();
-    private componentSubscriptions: Subscription;
     lists_record: any = [];
+    private componentSubscriptions: Subscription;
 
     /**
      * Component constructor
@@ -259,17 +257,9 @@ export class ProfileFormDialogComponent implements OnInit {
         return '0';
     }
 
-    private addCheckboxes() {
-        this.activities.forEach((o, i) => {
-            const control = new FormControl(); // if first item set to true, else false
-            (this.profileForm.controls.orders as FormArray).push(control);
-        });
-    }
-
     hasError(controlName: string, errorName: string): boolean {
         return this.profileForm.controls[controlName].hasError(errorName);
     }
-
 
     changeActivityCheckbox(activityId: number, value: boolean) {
 
@@ -400,7 +390,6 @@ export class ProfileFormDialogComponent implements OnInit {
 
     }
 
-
     deleteRole() {
         const _title = 'Role';
         const _description = 'Are you sure to permanently delete this Role?';
@@ -431,7 +420,6 @@ export class ProfileFormDialogComponent implements OnInit {
         this._cdf.detectChanges();
     }
 
-
     editRole() {
         var profile = new Profile();
         profile = this.SingleProfile[0];
@@ -458,7 +446,6 @@ export class ProfileFormDialogComponent implements OnInit {
         this._cdf.detectChanges();
         this.expendTable();
     }
-
 
     /**
      * On destroy
@@ -531,6 +518,13 @@ export class ProfileFormDialogComponent implements OnInit {
             }
         }
 
+    }
+
+    private addCheckboxes() {
+        this.activities.forEach((o, i) => {
+            const control = new FormControl(); // if first item set to true, else false
+            (this.profileForm.controls.orders as FormArray).push(control);
+        });
     }
 
 }

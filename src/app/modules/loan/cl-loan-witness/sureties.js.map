@@ -1,1 +1,10 @@
-{"version":3,"file":"sureties.js","sourceRoot":"","sources":["sureties.ts"],"names":[],"mappings":";;AAAA;IAAA;IAYA,CAAC;IAAD,uBAAC;AAAD,CAAC,AAZD,IAYC;AAZY,4CAAgB"}
+{
+    "version": 3,
+    "file": "sureties.js",
+    "sourceRoot": "",
+    "sources": [
+        "sureties.ts"
+    ],
+    "names": [],
+    "mappings": ";;AAAA;IAAA;IAYA,CAAC;IAAD,uBAAC;AAAD,CAAC,AAZD,IAYC;AAZY,4CAAgB"
+}

@@ -6,7 +6,6 @@ import {DateFormats, Lov} from "../../../shared/classes/lov.class";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {ReportsService} from "../service/reports.service";
@@ -14,7 +13,6 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
-import {Selection} from "../affidavit-for-legal-heirs/affidavit-for-legal-heirs.component";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 
 @Component({
@@ -49,6 +47,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
 
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -63,8 +62,6 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
     ) {
     }
 
-    public LovCall = new Lov();
-
     checkChange(event: MatCheckboxChange) {
         this.zoneCheck = event.checked;
     }
@@ -73,7 +70,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
 
-        if(this.LoggedInUserInfo.Branch){
+        if (this.LoggedInUserInfo.Branch) {
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
@@ -81,7 +78,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
 
             const branchWorkingDate = new Date(year, month - 1, day);
             this.bufricationForm.controls['WorkingDate'].setValue(branchWorkingDate);
-        }else{
+        } else {
             let dateString = this.datepipe.transform(this.workingDate, 'ddMMyyyy');
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));

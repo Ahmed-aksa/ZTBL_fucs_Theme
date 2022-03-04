@@ -14,7 +14,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LayoutUtilsService} from "../../../../shared/services/layout-utils.service";
 
 @Component({

@@ -4,7 +4,7 @@ export class SubmitDocument {
     reference: string = "";
     cnic: string;
     number_of_files: number;
-    CustomerDocuments:any=[];
+    CustomerDocuments: any = [];
     // CustomerDocuments: [{
     //     "id": number;
     //     "Description": string;

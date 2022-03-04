@@ -12,7 +12,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {NgxSpinnerService} from "ngx-spinner";
-import {TourPlanService} from "../../tour-plan/Service/tour-plan.service";
 import {ToastrService} from "ngx-toastr";
 import {HttpClient} from "@angular/common/http";
 import {LovService} from "../../../shared/services/lov.service";
@@ -75,7 +74,8 @@ export class TourDiaryApprovalComponent implements OnInit {
     branch: any;
     circle: any;
     children: [any][any] = [];
-
+    //Start ZBC
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -104,9 +104,6 @@ export class TourDiaryApprovalComponent implements OnInit {
         this.settingZBC();
 
     }
-
-    //Start ZBC
-    userInfo = this.userUtilsService.getUserDetails();
 
     settingZBC() {
 

@@ -1,9 +1,9 @@
-import {Component, OnInit, ChangeDetectorRef, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DatePipe} from '@angular/common';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -15,9 +15,6 @@ import {UserUtilsService} from '../../../shared/services/users_utils.service';
 import {LayoutUtilsService} from '../../../shared/services/layout-utils.service';
 import {LoanUtilizationService} from '../service/loan-utilization.service';
 import {ViewFileComponent} from '../view-file/view-file.component';
-import {Zone} from '../../../shared/models/zone.model';
-import {Circle} from 'app/shared/models/circle.model';
-import {Branch} from 'app/shared/models/branch.model';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {Activity} from "../../../shared/models/activity.model";
 
@@ -129,7 +126,17 @@ export class LoanUtilizationComponent implements OnInit {
         {value: '1', viewValue: 'Yes'},
     ];
     currentActivity: Activity
-
+    MaxNumberOfImages: number;
+    MaxNumberOfVideo: number;
+    VideoTimeLimit: number;
+    ng
+    mydata = [];
+    imagearray = [];
+    imageid;
+    videoid;
+    UtilizationFiles;
+    currentIndex: number = 0;
+    message = '';
 
     constructor(
         private fb: FormBuilder,
@@ -158,7 +165,6 @@ export class LoanUtilizationComponent implements OnInit {
         // });
     }
 
-
     ngAfterViewInit() {
         if (this.loanUtilizationModel.LoanCaseNo && this.loanUtilizationModel.Status != 'Add') {
             this.GetMedia();
@@ -175,15 +181,11 @@ export class LoanUtilizationComponent implements OnInit {
         return new Date().toISOString().split('T')[0];
     }
 
-    MaxNumberOfImages: number;
-    MaxNumberOfVideo: number;
-    VideoTimeLimit: number;
-
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('Loan Utilization')
         // localStorage.setItem('utilization', JSON.stringify(utilization));
-        this.loanUtilizationModel=JSON.parse(localStorage.getItem('utilization'))
-        this.mediaGetter=JSON.parse(localStorage.getItem('utilization'))
+        this.loanUtilizationModel = JSON.parse(localStorage.getItem('utilization'))
+        this.mediaGetter = JSON.parse(localStorage.getItem('utilization'))
 
         if (this.loanUtilizationModel?.LoanCaseNo) {
             if (this.loanUtilizationModel['view'] == '1') {
@@ -205,18 +207,19 @@ export class LoanUtilizationComponent implements OnInit {
         this.setOptions();
 
     }
-ng
+
+    // get f() { return this.customerForm.controls; }
+
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
-    ngOnDestroy(){
+
+    ngOnDestroy() {
         console.log("called")
-    localStorage.removeItem('utilization')
+        localStorage.removeItem('utilization')
     }
-
-
 
     checkUser() {
         const userInfo = this.userUtilsService.getUserDetails();
@@ -270,8 +273,6 @@ ng
         this.hasFormErrors = false;
     }
 
-    // get f() { return this.customerForm.controls; }
-
     createForm() {
         this.customerForm = this.fb.group({
             LoanDisbID: [this.loanUtilizationModel.LoanDisbID, Validators.required],
@@ -291,10 +292,6 @@ ng
             ID: [this.loanUtilizationModel.ID],
         });
     }
-
-
-    mydata = [];
-    imagearray = [];
 
     onSelectFile(event) {
 
@@ -350,7 +347,6 @@ ng
         }
     }
 
-
     deleteData(id: string, val: number, isVideo: boolean) {
 
         this.spinner.show();
@@ -381,9 +377,6 @@ ng
             });
 
     }
-
-    imageid;
-    videoid;
 
     removeImage(url, val: number) {
         if (!url.includes('base64')) {
@@ -449,7 +442,7 @@ ng
             return;
         }
 
-        if(status!='C'){
+        if (status != 'C') {
 
 
             if (status && !(this.imageUrl.length > 0)) {
@@ -541,8 +534,6 @@ ng
             });
     }
 
-    UtilizationFiles;
-
     GetMedia() {
         if (this.customerForm.controls.LoanDisbID.value && this.mediaGetter.LoanCaseNo) {
             this.mediaGetter.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
@@ -605,7 +596,6 @@ ng
                 }
             });
     }
-
 
     changed(value) {
         this.len = value.target.value;
@@ -691,10 +681,6 @@ ng
                     }
                 });
     }
-
-    currentIndex: number = 0;
-
-    message = '';
 
     SaveImages() {
         if (this.currentIndex < this.images.length) {

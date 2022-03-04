@@ -1,5 +1,5 @@
-<div class="kt-portlet"
-     [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+<div [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"
+     class="kt-portlet">
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
@@ -12,15 +12,15 @@
                     <div class="kt-portlet__body-progress">
                         <mat-spinner [diameter]="20"></mat-spinner>
                     </div>
-                    <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
-                              (close)="onAlertClose($event)">
+                    <kt-alert (close)="onAlertClose($event)" *ngIf="hasFormErrors" [duration]="30000" [showCloseButton]="true"
+                              type="warn">
                         Please enter valid Input
                     </kt-alert>
                     <div class="form-group kt-form__group row">
                         <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                <input matInput placeholder="Enter Role Name" formControlName="ProfileName"
-                                       maxlength="30" autocomplete="off"/>
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                                <input autocomplete="off" formControlName="ProfileName" matInput
+                                       maxlength="30" placeholder="Enter Role Name"/>
                                 <mat-error *ngIf="hasError('ProfileName', 'required')">Role Name
                                     <strong>required</strong></mat-error>
                                 <mat-hint align="left">Please enter role name <strong>(Alphabets)</strong></mat-hint>
@@ -37,7 +37,7 @@
                           </mat-form-field>
                         </div> -->
                         <div *ngIf="LOVs" class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid map-fields">
                                 <mat-label>Group</mat-label>
                                 <mat-select formControlName="ProfileID">
                                     <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
@@ -52,12 +52,12 @@
                         <div class="kt-form__actions kt-form__actions--solid">
                             <div class="row text-right">
                                 <div class="col-lg-12">
-                                    <button type="button" class="button-red pull-left" mat-raised-button
-                                            [mat-dialog-close]="data.animal" cdkFocusInitial>
+                                    <button [mat-dialog-close]="data.animal" cdkFocusInitial class="button-red pull-left"
+                                            mat-raised-button type="button">
                                         Cancel
                                     </button>&nbsp;
-                                    <button type="button" class="btn btn-primary" mat-raised-button color="primary"
-                                            (click)="onSubmit()" [disabled]="viewLoading || submitted">
+                                    <button (click)="onSubmit()" [disabled]="viewLoading || submitted" class="btn btn-primary" color="primary"
+                                            mat-raised-button type="button">
                                         Save
                                     </button>
                                 </div>

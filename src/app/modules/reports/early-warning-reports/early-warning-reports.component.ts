@@ -12,7 +12,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
@@ -31,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./early-warning-reports.component.scss']
 })
 export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Name', 'FatherName', 'Cnic', 'Caste','Address','Lcno','GL','markup','Ndd','PD','CD', 'sl','tsa','Los', 'OtherCharges'];
+    displayedColumns = ['Zone', 'Branch', 'Circle', 'Name', 'FatherName', 'Cnic', 'Caste', 'Address', 'Lcno', 'GL', 'markup', 'Ndd', 'PD', 'CD', 'sl', 'tsa', 'Los', 'OtherCharges'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
@@ -52,13 +51,11 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
     LoggedInUserInfo: BaseResponseModel;
 
     user: any = {}
+    statusLov: any;
+    public LovCall = new Lov();
     private branch: any;
     private zone: any;
     private circle: any;
-
-    statusLov: any;
-    public LovCall = new Lov();
-
 
     constructor(
         private fb: FormBuilder,
@@ -86,7 +83,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
         })
     }
 
-    async dayLov(){
+    async dayLov() {
         this.daysLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.EarlyWarningDays});
         this.daysLov = this.daysLov.LOVs.reverse();
         console.log(this.daysLov)
@@ -126,7 +123,6 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle
     }
-
 
 
     // async typeLov() {

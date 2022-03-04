@@ -33,10 +33,14 @@ import {ClCustomersComponent} from './cl-customers/cl-customers.component';
 import {ClPurposeComponent} from './cl-purpose/cl-purpose.component';
 import {ClSecuritiesComponent} from './cl-securities/cl-securities.component';
 import {ClLegalHeirsComponent} from './cl-legal-heirs/cl-legal-heirs.component';
-import {ClAppraisalOfProposedInvestmentComponent} from './cl-appraisal-of-proposed-investment/cl-appraisal-of-proposed-investment.component';
+import {
+    ClAppraisalOfProposedInvestmentComponent
+} from './cl-appraisal-of-proposed-investment/cl-appraisal-of-proposed-investment.component';
 import {ClLoanWitnessComponent} from './cl-loan-witness/cl-loan-witness.component';
 import {ClUploadDocumentComponent} from './cl-upload-document/cl-upload-document.component';
-import {ClGlSchemeCropConfigurationComponent} from './cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
+import {
+    ClGlSchemeCropConfigurationComponent
+} from './cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
 import {ClDocumentViewComponent} from './cl-document-view/cl-document-view.component';
 import {SaveOrrComponent} from './save-orr/save-orr.component';
 import {OrrListComponent} from './orr-list/orr-list.component';
@@ -45,12 +49,10 @@ import {CalculateDbrComponent} from './calculate-dbr/calculate-dbr.component';
 import {SearchDbrComponent} from './search-dbr/search-dbr.component';
 import {ReferbackLoanUtilizationComponent} from './referback-loan-from-orr/referback-loan-uti.component';
 import {ClPendingLoanComponent} from "./cl-pending-loan/cl-pending-loan.component";
-import {MatFormFieldModule} from "@angular/material/form-field";
 import {ChargeCreationLoanComponent} from "./search-charge-creation-loan/search-charge-creation-loan.component";
 import {ClViewLoanComponent} from "./cl-view-loan/cl-view-loan.component";
 import {ReferbackLoanFromCADComponent} from "./referback-loan-from-CAD/referback-loan-from-CAD.component";
 import {RejectedLoanComponent} from "./rejected-loan/rejected-loan.component";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const routing = [
     {

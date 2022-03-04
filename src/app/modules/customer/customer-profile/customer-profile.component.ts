@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {finalize, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
@@ -12,15 +12,13 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {Activity} from 'app/shared/models/activity.model';
 import {CreateCustomer} from 'app/shared/models/customer.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
-import {KtDialogService} from 'app/shared/services/kt-dialog.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {CustomerService} from 'app/shared/services/customer.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {CommonService} from 'app/shared/services/common.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from "ngx-toastr";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {SubmitDocumentsComponent} from "../submit-documents/submit-documents.component";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
 
@@ -71,75 +69,56 @@ export class CustomerProfileComponent implements OnInit {
 
     public maskEnums = MaskEnum;
     errors = errorMessages;
-
-
-    private _onDestroy = new Subject<void>();
-
     public ObjSearchCustomer: any;
-
     public HideShowSaveButton = true;
-
     public ProfileImageSrc: string = './assets/media/logos/profilepicturelogo.png';
     public fileNameProfile: string;
     public ProfileImageData: any;
-
-
     public UrduFatherName: string = '';
     public UrduName: string = '';
     public UrduBirthPlace: string = '';
     public UrduCurrentAddress: string = '';
     public UrduPermanentAddress: string = '';
-
-
     public div_EmployeeShow: boolean = false;
-
     CurrentDate: any;
-
     public Namereadoly: boolean = false;
     public FatherNamereadoly: boolean = false;
     public Dobreadoly: boolean = false;
     public CnicExpiryreadoly: boolean = false;
     public CurrentAddressreadoly: boolean = false;
     public PresentAddressreadoly: boolean = false;
-
     public CNICCustomError: string = '';
-
     public IsLoadPreviousData: boolean = false;
-
     public PassportSterik: boolean = true;
+    //Search filters
+    public searchFilterCtrl: FormControl = new FormControl();
 
 
     //////////////
-    //Search filters
-    public searchFilterCtrl: FormControl = new FormControl();
     public searchFilterCtrlCaste: FormControl = new FormControl();
     public searchFilterCtrlPostCode: FormControl = new FormControl();
     public searchFilterCtrlOccupation: FormControl = new FormControl();
-
     public CasteLovFull: any = [];
     public PostCodeLovFull: any = [];
     public OccupationLovFull: any = [];
-
-
     //todayMax = new Date(2021, 5, 29);
     todayMin = new Date(2021, 5, 1);
     todayMax = new Date();
-    //todayMin = new Date();
-
     bit: any;
+    //todayMin = new Date();
+    //https://www.npmjs.com/package/ngx-mat-select-search
+    disable_save_and_submit: boolean = false;
 
 
     ////
     //for search box
-    //https://www.npmjs.com/package/ngx-mat-select-search
-    disable_save_and_submit: boolean = false;
     zone: any;
     branch: any;
     editable_cnic: boolean = true;
+    currentActivity: Activity;
+    private _onDestroy = new Subject<void>();
     private tran_id: number;
     private document_details: any;
-
-    currentActivity: Activity;
 
     constructor(
         // public dialogRef: MatDialogRef<RoleEditComponent>,
@@ -161,6 +140,15 @@ export class CustomerProfileComponent implements OnInit {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
 
+    }
+
+    get f(): any {
+        if (typeof this.roleForm != 'undefined') {
+            return this.roleForm.controls;
+
+        } else {
+            return false;
+        }
     }
 
     ngOnInit() {
@@ -228,54 +216,6 @@ export class CustomerProfileComponent implements OnInit {
         if (should_alert == 'true') {
             localStorage.removeItem('ShouldAlert');
         }
-    }
-
-    private filterDistricts() {
-        let search = this.searchFilterCtrl.value;
-        this.DistrictLov.LOVs = this.DistrictLovFull?.LOVs;
-        if (!search) {
-            this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
-        } else {
-            search = search.toLowerCase();
-            this.DistrictLov.LOVs = this.DistrictLov?.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-
-    }
-
-    private filterCaste() {
-
-        // get the search keyword
-        let search = this.searchFilterCtrlCaste.value;
-        this.CasteLov.LOVs = this.CasteLovFull.LOVs;
-
-        if (!search) {
-            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
-
-            this.CasteLov.LOVs = this.CasteLovFull.LOVs;
-
-        } else {
-            search = search.toLowerCase();
-            this.CasteLov.LOVs = this.CasteLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-
-    }
-
-    private filterOccupation() {
-
-        // get the search keyword
-        let search = this.searchFilterCtrlOccupation?.value;
-        this.OccupationLov.LOVs = this.OccupationLovFull?.LOVs;
-
-        if (!search) {
-            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
-
-            this.OccupationLov.LOVs = this.OccupationLovFull?.LOVs;
-
-        } else {
-            search = search.toLowerCase();
-            this.OccupationLov.LOVs = this.OccupationLov?.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-
     }
 
     convertDateToString(dateToBeConverted: string) {
@@ -361,15 +301,6 @@ export class CustomerProfileComponent implements OnInit {
         return this.roleForm.controls[controlName].hasError(errorName);
     }
 
-    get f(): any {
-        if (typeof this.roleForm != 'undefined') {
-            return this.roleForm.controls;
-
-        } else {
-            return false;
-        }
-    }
-
     onSubmit(flag): void {
 
         this.hasFormErrors = false;
@@ -392,7 +323,7 @@ export class CustomerProfileComponent implements OnInit {
                 return;
             }
         }
-        let data: any = new Object();
+        let data: any = {};
         let customer_Status = null;
         let customer_number = null;
         let caste_code = null;
@@ -669,9 +600,6 @@ export class CustomerProfileComponent implements OnInit {
 
     }
 
-
-    //////////Change events
-
     GenderChange($event) {
 
 
@@ -745,6 +673,9 @@ export class CustomerProfileComponent implements OnInit {
         this.roleForm.controls['PassportNumber'].updateValueAndValidity();
 
     }
+
+
+    //////////Change events
 
     LoadPreviousData() {
 
@@ -925,14 +856,10 @@ export class CustomerProfileComponent implements OnInit {
         this.router.navigate(['/customer/search-customer'], {relativeTo: this.activatedRoute});
     }
 
-    ///////End of change events////////////////
-
-
     ngAfterViewInit() {
 
 
     }
-
 
     onFileSelected(event) {
 
@@ -1006,6 +933,7 @@ export class CustomerProfileComponent implements OnInit {
         }
     }
 
+    ///////End of change events////////////////
 
     onPickerClosed() {
 
@@ -1215,6 +1143,54 @@ export class CustomerProfileComponent implements OnInit {
                 return
             }
         })
+
+    }
+
+    private filterDistricts() {
+        let search = this.searchFilterCtrl.value;
+        this.DistrictLov.LOVs = this.DistrictLovFull?.LOVs;
+        if (!search) {
+            this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
+        } else {
+            search = search.toLowerCase();
+            this.DistrictLov.LOVs = this.DistrictLov?.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+        }
+
+    }
+
+    private filterCaste() {
+
+        // get the search keyword
+        let search = this.searchFilterCtrlCaste.value;
+        this.CasteLov.LOVs = this.CasteLovFull.LOVs;
+
+        if (!search) {
+            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
+
+            this.CasteLov.LOVs = this.CasteLovFull.LOVs;
+
+        } else {
+            search = search.toLowerCase();
+            this.CasteLov.LOVs = this.CasteLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+        }
+
+    }
+
+    private filterOccupation() {
+
+        // get the search keyword
+        let search = this.searchFilterCtrlOccupation?.value;
+        this.OccupationLov.LOVs = this.OccupationLovFull?.LOVs;
+
+        if (!search) {
+            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
+
+            this.OccupationLov.LOVs = this.OccupationLovFull?.LOVs;
+
+        } else {
+            search = search.toLowerCase();
+            this.OccupationLov.LOVs = this.OccupationLov?.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+        }
 
     }
 

@@ -13,7 +13,7 @@
                     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
                 </ng-container>
 
-               
+
                 <ng-container matColumnDef="expandedDetail">
 
                     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
@@ -48,93 +48,92 @@
             <div class="table-responsive  border shadow-xs rounded-sm bg-gray-50" id="map_canvas">
                 <table class="table accordion table-striped">
                     <thead>
-                        <tr class="table-header-background">
-                            <th scope="col"></th>
-                            <th scope="col">Heading 1</th>
-                            <th scope="col">Heading 2</th>
-                            <th scope="col">Heading 3</th>
-                            <th scope="col">Heading 4</th>
-                        </tr>
+                    <tr class="table-header-background">
+                        <th scope="col"></th>
+                        <th scope="col">Heading 1</th>
+                        <th scope="col">Heading 2</th>
+                        <th scope="col">Heading 3</th>
+                        <th scope="col">Heading 4</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr data-bs-toggle="collapse" data-bs-target="#r1">
-                            <th scope="row">
-                                <mat-icon class="text-green">expand_more</mat-icon>
-                            </th>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                        </tr>
-                        <tr class="collapse accordion-collapse" id="r1" data-bs-parent=".table">
-                            <td colspan="5"> Item 1 detail .. This is the first item's accordion body. It is shown by
-                                default, until the collapse plugin adds the appropriate classes that we use to style
-                                each element. These classes control the overall appearance, as well as the showing and
-                                hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
-                                default variables. It's also worth noting that just about any HTML can go within the
-                                .accordion-body, though the transition does limit overflow. </td>
-                        </tr>
-                        <tr data-bs-toggle="collapse" data-bs-target="#r2">
-                            <th scope="row">
-                                <mat-icon class="text-green">expand_more</mat-icon>
-                            </th>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                        </tr>
-                        <tr class="collapse accordion-collapse" id="r2" data-bs-parent=".table">
-                            <td colspan="5"> Item 2 detail .. This is the first item's accordion body. It is shown by
-                                default, until the collapse plugin adds the appropriate classes that we use to style
-                                each element. These classes control the overall appearance, as well as the showing and
-                                hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
-                                default variables. It's also worth noting that just about any HTML can go within the
-                                .accordion-body, though the transition does limit overflow. </td>
-                        </tr>
-                        <tr data-bs-toggle="collapse" data-bs-target="#r3">
-                            <th scope="row">
-                                <mat-icon class="text-green">expand_more</mat-icon>
-                            </th>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                        </tr>
-                        <tr class="collapse accordion-collapse" id="r3" data-bs-parent=".table">
-                            <td colspan="5">
-                                <div class="table-responsive" style="overflow-x: hidden;">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr class="table-header-background">
-                                                <th>CNIC</th>
-                                                <th>Name</th>
-                                                <th>Father Name</th>
-                                                <th>DOB</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{{customerRec.Cnic</td>
-                                                <td>{{customerRec.CustomerNam</td>
-                                                <td>{{customerRec.FatherName</td>
-                                                <td>{{customerRec.Dob</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                    <tr data-bs-target="#r1" data-bs-toggle="collapse">
+                        <th scope="row">
+                            <mat-icon class="text-green">expand_more</mat-icon>
+                        </th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr class="collapse accordion-collapse" data-bs-parent=".table" id="r1">
+                        <td colspan="5"> Item 1 detail .. This is the first item's accordion body. It is shown by
+                            default, until the collapse plugin adds the appropriate classes that we use to style
+                            each element. These classes control the overall appearance, as well as the showing and
+                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
+                            default variables. It's also worth noting that just about any HTML can go within the
+                            .accordion-body, though the transition does limit overflow.
+                        </td>
+                    </tr>
+                    <tr data-bs-target="#r2" data-bs-toggle="collapse">
+                        <th scope="row">
+                            <mat-icon class="text-green">expand_more</mat-icon>
+                        </th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr class="collapse accordion-collapse" data-bs-parent=".table" id="r2">
+                        <td colspan="5"> Item 2 detail .. This is the first item's accordion body. It is shown by
+                            default, until the collapse plugin adds the appropriate classes that we use to style
+                            each element. These classes control the overall appearance, as well as the showing and
+                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
+                            default variables. It's also worth noting that just about any HTML can go within the
+                            .accordion-body, though the transition does limit overflow.
+                        </td>
+                    </tr>
+                    <tr data-bs-target="#r3" data-bs-toggle="collapse">
+                        <th scope="row">
+                            <mat-icon class="text-green">expand_more</mat-icon>
+                        </th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr class="collapse accordion-collapse" data-bs-parent=".table" id="r3">
+                        <td colspan="5">
+                            <div class="table-responsive" style="overflow-x: hidden;">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr class="table-header-background">
+                                        <th>CNIC</th>
+                                        <th>Name</th>
+                                        <th>Father Name</th>
+                                        <th>DOB</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>{{customerRec.Cnic</td>
+                                        <td>{{customerRec.CustomerNam</td>
+                                        <td>{{customerRec.FatherName</td>
+                                        <td>{{customerRec.Dob</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
-                                </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
 
-
-
     </div>
-
 
 
 </div>

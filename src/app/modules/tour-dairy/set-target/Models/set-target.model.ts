@@ -9,11 +9,12 @@ export class Target {
     DisbursmentAmount: string;
 }
 
-export class TargetDuration{
+export class TargetDuration {
     LovId: number;
     Id: string;
     Name: string;
 }
-export class BankTarget{
+
+export class BankTarget {
 
 }

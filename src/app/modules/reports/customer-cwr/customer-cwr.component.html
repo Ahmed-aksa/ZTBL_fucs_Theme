@@ -15,9 +15,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1 py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1 py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" data-bs-target="#collapseExample"
+                        data-bs-toggle="collapse" type="button">
                     <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
                     <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
                     Advance Filter
@@ -30,43 +30,43 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="py-1" [formGroup]="searchCnicForm">
+            <div [formGroup]="searchCnicForm" class="py-1">
                 <div class="flex" style="flex-wrap: wrap;">
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">CNIC</mat-label>
-                                <input matInput placeholder="Enter CNIC" formControlName="Cnic"
-                                       appNumberOnly  autocomplete="off"/>
+                                <input appNumberOnly autocomplete="off" formControlName="Cnic"
+                                       matInput placeholder="Enter CNIC"/>
                             </mat-form-field>
                         </div>
                     </div>
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">LA File/Booklet #</mat-label>
-                                <input matInput placeholder="Enter LA File/ Booklet Number" formControlName="BookletNo"
-                                       appNumberOnly  autocomplete="off"/>
+                                <input appNumberOnly autocomplete="off" formControlName="BookletNo"
+                                       matInput placeholder="Enter LA File/ Booklet Number"/>
                             </mat-form-field>
                         </div>
                     </div>
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">LC #</mat-label>
-                                <input matInput placeholder="Enter Loan Case Number" formControlName="LcNO"
-                                       appNumberOnly  autocomplete="off"/>
+                                <input appNumberOnly autocomplete="off" formControlName="LcNO"
+                                       matInput placeholder="Enter Loan Case Number"/>
                             </mat-form-field>
                         </div>
                     </div>
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button class="mt-2 bg-gray-500 "
-                                    mat-raised-button color="primary" (click)="find()">
+                            <button (click)="find()"
+                                    class="mt-2 bg-gray-500 " color="primary" mat-raised-button>
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Find
                             </button>
@@ -88,17 +88,17 @@
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
             <!--[style.height]="gridHeight"-->
             <mat-table
-                class="lmat-elevation-z8 overflow-scroll"
-                [style.height]="gridHeight"
+                #sort1="matSort"
                 #table
                 [dataSource]="
                     dataSource
                 "
+                [style.height]="gridHeight"
+                class="lmat-elevation-z8 overflow-scroll"
                 matSort
-                #sort1="matSort"
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear
@@ -184,14 +184,14 @@
                 </ng-container>
 
                 <ng-container matColumnDef="Action">
-                    <mat-header-cell  *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let report">
+                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let report" mat-cell>
                         <div class="flex" style="flex-wrap:wrap; width: 220px;">
                             <button
-                                mat-icon-button
                                 (click)="downloadCusCwr(report)"
+                                mat-icon-button
                             >
-                                <mat-icon  class="text-green" title="download" color="primary"
+                                <mat-icon class="text-green" color="primary" title="download"
                                 >file_download
                                 </mat-icon
                                 >
@@ -210,7 +210,7 @@
                 ></mat-row>
             </mat-table>
 
-            <div class="mat-table__message" *ngIf="loading">
+            <div *ngIf="loading" class="mat-table__message">
                 Please wait....
             </div>
 

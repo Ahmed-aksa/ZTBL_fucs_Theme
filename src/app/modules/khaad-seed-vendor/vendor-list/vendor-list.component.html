@@ -15,9 +15,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -29,16 +29,16 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="py-1" [formGroup]="listForm">
+            <div [formGroup]="listForm" class="py-1">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="listForm" [show_circle]="true"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="listForm"
+                                            [show_circle]="true"></app-zone-branch-circle>
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field
-                                class="mat-form-field-fluid w-full"
                                 appearance="outline"
+                                class="mat-form-field-fluid w-full"
                             >
                                 <mat-label class="customMatLabel"
                                 >Vendor Type
@@ -59,19 +59,19 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field
-                                class="mat-form-field-fluid w-full"
                                 appearance="outline"
+                                class="mat-form-field-fluid w-full"
                             >
                                 <mat-label class="customMatLabel"
                                 >Vendor Name
                                 </mat-label
                                 >
                                 <input
-                                    matInput
-                                    placeholder="Vendor Name"
-                                    formControlName="VendorName"
-                                    maxlength="30"
                                     autocomplete="off"
+                                    formControlName="VendorName"
+                                    matInput
+                                    maxlength="30"
+                                    placeholder="Vendor Name"
                                 />
                             </mat-form-field>
                         </div>
@@ -79,20 +79,20 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field
-                                class="mat-form-field-fluid w-full"
                                 appearance="outline"
+                                class="mat-form-field-fluid w-full"
                             >
                                 <mat-label class="customMatLabel"
                                 >Vendor Phone Number
                                 </mat-label
                                 >
                                 <input
-                                    matInput
-                                    placeholder="Vendor Phone Number"
-                                    formControlName="PhoneNumber"
-                                    maxlength="11" minlength="11"
-                                    autocomplete="off"
                                     appNumberOnly
+                                    autocomplete="off"
+                                    formControlName="PhoneNumber"
+                                    matInput maxlength="11"
+                                    minlength="11"
+                                    placeholder="Vendor Phone Number"
                                 />
                             </mat-form-field>
                         </div>
@@ -101,15 +101,15 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <button
 
-                                mat-raised-button
+                                (click)="find()"
                                 class="
                                 mat-raised-button mat-button-base mat-primary
                                 mb-2
                                 bg-gray-500
                                 mt-2
                             "
+                                mat-raised-button
                                 type="button"
-                                (click)="find()"
                             >
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
@@ -123,8 +123,8 @@
     </div>
 
     <!-- Header -->
-    <div  class="flex flex-auto border shadow-xs rounded-sm bg-gray-50"
-    style="flex-direction: column; overflow-y: scroll">
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50"
+         style="flex-direction: column; overflow-y: scroll">
         <!-- <div
             class="absolute inset-x-0 bottom-0">
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
@@ -133,7 +133,7 @@
         <div class="mat-table__wrapper border shadow-xs rounded-sm bg-gray-50 ">
             <!--[style.height]="gridHeight"-->
             <mat-table
-                class="lmat-elevation-z8"
+                #sort1="matSort"
                 #table
                 [dataSource]="
                     dataSource
@@ -144,8 +144,8 @@
                                   totalItems: totalItems
                               }
                 "
+                class="lmat-elevation-z8"
                 matSort
-                #sort1="matSort"
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear
@@ -201,43 +201,43 @@
                 </ng-container>
 
                 <ng-container matColumnDef="Actions">
-                    <mat-header-cell  *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let vendor">
+                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let vendor" mat-cell>
                         <div class="flex" style="flex-wrap:wrap; width: 220px;">
-                        <button *ngIf="currentActivity.R"
-                            mat-icon-button
-                            (click)="viewVendor(vendor)"
-                        >
-                            <mat-icon  class="text-green" title="View Vendor" color="primary"
-                            >visibility
-                            </mat-icon
+                            <button (click)="viewVendor(vendor)"
+                                    *ngIf="currentActivity.R"
+                                    mat-icon-button
                             >
-                        </button>
+                                <mat-icon class="text-green" color="primary" title="View Vendor"
+                                >visibility
+                                </mat-icon
+                                >
+                            </button>
 
-                        <button
-                            mat-icon-button
-                            *ngIf="editDeleteStatus(vendor) && currentActivity.U"
-                            (click)="editVendor(vendor)"
-                        >
-                            <mat-icon title="View Vendor" color="primary">edit</mat-icon>
-                        </button>
-
-                        <button
-                            mat-icon-button
-                            *ngIf="editDeleteStatus(vendor) && currentActivity.D"
-                            (click)="deleteVendor(vendor)"
-                        >
-                            <mat-icon title="View Vendor" class="text-red-500"
-                            >delete_forever
-                            </mat-icon
+                            <button
+                                (click)="editVendor(vendor)"
+                                *ngIf="editDeleteStatus(vendor) && currentActivity.U"
+                                mat-icon-button
                             >
-                        </button>
+                                <mat-icon color="primary" title="View Vendor">edit</mat-icon>
+                            </button>
 
-                        <button  mat-icon-button *ngIf="checkMap(vendor)"
-                                (click)="viewMap(vendor)">
-                            <mat-icon title="view Vendor Location" color="primary">location_on</mat-icon>
-                        </button>
-                    </div>
+                            <button
+                                (click)="deleteVendor(vendor)"
+                                *ngIf="editDeleteStatus(vendor) && currentActivity.D"
+                                mat-icon-button
+                            >
+                                <mat-icon class="text-red-500" title="View Vendor"
+                                >delete_forever
+                                </mat-icon
+                                >
+                            </button>
+
+                            <button (click)="viewMap(vendor)" *ngIf="checkMap(vendor)"
+                                    mat-icon-button>
+                                <mat-icon color="primary" title="view Vendor Location">location_on</mat-icon>
+                            </button>
+                        </div>
                     </mat-cell>
                 </ng-container>
 
@@ -260,13 +260,13 @@
         </div>
     </div>
     <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                <span class="font-bold text-green">Items per page:</span>
+        <span class="font-bold text-green">Items per page:</span>
 
         <mat-select
-        class="border-2 pl-1 py-2"
-            display="inline"
-            [(value)]="itemsPerPage"
             (valueChange)="paginate(1, $event)"
+            [(value)]="itemsPerPage"
+            class="border-2 pl-1 py-2"
+            display="inline"
             style="
                 width: 50px;
                 margin-left: 15px;
@@ -281,8 +281,8 @@
         </mat-select>
         <button (click)="paginate(1)">First</button>
         <pagination-controls
-            display="inline"
             (pageChange)="paginate($event)"
+            display="inline"
             style="display: inline-block"
         ></pagination-controls>
         <button

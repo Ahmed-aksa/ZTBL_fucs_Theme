@@ -13,7 +13,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Component, Inject, OnInit} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -27,6 +27,10 @@ import {MappingViolationService} from '../service/mapping-violation.service';
 })
 export class MapNotificationStatusComponent implements OnInit {
 
+    status: any;
+    create = false;
+    violat = false;
+
     constructor(
         private mappingViolate: MappingViolationService,
         private spinner: NgxSpinnerService,
@@ -35,10 +39,6 @@ export class MapNotificationStatusComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
     }
-
-    status: any;
-    create = false;
-    violat = false;
 
     close(result: any): void {
         this.dialogRef.close(result);

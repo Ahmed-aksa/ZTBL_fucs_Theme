@@ -1,8 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {
-    ChartComponent
-} from "ng-apexcharts";
+import {ChartComponent} from "ng-apexcharts";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
 import {DashboardService} from "../../../shared/services/dashboard.service";
@@ -36,7 +34,7 @@ export class EvpOdDashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.spinner.show();
-        this.year=(new Date()).getFullYear().toString();
+        this.year = (new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
 

@@ -4,11 +4,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserUtilsService} from '../../../shared/services/users_utils.service';
 import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {MatPaginator} from "@angular/material/paginator";
 import {DeceasedCustomerService} from '../../../shared/services/deceased-customer.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
-import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
@@ -55,7 +53,7 @@ export class ReferbackDeceasedComponent implements OnInit {
     referBackForm: FormGroup;
     loggedInUser: any;
     gridHeight: string;
-    currentActivity : Activity;
+    currentActivity: Activity;
 
     select: Selection[] = [
         {value: '1', viewValue: 'NO'},

@@ -2,8 +2,6 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {SignaturePad} from "angular2-signaturepad";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {environment} from "../../../../environments/environment";
-import {map} from "rxjs/operators";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {HttpClient} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
 
@@ -101,10 +99,11 @@ export class SignaturePadForTourComponent implements OnInit {
             }
         });
     }
-    classDesign(){
-        if(this.is_referback){
+
+    classDesign() {
+        if (this.is_referback) {
             return "border-none"
-        }else{
+        } else {
             return "border-t"
         }
 

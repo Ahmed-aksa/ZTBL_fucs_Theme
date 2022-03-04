@@ -1,10 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe, Location} from '@angular/common';
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
 import {DateFormats} from '../../../shared/classes/lov.class';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -56,6 +52,7 @@ export class TourDiaryZmComponent implements OnInit {
     currentActivity: Activity;
     edit_mode: boolean = true;
     has_previous: boolean = false;
+    @ViewChild("timepicker") timepicker: any;
 
     constructor(
         private fb: FormBuilder,
@@ -92,8 +89,19 @@ export class TourDiaryZmComponent implements OnInit {
             localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone && this.data) {
-                this.edit(this.data)
+
+            if (this.data) {
+                if (!this.zone) {
+                    this.zone = {
+                        ZoneId: this.data.TourDiaries[0].ZoneId
+                    };
+                }
+
+                if (this.data.hasOwnProperty('TourDiaries'))
+                    this.edit(this.data.TourDiaries[0])
+                else {
+                    this.edit(this.data)
+                }
             }
         }, 1000);
     }
@@ -144,26 +152,33 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     GetTourPlan() {
-        this.spinner.show();
-        this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM')
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
+        if (this.data.hasOwnProperty('TourDiaries')) {
+            this.TourDiaryList = [];
+            this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
+            this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
+        } else {
+            this.spinner.show();
+            this.tourDiaryService
+                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM')
+                .pipe(finalize(() => {
+                    this.spinner.hide();
+                }))
+                .subscribe((baseResponse) => {
+                    if (baseResponse.Success) {
 
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
-                } else {
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
+                        this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                        this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                    } else {
+                        this.layoutUtilsService.alertElement(
+                            '',
+                            baseResponse.Message,
+                            baseResponse.Code
+                        );
+                    }
+                });
+        }
 
     }
 
@@ -341,8 +356,6 @@ export class TourDiaryZmComponent implements OnInit {
 
 
     }
-
-    @ViewChild("timepicker") timepicker: any;
 
     openFromIcon(timepicker: { open: () => void }) {
         // if (!this.formControlItem.disabled) {

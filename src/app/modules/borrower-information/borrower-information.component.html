@@ -9,9 +9,9 @@
         <div class="col-lg-3 col-sm-12 self-center">
 
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -26,16 +26,16 @@
             <div [formGroup]="borrowerForm">
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="borrowerForm" [show_circle]="true"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="borrowerForm"
+                                            [show_circle]="true"></app-zone-branch-circle>
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Cnic</mat-label>
-                                <input matInput placeholder="Cnic" formControlName="Cnic" maxlength="30"
-                                       autocomplete="off" appNumberOnly/>
+                                <input appNumberOnly autocomplete="off" formControlName="Cnic" matInput
+                                       maxlength="30" placeholder="Cnic"/>
                             </mat-form-field>
                         </div>
                     </div>
@@ -43,8 +43,8 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <button class=" mt-2 bg-gray-500 mat-primary" mat-raised-button color="accent"
-                                    type="button" (click)="find()">
+                            <button (click)="find()" class=" mt-2 bg-gray-500 mat-primary" color="accent"
+                                    mat-raised-button type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -64,10 +64,10 @@
         <div class="example-table-container ">
             <!--[style.height]="gridHeight"-->
             <mat-table
+                #sort1="matSort"
                 #table
                 [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
                 matSort
-                #sort1="matSort"
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear>
@@ -93,8 +93,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="Cnic">
-                    <mat-header-cell style="min-width: 150px;" *matHeaderCellDef>Cnic</mat-header-cell>
-                    <mat-cell style="min-width: 150px;" *matCellDef="let borrower">{{borrower.Cnic}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef style="min-width: 150px;">Cnic</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower" style="min-width: 150px;">{{borrower.Cnic}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="PhoneNumber">
@@ -132,7 +132,8 @@
     </div>
     <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
         <span class="font-bold text-green"> Items per page:</span>
-        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                    display="inline"
                     style=" width: 50px; margin-left: 10px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
@@ -141,10 +142,10 @@
             <mat-option [value]="100">100</mat-option>
         </mat-select>
         <button (click)="paginate(1)">First</button>
-        <pagination-controls display="inline" (pageChange)="paginate($event)"
+        <pagination-controls (pageChange)="paginate($event)" display="inline"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>

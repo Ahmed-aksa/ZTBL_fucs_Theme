@@ -1,11 +1,11 @@
-import {Component, OnInit, Inject, NgZone, ViewChild, ElementRef} from '@angular/core';
+import {Component, ElementRef, Inject, NgZone, OnInit, ViewChild} from '@angular/core';
 
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {getGeom} from "@turf/invariant";
 
-import {delay, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {polygon} from "@turf/helpers";
-import {Observable, of, Subscription, from} from 'rxjs';
+import {Subscription} from 'rxjs';
 import polygonClipping from "polygon-clipping";
 import {Zone} from '../../users/utils/zone.model';
 import {User} from 'app/shared/models/user.model';
@@ -13,7 +13,7 @@ import {Circle} from 'app/shared/models/circle.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {Activity} from 'app/shared/models/activity.model';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MapsAPILoader} from '@agm/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
@@ -38,7 +38,6 @@ export class GeofencingEditComponent implements OnInit {
     loadingAfterSubmit = false;
     viewLoading = false;
     activityForm: FormGroup;
-    private componentSubscriptions: Subscription;
     user: User = new User();
     circle: Circle = new Circle();
     public Zone = new Zone();
@@ -48,14 +47,12 @@ export class GeofencingEditComponent implements OnInit {
     NewFancPoints: string;
     loading: boolean;
     public request = new BaseRequestModel();
-
     title: string = 'AGM project';
     zoom: number = 2;
     address: string;
     gridHeight: string;
     //implements OnInit
     radius = null;
-
     ///////////////////
     lat = 30.375321;
     lng = 69.345116;
@@ -76,28 +73,24 @@ export class GeofencingEditComponent implements OnInit {
     isSaveBtnShown: boolean = false;
     isEditBtnShown: boolean = false;
     isDeleteBtnShown: boolean = false;
-
     controlOptions = {
         mapTypeIds: ["satellite", "roadmap", "hybrid", "terrain"]
     }
-
     @ViewChild('search')
     public searchElementRef: ElementRef;
+    //[center] = "30.3753,69.3451"
+    countryRestriction = {
+        latLngBounds: {
+            north: 37.084107,
+            east: 77.823171,
+            south: 23.6345,
+            west: 60.872972
+        },
+        strictBounds: true
+    };
 
     ///////////////////
-
-    constructor(public dialogRef: MatDialogRef<GeofencingEditComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any,
-                private dialog: MatDialog,
-                private mapsAPILoader: MapsAPILoader,
-                private ngZone: NgZone,
-                private _snackBar: MatSnackBar,
-                private layoutUtilsService: LayoutUtilsService,
-                private _circleService: CircleService,
-                private spinner: NgxSpinnerService,
-                private userUtilsService:UserUtilsService,
-    ) {
-    }
+    private componentSubscriptions: Subscription;
 
 
     /*onChoseLocation(event: any) {
@@ -109,6 +102,19 @@ export class GeofencingEditComponent implements OnInit {
 
 
     }*/
+
+    constructor(public dialogRef: MatDialogRef<GeofencingEditComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: any,
+                private dialog: MatDialog,
+                private mapsAPILoader: MapsAPILoader,
+                private ngZone: NgZone,
+                private _snackBar: MatSnackBar,
+                private layoutUtilsService: LayoutUtilsService,
+                private _circleService: CircleService,
+                private spinner: NgxSpinnerService,
+                private userUtilsService: UserUtilsService,
+    ) {
+    }
 
     Clear() {
         if (this.selectedShape) {
@@ -134,19 +140,6 @@ export class GeofencingEditComponent implements OnInit {
         this.isDeleteBtnShown = false;
 
     }
-
-
-    //[center] = "30.3753,69.3451"
-    countryRestriction = {
-        latLngBounds: {
-            north: 37.084107,
-            east: 77.823171,
-            south: 23.6345,
-            west: 60.872972
-        },
-        strictBounds: true
-    };
-
 
     close(result: any): void {
         this.dialogRef.close(result);
@@ -188,19 +181,6 @@ export class GeofencingEditComponent implements OnInit {
     ngAfterViewInit() {
         //this.gridHeight = window.innerHeight - 390 + 'px';
     }
-
-
-    private setCurrentLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.lat = position.coords.latitude;
-                this.lng = position.coords.longitude;
-                this.zoom = 12;
-                //this.getAddress(this.latitude, this.longitude);
-            });
-        }
-    }
-
 
     GetCirclePoligons() {
         this.circle = new Circle()
@@ -252,7 +232,6 @@ export class GeofencingEditComponent implements OnInit {
 
             });
     }
-
 
     DeeteCircleFence() {
 
@@ -333,13 +312,13 @@ export class GeofencingEditComponent implements OnInit {
                                 var lat: number = +ob.split(",")[0]
                                 var lng: number = +ob.split(",")[1]
 
-                                if(!isNaN(lat) && !isNaN(lng)){
+                                if (!isNaN(lat) && !isNaN(lng)) {
                                     polygonArray.push([lat, lng])
                                     existingPolygonPoints.push({lat: lat, lng: lng})
                                 }
                             });
 
-                            if((polygonArray.length>0) && (polygonArray[0][0]!=polygonArray[polygonArray.length-1][0] || polygonArray[0][1]!=polygonArray[polygonArray.length-1][1])){
+                            if ((polygonArray.length > 0) && (polygonArray[0][0] != polygonArray[polygonArray.length - 1][0] || polygonArray[0][1] != polygonArray[polygonArray.length - 1][1])) {
                                 polygonArray.push([polygonArray[0][0], polygonArray[0][1]])
                             }
 
@@ -357,7 +336,7 @@ export class GeofencingEditComponent implements OnInit {
                              * because most of the work will be done as soon as the data is loaded.
                              *
                              */
-                            if(circleInfo.circleCode == '23353-25'){
+                            if (circleInfo.circleCode == '23353-25') {
 
                             }
                             this.multiPolygonArray.push(circleInfo)
@@ -400,7 +379,7 @@ export class GeofencingEditComponent implements OnInit {
             const geom1 = getGeom(newPolygon);
             const geom2 = getGeom(poly2);
 
-            if(i == 580 || i == 663){
+            if (i == 580 || i == 663) {
 
             }
             // var intersec = turf.intersect(geom1, geom2)
@@ -431,7 +410,6 @@ export class GeofencingEditComponent implements OnInit {
             return false;
         }
     }
-
 
     deleteAllPolygons() {
         for (var i = 0; i < this.allPolygons.length; i++) {
@@ -504,7 +482,7 @@ export class GeofencingEditComponent implements OnInit {
             this.circle.Radius = this.radius;
             this.circle.CenterLatitude = this.fenceCenter.lat().toString();
             this.circle.CenterLongitude = this.fenceCenter.lng().toString();
-            var userinfo= this.userUtilsService.getUserDetails();
+            var userinfo = this.userUtilsService.getUserDetails();
             this.request.User = userinfo.User;
             this.request.Circle = this.circle;
             this.request.Zone = this.data.zone;
@@ -559,11 +537,9 @@ export class GeofencingEditComponent implements OnInit {
 
     }
 
-
     getTitle(): string {
         return 'Add Geofencing';
     }
-
 
     ///////////////////Os Change Set Map
     onMapReady(map) {
@@ -572,7 +548,6 @@ export class GeofencingEditComponent implements OnInit {
         this.GetAllCircleWithPolygonPoints(-1, -1)
         //this.geocodeLatLng(new google.maps.Geocoder(), "30.375321,69.345116")
     }
-
 
     viewCircleFence = () => {
 
@@ -762,9 +737,6 @@ export class GeofencingEditComponent implements OnInit {
         );
     }
 
-
-    /////////////////////End of OS Change Set Map
-
     geocodeLatLng(geocoder: any, input: any) {
 
         const latlngStr = input.split(",", 2);
@@ -785,6 +757,20 @@ export class GeofencingEditComponent implements OnInit {
                 }
             }
         );
+    }
+
+
+    /////////////////////End of OS Change Set Map
+
+    private setCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+                this.zoom = 12;
+                //this.getAddress(this.latitude, this.longitude);
+            });
+        }
     }
 
 

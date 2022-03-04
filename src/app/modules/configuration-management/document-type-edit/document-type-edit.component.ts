@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Store} from "@ngrx/store";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {KtDialogService} from "../../../shared/services/kt-dialog.service";
 import {finalize} from "rxjs/operators";
 import {DocumentTypeService} from "../service/document-type.service";
 import {DocumentTypeModel} from "../models/document_type.model";
@@ -36,6 +35,10 @@ export class DocumentTypeEditComponent implements OnInit {
                 private _snackBar: MatSnackBar) {
     }
 
+    get f(): any {
+        return this.documentTypeForm.controls;
+    }
+
     ngOnInit() {
 
         this.documentType.clear();
@@ -47,7 +50,6 @@ export class DocumentTypeEditComponent implements OnInit {
         this.createForm();
     }
 
-
     createForm() {
 
         this.documentTypeForm = this.formBuilder.group({
@@ -57,16 +59,9 @@ export class DocumentTypeEditComponent implements OnInit {
 
     }
 
-
     hasError(controlName: string, errorName: string): boolean {
         return this.documentTypeForm.controls[controlName].hasError(errorName);
     }
-
-
-    get f(): any {
-        return this.documentTypeForm.controls;
-    }
-
 
     onSubmit(): void {
         this.hasFormErrors = false;

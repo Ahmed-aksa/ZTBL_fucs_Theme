@@ -1,22 +1,17 @@
-import {Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
-import {Store, select} from '@ngrx/store';
-import {delay, finalize} from 'rxjs/operators';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {finalize} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DocumentTypeService} from 'app/modules/configuration-management/service/document-type.service';
-import {DateFormats, Lov, MaskEnum, errorMessages, LovConfigurationKey, regExps} from 'app/shared/classes/lov.class';
+import {DateFormats, errorMessages, Lov, LovConfigurationKey, MaskEnum, regExps} from 'app/shared/classes/lov.class';
 import {Activity} from 'app/shared/models/activity.model';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {CreateCustomer} from 'app/shared/models/customer.model';
-import {AppState} from 'app/shared/reducers';
 import {CommonService} from 'app/shared/services/common.service';
 import {CustomerService} from 'app/shared/services/customer.service';
-import {KtDialogService} from 'app/shared/services/kt-dialog.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
@@ -96,16 +91,19 @@ export class CheckEligibilityComponent implements OnInit {
     IS_NIVS: string;
 
     should_regenerate: boolean = false;
-    private first_request_response: BaseResponseModel;
-    private rawData: any = [];
-
     //Urdu
     UrduName: string = '';
     UrduCity: string = '';
     UrduCurrentAddress: string = '';
-    private customer_number: any;
-
     currentActivity: Activity;
+    //Refresh Ecib
+    disable_defaulter: boolean = false;
+    //this.refreshEcibLoading = false;
+    remarks: any;
+    number_of_files: number = 1;
+    private first_request_response: BaseResponseModel;
+    private rawData: any = [];
+    private customer_number: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -123,6 +121,13 @@ export class CheckEligibilityComponent implements OnInit {
         private toaster: ToastrService
     ) {
     }
+
+    get f(): any {
+        return this.customerInfo.controls;
+    }
+
+
+    ///By Pass screens in terms of data
 
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('Check Eligibility');
@@ -152,7 +157,6 @@ export class CheckEligibilityComponent implements OnInit {
         this.GenderLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Gender})
         this.GenderLov.LOVs = this._lovService.SortLovs(this.GenderLov.LOVs);
     }
-
 
     //Get Customer Info
     getCustomerInfo() {
@@ -286,8 +290,6 @@ export class CheckEligibilityComponent implements OnInit {
 
     }
 
-
-    ///By Pass screens in terms of data
     //OS Change Set
     PerformUseCases(Data) {
         if (Data.Customer.City) {
@@ -400,7 +402,7 @@ export class CheckEligibilityComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                ;
+
                 if (baseResponse.Success === true) {
                     this.BiometricCredentials = false;
                     this.ECIBPerformForm = true;
@@ -426,7 +428,7 @@ export class CheckEligibilityComponent implements OnInit {
                     }
                     if (this.CustomerECIB.Code == '551') {
                         this.ECIBPerform = false;
-                        this.should_regenerate=true;
+                        this.should_regenerate = true;
                     }
                     if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
                         this.EcibLinkView = false;
@@ -451,10 +453,6 @@ export class CheckEligibilityComponent implements OnInit {
             });
 
     }
-
-
-    //Refresh Ecib
-    disable_defaulter: boolean = false;
 
     refreshEcib() {
 
@@ -515,7 +513,6 @@ export class CheckEligibilityComponent implements OnInit {
         //this.refreshEcibLoading = false;
     }
 
-
     NextOpenCreateCustomer() {
         // if (localStorage.getItem('CreateCustomerBit') == '1') {
         //     this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
@@ -538,7 +535,6 @@ export class CheckEligibilityComponent implements OnInit {
 
     }
 
-
     createForm() {
         this.customerInfo = this.formBuilder.group({
             Cnic: [this._customer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
@@ -552,21 +548,13 @@ export class CheckEligibilityComponent implements OnInit {
         });
     }
 
-
     hasError(controlName: string, errorName: string): boolean {
         return this.customerInfo.controls[controlName].hasError(errorName);
     }
 
-
-    get f(): any {
-        return this.customerInfo.controls;
-    }
-
-
     ngAfterViewInit() {
         this.gridHeight = window.innerHeight - 220 + 'px';
     }
-
 
     getTitle() {
         let result = 'Check Eligibility';
@@ -580,7 +568,6 @@ export class CheckEligibilityComponent implements OnInit {
 
         return result;
     }
-
 
     change_cnic(value: string) {
         this.Customer = null;
@@ -627,10 +614,6 @@ export class CheckEligibilityComponent implements OnInit {
 
             });
     }
-
-    //this.refreshEcibLoading = false;
-    remarks: any;
-    number_of_files: number = 1;
 
     submitEcibDefaulterForm() {
         if (this.remarks == '' || this.rawData.length == 0) {
