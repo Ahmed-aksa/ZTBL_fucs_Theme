@@ -287,14 +287,15 @@
                                     <mat-icon class="mr-2">save</mat-icon>
                                     Save
                                 </button>
-                                <button (click)="saveTourDiary()" *ngIf="isUpdate==true && currentActivity.U && edit_mode"
+                                <button (click)="saveTourDiary()" *ngIf="isUpdate==true && currentActivity.D && edit_mode"
                                         class="mr-2 bg-green" color="primary" mat-raised-button
                                         type="button">
                                     <mat-icon class="mr-2">save</mat-icon>
                                     Update
                                 </button>
-                                <button (click)="changeStatus('','S')" *ngIf="isUpdate==true && currentActivity.U && edit_mode"
-                                        class="mr-2" color="primary" mat-raised-button type="button">
+                                <button (click)="changeStatus('','S')" *ngIf="currentActivity.U && edit_mode" [disabled]="checkDisable" class="mr-2"
+                                        color="primary" mat-raised-button
+                                        type="button">
                                     <mat-icon class="mr-2">check_circle</mat-icon>
                                     Submit
                                 </button>
