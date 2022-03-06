@@ -33,7 +33,7 @@ import {Activity} from "../../../shared/models/activity.model";
 export class TourDiaryZcComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
-    maxDate: Date;
+    maxDate = new Date();
     TourPlan;
     TourDiary = new TourDiary();
     sign;
