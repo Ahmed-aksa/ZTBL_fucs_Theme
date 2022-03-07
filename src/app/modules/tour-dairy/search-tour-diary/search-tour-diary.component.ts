@@ -34,7 +34,6 @@ export class SearchTourDiaryComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
-    @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
@@ -304,12 +303,6 @@ export class SearchTourDiaryComponent implements OnInit {
             });
     }
 
-    filterConfiguration(): any {
-        const filter: any = {};
-        const searchText: string = this.searchInput.nativeElement.value;
-        filter.title = searchText;
-        return filter;
-    }
 
     async LoadLovs() {
         this.tourDiaryStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes})
