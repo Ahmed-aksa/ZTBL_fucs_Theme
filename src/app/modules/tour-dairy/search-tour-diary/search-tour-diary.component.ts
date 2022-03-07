@@ -250,15 +250,6 @@ export class SearchTourDiaryComponent implements OnInit {
 
     SearchTourDiary(from_search_button = false) {
 
-        if (!this.zone) {
-            var Message = 'Please select Zone';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
 
         if (this.TourDiary.invalid) {
             const controls = this.TourDiary.controls;
@@ -275,6 +266,21 @@ export class SearchTourDiaryComponent implements OnInit {
         this._TourDiary = Object.assign(this.TourDiary.value);
         this._TourDiary["StartDate"] = this.datePipe.transform(this.TourDiary.controls["StartDate"].value, 'ddMMyyyy');
         this._TourDiary["EndDate"] = this.datePipe.transform(this.TourDiary.controls["EndDate"].value, 'ddMMyyyy');
+        if (!this.zone) {
+            if (this.TourDiary.value.ZoneId) {
+                this.zone = {
+                    ZoneId: this.TourDiary.value.ZoneId
+                }
+            } else {
+                var Message = 'Please select Zone';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
 
         this.spinner.show();
         this.tourDiaryService.SearchTourDiary(this._TourDiary, count, currentIndex, this.branch, this.zone, this.zc)

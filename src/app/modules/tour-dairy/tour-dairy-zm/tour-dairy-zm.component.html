@@ -7,10 +7,10 @@
         <div class="col-lg-9 col-sm-12">
             <div class="heading" style="display: flex;justify-content: space-between">TOUR DIARY & PROGRESS REPORT OF ZM
                 (RECOVERY & SAM)
-                <button (click)="previous()" *ngIf="has_previous">Back To List</button>
             </div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
+            <button class="py-1 mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="previous()" *ngIf="has_previous"><mat-icon class="mr-2">keyboard_backspace</mat-icon>Back To List</button>
 
             <!--            <p class="text-right">-->
             <!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->

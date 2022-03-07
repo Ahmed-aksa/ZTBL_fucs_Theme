@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
                                 }
                             });
                             event1.url=event1.url.replace('%23', '#');
-                            debugger;
                             if (event1.url.includes('query') || event1.url.includes('tour-diary')) {
                                 ismatch = true;
                             }
