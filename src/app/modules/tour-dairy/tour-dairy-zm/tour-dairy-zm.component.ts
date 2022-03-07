@@ -52,6 +52,7 @@ export class TourDiaryZmComponent implements OnInit {
     currentActivity: Activity;
     edit_mode: boolean = true;
     has_previous: boolean = false;
+    checkDisable: boolean = true;
     @ViewChild("timepicker") timepicker: any;
 
     constructor(
@@ -375,7 +376,9 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     edit(zmDiary) {
-
+        if (zmDiary?.DiaryId) {
+            this.checkDisable = false;
+        }
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);

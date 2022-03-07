@@ -224,25 +224,31 @@
 
                         <div class="row mt-2 mr-1">
                             <div class="col-lg-12 text-right">
-                                <div *ngIf="edit_mode">
-                                    <button (click)="saveTourDiary()" *ngIf="currentActivity.C || currentActivity.U" class="ml-2 bg-green" color="primary"
-                                            mat-raised-button
-                                            type="button">
-                                        <mat-icon class="mr-2">save</mat-icon>
-                                        {{btnText}}</button>
-                                    <button (click)="changeStatus('','S')" *ngIf="isUpdate==true && currentActivity.U"
-                                            class="mr-2" color="primary" mat-raised-button
-                                            type="button">
-                                        <mat-icon class="mr-2">check_circle</mat-icon>
-                                        Submit
-                                    </button>
-                                    <button (click)="onClearForm()" *ngIf="currentActivity.C"
-                                            class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                            color="danger" mat-raised-button type="button">
-                                        <mat-icon class="mr-2"> clear_all</mat-icon>
-                                        Clear
-                                    </button>
-                                </div>
+                                <button (click)="saveTourDiary()" *ngIf="isUpdate==false && currentActivity.C && edit_mode"
+                                        class="mr-2 bg-green" color="primary" mat-raised-button
+                                        type="button">
+                                    <mat-icon class="mr-2">save</mat-icon>
+                                    Save
+                                </button>
+                                <button (click)="saveTourDiary()" *ngIf="isUpdate==true && currentActivity.D && edit_mode"
+                                        class="mr-2 bg-green" color="primary" mat-raised-button
+                                        type="button">
+                                    <mat-icon class="mr-2">save</mat-icon>
+                                    Update
+                                </button>
+                                <button (click)="changeStatus('','S')" *ngIf="currentActivity.U && edit_mode" [disabled]="checkDisable" class="mr-2"
+                                        color="primary" mat-raised-button
+                                        type="button">
+                                    <mat-icon class="mr-2">check_circle</mat-icon>
+                                    Submit
+                                </button>
+                                <button (click)="onClearForm()"
+                                        *ngIf="currentActivity.C && edit_mode"
+                                        class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="danger" mat-raised-button
+                                        type="button">
+                                    <mat-icon class="mr-2"> clear_all</mat-icon>
+                                    Clear
+                                </button>
                             </div>
                         </div>
 
