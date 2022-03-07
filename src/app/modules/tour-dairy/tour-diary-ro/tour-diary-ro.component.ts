@@ -92,7 +92,7 @@ export class TourDiaryRoComponent implements OnInit {
                     };
                 }
 
-                if (this.data.hasOwnProperty('TourDiaries'))
+                if (this.data && this.data.hasOwnProperty('TourDiaries'))
                     this.edit(this.data.TourDiaries[0])
                 else {
                     this.edit(this.data)

@@ -91,7 +91,7 @@ export class TourDiaryBmComponent implements OnInit {
                     };
                 }
 
-                if (this.data.hasOwnProperty('TourDiaries'))
+                if (this.data && this.data.hasOwnProperty('TourDiaries'))
                     this.editData(this.data.TourDiaries[0])
                 else {
                     this.editData(this.data)
@@ -284,7 +284,7 @@ export class TourDiaryBmComponent implements OnInit {
 
 
     GetTourPlan() {
-        if (this.data.hasOwnProperty('TourDiaries')) {
+        if (this.data && this.data.hasOwnProperty('TourDiaries')) {
             this.TourDiaryList = [];
             this.TourPlan = this.data?.TourPlan?.TourPlans;
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
