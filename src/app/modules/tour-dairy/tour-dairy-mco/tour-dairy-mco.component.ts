@@ -563,7 +563,9 @@ export class TourDiaryMcoComponent implements OnInit {
                 }))
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-
+                        this.gridForm.value.ZoneId = baseResponse.TourDiary.TourDiaries[0].ZoneId;
+                        this.gridForm.value.BranchCode = baseResponse.TourDiary.TourDiaries[0].BranchCode;
+                        this.gridForm.value.CircleId = baseResponse.TourDiary.TourDiaries[0].CircleId;
                         this.TourDiaryList = [];
                         this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                         this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

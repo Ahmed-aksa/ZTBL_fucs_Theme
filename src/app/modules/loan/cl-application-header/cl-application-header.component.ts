@@ -144,7 +144,7 @@ export class ClApplicationHeaderComponent implements OnInit {
             AppNumberManual: [this.loanApplicationHeader.AppNumberManual, [Validators.required]],
             CategoryID: [this.loanApplicationHeader.CategoryID, [Validators.required]],
             LoanAutoNo: [this.loanApplicationHeader.LoanAutoNo],
-            CircleID: [this.loanApplicationHeader.CircleID, [Validators.required]],
+            CircleID: [this.loanApplicationHeader.CircleID,],
             RefDepositAcc: [this.loanApplicationHeader.RefDepositAcc, [Validators.required, Validators.minLength(14)]],
             ApplicantionTitle: [this.loanApplicationHeader.ApplicantionTitle]
         });
@@ -327,6 +327,8 @@ export class ClApplicationHeaderComponent implements OnInit {
     onSaveApplicationHeader() {
 
         //Parsing dev amount
+
+        debugger;
         let devAmount = this.applicationHeaderForm.controls["DevAmount"].value
         devAmount = devAmount == null || devAmount == undefined || devAmount == "" ? 0 : devAmount;
         //this.applicationHeaderForm.controls["DevelopmentAmount"].setValue(devAmount);
