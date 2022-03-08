@@ -325,7 +325,7 @@ export class ClApplicationHeaderComponent implements OnInit {
     }
 
     onSaveApplicationHeader() {
-
+        debugger
         //Parsing dev amount
         let devAmount = this.applicationHeaderForm.controls["DevAmount"].value
         devAmount = devAmount == null || devAmount == undefined || devAmount == "" ? 0 : devAmount;
@@ -338,6 +338,8 @@ export class ClApplicationHeaderComponent implements OnInit {
         //Parsing production amount
         let prdAmount = this.applicationHeaderForm.controls["ProdAmount"].value
         prdAmount = prdAmount == null || prdAmount == undefined || prdAmount == "" ? 0 : prdAmount;
+
+        this.applicationHeaderForm.controls['CircleID'].setValue(this.applicationHeaderForm.controls.CircleId.value);
 
 
         this.loanApplicationHeader = Object.assign(this.loanApplicationHeader, this.applicationHeaderForm.getRawValue());
