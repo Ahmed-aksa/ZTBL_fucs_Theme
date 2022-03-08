@@ -242,7 +242,7 @@ export class TourDiaryMcoComponent implements OnInit {
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
-                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary?.SystemGeneratedData;
                 this.Calculations();
                 this.isUpdate = false;
                 this.onClearForm();
@@ -567,7 +567,7 @@ export class TourDiaryMcoComponent implements OnInit {
                         this.TourDiaryList = [];
                         this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                         this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                        this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                        this.systemGenerated = baseResponse.TourDiary?.SystemGeneratedData;
                         this.Calculations();
                     } else {
                         this.TourPlan = null;
