@@ -441,9 +441,9 @@ export class TourDiaryMcoComponent implements OnInit {
         if (mcoDiary?.DiaryId) {
             this.checkDisable = false;
         }
-        this.gridForm.controls['ZoneId']?.setValue(mcoDiary?.ZoneId?.toString());
-        this.gridForm.controls['BranchCode']?.setValue(mcoDiary?.BranchCode?.toString());
-        this.gridForm.controls['CircleId']?.setValue(mcoDiary?.CircleId?.toString());
+        // this.gridForm.controls['ZoneId']?.setValue(mcoDiary?.ZoneId?.toString());
+        // this.gridForm.controls['BranchCode']?.setValue(mcoDiary?.BranchCode?.toString());
+        // this.gridForm.controls['CircleId']?.setValue(mcoDiary?.CircleId?.toString());
         this.gridForm.controls['DiaryId']?.setValue(mcoDiary?.DiaryId);
         this.gridForm.controls['TourPlanId']?.setValue(mcoDiary?.TourPlanId);
         this.gridForm.controls['TourDate']?.setValue(this._common.stringToDate(mcoDiary?.TourDate));
@@ -563,6 +563,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 }))
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
+
                         this.gridForm.value.ZoneId = baseResponse.TourDiary.TourDiaries[0].ZoneId;
                         this.gridForm.value.BranchCode = baseResponse.TourDiary.TourDiaries[0].BranchCode;
                         this.gridForm.value.CircleId = baseResponse.TourDiary.TourDiaries[0].CircleId;
