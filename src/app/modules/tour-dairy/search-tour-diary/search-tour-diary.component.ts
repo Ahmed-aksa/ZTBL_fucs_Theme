@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -114,14 +114,19 @@ export class SearchTourDiaryComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         setTimeout(() => {
             let sessionData = sessionStorage.getItem('search-page');
+
             if (sessionData) {
                 sessionStorage.removeItem('search-page');
-                let data = JSON.parse(sessionData);
+                let back_to_list = localStorage.getItem('back_to_list');
+                if (back_to_list && back_to_list == 'true') {
+                    localStorage.removeItem('back_to_list')
+                    let data = JSON.parse(sessionData);
 
-                this.TourDiary.patchValue(data);
-                this.TourDiary.controls['StartDate'].setValue(this._common.stringToDate(data.StartDate));
-                this.TourDiary.controls['EndDate'].setValue(this._common.stringToDate(data.EndDate));
-                this.SearchTourDiary(true);
+                    this.TourDiary.patchValue(data);
+                    this.TourDiary.controls['StartDate'].setValue(this._common.stringToDate(data.StartDate));
+                    this.TourDiary.controls['EndDate'].setValue(this._common.stringToDate(data.EndDate));
+                    this.SearchTourDiary(true);
+                }
             }
         }, 1000)
 

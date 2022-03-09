@@ -127,22 +127,20 @@ export class TourDiaryMcoComponent implements OnInit {
             localStorage.removeItem('visibility');
             localStorage.removeItem('TourDiary');
         }
-        setTimeout(() => {
 
-            if (this.data) {
-                if (!this.zone) {
-                    this.zone = {
-                        ZoneId: this.data.TourDiaries[0].ZoneId
-                    };
-                }
-
-                if (this.data && this.data.hasOwnProperty('TourDiaries'))
-                    this.edit(this.data.TourDiaries[0])
-                else {
-                    this.edit(this.data)
-                }
+        if (this.data) {
+            if (!this.zone) {
+                this.zone = {
+                    ZoneId: this.data.TourDiaries[0].ZoneId
+                };
             }
-        }, 1000);
+
+            if (this.data && this.data.hasOwnProperty('TourDiaries'))
+                this.edit(this.data.TourDiaries[0])
+            else {
+                this.edit(this.data)
+            }
+        }
     }
 
     setValue() {
@@ -436,39 +434,35 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     edit(mcoDiary) {
-        // this.gridForm.controls['Name']?.setValue(mcoDiary.Name);
-        // this.gridForm.controls['Ppno']?.setValue(mcoDiary.Ppno);
         if (mcoDiary?.DiaryId) {
             this.checkDisable = false;
         }
-        this.gridForm.controls['ZoneId']?.setValue(mcoDiary?.ZoneId?.toString());
-        this.gridForm.controls['BranchCode']?.setValue(mcoDiary?.BranchCode?.toString());
-        this.gridForm.controls['CircleId']?.setValue(mcoDiary?.CircleId?.toString());
-        this.gridForm.controls['DiaryId']?.setValue(mcoDiary?.DiaryId);
-        this.gridForm.controls['TourPlanId']?.setValue(mcoDiary?.TourPlanId);
+        // this.gridForm.controls['DiaryId']?.setValue(mcoDiary?.DiaryId);
+        // this.gridForm.controls['TourPlanId']?.setValue(mcoDiary?.TourPlanId);
+        // this.gridForm.controls['TourDate']?.setValue(this._common.stringToDate(mcoDiary?.TourDate));
+        // this.gridForm.controls['DepartureFromPlace']?.setValue(mcoDiary?.DepartureFromPlace);
+        // this.gridForm.controls['DepartureFromTime']?.setValue(mcoDiary?.DepartureFromTime);
+        // this.gridForm.controls['ArrivalAtPlace']?.setValue(mcoDiary?.ArrivalAtPlace);
+        // this.gridForm.controls['ArrivalAtTime']?.setValue(mcoDiary?.ArrivalAtTime);
+        // this.gridForm.controls['DisbNoOfCasesReceived']?.setValue(mcoDiary?.DisbNoOfCasesReceived);
+        // this.gridForm.controls['DisbNoOfCasesAppraised']?.setValue(mcoDiary?.DisbNoOfCasesAppraised);
+        // this.gridForm.controls['DisbNoOfRecordVerified']?.setValue(mcoDiary?.DisbNoOfRecordVerified);
+        // this.gridForm.controls['DisbNoOfSanctionedAuthorized']?.setValue(mcoDiary?.DisbNoOfSanctionedAuthorized);
+        // this.gridForm.controls['DisbSanctionLetterDelivered']?.setValue(mcoDiary?.DisbSanctionLetterDelivered);
+        // this.gridForm.controls['DisbSupplyOrderDelivered']?.setValue(mcoDiary?.DisbSupplyOrderDelivered);
+        // this.gridForm.controls['NoOfSanctnMutationVerified']?.setValue(mcoDiary?.NoOfSanctnMutationVerified);
+        // this.gridForm.controls['NoOfUtilizationChecked']?.setValue(mcoDiary?.NoOfUtilizationChecked);
+        // this.gridForm.controls['RecNoOfNoticeDelivered']?.setValue(mcoDiary?.RecNoOfNoticeDelivered);
+        // this.gridForm.controls['RecNoOfLegalNoticeDelivered']?.setValue(mcoDiary?.RecNoOfLegalNoticeDelivered);
+        // this.gridForm.controls['RecNoOfDefaulterContacted']?.setValue(mcoDiary?.RecNoOfDefaulterContacted);
+        // this.gridForm.controls['TOTFarmersContacted']?.setValue(mcoDiary?.TOTFarmersContacted);
+        // this.gridForm.controls['TOTNoOfFarmersVisisted']?.setValue(mcoDiary?.TOTNoOfFarmersVisisted);
+        // this.gridForm.controls['AnyOtherWorkDone']?.setValue(mcoDiary?.AnyOtherWorkDone);
+        // this.gridForm.controls['Remarks']?.setValue(mcoDiary?.Remarks);
+        delete mcoDiary.CircleId;
+        this.gridForm.patchValue(mcoDiary);
         this.gridForm.controls['TourDate']?.setValue(this._common.stringToDate(mcoDiary?.TourDate));
-        this.gridForm.controls['DepartureFromPlace']?.setValue(mcoDiary?.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime']?.setValue(mcoDiary?.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace']?.setValue(mcoDiary?.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime']?.setValue(mcoDiary?.ArrivalAtTime);
-        this.gridForm.controls['DisbNoOfCasesReceived']?.setValue(mcoDiary?.DisbNoOfCasesReceived);
-        this.gridForm.controls['DisbNoOfCasesAppraised']?.setValue(mcoDiary?.DisbNoOfCasesAppraised);
-        this.gridForm.controls['DisbNoOfRecordVerified']?.setValue(mcoDiary?.DisbNoOfRecordVerified);
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized']?.setValue(mcoDiary?.DisbNoOfSanctionedAuthorized);
-        this.gridForm.controls['DisbSanctionLetterDelivered']?.setValue(mcoDiary?.DisbSanctionLetterDelivered);
-        this.gridForm.controls['DisbSupplyOrderDelivered']?.setValue(mcoDiary?.DisbSupplyOrderDelivered);
-        this.gridForm.controls['NoOfSanctnMutationVerified']?.setValue(mcoDiary?.NoOfSanctnMutationVerified);
-        this.gridForm.controls['NoOfUtilizationChecked']?.setValue(mcoDiary?.NoOfUtilizationChecked);
-        this.gridForm.controls['RecNoOfNoticeDelivered']?.setValue(mcoDiary?.RecNoOfNoticeDelivered);
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered']?.setValue(mcoDiary?.RecNoOfLegalNoticeDelivered);
-        this.gridForm.controls['RecNoOfDefaulterContacted']?.setValue(mcoDiary?.RecNoOfDefaulterContacted);
-        this.gridForm.controls['TOTFarmersContacted']?.setValue(mcoDiary?.TOTFarmersContacted);
-        this.gridForm.controls['TOTNoOfFarmersVisisted']?.setValue(mcoDiary?.TOTNoOfFarmersVisisted);
-        this.gridForm.controls['AnyOtherWorkDone']?.setValue(mcoDiary?.AnyOtherWorkDone);
-        this.gridForm.controls['Remarks']?.setValue(mcoDiary?.Remarks);
 
-        // this._cdf.detectChanges();
-        // this.createForm()
         this.isUpdate = true;
         this.date = mcoDiary?.TourDate;
         if (this.date) {
@@ -563,9 +557,6 @@ export class TourDiaryMcoComponent implements OnInit {
                 }))
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-                        this.gridForm.value.ZoneId = baseResponse.TourDiary.TourDiaries[0].ZoneId;
-                        this.gridForm.value.BranchCode = baseResponse.TourDiary.TourDiaries[0].BranchCode;
-                        this.gridForm.value.CircleId = baseResponse.TourDiary.TourDiaries[0].CircleId;
                         this.TourDiaryList = [];
                         this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                         this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
@@ -592,6 +583,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     previousPage() {
+        localStorage.setItem('back_to_list', 'true');
         this.location.back();
     }
 }

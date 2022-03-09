@@ -427,6 +427,7 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     previous() {
+        localStorage.setItem('back_to_list', 'true');
         this.location.back();
     }
 }

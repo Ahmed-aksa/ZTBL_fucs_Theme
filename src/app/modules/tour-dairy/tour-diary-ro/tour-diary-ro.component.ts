@@ -489,6 +489,7 @@ export class TourDiaryRoComponent implements OnInit {
     }
 
     previousPage() {
+        localStorage.setItem('back_to_list', 'true');
         this.location.back();
     }
 }

@@ -380,20 +380,7 @@ export class TourDiaryZmComponent implements OnInit {
             this.checkDisable = false;
         }
         this.btnText = 'Update';
-        this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
-        this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(zmDiary.TourDate));
-        this.gridForm.controls['DepartureFromPlace'].setValue(zmDiary.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime'].setValue(zmDiary.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(zmDiary.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime'].setValue(zmDiary.ArrivalAtTime);
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zmDiary.LCNotIssuedToBorrowers);
-        this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue(zmDiary.McoNBmTourDiaryAPPlan);
-        this.gridForm.controls['AnyShortComingInDiaries'].setValue(zmDiary.AnyShortComingInDiaries);
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(zmDiary.LCNotIssuedToBorrowers);
-        this.gridForm.controls['Remarks'].setValue(zmDiary.Remarks);
-        this.gridForm.controls['Status'].setValue(zmDiary.Status);
-
+        this.gridForm.patchValue(zmDiary);
         this.date = zmDiary.TourDate;
         this.isUpdate = true;
         this.GetTourPlan()
@@ -469,6 +456,7 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     previous() {
+        localStorage.setItem('back_to_list', 'true');
         this.location.back();
     }
 }
