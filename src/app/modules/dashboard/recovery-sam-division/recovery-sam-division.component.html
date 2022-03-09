@@ -38,7 +38,7 @@
 
         <div class="row pb-4">
             <div class="col-lg-6">
-                <div class=" shadow-sm border graph-box" style="height: 365px;">
+                <div class=" shadow-sm border graph-box" style="height:auto !important;">
                     <div *ngIf="chartOptions1" class=" mt-0 py-3" id="chart2">
                         <apx-chart [chart]="chartOptions1?.chart"
                                    [colors]="chartOptions1?.colors"
@@ -56,7 +56,7 @@
 
             </div>
             <div class="col-lg-6">
-                <div class=" shadow-sm border graph-box" style="height: 365px;">
+                <div class=" shadow-sm border graph-box" style="height:auto !important;">
                     <div *ngIf="chartOptions2" class=" mt-0 py-3" id="chart3">
                         <apx-chart [chart]="chartOptions2?.chart"
                                    [colors]="chartOptions2?.colors"
@@ -76,7 +76,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6 py-3">
-                <div *ngIf="CreditCeiling" class="shadow-sm border pt-2" style="height: 365px;">
+                <div *ngIf="CreditCeiling" class="shadow-sm border pt-2" style="height:auto !important;">
                     <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
                     <app-pyramid-chart [item]="CreditCeiling">
                     </app-pyramid-chart>

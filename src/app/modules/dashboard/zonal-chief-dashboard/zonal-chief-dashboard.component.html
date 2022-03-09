@@ -35,7 +35,7 @@
         <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="shadow-sm border graph-box" style="height: 365px;">
+                    <div class="shadow-sm border graph-box" style="height:auto !important;">
                         <div *ngIf="chartPerformanceIndicators" class=" mt-0 py-3" id="chart">
                             <apx-chart [chart]="chartPerformanceIndicators?.chart"
                                        [colors]="chartPerformanceIndicators?.colors"
@@ -53,7 +53,7 @@
 
                 </div>
                 <div class="col-lg-6">
-                    <div class="shadow-sm border graph-box" style="height: 365px;">
+                    <div class="shadow-sm border graph-box" style="height:auto !important;">
                         <div *ngIf="chartLoanPortfolio" class=" mt-0 py-3" id="chart">
                             <apx-chart [chart]="chartLoanPortfolio?.chart"
                                        [colors]="chartLoanPortfolio?.colors"
@@ -73,7 +73,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border graph-box" style="height: 365px;">
+                    <div class="shadow-sm border graph-box" style="height:auto !important;">
                         <div *ngIf="chartnoOfBorrowers" class=" mt-0 py-3" id="chart">
                             <apx-chart [chart]="chartnoOfBorrowers?.chart"
                                        [colors]="chartnoOfBorrowers?.colors"
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 py-3">
-                    <div *ngIf="CreditCeiling" class="shadow-sm border pt-2" style="height: 365px;">
+                    <div *ngIf="CreditCeiling" class="shadow-sm border pt-2" style="height:auto !important;">
                         <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
                         <app-pyramid-chart [item]="CreditCeiling">
                         </app-pyramid-chart>
