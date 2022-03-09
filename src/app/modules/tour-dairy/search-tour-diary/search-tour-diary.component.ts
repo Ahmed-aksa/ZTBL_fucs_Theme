@@ -287,7 +287,7 @@ export class SearchTourDiaryComponent implements OnInit {
         }
 
         this.spinner.show();
-        this.tourDiaryService.SearchTourDiary(this._TourDiary, count, currentIndex, this.branch, this.zone, this.zc)
+        this.tourDiaryService.SearchTourDiary(this._TourDiary, count, currentIndex, this.branch, this.zone,this.circle, this.zc)
             .pipe(
                 finalize(() => {
                     this.loading = false;

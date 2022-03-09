@@ -170,7 +170,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    SearchTourDiary(tourDiary, Limit, Offset, branch, zone, is_zc = false) {
+    SearchTourDiary(tourDiary, Limit, Offset, branch, zone, circle, is_zc = false) {
 
         this.request = new BaseRequestModel();
 
@@ -182,6 +182,7 @@ export class TourDiaryService {
         this.request.TourDiary.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
+        this.request.Circle = circle;
         if (is_zc) {
             this.request.User["ProfileId"] = environment.ZC;
         }
