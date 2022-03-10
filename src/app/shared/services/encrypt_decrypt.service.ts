@@ -4,7 +4,6 @@ import * as CryptoJS from 'crypto-js';
 import {throwError} from 'rxjs';
 import * as Forge from 'node-forge';
 import {environment} from 'environments/environment';
-import {AnyFn} from '@ngrx/store/src/selector';
 
 @Injectable({providedIn: 'root'})
 export class EncryptDecryptService {

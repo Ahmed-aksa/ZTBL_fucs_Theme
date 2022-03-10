@@ -2,7 +2,6 @@ import {
     HttpErrorResponse,
     HttpEvent,
     HttpHandler,
-    HttpHeaders,
     HttpInterceptor,
     HttpRequest,
     HttpResponse
@@ -10,16 +9,17 @@ import {
 import {Injectable} from "@angular/core";
 import {environment} from "environments/environment";
 import {Observable} from "rxjs";
-import {filter, map, switchMap, take} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {EncryptDecryptService} from "../services/encrypt_decrypt.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
-import {TokenInterceptor} from "./httpconfig.interceptor";
 import {UserUtilsService} from "../services/users_utils.service";
 
 @Injectable()
 export class EncryptDecryptInterceptor implements HttpInterceptor {
+    filter_status = false;
+
     constructor(private encryptDecryptService: EncryptDecryptService, private spinner: NgxSpinnerService, private router: Router, private toastr: ToastrService, private userUtils: UserUtilsService) {
 
     }
@@ -31,6 +31,9 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
             if (!authReq.url.includes('Account/HealthCheck')) {
                 if (request.body && request.body.toString() === "[object FormData]") {
                 } else {
+                    if (request.body?.hasOwnProperty('LovPagination')) {
+                        this.filter_status = true;
+                    }
                     var DeviceInfo = {
                         "IMEI": this.encryptDecryptService.getUDID()
                     }
@@ -44,7 +47,6 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                         body: {...request.body, DeviceInfo}
                     })
                     var cusomeRequestModel = {
-                        // "Key": this.encryptDecryptService.RSAencrypt(this.encryptDecryptService.getUDID()),
                         "Req": this.encryptDecryptService.AESencrypt(null, request.body)
 
                     }
@@ -64,7 +66,13 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                     if (event instanceof HttpResponse) {
                         if (event.url.includes(environment.apiUrl)) {
                             if (environment.IsEncription) {
-                                event = event.clone({body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp))})
+                                let response = event.clone({body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp))})
+                                // For sorting statuses of tour diary
+                                if (this.filter_status) {
+                                    response.body.LOVs = response.body?.LOVs?.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0))
+                                    this.filter_status = false;
+                                }
+                                event = response;
                             }
 
                         }

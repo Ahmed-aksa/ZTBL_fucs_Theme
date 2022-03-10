@@ -52,6 +52,7 @@ export class TourDiaryZcComponent implements OnInit {
     has_previous: boolean = false;
     edit_mode: boolean = true;
     @ViewChild("timepicker") timepicker: any;
+    SelectedBranches: any = [];
 
     constructor(
         private fb: FormBuilder,
@@ -218,45 +219,46 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     setDate() {
+        if (this.gridForm.value.ArrivalAtPlace && this.gridForm.value.DepartureFromPlace) {
+            var varDate = this.gridForm.controls.TourDate.value;
+            if (varDate._isAMomentObject == undefined) {
+                try {
+                    var day = this.gridForm.controls.TourDate.value.getDate();
+                    var month = this.gridForm.controls.TourDate.value.getMonth() + 1;
+                    var year = this.gridForm.controls.TourDate.value.getFullYear();
+                    if (month < 10) {
+                        month = "0" + month;
+                    }
+                    if (day < 10) {
+                        day = "0" + day;
+                    }
+                    varDate = day + "" + month + "" + year;
+                    this.date = varDate;
+                    const branchWorkingDate = new Date(year, month - 1, day);
+                    this.gridForm.controls.TourDate.setValue(branchWorkingDate);
 
-        var varDate = this.gridForm.controls.TourDate.value;
-        if (varDate._isAMomentObject == undefined) {
-            try {
-                var day = this.gridForm.controls.TourDate.value.getDate();
-                var month = this.gridForm.controls.TourDate.value.getMonth() + 1;
-                var year = this.gridForm.controls.TourDate.value.getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
+                } catch (e) {
                 }
-                if (day < 10) {
-                    day = "0" + day;
+            } else {
+                try {
+                    var day = this.gridForm.controls.TourDate.value.toDate().getDate();
+                    var month = this.gridForm.controls.TourDate.value.toDate().getMonth() + 1;
+                    var year = this.gridForm.controls.TourDate.value.toDate().getFullYear();
+                    if (month < 10) {
+                        month = "0" + month;
+                    }
+                    if (day < 10) {
+                        day = "0" + day;
+                    }
+                    varDate = day + "" + month + "" + year;
+                    this.date = varDate;
+                    const branchWorkingDate = new Date(year, month - 1, day);
+                    this.gridForm.controls.TourDate.setValue(branchWorkingDate);
+                } catch (e) {
                 }
-                varDate = day + "" + month + "" + year;
-                this.date = varDate;
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
-
-            } catch (e) {
             }
-        } else {
-            try {
-                var day = this.gridForm.controls.TourDate.value.toDate().getDate();
-                var month = this.gridForm.controls.TourDate.value.toDate().getMonth() + 1;
-                var year = this.gridForm.controls.TourDate.value.toDate().getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                varDate = day + "" + month + "" + year;
-                this.date = varDate;
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
-            } catch (e) {
-            }
+            this.GetTourPlan()
         }
-        this.GetTourPlan()
     }
 
     changeStatus(data, status) {
@@ -424,11 +426,28 @@ export class TourDiaryZcComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
+        var zoneId = this.zone?.ZoneId;
+        this.getBranches(zoneId);
+    }
+
+    getBranches(changedValue) {
+        let changedZone = null;
+        if (changedValue?.value) {
+            changedZone = {Zone: {ZoneId: changedValue.value}}
+        } else {
+            changedZone = {Zone: {ZoneId: changedValue}}
+        }
+        this.spinner.show();
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.spinner.hide();
+            this.SelectedBranches = data.Branches;
+        });
     }
 
     previous() {
         localStorage.setItem('back_to_list', 'true');
         this.location.back();
     }
+
 }
 

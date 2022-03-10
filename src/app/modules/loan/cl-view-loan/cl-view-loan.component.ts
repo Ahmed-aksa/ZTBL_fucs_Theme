@@ -167,7 +167,8 @@ export class ClViewLoanComponent implements OnInit {
                     if (baseResponse.Success) {
                         this.loading = false;
                         this.matTableLenght = true;
-                        this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
+                        debugger;
+                        this.dataSource = baseResponse.Loan.ApplicationHeaderList;
 
                         this.dv = this.dataSource.data;
 
@@ -178,6 +179,8 @@ export class ClViewLoanComponent implements OnInit {
                     } else {
                         this.layoutUtilsService.alertElement('', baseResponse.Message);
                         this.dataSource = this.dv?.splice(1, 0);
+                        this.dataSource.data = [];
+                        // this.dataSource.data=
                         this.loading = false;
                         this.matTableLenght = false;
                     }

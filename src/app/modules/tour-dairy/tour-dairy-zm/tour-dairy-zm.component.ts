@@ -262,7 +262,6 @@ export class TourDiaryZmComponent implements OnInit {
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.spinner.hide();
             this.SelectedBranches = data.Branches;
-            console.log(this.SelectedBranches)
         });
     }
 
@@ -450,7 +449,6 @@ export class TourDiaryZmComponent implements OnInit {
         this.circle = data.final_circle;
 
         var zoneId = this.zone?.ZoneId;
-        console.log(zoneId)
         this.getBranches(zoneId);
 
     }

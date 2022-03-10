@@ -177,7 +177,6 @@ export class ZoneBranchCircleComponent implements OnInit {
                 }
             }
         }
-
         this.emitData();
     }
 
