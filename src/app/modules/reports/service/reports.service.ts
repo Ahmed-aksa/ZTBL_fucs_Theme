@@ -48,7 +48,7 @@ export class ReportsService {
             );
     }
 
-    reportDynamic(reportsFilter, zone = null, branch = null, circle = null) {
+    reportDynamic(reportsFilter, zone = null, branch = null, circle = null, tourDiary = null) {
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;
@@ -103,7 +103,21 @@ export class ReportsService {
                         CircleIds: circles
                     }
                 }
-            } else {
+            }else if (reportsFilter.ReportsNo == '33') {
+                request = {
+                    ReportsFilterCustom: reportsFilter,
+                    TourDiary: tourDiary,
+                    User: user.User,
+                    Zone: final_zone,
+                    Branch: final_branch,
+                    Circle: {
+                        CircleCode: circle.CircleId,
+                        CircleId: circle.CircleCode,
+                        CircleIds: circles
+                    }
+                }
+            }
+            else {
                 request = {
                     ReportsFilterCustom: reportsFilter,
                     User: user.User,

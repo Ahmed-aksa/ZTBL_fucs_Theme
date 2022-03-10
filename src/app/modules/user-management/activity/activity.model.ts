@@ -37,6 +37,8 @@ export class Activity {
         this.D = false;
         this.IsParent = false;
         this.IsReadOnly = false;
+        this.IsEODVisible= false;
+        this.IsVisibleInAPP =false;
         this.IsActive = false;
     }
 }

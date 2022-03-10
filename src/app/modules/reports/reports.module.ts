@@ -174,7 +174,15 @@ const routing = [
     {
         path: 'changes-to-user-access-rights',
         component: ChangesToUserAccessRightsComponent
-    }
+    },
+    {
+        path: 'tour-diary-report',
+        component: TourDiaryReportComponent
+    },
+    {
+        path: 'status-lc-initiate-by-mco',
+        component: StatusLcInitiateByMcoComponent
+    },
 ]
 
 
