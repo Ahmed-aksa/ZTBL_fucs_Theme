@@ -440,6 +440,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.spinner.hide();
+            this.gridForm.value.ArrivalAtPlace = this.data.ArrivalAtPlace;
+            this.gridForm.value.DepartureFromPlace = this.data.DepartureFromPlace;
             this.SelectedBranches = data.Branches;
         });
     }
