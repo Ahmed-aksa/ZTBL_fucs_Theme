@@ -70,7 +70,6 @@ export class TourDiaryReportComponent implements OnInit {
 
 
     find() {
-        debugger
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.searchCnicForm.markAllAsTouched()
