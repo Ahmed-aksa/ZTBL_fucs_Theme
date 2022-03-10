@@ -10,6 +10,7 @@ import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-tour-diary-report',
@@ -17,7 +18,6 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./tour-diary-report.component.scss']
 })
 export class TourDiaryReportComponent implements OnInit {
-    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Address', 'Lcno', 'Agps', 'Bcl', 'Los'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
@@ -45,6 +45,7 @@ export class TourDiaryReportComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private _reports: ReportsService,
+        private datePipe: DatePipe,
         private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService,
         private _lovService: LovService,
@@ -69,7 +70,7 @@ export class TourDiaryReportComponent implements OnInit {
 
 
     find() {
-
+        debugger
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.searchCnicForm.markAllAsTouched()
@@ -77,6 +78,8 @@ export class TourDiaryReportComponent implements OnInit {
         }
 
         this.tourDiary = Object.assign(this.tourDiary, this.searchCnicForm.value);
+        this.tourDiary.StartDate = this.datePipe.transform(this.tourDiary.StartDate, 'ddMMyyyy')
+        this.tourDiary.EndDate = this.datePipe.transform(this.tourDiary.EndDate, 'ddMMyyyy')
         this.reports.ReportsNo = "33";
         this.reports.ReportFormatType = "2";
         this.spinner.show();
@@ -101,7 +104,7 @@ export class TourDiaryReportComponent implements OnInit {
     getAllData(data) {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
-        this.circle = null
+        this.circle = data.final_circle
     }
 }
 

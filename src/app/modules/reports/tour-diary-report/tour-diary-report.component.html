@@ -11,7 +11,7 @@
 >
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Search Loan Cases By CNIC</div>
+            <div class="heading">Tour Diary Report</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
@@ -31,9 +31,9 @@
         <div class="card card-body">
             <div [formGroup]="searchCnicForm" class="py-2">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="searchCnicForm" [required_branch]="true"
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="searchCnicForm"
                                             [show_branch]="true"
-                                            [show_circle]="false"></app-zone-branch-circle>
+                                            [show_circle]="true"></app-zone-branch-circle>
 
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">

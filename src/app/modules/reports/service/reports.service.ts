@@ -49,6 +49,7 @@ export class ReportsService {
     }
 
     reportDynamic(reportsFilter, zone = null, branch = null, circle = null, tourDiary = null) {
+        debugger
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;
@@ -103,29 +104,7 @@ export class ReportsService {
                         CircleIds: circles
                     }
                 }
-            }else if (reportsFilter.ReportsNo == '33') {
-                request = {
-                    ReportsFilterCustom: reportsFilter,
-                    TourDiary: tourDiary,
-                    User: user.User,
-                    Zone: final_zone,
-                    Branch: final_branch,
-                    Circle: {
-                        CircleCode: circle.CircleId,
-                        CircleId: circle.CircleCode,
-                        CircleIds: circles
-                    }
-                }
             }
-            else {
-                request = {
-                    ReportsFilterCustom: reportsFilter,
-                    User: user.User,
-                    Zone: final_zone,
-                    Branch: final_branch
-                }
-            }
-
         } else if (reportsFilter.ReportsNo == '24') {
             reportsFilter.BranchId = final_branch.BranchId;
             request = {
@@ -134,7 +113,22 @@ export class ReportsService {
                 Zone: final_zone,
                 Branch: final_branch,
             }
-        } else {
+        }
+        else if (reportsFilter.ReportsNo == '33') {
+            request = {
+                ReportsFilterCustom: reportsFilter,
+                TourDiary: tourDiary,
+                User: user.User,
+                Zone: final_zone,
+                Branch: final_branch,
+                Circle: {
+                    CircleCode: circle?.CircleId,
+                    CircleId: circle?.CircleCode,
+                    CircleIds: circles
+                }
+            }
+        }
+        else {
             request = {
                 ReportsFilterCustom: reportsFilter,
                 User: user.User,

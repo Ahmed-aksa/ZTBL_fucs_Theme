@@ -1,1 +1,99 @@
-<p>status-lc-initiate-by-mco works!</p>
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Complete Status of Each Loan Case Initiated By MCO</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
+                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
+            <div [formGroup]="searchCnicForm" class="py-2">
+                <div class="flex" style="flex-wrap: wrap;">
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="searchCnicForm" [required_branch]="true"
+                                            [show_branch]="true"
+                                            [show_circle]="false"></app-zone-branch-circle>
+
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                            <mat-label class="customMatLabel">PPNO<strong
+                                class="matMandatory">*</strong></mat-label>
+                            <input appNumberOnly autocomplete="off" formControlName="PPNO"
+                                   matInput placeholder="Enter PPNO"/>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                         style="width: 225px;">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                            <mat-label class="customMatLabel">Start Date<strong
+                                class="matMandatory">*</strong>
+                            </mat-label>
+                            <input [matDatepicker]="picker2" appNumberOnly
+                                   autocomplete="off"
+                                   formControlName="FromDate" matInput maxlength="30"/>
+                            <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                         style="width: 225px;">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                            <mat-label class="customMatLabel">End Date<strong
+                                class="matMandatory">*</strong>
+                            </mat-label>
+                            <input [matDatepicker]="picker3" appNumberOnly
+                                   autocomplete="off"
+                                   formControlName="ToDate" matInput maxlength="30"/>
+                            <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <button (click)="find()"
+                                    class="mt-2 bg-gray-500" color="primary" mat-raised-button>
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Find
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+</div>
