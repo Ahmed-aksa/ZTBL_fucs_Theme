@@ -11,11 +11,20 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {DateFormats} from "../../../shared/classes/lov.class";
 
 @Component({
   selector: 'app-tour-diary-report',
   templateUrl: './tour-diary-report.component.html',
-  styleUrls: ['./tour-diary-report.component.scss']
+  styleUrls: ['./tour-diary-report.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class TourDiaryReportComponent implements OnInit {
     searchCnicForm: FormGroup;

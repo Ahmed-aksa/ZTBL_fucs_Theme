@@ -11,11 +11,20 @@ import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {DateFormats} from "../../../shared/classes/lov.class";
 
 @Component({
   selector: 'app-status-lc-initiate-by-mco',
   templateUrl: './status-lc-initiate-by-mco.component.html',
-  styleUrls: ['./status-lc-initiate-by-mco.component.scss']
+  styleUrls: ['./status-lc-initiate-by-mco.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class StatusLcInitiateByMcoComponent implements OnInit {
     searchCnicForm: FormGroup;
