@@ -47,6 +47,8 @@ import {
 import {
     ChangesToUserAccessRightsComponent
 } from './changes-to-user-access-rights/changes-to-user-access-rights.component';
+import { TourDiaryReportComponent } from './tour-diary-report/tour-diary-report.component';
+import { StatusLcInitiateByMcoComponent } from './status-lc-initiate-by-mco/status-lc-initiate-by-mco.component';
 
 const routing = [
     {
@@ -209,6 +211,8 @@ const routing = [
         UserActivityBasedReportComponent,
         EnablingDisablingUserOvertimeComponent,
         ChangesToUserAccessRightsComponent,
+        TourDiaryReportComponent,
+        StatusLcInitiateByMcoComponent,
     ],
     imports: [
         CommonModule,
