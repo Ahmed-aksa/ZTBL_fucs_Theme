@@ -17,6 +17,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     @Input('show_circle') incoming_circle = null;
     show_circle = true;
     @Input('is_required_circle') is_required_circle;
+    @Input('is_required_branch') is_required_branch;
     @Input('should_hide_fields') should_hide_fields;
     @Input('required_branch') required_branch = true;
     @Input('required_zone') required_zone = true;

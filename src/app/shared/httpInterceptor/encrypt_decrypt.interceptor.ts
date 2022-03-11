@@ -31,7 +31,7 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
             if (!authReq.url.includes('Account/HealthCheck')) {
                 if (request.body && request.body.toString() === "[object FormData]") {
                 } else {
-                    debugger;
+                    ;
                     if (request.body?.hasOwnProperty('LovPagination')) {
                         this.filter_status = true;
                     }

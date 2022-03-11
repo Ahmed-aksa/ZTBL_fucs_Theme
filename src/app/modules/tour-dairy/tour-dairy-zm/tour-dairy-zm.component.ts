@@ -89,29 +89,25 @@ export class TourDiaryZmComponent implements OnInit {
             localStorage.removeItem('visibility');
             localStorage.removeItem('TourDiary');
         }
-        setTimeout(() => {
 
-            if (this.data) {
-                if (!this.zone) {
-                    if (this.data && this.data.hasOwnProperty('TourDiaries')) {
-                        this.zone = {
-                            ZoneId: this.data.TourDiaries[0].ZoneId
-                        };
-                    } else {
-                        this.zone = {
-                            ZoneId: this.data.ZoneId
-                        };
-                    }
-
-                }
-
-                if (this.data && this.data.hasOwnProperty('TourDiaries'))
-                    this.edit(this.data.TourDiaries[0])
-                else {
-                    this.edit(this.data)
+        if (this.data) {
+            if (!this.zone) {
+                if (this.data && this.data.hasOwnProperty('TourDiaries')) {
+                    this.zone = {
+                        ZoneId: this.data.TourDiaries[0].ZoneId
+                    };
+                } else {
+                    this.zone = {
+                        ZoneId: this.data.ZoneId
+                    };
                 }
             }
-        }, 1000);
+            if (this.data && this.data.hasOwnProperty('TourDiaries'))
+                this.edit(this.data.TourDiaries[0])
+            else {
+                this.edit(this.data)
+            }
+        }
     }
 
     setDate() {
@@ -173,6 +169,7 @@ export class TourDiaryZmComponent implements OnInit {
                     this.spinner.hide();
                 }))
                 .subscribe((baseResponse) => {
+
                     if (baseResponse.Success) {
 
                         this.TourPlan = baseResponse?.TourPlan?.TourPlans;
@@ -267,7 +264,6 @@ export class TourDiaryZmComponent implements OnInit {
         }
         this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.spinner.hide();
             this.SelectedBranches = data.Branches;
         });
     }

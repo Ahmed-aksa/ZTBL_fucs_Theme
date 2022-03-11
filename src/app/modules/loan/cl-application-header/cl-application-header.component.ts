@@ -327,7 +327,7 @@ export class ClApplicationHeaderComponent implements OnInit {
     onSaveApplicationHeader() {
         //Parsing dev amount
 
-        debugger;
+        ;
         let devAmount = this.applicationHeaderForm.controls["DevAmount"].value
         devAmount = devAmount == null || devAmount == undefined || devAmount == "" ? 0 : devAmount;
         //this.applicationHeaderForm.controls["DevelopmentAmount"].setValue(devAmount);

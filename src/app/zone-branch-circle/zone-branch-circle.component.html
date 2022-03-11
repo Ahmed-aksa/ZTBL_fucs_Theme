@@ -25,6 +25,7 @@
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Branch</mat-label>
                 <mat-select matInput [(ngModel)]="selected_b" formControlName="BranchCode" *ngIf="!single_branch"
+                            [required]="is_required_branch"
                             (selectionChange)="changeBranch($event)">
                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
                         {{branch?.Name}}
@@ -32,6 +33,7 @@
                 </mat-select>
 
                 <mat-select matInput [(ngModel)]="selected_b" formControlName="BranchCode" *ngIf="single_branch"
+                            [required]="is_required_branch"
                             (selectionChange)="changeBranch($event)">
                     <mat-option [value]="SelectedBranches?.BranchCode">
                         {{SelectedBranches?.Name}}

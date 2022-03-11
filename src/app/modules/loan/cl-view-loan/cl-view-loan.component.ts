@@ -167,7 +167,7 @@ export class ClViewLoanComponent implements OnInit {
                     if (baseResponse.Success) {
                         this.loading = false;
                         this.matTableLenght = true;
-                        debugger;
+                        ;
                         this.dataSource = baseResponse.Loan.ApplicationHeaderList;
 
                         this.dv = this.dataSource.data;
