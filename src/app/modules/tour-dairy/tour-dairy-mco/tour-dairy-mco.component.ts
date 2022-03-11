@@ -492,9 +492,6 @@ export class TourDiaryMcoComponent implements OnInit {
 
 
     setDate() {
-
-        // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
-        // this.minDate = this.gridForm.controls.Date.value;
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {
             try {
@@ -538,7 +535,8 @@ export class TourDiaryMcoComponent implements OnInit {
             } catch (e) {
             }
         }
-        this.GetTourPlan()
+        this.GetTourPlan();
+        this.setDate();
     }
 
 

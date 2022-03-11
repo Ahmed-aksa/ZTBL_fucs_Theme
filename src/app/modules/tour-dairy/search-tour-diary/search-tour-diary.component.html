@@ -25,7 +25,8 @@
 
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="TourDiary" [should_filter]="false"
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="TourDiary"
+                                            [should_filter]="false" [show_branch]="true"
                                             [should_hide_fields]="true"
                                             [show_circle]="false"></app-zone-branch-circle>
                     <div class="mx-2">
@@ -33,7 +34,8 @@
 
                             <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">From</mat-label>
-                                <input (dateChange)="setFromDate()" [matDatepicker]="picker" autocomplete="off" autocomplete="off"
+                                <input (dateChange)="setFromDate()" [matDatepicker]="picker" autocomplete="off"
+                                       autocomplete="off"
                                        formControlName="StartDate" matInput
                                        placeholder="ddMMyyyy">
                                 <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
@@ -71,7 +73,8 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button (click)="SearchTourDiary(true)" class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary"
+                            <button (click)="SearchTourDiary(true)"
+                                    class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary"
                                     type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search

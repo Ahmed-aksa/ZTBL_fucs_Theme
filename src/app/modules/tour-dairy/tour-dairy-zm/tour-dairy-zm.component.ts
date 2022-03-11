@@ -93,9 +93,16 @@ export class TourDiaryZmComponent implements OnInit {
 
             if (this.data) {
                 if (!this.zone) {
-                    this.zone = {
-                        ZoneId: this.data.TourDiaries[0].ZoneId
-                    };
+                    if (this.data && this.data.hasOwnProperty('TourDiaries')) {
+                        this.zone = {
+                            ZoneId: this.data.TourDiaries[0].ZoneId
+                        };
+                    } else {
+                        this.zone = {
+                            ZoneId: this.data.ZoneId
+                        };
+                    }
+
                 }
 
                 if (this.data && this.data.hasOwnProperty('TourDiaries'))

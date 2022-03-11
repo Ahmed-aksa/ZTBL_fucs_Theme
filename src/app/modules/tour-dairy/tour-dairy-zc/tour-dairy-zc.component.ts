@@ -139,7 +139,7 @@ export class TourDiaryZcComponent implements OnInit {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
-                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary?.SystemGeneratedData;
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
@@ -385,7 +385,7 @@ export class TourDiaryZcComponent implements OnInit {
                         this.TourDiaryList = []
                         this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                         this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                        this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                        this.systemGenerated = baseResponse.TourDiary?.SystemGeneratedData;
 
                     } else {
                         this.TourDiaryList = []
@@ -440,8 +440,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.spinner.hide();
-            this.gridForm.value.ArrivalAtPlace = this.data.ArrivalAtPlace;
-            this.gridForm.value.DepartureFromPlace = this.data.DepartureFromPlace;
+            this.gridForm.value.ArrivalAtPlace = this.data?.ArrivalAtPlace;
+            this.gridForm.value.DepartureFromPlace = this.data?.DepartureFromPlace;
             this.SelectedBranches = data.Branches;
         });
     }
