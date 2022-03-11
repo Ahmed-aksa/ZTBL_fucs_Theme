@@ -155,7 +155,7 @@
                 <ng-container matColumnDef="View">
                     <th *matHeaderCellDef mat-header-cell>Actions</th>
                     <td *matCellDef="let LocationHistories" mat-cell>
-                        <button (click)="view(LocationHistories)" *ngIf="currentActivity.R" mat-icon-button>
+                        <button (click)="view(LocationHistories)" *ngIf="currentActivity?.R" mat-icon-button>
                             <mat-icon class="text-green" title="View Vendor">visibility</mat-icon>
                         </button>
                     </td>

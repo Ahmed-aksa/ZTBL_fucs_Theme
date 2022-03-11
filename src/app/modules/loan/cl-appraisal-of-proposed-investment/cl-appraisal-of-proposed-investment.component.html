@@ -211,7 +211,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 kt-margin-bottom-20-mobile mb-2">
-                        <button (click)="AddCropDetail()" *ngIf="currentActivity.C" class="btn btn-primary" color="primary"
+                        <button (click)="AddCropDetail()" *ngIf="currentActivity?.C" class="btn btn-primary" color="primary"
                                 mat-raised-button
                                 type="button">
                             <mat-icon class="mr-2">add_circle</mat-icon>
@@ -289,12 +289,12 @@
 
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                        <button (click)="deleteAppraisalItemDetail()" *ngIf="currentActivity.D" class="btn btn-primary bg-red-500"
+                        <button (click)="deleteAppraisalItemDetail()" *ngIf="currentActivity?.D" class="btn btn-primary bg-red-500"
                                 color="primary" mat-raised-button type="button">
                             <mat-icon class="mr-2">delete</mat-icon>
                             Delete
                         </button>
-                        <button (click)="AddAppraisalProposed()" *ngIf="currentActivity.C" class="btn btn-primary bg-green ml-3"
+                        <button (click)="AddAppraisalProposed()" *ngIf="currentActivity?.C" class="btn btn-primary bg-green ml-3"
                                 color="primary" mat-raised-button type="button">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save

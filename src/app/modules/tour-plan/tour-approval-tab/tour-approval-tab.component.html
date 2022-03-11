@@ -19,14 +19,14 @@
 
                 <div class="mr-5">
                     <button (click)="$event.stopPropagation();change(activity,'A')"
-                            *ngIf="currentActivity.U" class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" color="primary"
+                            *ngIf="currentActivity?.U" class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" color="primary"
                             mat-flat-button>
                         <mat-icon class="me-2">check_circle</mat-icon>
                         Approve
                     </button>
                     <button
                         (click)="$event.stopPropagation();change(activity,'R',i,activity.UserId)"
-                        *ngIf="currentActivity.U" class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" color="warn"
+                        *ngIf="currentActivity?.U" class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" color="warn"
                         mat-flat-button>
                         <mat-icon class="me-2">close</mat-icon>
                         Referback
@@ -68,7 +68,7 @@
 
                         <td style="width: 20%">
                             <mat-checkbox (change)="changeCheckBox(activity,child)"
-                                          *ngIf="checkBoxCheck(child.Status) && currentActivity.C"></mat-checkbox>
+                                          *ngIf="checkBoxCheck(child.Status) && currentActivity?.C"></mat-checkbox>
                         </td>
                     </tr>
                     </tbody>

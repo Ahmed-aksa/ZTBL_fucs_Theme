@@ -205,7 +205,7 @@
                     <mat-cell *matCellDef="let vendor" mat-cell>
                         <div class="flex" style="flex-wrap:wrap; width: 220px;">
                             <button (click)="viewVendor(vendor)"
-                                    *ngIf="currentActivity.R"
+                                    *ngIf="currentActivity?.R"
                                     mat-icon-button
                             >
                                 <mat-icon class="text-green" color="primary" title="View Vendor"
@@ -216,7 +216,7 @@
 
                             <button
                                 (click)="editVendor(vendor)"
-                                *ngIf="editDeleteStatus(vendor) && currentActivity.U"
+                                *ngIf="editDeleteStatus(vendor) && currentActivity?.U"
                                 mat-icon-button
                             >
                                 <mat-icon color="primary" title="View Vendor">edit</mat-icon>
@@ -224,7 +224,7 @@
 
                             <button
                                 (click)="deleteVendor(vendor)"
-                                *ngIf="editDeleteStatus(vendor) && currentActivity.D"
+                                *ngIf="editDeleteStatus(vendor) && currentActivity?.D"
                                 mat-icon-button
                             >
                                 <mat-icon class="text-red-500" title="View Vendor"

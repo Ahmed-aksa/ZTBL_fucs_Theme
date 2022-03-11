@@ -38,7 +38,7 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <input (click)="find()" *ngIf="currentActivity.C" [disabled]="viewOnly" class=" mat-raised-button mat-button-base mat-primary searchLCBtn mt-2 bg-gray-500"
+                            <input (click)="find()" *ngIf="currentActivity?.C" [disabled]="viewOnly" class=" mat-raised-button mat-button-base mat-primary searchLCBtn mt-2 bg-gray-500"
                                    color="primary"
                                    mat-raised-button type="button"
                                    value="Find"/>
@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="form-group kt-form__group row">
-                    <div *ngIf="!viewOnly && currentActivity.C" class="col-lg-12 kt-margin-bottom-20-mobile mb-3 py-2">
+                    <div *ngIf="!viewOnly && currentActivity?.C" class="col-lg-12 kt-margin-bottom-20-mobile mb-3 py-2">
                         <span class="customMatLabel">Attach Scaned Death Certificate:</span>
                         <input (change)="onFileChange($event)" accept="image/jpg, image/jpeg" formControlName="file"
                                type="file"/>
@@ -203,7 +203,7 @@
                                     </mat-form-field>
                                 </td>
                                 <td>
-                                    <input (click)="MarkAsDeceasedCustomer()" *ngIf="currentActivity.C" [disabled]="viewOnly" class="bg-green mat-raised-button mat-button-base mat-primary searchLCBtn"
+                                    <input (click)="MarkAsDeceasedCustomer()" *ngIf="currentActivity?.C" [disabled]="viewOnly" class="bg-green mat-raised-button mat-button-base mat-primary searchLCBtn"
                                            color="primary"
                                            mat-raised-button type="button"
                                            value="Mark as Deceased"/>
@@ -343,7 +343,7 @@
 
 
                                 <td style="cursor: pointer;">
-                                    <mat-icon (click)="viewDocument(img.ID)" *ngIf="currentActivity.R"
+                                    <mat-icon (click)="viewDocument(img.ID)" *ngIf="currentActivity?.R"
                                               class="text-green">remove_red_eye
                                     </mat-icon>
 

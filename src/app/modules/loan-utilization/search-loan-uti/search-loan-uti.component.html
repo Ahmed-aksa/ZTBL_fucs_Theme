@@ -211,7 +211,7 @@
                     <ng-container matColumnDef="add">
                         <mat-header-cell *matHeaderCellDef>Add Utilization</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">
-                            <button (click)="addloanutilization(loanutilization)" *ngIf="currentActivity.C" color="primary"
+                            <button (click)="addloanutilization(loanutilization)" *ngIf="currentActivity?.C" color="primary"
                                     mat-icon-button>
                                 <mat-icon style="margin-left: 1px;" title="View loanutilization">add</mat-icon>
                             </button>

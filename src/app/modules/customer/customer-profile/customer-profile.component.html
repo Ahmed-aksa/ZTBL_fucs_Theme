@@ -34,7 +34,7 @@
                                     <!--<button style="display: block;margin-left: auto;margin-right: auto;" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
                                     <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">-->
                                     <input (change)="onFileChange($event)"
-                                           *ngIf="HideShowSaveButton && currentActivity.C"
+                                           *ngIf="HideShowSaveButton && currentActivity?.C"
                                            accept="image/x-png,image/jpg,image/jpeg"
                                            formControlName="file"
                                            id="uploadprofile" name="myfile" style="display: block;margin-left: auto;margin-right: auto;"
@@ -665,13 +665,13 @@
                         <!--<button type="button" class="button-red pull-left" mat-raised-button cdkFocusInitial>
                           Cancel
                         </button>-->
-                        <button (click)="onSubmit(false)" *ngIf="currentActivity.C" [disabled]="viewLoading || submitted"
+                        <button (click)="onSubmit(false)" *ngIf="currentActivity?.C" [disabled]="viewLoading || submitted"
                                 class="btn btn-primary bg-green" color="primary"
                                 mat-raised-button type="button">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
-                        <button (click)="submitDocuments()" *ngIf="currentActivity.U" class="mx-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500 text-white"
+                        <button (click)="submitDocuments()" *ngIf="currentActivity?.U" class="mx-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500 text-white"
                                 mat-raised-button
                                 mat-raised-button
                                 type="button"
@@ -679,7 +679,7 @@
                             <mat-icon class="mr-2">check_circle</mat-icon>
                             Submit Documents
                         </button>
-                        <button (click)="onSubmit(true)" *ngIf="currentActivity.U" [disabled]="viewLoading || submitted" class="btn btn-primary"
+                        <button (click)="onSubmit(true)" *ngIf="currentActivity?.U" [disabled]="viewLoading || submitted" class="btn btn-primary"
                                 color="primary"
                                 mat-raised-button type="button">
                             <mat-icon class="mr-2">check_circle</mat-icon>
@@ -718,7 +718,7 @@
                     <button (click)="previewImg(single_images.url)" color="primary" mat-icon-button>
                         <mat-icon>visibility</mat-icon>
                     </button>
-                    <button (click)="deleteImage(single_images.customer_document)" *ngIf="HideShowSaveButton && currentActivity.D" color="warn"
+                    <button (click)="deleteImage(single_images.customer_document)" *ngIf="HideShowSaveButton && currentActivity?.D" color="warn"
                             mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>

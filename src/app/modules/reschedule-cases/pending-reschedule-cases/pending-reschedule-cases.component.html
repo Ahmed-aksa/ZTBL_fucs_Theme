@@ -136,7 +136,7 @@ u
             <ng-container matColumnDef="View">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <button *ngIf="currentActivity.U" color="primary" mat-icon-button>
+                    <button *ngIf="currentActivity?.U" color="primary" mat-icon-button>
                         <mat-icon (click)="editPen(row)" style="margin-left: 5px;" title="Edit row">edit</mat-icon>
                     </button>
                 </mat-cell>
@@ -145,7 +145,7 @@ u
             <ng-container matColumnDef="Submit">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Submit</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="getRow(row)" *ngIf="currentActivity.U"></mat-checkbox>
+                    <mat-checkbox (click)="getRow(row)" *ngIf="currentActivity?.U"></mat-checkbox>
                 </mat-cell>
             </ng-container>
 
@@ -176,7 +176,7 @@ u
 
     </div>
 
-    <div *ngIf="allowSubmit && currentActivity.U" class="col-lg-12 text-center py-4 border-t px-4">
+    <div *ngIf="allowSubmit && currentActivity?.U" class="col-lg-12 text-center py-4 border-t px-4">
         <button (click)="SubmitData()" class="mr-2" color="primary" mat-raised-button>
             <mat-icon class="mr-2">check_circle</mat-icon>
             Submit

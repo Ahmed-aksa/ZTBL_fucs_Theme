@@ -182,7 +182,7 @@
         <div *ngIf="searchData" class="form-group kt-form__group row mt-2 justify-content-center">
             <div class="row">
                 <div class="col-lg-12 text-right">
-                    <button (click)="submit()" *ngIf="currentActivity.C"
+                    <button (click)="submit()" *ngIf="currentActivity?.C"
                             class="bg-green mat-flat-button mat-button-base mat-primary" mat-raised-button>
                         <mat-icon class="mr-2">check_circle</mat-icon>
                         Submit

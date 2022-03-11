@@ -137,16 +137,16 @@
                 <mat-header-cell *matHeaderCellDef class="place-content-center text">Action</mat-header-cell>
                 <mat-cell *matCellDef="let VillageBenchMark">
                     <div style="flex-wrap: wrap; width:100; display: flex;">
-                        <button (click)="viewVillageBenchMark(VillageBenchMark)" *ngIf="checkViewStatus(VillageBenchMark) && currentActivity.C"
+                        <button (click)="viewVillageBenchMark(VillageBenchMark)" *ngIf="checkViewStatus(VillageBenchMark) && currentActivity?.C"
                                 color="primary" mat-icon-button>
                             <mat-icon class="text-green" title="view benchmarking">visibility</mat-icon>
                         </button>
-                        <button (click)="editVillageBenchMark(VillageBenchMark)" *ngIf="checkEditStatus(VillageBenchMark) && currentActivity.U"
+                        <button (click)="editVillageBenchMark(VillageBenchMark)" *ngIf="checkEditStatus(VillageBenchMark) && currentActivity?.U"
                                 color="primary" mat-icon-button>
                             <mat-icon title="edit benchmarking">edit</mat-icon>
                         </button>
 
-                        <button (click)="deleteVillageBenchMark(VillageBenchMark)" *ngIf="checkDeleteStatus(VillageBenchMark) && currentActivity.D"
+                        <button (click)="deleteVillageBenchMark(VillageBenchMark)" *ngIf="checkDeleteStatus(VillageBenchMark) && currentActivity?.D"
                                 mat-icon-button>
                             <mat-icon class=" text-red-500" title="delete benchmarking">delete</mat-icon>
                         </button>

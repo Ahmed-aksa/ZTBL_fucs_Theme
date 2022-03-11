@@ -10,10 +10,10 @@
             <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                 <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong>
                 </mat-label>
-                <input [disabled]="zone" [readonly]="viewMode && currentActivity.R" autocomplete="off" formControlName="VisitedDate" matInput
+                <input [disabled]="zone" [readonly]="viewMode && currentActivity?.R" autocomplete="off" formControlName="VisitedDate" matInput
                        name="VisitedDate"
                        readonly/>
-                <mat-icon (click)="onChange()" *ngIf="!viewMode && currentActivity.C" matSuffix
+                <mat-icon (click)="onChange()" *ngIf="!viewMode && currentActivity?.C" matSuffix
                           style="cursor: pointer;">mode_edit
                 </mat-icon>
             </mat-form-field>
@@ -62,7 +62,7 @@
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                <button (click)="AddCal()" *ngIf="currentActivity.C" [disabled]="viewMode && currentActivity.R" class="ml-2 bg-gray-500"
+                <button (click)="AddCal()" *ngIf="currentActivity?.C" [disabled]="viewMode && currentActivity?.R" class="ml-2 bg-gray-500"
                         color="primary"
                         mat-raised-button>
                     <mat-icon class="mr-2">add_circle_outline</mat-icon>
@@ -105,12 +105,12 @@
                     <td> {{item.StatusName}} </td>
                     <!--                    <td> {{getStatus(item.StatusName)}} </td>-->
                     <td>
-                        <button (click)="editTourPlan(item)" *ngIf="checkStatus(item, 'edit') && currentActivity.U"
+                        <button (click)="editTourPlan(item)" *ngIf="checkStatus(item, 'edit') && currentActivity?.U"
                                 [disabled]="viewMode"
                                 mat-icon-button>
                             <mat-icon style="cursor: pointer;" title="Edit Tour Plan">edit</mat-icon>
                         </button>
-                        <button (click)="deleteTourPlan(item)" *ngIf="checkStatus(item, 'delete') && currentActivity.D"
+                        <button (click)="deleteTourPlan(item)" *ngIf="checkStatus(item, 'delete') && currentActivity?.D"
                                 [disabled]="viewMode"
                                 mat-icon-button>
                             <mat-icon style="cursor: pointer;">delete</mat-icon>
@@ -148,7 +148,7 @@
     <div *ngIf="tragetList" class="row">
         <div class="col-lg-12 flex  py-2 border-t">
 
-            <button (click)="submitTourPlan()" *ngIf="showSubmit && currentActivity.U" [disabled]="viewMode" class="mr-2"
+            <button (click)="submitTourPlan()" *ngIf="showSubmit && currentActivity?.U" [disabled]="viewMode" class="mr-2"
                     color="primary"
                     mat-raised-button>
                 <mat-icon class="mr-2">check_circle</mat-icon>

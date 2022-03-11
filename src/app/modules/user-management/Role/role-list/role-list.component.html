@@ -13,7 +13,7 @@
                 <div class="col-lg-12 text-right">
                     <div class=" mt-6 sm:mt-0">
                         <button (click)="createOrEditItem()"
-                                *ngIf="currentActivity.C"
+                                *ngIf="currentActivity?.C"
                                 [color]="'primary'"
                                 mat-flat-button>
                             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
@@ -59,13 +59,13 @@
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let activity">
-                        <button (click)="createOrEditItem(activity)" *ngIf="currentActivity.U" color="primary"
+                        <button (click)="createOrEditItem(activity)" *ngIf="currentActivity?.U" color="primary"
                                 mat-icon-button>
                             <mat-icon class="text-green">
                                 {{ activity.isCoreactivity ? 'visibility' : 'create' }}
                             </mat-icon>
                         </button>&nbsp;
-                        <button (click)="deleteActivity(activity)" *ngIf="currentActivity.D" color="primary"
+                        <button (click)="deleteActivity(activity)" *ngIf="currentActivity?.D" color="primary"
                                 mat-icon-button>
                             <mat-icon>
                                 {{ activity.isCoreactivity ? 'visibility' : 'delete' }}

@@ -360,7 +360,7 @@
                                     isShowEditIcon(
                                         transaction.TransactionStatus,
                                         transaction.CircleID
-                                    ) && SearchType != 1 && currentActivity.C
+                                    ) && SearchType != 1 && currentActivity?.C
                                 "
                                     color="primary"
                                     mat-icon-button
@@ -398,7 +398,7 @@
                                         transaction.EffectiveDate
                                     )
                                 "
-                                    *ngIf="searchSBS && currentActivity.U"
+                                    *ngIf="searchSBS && currentActivity?.U"
                                     color="primary"
                                     mat-icon-button
                                 >
@@ -412,7 +412,7 @@
                                 >
                                 <button
                                     (click)="delete( transaction.TransactionID)"
-                                    *ngIf="searchSBS && currentActivity.D"
+                                    *ngIf="searchSBS && currentActivity?.D"
                                     color="primary"
                                     mat-icon-button>
                                     <mat-icon

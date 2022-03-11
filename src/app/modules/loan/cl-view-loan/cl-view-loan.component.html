@@ -150,7 +150,7 @@
                         <ng-container matColumnDef="Action">
                             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                             <mat-cell *matCellDef="let loan">
-                                <button (click)="ViewOrr(loan)" *ngIf="currentActivity.R" color="primary"
+                                <button (click)="ViewOrr(loan)" *ngIf="currentActivity?.R" color="primary"
                                         mat-icon-button>
                                     <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">
                                         visibility

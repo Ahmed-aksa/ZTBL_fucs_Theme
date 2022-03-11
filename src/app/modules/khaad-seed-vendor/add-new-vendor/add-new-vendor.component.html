@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div>
-                <input (click)="Add()" *ngIf="!viewOnly && currentActivity.C" [value]="loc_text"
+                <input (click)="Add()" *ngIf="!viewOnly && currentActivity?.C" [value]="loc_text"
                        class=" mx-2 mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn mt-2"
                        color="primary" mat-raised-button type="button"/>
                 <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
@@ -127,12 +127,12 @@
     </div>
 
     <div class="mt-4 justify-content-center text-right border-t py-4">
-        <button (click)="saveSubmit()" *ngIf="!viewOnly && (currentActivity.C || currentActivity.U)" color="primary" mat-raised-button
+        <button (click)="saveSubmit()" *ngIf="!viewOnly && (currentActivity?.C || currentActivity?.U)" color="primary" mat-raised-button
                 style="background-color: #01671B;">
             <mat-icon class="mr-2">save</mat-icon>
             Save & Submit
         </button>
-        <button (click)="deleteVendor()" *ngIf="isEdit && currentActivity.D"
+        <button (click)="deleteVendor()" *ngIf="isEdit && currentActivity?.D"
                 class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger ml-2"
                 color="primary" mat-raised-button>
             <mat-icon class="mr-2">delete</mat-icon>

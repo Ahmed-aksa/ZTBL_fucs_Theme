@@ -511,13 +511,13 @@
 
     <div class="form-group kt-form__group mb-2 row">
         <div class="col-lg-12 kt-margin-bottom-20-mobile">
-            <button (click)="saveLoanDbr()" *ngIf="showFinalOrrTable && currentActivity.C" class="mr-2 btn btn-primary bg-green"
+            <button (click)="saveLoanDbr()" *ngIf="showFinalOrrTable && currentActivity?.C" class="mr-2 btn btn-primary bg-green"
                     color="primary" mat-raised-button
                     type="button">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save & Submit DBR
             </button>
-            <button (click)="SaveOrSubmit()" *ngIf="currentActivity.U" [disabled]="submitted" class="bg-green"
+            <button (click)="SaveOrSubmit()" *ngIf="currentActivity?.U" [disabled]="submitted" class="bg-green"
                     color="primary" mat-raised-button>
                 <mat-icon class="mr-2">save</mat-icon>
                 {{showFinalOrrTable ? "Submit" : "Save"}}</button>
@@ -527,7 +527,7 @@
                     mat-raised-button>
                 <mat-icon>navigate_next</mat-icon>
                 {{showFinalOrrTable ? "Back" : "Next"}}</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span (click)="goToPendingList()" *ngIf="currentActivity.C" class="cursor-pointer"
+            &nbsp;&nbsp;&nbsp;&nbsp;<span (click)="goToPendingList()" *ngIf="currentActivity?.C" class="cursor-pointer"
                                           id="llcInquiryText"><b>Pending List</b></span>
             <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
         </div>

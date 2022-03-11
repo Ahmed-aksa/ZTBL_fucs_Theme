@@ -111,7 +111,7 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button (click)="find()" *ngIf="currentActivity.C" class="bg-gray-500 mt-2" color="primary"
+                            <button (click)="find()" *ngIf="currentActivity?.C" class="bg-gray-500 mt-2" color="primary"
                                     mat-raised-button>
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
@@ -195,7 +195,7 @@
                 <td>{{res.GlSubname}}</td>
                 <td>{{res.MajorBorrower}}</td>
                 <td>
-                    <button (click)="deleteRow(i)" *ngIf="currentActivity.D" color="primary" mat-raised-button>Delete
+                    <button (click)="deleteRow(i)" *ngIf="currentActivity?.D" color="primary" mat-raised-button>Delete
                     </button>
                 </td>
             </tr>
@@ -203,8 +203,8 @@
         </table>
     </div>
     <div *ngIf="AddTable && checkedArr.length>0" class="d-flex justify-content-center">
-        <button (click)="submitData()" *ngIf="currentActivity.U" color="primary" mat-raised-button>Submit</button>
-        <button (click)="cancelData()" *ngIf="currentActivity.D" class="ml-2" color="primary" mat-raised-button>Cancel
+        <button (click)="submitData()" *ngIf="currentActivity?.U" color="primary" mat-raised-button>Submit</button>
+        <button (click)="cancelData()" *ngIf="currentActivity?.D" class="ml-2" color="primary" mat-raised-button>Cancel
         </button>
     </div>
 </div>

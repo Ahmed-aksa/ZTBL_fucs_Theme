@@ -40,7 +40,7 @@
 
     <button
         (click)="onSubmit()"
-        *ngIf="currentActivity.U"
+        *ngIf="currentActivity?.U"
         [color]="'primary'"
         [disabled]="viewLoading"
         class=" bg-green"

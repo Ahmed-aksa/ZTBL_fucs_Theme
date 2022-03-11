@@ -76,7 +76,7 @@
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <div class="flex flex-shrink-0 items-center mt-2 mb-2">
-                            <button (click)="searchLoan()" *ngIf="currentActivity.C" [color]="'primary'" class="bg-gray-500"
+                            <button (click)="searchLoan()" *ngIf="currentActivity?.C" [color]="'primary'" class="bg-gray-500"
                                     mat-flat-button>
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
@@ -152,9 +152,9 @@
                             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                             <mat-cell *matCellDef="let loan">
 
-                                <a (click)="ApplyOrr(loan) && currentActivity.C"
+                                <a (click)="ApplyOrr(loan) && currentActivity?.C"
                                    class="self-center cursor-pointer text-green"> Apply ORR</a>
-                                <button (click)="ViewOrr(loan)" *ngIf="CheckEditStatus(loan) && currentActivity.U"
+                                <button (click)="ViewOrr(loan)" *ngIf="CheckEditStatus(loan) && currentActivity?.U"
                                         color="primary" mat-icon-button>
                                     <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">
                                         visibility

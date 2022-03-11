@@ -26,7 +26,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-lg-4 kt-margin-bottom-20-mobile ">
-                                <button (click)="getCustomerInfo()" *ngIf="currentActivity.C" [disabled]="disable_buttons"
+                                <button (click)="getCustomerInfo()" *ngIf="currentActivity?.C" [disabled]="disable_buttons"
                                         [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                         class=" ml-2  btn mt-2 bg-green rounded-md"
                                         mat-flat-button
@@ -48,7 +48,7 @@
                                            class="text-sm">{{CustomerNdc?.Message}}</p>
                                     </div>
                                     <div class="col-lg-6 text-right kt-margin-bottom-20-mobile self-center">
-                                        <a *ngIf="NDCLinkView && currentActivity.R" color="primary"
+                                        <a *ngIf="NDCLinkView && currentActivity?.R" color="primary"
                                            href="{{Customer.NDCPDFLink}}"
                                            mat-flat-button
                                            target="_blank">
@@ -115,12 +115,12 @@
                                     <span style="font-size: 14px !important; text-align:center">Please place your finger on scanner</span>
                                 </div>
                                 <div class="col-lg-12 text-center">
-                                    <button (click)="performBiomatric()" *ngIf="currentActivity.C" class="btn btn-primary mt-19 kt-login__btn-primary"
+                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C" class="btn btn-primary mt-19 kt-login__btn-primary"
                                             color="primary"
                                             style="width:30%;" type="button">
                                         Capture
                                     </button>&nbsp;
-                                    <button (click)="performBiomatric()" *ngIf="currentActivity.C" class="btn btn-secondary mt-19 kt-login__btn-primary"
+                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C" class="btn btn-secondary mt-19 kt-login__btn-primary"
                                             color="primary"
                                             style="width:30%;" type="button">
                                         Verify
@@ -410,7 +410,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a *ngIf="currentActivity.C" [routerLink]="['dashboard']" class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                <a *ngIf="currentActivity?.C" [routerLink]="['dashboard']" class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                                    mat-flat-button>Close/Exit</a>
                             </div>
                         </div>
@@ -418,7 +418,7 @@
                         <div *ngIf="IsEcibDefaulter && should_regenerate" class="py-2">
                             <div class="heading">Regenerate ECIB Request</div>
 
-                            <button (click)="regenerate()" *ngIf="currentActivity.C" class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button
+                            <button (click)="regenerate()" *ngIf="currentActivity?.C" class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button
                                     type="button">
                                 Regenerate
                             </button>
@@ -438,7 +438,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="IsEcibDefaulter && should_regenerate && currentActivity.C">
+                        <div *ngIf="IsEcibDefaulter && should_regenerate && currentActivity?.C">
                             <button (click)="submitEcibDefaulterForm()" class="bg-green mat-focus-indicator  w-32  mat-flat-button mat-button-base mat-primary"
                                     mat-flat-button
                                     type="button">Submit
@@ -454,13 +454,13 @@
         <div class="kt-form__actions kt-form__actions--solid">
             <div class="row">
                 <div class="col-lg-12 text-right">
-                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit && show_ndc && currentActivity.C"
+                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit && show_ndc && currentActivity?.C"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                             class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                     >
                         Next
                     </button>
-                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture && currentActivity.C"
+                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture && currentActivity?.C"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                             class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                             type="button"
@@ -468,7 +468,7 @@
                         Save & Next
                     </button>
                     <button (click)="submitCWR()"
-                            *ngIf="BiometricCredentials && currentActivity.C" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                            *ngIf="BiometricCredentials && currentActivity?.C" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                             class="mat-focus-indicator w-32  mat-flat-button mat-button-base bg-green mat-primary"
                             type="button"
                     >

@@ -57,7 +57,7 @@
             </div>
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
 
-                <input (click)="loanCase()" *ngIf="currentActivity.C" class=" mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary" mat-raised-button
+                <input (click)="loanCase()" *ngIf="currentActivity?.C" class=" mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary" mat-raised-button
                        style="width: 50px;"
                        type="button" value="..."/>
             </div>
@@ -200,7 +200,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <button (click)="saveLoanDocuments()" *ngIf="currentActivity.C"
+            <button (click)="saveLoanDocuments()" *ngIf="currentActivity?.C"
                     class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                     style="background-color: #01671B;"
                     type="button">
@@ -234,9 +234,9 @@
                     <td>{{loan.LoanType}}</td>
 
                     <td style="cursor: pointer; color: #ecbd00;"><span (click)="viewDocument(1, loan.ImageID)"
-                                                                       *ngIf="currentActivity.R">View</span>
+                                                                       *ngIf="currentActivity?.R">View</span>
                         | <span (click)="deleteDocument(loan.ImageID)"
-                                currentActivity.D>Delete</span></td>
+                                currentActivity?.D>Delete</span></td>
                 </tr>
                 </tbody>
             </table>

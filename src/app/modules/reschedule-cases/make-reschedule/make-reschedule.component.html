@@ -35,7 +35,7 @@
                         <input appNumberOnly autocomplete="off" formControlName="Lcno" matInput
                                maxlength="13" placeholder="Enter Loan Case No"/>
                     </mat-form-field>
-                    <input (click)="subProposal()" *ngIf="currentActivity.C" class="w-5/12 ml-1 w-full mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary"
+                    <input (click)="subProposal()" *ngIf="currentActivity?.C" class="w-5/12 ml-1 w-full mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary"
                            mat-raised-button
                            type="button" value="Search"/>
                 </div>
@@ -95,7 +95,7 @@
                         <input appNumberOnly autocomplete="off" formControlName="GlSubIDNew" matInput
                                maxlength="13" placeholder="Enter New Gl Code"/>
                     </mat-form-field>
-                    <input (click)="newGlDialog()" *ngIf="currentActivity.C" class="w-full ml-1 w-5/12 mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary"
+                    <input (click)="newGlDialog()" *ngIf="currentActivity?.C" class="w-full ml-1 w-5/12 mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary"
                            mat-raised-button
                            type="button" value="Search"/>
 
@@ -186,30 +186,30 @@
         <div class="row">
             <div class="col-lg-12 flex  py-2 border-t">
 
-                <button (click)="uploadDocuments()" *ngIf="currentActivity.C" class="mr-2" color="primary"
+                <button (click)="uploadDocuments()" *ngIf="currentActivity?.C" class="mr-2" color="primary"
                         mat-raised-button>
                     <mat-icon class="mr-2">check_circle</mat-icon>
                     Upload Documents
                 </button>
 
 
-                <button (click)="SaveData()" *ngIf="currentActivity.C" class="mr-2" color="primary"
+                <button (click)="SaveData()" *ngIf="currentActivity?.C" class="mr-2" color="primary"
                         mat-raised-button style="background-color: #01671B;">
                     <mat-icon class="mr-2">save</mat-icon>
                     Save
                 </button>
-                <button (click)="SubmitData()" *ngIf="currentActivity.U" class="mr-2" color="primary" mat-raised-button>
+                <button (click)="SubmitData()" *ngIf="currentActivity?.U" class="mr-2" color="primary" mat-raised-button>
                     <mat-icon class="mr-2">check_circle</mat-icon>
                     Submit
                 </button>
                 <button (click)="clear()"
-                        *ngIf="currentActivity.C"
+                        *ngIf="currentActivity?.C"
                         class="mr-2 mat-focus-indicator  btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger" color="primary" mat-raised-button>
                     <mat-icon class="mr-2"> clear_all</mat-icon>
                     Clear
                 </button>
                 <button (click)="cancelTransaction()"
-                        *ngIf="currentActivity.D"
+                        *ngIf="currentActivity?.D"
                         class=" mat-focus-indicator  btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger" color="primary" mat-raised-button>
                     <mat-icon class="mr-2">cancel</mat-icon>
                     Cancel Transaction

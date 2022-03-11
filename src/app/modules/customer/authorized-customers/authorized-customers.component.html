@@ -125,7 +125,7 @@
                 <ng-container matColumnDef="View">
                     <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                     <mat-cell *matCellDef="let customer">
-                        <button (click)="editCustomer(customer)" *ngIf="CheckEditStatus(customer) && currentActivity.U" color="primary"
+                        <button (click)="editCustomer(customer)" *ngIf="CheckEditStatus(customer) && currentActivity?.U" color="primary"
                                 mat-icon-button>
                             <!-- <mat-icon style="margin-left: 5px;" title="View Customer">accessibility_new</mat-icon> -->
                             <mat-icon style="margin-left: 2px;" title="Edit Customer">edit</mat-icon>

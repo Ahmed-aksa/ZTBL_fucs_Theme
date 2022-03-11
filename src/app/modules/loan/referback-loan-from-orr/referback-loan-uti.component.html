@@ -153,11 +153,11 @@
                         <!--                                        *ngIf="CheckEditStatus(loan)">-->
                         <!--                                    <mat-icon style="margin-left: 5px;" title="View Loan">visibility</mat-icon>-->
                         <!--                                </button>-->
-                        <button (click)="editLoan(loan)" *ngIf="CheckEditStatus(loan) && currentActivity.U" color="primary"
+                        <button (click)="editLoan(loan)" *ngIf="CheckEditStatus(loan) && currentActivity?.U" color="primary"
                                 mat-icon-button>
                             <mat-icon style="margin-left: 5px;" title="View Loan">edit</mat-icon>
                         </button>
-                        <button (click)="ViewOrr(loan)" *ngIf="currentActivity.R" color="primary" mat-icon-button>
+                        <button (click)="ViewOrr(loan)" *ngIf="currentActivity?.R" color="primary" mat-icon-button>
                             <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">visibility
                             </mat-icon>
                         </button>

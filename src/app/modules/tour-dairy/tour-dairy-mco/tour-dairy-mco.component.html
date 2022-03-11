@@ -22,6 +22,7 @@
                             <div class="flex" style="flex-wrap: wrap;">
                                 <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="gridForm"
                                                         [should_filter]="false"
+                                                        [show_branch]="true"
                                                         [show_circle]="true"></app-zone-branch-circle>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mr-2" style="width: 225px;">
                                     <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
@@ -380,9 +381,10 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. Of Mutations Pending As Previous Month
                                         </mat-label>
-                                        <input matInput appNumberOnly placeholder="No. Of Mutations Pending As Previous Month"
+                                        <input matInput appNumberOnly
+                                               placeholder="No. Of Mutations Pending As Previous Month"
                                                formControlName="NoOfMutationPendingASOPM" maxlength="30"
-                                               [readonly]="!edit_mode && currentActivity.R"
+                                               [readonly]="!edit_mode && currentActivity?.R"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
@@ -393,7 +395,7 @@
                                         </mat-label>
                                         <input matInput appNumberOnly placeholder="Mutations Verified During Month"
                                                formControlName="MutationVerifiedDuringMnth" maxlength="30"
-                                               [readonly]="!edit_mode && currentActivity.R"
+                                               [readonly]="!edit_mode && currentActivity?.R"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
@@ -405,7 +407,7 @@
                                         </mat-label>
                                         <input matInput appNumberOnly placeholder="Utilization Pending Last Date"
                                                formControlName="UtilizationPendingLastDate" maxlength="30"
-                                               [readonly]="!edit_mode && currentActivity.R"
+                                               [readonly]="!edit_mode && currentActivity?.R"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
@@ -416,7 +418,7 @@
                                         </mat-label>
                                         <input matInput appNumberOnly placeholder="Utilization Verified During Month"
                                                formControlName="UtilizationVerifiedDuringMnth" maxlength="30"
-                                               [readonly]="!edit_mode && currentActivity.R"
+                                               [readonly]="!edit_mode && currentActivity?.R"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
@@ -593,27 +595,29 @@
 
     <div class="row mt-2 mr-1">
         <div class="col-lg-12 text-right">
-            <button (click)="saveTourDiary()" *ngIf="isUpdate==false && currentActivity.C && edit_mode"
+            <button (click)="saveTourDiary()" *ngIf="isUpdate==false && currentActivity?.C && edit_mode"
                     class="mr-2 bg-green" color="primary" mat-raised-button
                     type="button">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save
             </button>
-            <button (click)="saveTourDiary()" *ngIf="isUpdate==true && currentActivity.D && edit_mode"
+            <button (click)="saveTourDiary()" *ngIf="isUpdate==true && currentActivity?.D && edit_mode"
                     class="mr-2 bg-green" color="primary" mat-raised-button
                     type="button">
                 <mat-icon class="mr-2">save</mat-icon>
                 Update
             </button>
-            <button (click)="changeStatus('','S')" *ngIf="currentActivity.U && edit_mode" [disabled]="checkDisable" class="mr-2"
+            <button (click)="changeStatus('','S')" *ngIf="currentActivity?.U && edit_mode" [disabled]="checkDisable"
+                    class="mr-2"
                     color="primary" mat-raised-button
                     type="button">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>
             <button (click)="onClearForm()"
-                    *ngIf="currentActivity.C && edit_mode"
-                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="danger" mat-raised-button
+                    *ngIf="currentActivity?.C && edit_mode"
+                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                    color="danger" mat-raised-button
                     type="button">
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Clear
@@ -662,7 +666,7 @@
                 </thead>
 
                 <tbody>
-<!--                {{TourDiaryList | json}}-->
+                <!--                {{TourDiaryList | json}}-->
                 <tr *ngFor="let mcoDiary of TourDiaryList">
                     <td>
                         <button (click)="edit(mcoDiary); container.scrollTop = 0"
@@ -778,7 +782,7 @@
                     <td>{{systemGenerated?.DTotalDisbDuringMonth }}</td>
                     <td>{{systemGenerated?.DIncreaseDeficit}}</td>
                     <!-- Mutations -->
-<!--                    <td>{{systemGenerated?.MNoMutationPendingPM }}</td>-->
+                    <!--                    <td>{{systemGenerated?.MNoMutationPendingPM }}</td>-->
                     <td>{{mcoDiary?.NoOfMutationPendingASOPM}}</td>
                     <td>{{systemGenerated?.MNoDisbDuringMonth}}</td>
                     <td>{{systemGenerated?.MMutationToBeVerified}}</td>
@@ -839,14 +843,14 @@
                 <tbody>
                 <tr *ngFor="let mcoDiary of TourDiaryList">
                     <td>{{mcoDiary?.UtilizationPendingLastDate}}</td>
-<!--                    <td>{{systemGenerated?.UUtilizationPendingPM}}</td>-->
+                    <!--                    <td>{{systemGenerated?.UUtilizationPendingPM}}</td>-->
                     <td>{{systemGenerated?.UNoOfCasesDisbursed }}</td>
                     <td>{{systemGenerated?.UNoOfUtliztionToVerify }}</td>
                     <td>{{mcoDiary?.UtilizationVerifiedDuringMnth}}
-<!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
-<!--                                        appearance="outline">-->
-<!--                            <input matInput [value]="systemGenerated?.UUtilizationVerified">-->
-<!--                        </mat-form-field>-->
+                        <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
+                        <!--                                        appearance="outline">-->
+                        <!--                            <input matInput [value]="systemGenerated?.UUtilizationVerified">-->
+                        <!--                        </mat-form-field>-->
                     </td>
                     <td>{{systemGenerated?.UPendingCasesChecking }}</td>
                     <td>{{systemGenerated?.RTPastDuesNo  }}</td>

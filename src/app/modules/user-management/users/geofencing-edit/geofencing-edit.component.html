@@ -5,14 +5,14 @@
 
             <h3 class=" heading w-3/12">{{getTitle()}}</h3>
             <div class="w-9/12 text-end">
-                <button (click)="editCircleFence()" *ngIf="isEditBtnShown && _currentActivity.U" [disabled]="viewLoading || submitted"
+                <button (click)="editCircleFence()" *ngIf="isEditBtnShown && _currentActivity?.U" [disabled]="viewLoading || submitted"
                         class="btn btn-primary" color="primary" mat-raised-button
                         type="button">
                     <mat-icon class="mr-2">edit</mat-icon>
                     Edit
                 </button>
 
-                <button (click)="DeeteCircleFence()" *ngIf="isDeleteBtnShown && _currentActivity.D"
+                <button (click)="DeeteCircleFence()" *ngIf="isDeleteBtnShown && _currentActivity?.D"
                         [disabled]="viewLoading || submitted"
                         class=" mx-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="primary" mat-raised-button
                         type="button">
