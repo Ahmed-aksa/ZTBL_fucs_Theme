@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SearchLoanCaseByCnic} from "../class/reports";
 import {MatTableDataSource} from "@angular/material/table";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
@@ -71,7 +71,7 @@ export class TourDiaryReportComponent implements OnInit {
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            Ppno: [null],
+            Ppno: [null, Validators.required],
             StartDate: [null],
             EndDate: [null]
         })
