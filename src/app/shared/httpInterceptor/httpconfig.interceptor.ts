@@ -34,7 +34,6 @@ export class TokenInterceptor implements HttpInterceptor {
     refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Object>> {
-        this.spinner.show();
         let authReq = req;
         const token: string = localStorage.getItem('accessToken');
         if (environment.IsEncription)
@@ -42,9 +41,10 @@ export class TokenInterceptor implements HttpInterceptor {
                 authReq = this.addTokenHeader(req, token, this._common.newGuid());
             }
         return next.handle(authReq).pipe(map((res:HttpResponse<any>) => {
+
             return res;
+
         }), catchError(error => {
-            this.spinner.hide();
 
             if (error.status === 403) {
                 this.layoutUtilsService.AlertElementCapture(error.error.Message);
