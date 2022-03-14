@@ -42,7 +42,6 @@ export class TokenInterceptor implements HttpInterceptor {
                 authReq = this.addTokenHeader(req, token, this._common.newGuid());
             }
         return next.handle(authReq).pipe(map((res:HttpResponse<any>) => {
-            this.spinner.hide();
             return res;
         }), catchError(error => {
             this.spinner.hide();
