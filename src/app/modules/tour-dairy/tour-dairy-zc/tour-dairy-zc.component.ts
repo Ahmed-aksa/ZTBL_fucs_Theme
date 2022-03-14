@@ -127,6 +127,8 @@ export class TourDiaryZcComponent implements OnInit {
         }
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
+        this.TourDiary.DepartureFromId = this.SelectedBranches.filter(x => x.Name == this.TourDiary.DepartureFromPlace)[0].BranchId.toString();
+        this.TourDiary.ArrivalAtId = this.SelectedBranches.filter(x => x.Name == this.TourDiary.ArrivalAtPlace)[0].BranchId.toString();
         this.TourDiary.Status = 'P';
         this.spinner.show();
         this.tourDiaryService.saveDiary(this.zone, this.circle, this.branch, this.TourDiary, 'ZC')
@@ -427,7 +429,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.circle = data.final_circle;
 
         var zoneId = this.zone?.ZoneId;
-        this.getBranches(zoneId);
+            this.getBranches(zoneId);
     }
 
     getBranches(changedValue) {

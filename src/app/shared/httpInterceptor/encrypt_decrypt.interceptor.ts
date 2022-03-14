@@ -26,7 +26,6 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let authReq = request;
-
         if (environment.IsEncription) {
             if (!authReq.url.includes('Account/HealthCheck')) {
                 if (request.body && request.body.toString() === "[object FormData]") {
@@ -86,6 +85,7 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                         localStorage.clear();
                     }
                 }
+
                 return event;
             }));
     }

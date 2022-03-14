@@ -34,32 +34,31 @@ export class TokenInterceptor implements HttpInterceptor {
     refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Object>> {
+        this.spinner.show();
         let authReq = req;
         const token: string = localStorage.getItem('accessToken');
         if (environment.IsEncription)
             if (token != null && !authReq.url.includes('Account/Login') && !authReq.url.includes('Account/HealthCheck')) {
                 authReq = this.addTokenHeader(req, token, this._common.newGuid());
             }
-        return next.handle(authReq)
-            .pipe(catchError(error => {
-                if (error.status === 403) {
-                    this.layoutUtilsService.AlertElementCapture(error.error.Message);
-                    return throwError(error);
-                }
-                if (error instanceof HttpErrorResponse) {
-                    return this.handle401Error(authReq, next);
-                }
-                if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
-                    return this.handle401Error(authReq, next);
-                }
-                // if (error.status == 0) {
-                //     this.layoutUtilsService.AlertElementCapture("You have been logged out from system");
-                //
-                //     return this.handle401Error(authReq, next);
-                // }
+        return next.handle(authReq).pipe(map((res:HttpResponse<any>) => {
+            this.spinner.hide();
+            return res;
+        }), catchError(error => {
+            this.spinner.hide();
 
+            if (error.status === 403) {
+                this.layoutUtilsService.AlertElementCapture(error.error.Message);
                 return throwError(error);
-            }));
+            }
+            if (error instanceof HttpErrorResponse) {
+                return this.handle401Error(authReq, next);
+            }
+            if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
+                return this.handle401Error(authReq, next);
+            }
+            return throwError(error);
+        }));
     }
 
 

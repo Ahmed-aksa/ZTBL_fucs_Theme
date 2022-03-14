@@ -63,6 +63,7 @@ export class TourDiary {
     ResultContactMade;
     MeasureBoostUpRecord;
 
+
     /**
      * RC And RO TourFields
      */
@@ -84,6 +85,8 @@ export class TourDiary {
     LCNotIssuedToBorrowers;
     McoNBmTourDiaryAPPlan;
     AnyShortComingInDiaries;
+    DepartureFromId;
+    ArrivalAtId;
 
     /**
      * ZM TourFields

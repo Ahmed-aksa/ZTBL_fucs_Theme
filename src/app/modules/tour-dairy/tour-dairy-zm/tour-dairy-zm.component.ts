@@ -88,6 +88,7 @@ export class TourDiaryZmComponent implements OnInit {
             }
             localStorage.removeItem('visibility');
             localStorage.removeItem('TourDiary');
+            localStorage.removeItem('TourDiary');
         }
 
         if (this.data) {
@@ -265,6 +266,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
+            this.spinner.hide()
         });
     }
 
@@ -310,7 +312,9 @@ export class TourDiaryZmComponent implements OnInit {
             return;
         }
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
-        this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
+        this.TourDiary.DepartureFromId = this.SelectedBranches.filter(x => x.Name == this.TourDiary.DepartureFromPlace)[0].BranchId.toString();
+        this.TourDiary.ArrivalAtId = this.SelectedBranches.filter(x => x.Name == this.TourDiary.ArrivalAtPlace)[0].BranchId.toString();
+        this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy');
         this.TourDiary.Status = 'P';
         this.spinner.show();
         this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary, 'ZM')
