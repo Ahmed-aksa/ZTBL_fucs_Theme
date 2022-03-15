@@ -263,10 +263,10 @@ export class TourDiaryZmComponent implements OnInit {
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
         }
-        this.spinner.show();
+        // this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
-            this.spinner.hide()
+            // this.spinner.hide()
         });
     }
 
