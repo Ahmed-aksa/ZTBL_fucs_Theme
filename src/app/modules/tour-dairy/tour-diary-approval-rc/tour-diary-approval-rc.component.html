@@ -97,13 +97,15 @@
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field appearance="outline"
-                                                    class=" mat-form-field-fluid w-full" style="width: 12rem !important">
+                                                    class=" mat-form-field-fluid w-full"
+                                                    style="width: 12rem !important">
                                         <input [value]="single_list?.MeasureBoostUpRecord" matInput>
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field appearance="outline"
-                                                    class=" mat-form-field-fluid w-full" style="width: 12rem !important">
+                                                    class=" mat-form-field-fluid w-full"
+                                                    style="width: 12rem !important">
                                         <input [value]="single_list?.Remarks" matInput>
                                     </mat-form-field>
                                 </td>
@@ -139,7 +141,7 @@
                                     month under report
                                 </th>
                                 <th class="border-r border-gray-400" colspan="3">Balance Recoverable</th>
-                                <th class="border-r border-gray-400" rowspan="2">Recovery during corresponding
+                                <th class="border-r border-gray-400" colspan="3">Recovery during corresponding
                                     period
                                 </th>
                                 <th class="border-r border-gray-400" rowspan="2">Increase/Deficit</th>
@@ -152,6 +154,9 @@
                                 <th class="border-r border-gray-400" colspan="1">Amt.</th>
                                 <th class="border-r border-gray-400" colspan="1">No.</th>
                                 <th class="border-r border-gray-400" colspan="1">Amt.</th>
+                                <th class="border-r border-gray-400">Past Dues</th>
+                                <th class="border-r border-gray-400">Current Dues</th>
+                                <th class="border-r border-gray-400">Total</th>
                                 <th class="border-r border-gray-400">Past Dues</th>
                                 <th class="border-r border-gray-400">Current Dues</th>
                                 <th class="border-r border-gray-400">Total</th>
@@ -186,7 +191,9 @@
                                 <td class="border-r border-gray-400">{{systemGenerated?.BalanceRecoverabletPD}}</td>
                                 <td class="border-r border-gray-400">{{systemGenerated?.BalanceRecoverableCD}}</td>
                                 <td class="border-r border-gray-400">{{systemGenerated?.BalanceRecoverableTotal}}</td>
-                                <td class="border-r border-gray-400">{{systemGenerated?.RecoveryDuringCorrespondingPeroid}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingTotal}}</td>
                                 <td class="border-r border-gray-400">{{systemGenerated?.IncreaseDeficit}}</td>
                             </tr>
                             </tbody>

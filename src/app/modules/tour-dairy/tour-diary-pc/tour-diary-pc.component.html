@@ -64,7 +64,8 @@
                                                appNumberOnly autocomplete="off"
                                                formControlName="TourDate" matInput maxlength="30"
                                                placeholder="Date of Visit"/>
-                                        <mat-datepicker-toggle [disabled]="(!zone || !edit_mode) && currentActivity?.R" [for]="picker"
+                                        <mat-datepicker-toggle [disabled]="(!zone || !edit_mode) && currentActivity?.R"
+                                                               [for]="picker"
                                                                matSuffix></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                     </mat-form-field>
@@ -106,11 +107,13 @@
                                         <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Departure Time<strong
                                                 class="matMandatory">*</strong></mat-label>
-                                            <input [format]="DateFormat()" [ngxTimepicker]="timepickerDeparture" formControlName="DepartureFromTime"
+                                            <input [format]="DateFormat()" [ngxTimepicker]="timepickerDeparture"
+                                                   formControlName="DepartureFromTime"
                                                    matInput
                                                    placeholder="Departure Time" readonly
                                                    type="text"/>
-                                            <mat-icon (click)="openFromIcon(timepickerDeparture)" *ngIf="edit_mode" class="cursor-pointer"
+                                            <mat-icon (click)="openFromIcon(timepickerDeparture)" *ngIf="edit_mode"
+                                                      class="cursor-pointer"
                                                       matSuffix>schedule
                                             </mat-icon>
                                             <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
@@ -139,11 +142,13 @@
                                         <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Arrival Time<strong
                                                 class="matMandatory">*</strong></mat-label>
-                                            <input [format]="DateFormat()" [ngxTimepicker]="timepickerArrival" formControlName="ArrivalAtTime"
+                                            <input [format]="DateFormat()" [ngxTimepicker]="timepickerArrival"
+                                                   formControlName="ArrivalAtTime"
                                                    matInput
                                                    placeholder="Arrival Time" readonly
                                                    type="text"/>
-                                            <mat-icon (click)="openFromIcon(timepickerArrival)" *ngIf="edit_mode" class="cursor-pointer"
+                                            <mat-icon (click)="openFromIcon(timepickerArrival)" *ngIf="edit_mode"
+                                                      class="cursor-pointer"
                                                       matSuffix>schedule
                                             </mat-icon>
                                             <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
@@ -159,7 +164,8 @@
                                          style="width: 225px;">
                                         <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">No. Of Defaulters Contacted</mat-label>
-                                            <input [readonly]="!edit_mode && currentActivity?.R" appNumberOnly autocomplete="off"
+                                            <input [readonly]="!edit_mode && currentActivity?.R" appNumberOnly
+                                                   autocomplete="off"
                                                    formControlName="NoOfDefaulterContacted"
                                                    matInput placeholder="No. Of Defaulters Contacted"/>
                                         </mat-form-field>
@@ -169,7 +175,8 @@
                                          style="width: 225px;">
                                         <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Results Of Contacts So Made</mat-label>
-                                            <input [readonly]="!edit_mode && currentActivity?.R" appNumberOnly autocomplete="off"
+                                            <input [readonly]="!edit_mode && currentActivity?.R" appNumberOnly
+                                                   autocomplete="off"
                                                    formControlName="ResultContactMade"
                                                    matInput placeholder="Results Of Contacts So Made"/>
                                         </mat-form-field>
@@ -187,7 +194,8 @@
                                          style="width: 225px;">
                                         <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input [readonly]="!edit_mode && currentActivity?.R" autocomplete="off" formControlName="Remarks"
+                                            <input [readonly]="!edit_mode && currentActivity?.R" autocomplete="off"
+                                                   formControlName="Remarks"
                                                    matInput placeholder="Remarks"/>
                                         </mat-form-field>
                                     </div>
@@ -217,14 +225,16 @@
                         <mat-icon class="mr-2">save</mat-icon>
                         Update
                     </button>
-                    <button (click)="changeStatus('','S')" *ngIf="isUpdate==true && currentActivity?.U" class="mr-2" color="primary"
+                    <button (click)="changeStatus('','S')" *ngIf="isUpdate==true && currentActivity?.U" class="mr-2"
+                            color="primary"
                             mat-raised-button type="button">
                         <mat-icon class="mr-2">check_circle</mat-icon>
                         Submit
                     </button>
                     <button (click)="onClearForm()"
                             *ngIf="currentActivity?.C"
-                            class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="danger" mat-raised-button type="button">
+                            class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                            color="danger" mat-raised-button type="button">
                         <mat-icon class="mr-2"> clear_all</mat-icon>
                         Clear
                     </button>
@@ -332,7 +342,8 @@
                                     mat-icon-button>
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button (click)="deleteData(single_list)" *ngIf="checkStatus(single_list,'delete') && currentActivity?.D && edit_mode"
+                            <button (click)="deleteData(single_list)"
+                                    *ngIf="checkStatus(single_list,'delete') && currentActivity?.D && edit_mode"
                                     mat-icon-button>
                                 <mat-icon>delete</mat-icon>
                             </button>
@@ -369,7 +380,7 @@
                             month under report
                         </th>
                         <th class="border-r border-gray-400" colspan="3">Balance Recoverable</th>
-                        <th class="border-r border-gray-400" rowspan="2">Recovery during corresponding
+                        <th class="border-r border-gray-400" colspan="3">Recovery during corresponding
                             period
                         </th>
                         <th class="border-r border-gray-400" rowspan="2">Increase/Deficit</th>
@@ -382,6 +393,9 @@
                         <th class="border-r border-gray-400" colspan="1">Amt.</th>
                         <th class="border-r border-gray-400" colspan="1">No.</th>
                         <th class="border-r border-gray-400" colspan="1">Amt.</th>
+                        <th class="border-r border-gray-400">Past Dues</th>
+                        <th class="border-r border-gray-400">Current Dues</th>
+                        <th class="border-r border-gray-400">Total</th>
                         <th class="border-r border-gray-400">Past Dues</th>
                         <th class="border-r border-gray-400">Current Dues</th>
                         <th class="border-r border-gray-400">Total</th>
@@ -417,7 +431,9 @@
                         <td class="border-r border-gray-400">{{systemGenerated?.BalanceRecoverabletPD}}</td>
                         <td class="border-r border-gray-400">{{systemGenerated?.BalanceRecoverableCD}}</td>
                         <td class="border-r border-gray-400">{{systemGenerated?.BalanceRecoverableTotal}}</td>
-                        <td class="border-r border-gray-400">{{systemGenerated?.RecoveryDuringCorrespondingPeroid}}</td>
+                        <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingPD}}</td>
+                        <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingCD}}</td>
+                        <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingTotal}}</td>
                         <td class="border-r border-gray-400">{{systemGenerated?.IncreaseDeficit}}</td>
                     </tr>
                     </tbody>
