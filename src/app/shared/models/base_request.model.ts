@@ -49,6 +49,7 @@ export class BaseRequestModel {
     DocumentDetail: any;
     Pagination: any;
     DeviceMapping: any;
+    DeviceInfo: any;
 
 }
 

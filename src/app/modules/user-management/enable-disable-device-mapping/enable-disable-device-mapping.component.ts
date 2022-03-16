@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
 import {DeviceService} from "../../../shared/services/device.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-enable-disable-device-mapping',
@@ -24,6 +25,8 @@ export class EnableDisableDeviceMappingComponent implements OnInit {
 
     total_requests_length: number | any;
     displayedColumns = [
+        "DeviceId",
+        'Status',
         'Description',
         'Actions',
     ];
@@ -34,7 +37,7 @@ export class EnableDisableDeviceMappingComponent implements OnInit {
 
     loading: boolean = false;
 
-    constructor(private fb: FormBuilder,private spinner:NgxSpinnerService,private DeviceService:DeviceService,private layoutUtilsService: LayoutUtilsService,) {
+    constructor(private fb: FormBuilder, private spinner: NgxSpinnerService, private DeviceService: DeviceService, private layoutUtilsService: LayoutUtilsService, private toaster: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -44,7 +47,8 @@ export class EnableDisableDeviceMappingComponent implements OnInit {
 
     createForm() {
         this.enable_disable_device_mapping = this.fb.group({
-            PPNO: [""]
+            PPNO: [null, Validators.required],
+            DeviceID: [null, Validators.required]
         });
     }
 
@@ -57,7 +61,14 @@ export class EnableDisableDeviceMappingComponent implements OnInit {
         if (is_first) {
             this.OffSet = 0;
         }
-
+        // if (this.enable_disable_device_mapping.invalid) {
+        //     const controls = this.enable_disable_device_mapping.controls;
+        //     Object.keys(controls).forEach(controlName =>
+        //         controls[controlName].markAsTouched()
+        //     );
+        //     this.toaster.error("Please Enter All Required fields");
+        //     return;
+        // }
         this.spinner.show()
         if (this.enable_disable_device_mapping.controls.PPNO.value != "") {
             this.OffSet = 0;
@@ -65,14 +76,14 @@ export class EnableDisableDeviceMappingComponent implements OnInit {
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
 
-        this.DeviceService.GetDeviceMappings(this.enable_disable_device_mapping.controls.PPNO.value, count, currentIndex)
+        this.DeviceService.GetDeviceMappings(this.enable_disable_device_mapping.controls.PPNO.value, this.enable_disable_device_mapping.controls.DeviceID.value, count, currentIndex)
             .pipe(
                 finalize(() => {
                     this.spinner.hide()
                 })
             )
             .subscribe(baseResponse => {
-debugger
+                debugger
                 if (baseResponse.Success) {
                     this.dataSource.data = baseResponse.MappingRequests;
                     this.matTableLenght = true;
@@ -95,31 +106,40 @@ debugger
             });
     }
 
-    CheckStatusActivate(value){
-if(value.IsActive==0){
-    return true;
-}else{
-    return false;
-}
+    CheckStatusActivate(value) {
+        if (value.IsActive == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-CheckStatusDeactivate(value){
-if(value.IsActive==1){
-    return true;
-}else{
-    return false;
-}
+
+    CheckStatusDeactivate(value) {
+        if (value.IsActive == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    checkStatus(value) {
+        if (value == 0) {
+            return 'Disabled';
+        } else {
+            return 'Active';
+        }
     }
 
     ChangeStatus(value) {
         this.spinner.show()
-          this.DeviceService.statusChange(value)
+        this.DeviceService.statusChange(value)
             .pipe(
                 finalize(() => {
                     this.spinner.hide()
                 })
             )
             .subscribe(baseResponse => {
-debugger
+                debugger
                 if (baseResponse.Success) {
                     this.searchDevice();
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);

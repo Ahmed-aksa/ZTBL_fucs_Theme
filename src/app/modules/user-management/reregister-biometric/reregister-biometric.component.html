@@ -89,6 +89,13 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
                     <mat-cell *matCellDef="let request">{{request.Description}}</mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="Status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let request">
+                        {{getStatusName(request.Status)}}
+
+                    </mat-cell>
+                </ng-container>
 
                 <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>

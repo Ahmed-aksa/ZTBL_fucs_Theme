@@ -24,6 +24,7 @@ export class ReregisterBiometricComponent implements OnInit {
     displayedColumns = [
         'PPNO',
         'Details',
+        'Status',
         'Action',
     ];
     itemsPerPage = 5;
@@ -134,5 +135,15 @@ export class ReregisterBiometricComponent implements OnInit {
                 });
 
         });
+    }
+
+    getStatusName(status) {
+        if (status == 'P') {
+            return 'Pending'
+        } else if (status == 'A') {
+            return 'Approved';
+        } else {
+            return 'Rejected';
+        }
     }
 }

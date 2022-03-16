@@ -34,23 +34,24 @@ export class DeviceService {
 
     GetDeviceMappings(
         PPNO,
+        DeviceID,
         Limit,
         Offset
     ): Observable<BaseResponseModel> {
-debugger
         var request = new BaseRequestModel()
-        request.UserInfo ={
-            UserName:PPNO
+        request.DeviceMapping = {
+            "UnitId": DeviceID,
+            "PPNo": PPNO
         }
-        request.Pagination={
-            "Limit" :Number(Limit),
-            "Offset":Number(Offset)
+        request.Pagination = {
+            "Limit": Number(Limit),
+            "Offset": Number(Offset)
         }
 
         return this.http
             .post(
                 `${environment.apiUrl}/Account/GetDeviceMappings`,
-               request,
+                request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -59,17 +60,16 @@ debugger
     statusChange(value) {
         var status;
         var request = new BaseRequestModel();
-if(value.IsActive==0){
-    status = "1";
-}
-else{
-    status = "0";
-}
-        request.DeviceMapping ={
-            Id:value.Id,
-            Status:status,
+        if (value.IsActive == 0) {
+            status = "1";
+        } else {
+            status = "0";
         }
-debugger
+        request.DeviceMapping = {
+            Id: value.Id,
+            Status: status,
+        }
+        debugger
         return this.http
             .post<any>(
                 `${environment.apiUrl}/Account/ChangeMappingStatus`,

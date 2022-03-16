@@ -43,11 +43,22 @@
                         </div>
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label>Device ID</mat-label>
+                                    <input appNumberOnly autocomplete="off" formControlName="DeviceID"
+                                           matInput
+                                           maxlength="100" placeholder="Enter DeviceID">
+                                    <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                                 <button
                                     class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
                                     mat-raised-button
-                                    type="button"   (click)="searchDevice(true)">
+                                    type="button" (click)="searchDevice(true)">
                                     <mat-icon class="mr-2">search</mat-icon>
                                     Search
                                 </button>
@@ -73,30 +84,41 @@
                        class="lmat-elevation-z8  " matSort
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
+                <ng-container matColumnDef="DeviceId">
+                    <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Device Id</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{request?.UnitId}}</mat-cell>
+                </ng-container>
 
+
+                <ng-container matColumnDef="Status">
+                    <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{checkStatus(request.IsActive)}}</mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="Description">
                     <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
                     <mat-cell *matCellDef="let request">{{request?.Description}}</mat-cell>
                 </ng-container>
-
                 <ng-container matColumnDef="Actions">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
-                    <mat-cell *matCellDef="let request">
-                        <button mat-raised-button color="danger" (click)="ChangeStatus(request)"
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content: space-evenly">Action
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let request" style="justify-content: space-evenly">
+                        <button mat-raised-button color="primary" (click)="ChangeStatus(request)"
                                 *ngIf="CheckStatusActivate(request)">Activate
 
                             <!--                            <mat-icon>-->
-<!--                                edit-->
-<!--                            </mat-icon>-->
+                            <!--                                edit-->
+                            <!--                            </mat-icon>-->
                         </button>
 
                         <button mat-raised-button color="warn" (click)="ChangeStatus(request)"
                                 *ngIf="CheckStatusDeactivate(request)"
-                               >Deactivate
-<!--                            <mat-icon>-->
-<!--                                edit-->
-<!--                            </mat-icon>-->
+                        >Deactivate
+                            <!--                            <mat-icon>-->
+                            <!--                                edit-->
+                            <!--                            </mat-icon>-->
                         </button>
                     </mat-cell>
                 </ng-container>
