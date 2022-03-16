@@ -53,6 +53,8 @@ export class TourDiaryZcComponent implements OnInit {
     edit_mode: boolean = true;
     @ViewChild("timepicker") timepicker: any;
     SelectedBranches: any = [];
+    ArrivalAtId = null;
+    DepartureFromId = null;
 
     constructor(
         private fb: FormBuilder,
@@ -322,6 +324,8 @@ export class TourDiaryZcComponent implements OnInit {
         }
         this.gridForm.patchValue(zcDiary);
         this.gridForm.get('TourDate').patchValue(this._common.stringToDate(zcDiary.TourDate));
+        // this.ArrivalAtId = zcDiary?.ArrivalAtId;
+        // this.DepartureFromId = zcDiary?.DepartureFromId;
         this.isUpdate = true;
 
         this.date = zcDiary.TourDate;
@@ -377,7 +381,7 @@ export class TourDiaryZcComponent implements OnInit {
         } else {
             this.spinner.show();
             this.tourDiaryService
-                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZC')
+                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZC', this.gridForm.value.ArrivalAtId?.toString(), this.gridForm.value.DepartureFromId?.toString())
                 .pipe(finalize(() => {
                     this.spinner.hide();
                 }))
@@ -429,7 +433,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.circle = data.final_circle;
 
         var zoneId = this.zone?.ZoneId;
-            this.getBranches(zoneId);
+        this.getBranches(zoneId);
     }
 
     getBranches(changedValue) {

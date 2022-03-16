@@ -90,7 +90,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    GetScheduleBaseTourPlan(zone, branch, date, role, query = null) {
+    GetScheduleBaseTourPlan(zone, branch, date, role, query = null, arrival_id = null, departure_id = null) {
 
         this.request = new BaseRequestModel();
 
@@ -112,6 +112,8 @@ export class TourDiaryService {
         if (!query) //query for diary documents purpose
             TourDiary = {
                 "TourDate": date,
+                "ArrivalAtId": arrival_id,
+                "DepartureFromId": departure_id
             }
         else
             TourDiary = {
