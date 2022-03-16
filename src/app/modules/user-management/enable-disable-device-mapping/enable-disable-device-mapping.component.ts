@@ -94,6 +94,22 @@ debugger
                 }
             });
     }
+
+    CheckStatusActivate(value){
+if(value.IsActive==0){
+    return true;
+}else{
+    return false;
+}
+    }
+CheckStatusDeactivate(value){
+if(value.IsActive==1){
+    return true;
+}else{
+    return false;
+}
+    }
+
     ChangeStatus(value) {
         this.spinner.show()
           this.DeviceService.statusChange(value)
@@ -105,6 +121,7 @@ debugger
             .subscribe(baseResponse => {
 debugger
                 if (baseResponse.Success) {
+                    this.searchDevice();
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);

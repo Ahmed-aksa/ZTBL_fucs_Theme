@@ -57,19 +57,19 @@ debugger
     }
 
     statusChange(value) {
-var status;
+        var status;
         var request = new BaseRequestModel();
-if(value.Status=='A'){
-    status = value.Status
+if(value.IsActive==0){
+    status = "1";
 }
 else{
-
+    status = "0";
 }
         request.DeviceMapping ={
             Id:value.Id,
             Status:status,
         }
-
+debugger
         return this.http
             .post<any>(
                 `${environment.apiUrl}/Account/ChangeMappingStatus`,

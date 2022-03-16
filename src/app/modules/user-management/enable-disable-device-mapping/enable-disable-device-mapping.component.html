@@ -74,26 +74,31 @@
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
 
-                <ng-container matColumnDef="PPNO">
+                <ng-container matColumnDef="Description">
                     <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>PPNO</mat-header-cell>
-                    <mat-cell *matCellDef="let request">{{request?.PPNO}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{request?.Description}}</mat-cell>
                 </ng-container>
 
-
-                <!--<ng-container matColumnDef="CustomerNumber">
-         <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
-         <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
-        </ng-container>-->
-
-                <ng-container matColumnDef="Details">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
-                    <mat-cell *matCellDef="let request">{{request.Text}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="Action">
+                <ng-container matColumnDef="Actions">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
-                    <mat-cell *matCellDef="let request"></mat-cell>
+                    <mat-cell *matCellDef="let request">
+                        <button mat-raised-button color="warn" (click)="ChangeStatus(request)"
+                                *ngIf="CheckStatusActivate(request)">Activate
+
+                            <!--                            <mat-icon>-->
+<!--                                edit-->
+<!--                            </mat-icon>-->
+                        </button>
+
+                        <button mat-raised-button color="danger" (click)="ChangeStatus(request)"
+                                *ngIf="CheckStatusDeactivate(request)"
+                               >Deactivate
+<!--                            <mat-icon>-->
+<!--                                edit-->
+<!--                            </mat-icon>-->
+                        </button>
+                    </mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
