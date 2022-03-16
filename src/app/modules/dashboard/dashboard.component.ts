@@ -74,7 +74,6 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
     }
 }

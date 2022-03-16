@@ -1,13 +1,14 @@
-import {EventEmitter, Injectable, Injector, Output} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {
-    HttpRequest,
-    HttpHandler,
-    HttpEvent,
-    HttpInterceptor,
+    HttpClient,
     HttpErrorResponse,
-    HttpClient, HttpResponse
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest,
+    HttpResponse
 } from '@angular/common/http';
-import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, filter, map, switchMap, take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {LayoutUtilsService} from '../services/layout_utils.service';
@@ -40,12 +41,10 @@ export class TokenInterceptor implements HttpInterceptor {
             if (token != null && !authReq.url.includes('Account/Login') && !authReq.url.includes('Account/HealthCheck')) {
                 authReq = this.addTokenHeader(req, token, this._common.newGuid());
             }
-        return next.handle(authReq).pipe(map((res:HttpResponse<any>) => {
-
+        return next.handle(authReq).pipe(map((res: HttpResponse<any>) => {
             return res;
 
         }), catchError(error => {
-
             if (error.status === 403) {
                 this.layoutUtilsService.AlertElementCapture(error.error.Message);
                 return throwError(error);

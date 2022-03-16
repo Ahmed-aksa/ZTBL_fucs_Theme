@@ -6,9 +6,9 @@
     <div class="kt-login__form">
         <div class="row">
             <div class="col-lg-12 text-end">
-                <button (click)="onCloseClick(0)" id="kt_login_signup_cancel" type="button">
+                <a (click)="onCloseClick(0)" id="kt_login_signup_cancel" type="button">
                     <mat-icon class="text-danger">cancel</mat-icon>
-                </button>
+                </a>
             </div>
         </div>
         <div class="row">
@@ -54,7 +54,8 @@
                             </div>
                             <div class="col-lg-12">
 
-                                <button (click)="submit()" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                                <button type="submit" (click)="submit()"
+                                        [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                         class="w-100 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
                                         id="kt_login_signin_submit">
                                     <mat-icon class="mr-2">check_circle</mat-icon>

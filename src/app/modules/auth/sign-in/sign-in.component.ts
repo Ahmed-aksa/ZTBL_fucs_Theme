@@ -69,7 +69,7 @@ export class AuthSignInComponent implements OnInit {
                 "TranId": 0,
                 "User": {
                     "IsActive": 0,
-                    "App": 1,
+                    "App": '1',
                     "Channel": "user",
                     "ChannelID": 0,
                 }
@@ -83,8 +83,7 @@ export class AuthSignInComponent implements OnInit {
 
             var cusomeRequestModel = {
                 // "Key": encrypt,
-                "Req": responseEncript
-
+                "Req": responseEncript,
             }
 
             let headers = new HttpHeaders({
@@ -157,23 +156,12 @@ export class AuthSignInComponent implements OnInit {
                                     } else {
                                         this.signInNgForm.resetForm();
                                         this.signInForm.enable();
-                                        // this.alert = {
-                                        //     type: 'error',
-                                        //     message: 'invalid OTP',
-                                        // };
                                         this._router.navigateByUrl("/auth/sign-in");
-                                        // this.showAlert = true;
-
                                     }
                                 } else {
                                     this.signInNgForm.resetForm();
                                     this.signInForm.enable();
-                                    // this.alert = {
-                                    //     type: 'error',
-                                    //     message: 'invalid OTP',
-                                    // };
                                     this._router.navigateByUrl("/auth/sign-in");
-                                    // this.showAlert = true;
                                 }
                             });
                         }

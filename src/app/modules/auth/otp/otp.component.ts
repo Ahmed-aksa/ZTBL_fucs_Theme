@@ -96,10 +96,6 @@ export class OtpComponent implements OnInit {
                 localStorage.clear();
             }
         });
-
-
-        //const email = controls.otp.value;
-        //this.router.navigateByUrl('/dashboard');
         this.otpForm.controls['otp'].value;
 
 

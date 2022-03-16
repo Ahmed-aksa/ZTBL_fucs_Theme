@@ -46,8 +46,8 @@ export class BranchManagerDashboardComponent implements OnInit {
     assignRoleData(DashboardReport: any) {
         this.DisbursmentAchievement = this.dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
         this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
-        this.CirclePositions = DashboardReport.CirclePositions;
-        this.CreditCeiling = DashboardReport.CreditCeiling;
+        this.CirclePositions = DashboardReport?.CirclePositions;
+        this.CreditCeiling = DashboardReport?.CreditCeiling;
 
         this.chartPerformanceIndicators = this.dashboardService.assignKeys(DashboardReport?.PerformanceIndicator, 'Performance Indicators');
         this.chartLoanPortfolio = this.dashboardService.assignKeys(DashboardReport?.LoanPorfolio, 'Loan Portfolio');
