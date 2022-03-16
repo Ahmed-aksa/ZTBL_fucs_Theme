@@ -34,9 +34,10 @@
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label>PPNO</mat-label>
-                                    <input  autocomplete="off" formControlName="PPNO"
+                                    <input appNumberOnly autocomplete="off" formControlName="PPNO"
                                            matInput
-                                           placeholder="Enter PPNO">
+                                           maxlength="100" placeholder="Enter PPNO">
+                                    <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
                                 </mat-form-field>
                             </div>
                         </div>
@@ -46,7 +47,7 @@
                                 <button
                                     class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
                                     mat-raised-button
-                                    type="button">
+                                    type="button"   (click)="searchDevice(true)">
                                     <mat-icon class="mr-2">search</mat-icon>
                                     Search
                                 </button>
@@ -73,28 +74,30 @@
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
 
-                <ng-container matColumnDef="PPNO">
+                <ng-container matColumnDef="Description">
                     <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>PPNO</mat-header-cell>
-                    <mat-cell *matCellDef="let request">{{request?.PPNO}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{request?.Description}}</mat-cell>
                 </ng-container>
 
-
-                <!--<ng-container matColumnDef="CustomerNumber">
-         <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
-         <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
-        </ng-container>-->
-
-                <ng-container matColumnDef="Details">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
-                    <mat-cell *matCellDef="let request">{{request.Text}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="Action">
+                <ng-container matColumnDef="Actions">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
                     <mat-cell *matCellDef="let request">
-                        <button mat-flat-button color="primary">Allow</button>
-                        <button mat-flat-button color="danger">Reject</button>
+                        <button mat-raised-button color="danger" (click)="ChangeStatus(request)"
+                                *ngIf="CheckStatusActivate(request)">Activate
+
+                            <!--                            <mat-icon>-->
+<!--                                edit-->
+<!--                            </mat-icon>-->
+                        </button>
+
+                        <button mat-raised-button color="warn" (click)="ChangeStatus(request)"
+                                *ngIf="CheckStatusDeactivate(request)"
+                               >Deactivate
+<!--                            <mat-icon>-->
+<!--                                edit-->
+<!--                            </mat-icon>-->
+                        </button>
                     </mat-cell>
                 </ng-container>
 

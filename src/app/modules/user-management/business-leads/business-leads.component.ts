@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ReportsService} from "../services/reports.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-business-leads',
@@ -15,7 +16,8 @@ export class BusinessLeadsComponent implements OnInit {
     branch: any;
     circle: any;
 
-    constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private reportsService: ReportsService, private layoutUtilsService: LayoutUtilsService) {
+    constructor(
+        private toaster: ToastrService,private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private reportsService: ReportsService, private layoutUtilsService: LayoutUtilsService) {
     }
 
     ngOnInit(): void {
@@ -31,61 +33,76 @@ export class BusinessLeadsComponent implements OnInit {
     private createForm() {
         this.business_leads_form = this.formBuilder.group({
             CNIC: [null, Validators.required],
-            MobileNo: [null, Validators.required],
-            RequestName: [null, Validators.required],
-            IsLandOwner: ['N', Validators.required],
-            PassbookNo: [null, Validators.required],
-            TotalArea: [null, Validators.required],
-            TotalAmount: [null, Validators.required],
-            IsTractor: ['N', Validators.required],
-            IsLiveSock: ['N', Validators.required],
-            IsCropProd: ['N', Validators.required],
-            IsTubeWell: ['N', Validators.required],
-            IsOther: ['N', Validators.required],
-            Message: ['', Validators.required],
-            OtherReason: ['', Validators.required],
+            MobileNo: [null, ],
+            RequestName: [null,Validators.required ],
+            IsLandOwner: ['N',Validators.required ],
+            PassbookNo: [null, ],
+            TotalArea: [null, ],
+            TotalAmount: [null, ],
+            IsTractor: ['N', ],
+            IsLiveSock: ['N', ],
+            IsCropProd: ['N', ],
+            IsTubeWell: ['N', ],
+            IsOther: ['N', ],
+            Message: ['', ],
+            OtherReason: ['', ],
 
         });
     }
 
     changeCheckbox(field, field_name) {
+        debugger
         if (field_name == 'crop_farming') {
             if (!field) {
-                this.business_leads_form.value.IsCropProd = 'N';
+                this.business_leads_form.controls["IsCropProd"].setValue('N')
             } else {
-                this.business_leads_form.value.IsCropProd = 'Y';
+                this.business_leads_form.controls["IsCropProd"].setValue('Y')
             }
         } else if (field_name == 'cattle') {
             if (!field) {
-                this.business_leads_form.value.IsLiveSock = 'N';
+
+                this.business_leads_form.controls["IsLiveSock"].setValue('N')
             } else {
-                this.business_leads_form.value.IsLiveSock = 'Y';
+                this.business_leads_form.controls["IsLiveSock"].setValue('Y')
             }
         } else if (field_name == 'tubewell') {
             if (!field) {
+                this.business_leads_form.controls["IsTubeWell"].setValue('N')
                 this.business_leads_form.value.IsTubeWell = 'N';
             } else {
-                this.business_leads_form.value.IsTubeWell = 'Y';
+                this.business_leads_form.controls["IsTubeWell"].setValue('Y')
             }
         } else if (field_name == 'tractor') {
             if (!field) {
-                this.business_leads_form.value.IsTractor = 'N';
+
+                this.business_leads_form.controls["IsTractor"].setValue('N')
             } else {
-                this.business_leads_form.value.IsTractor = 'Y';
+
+                this.business_leads_form.controls["IsTractor"].setValue('Y')
             }
         } else if (field_name == 'other') {
             if (!field) {
-                this.business_leads_form.value.IsOther = 'N';
+                this.business_leads_form.controls["IsOther"].setValue('N')
             } else {
-                this.business_leads_form.value.IsOther = 'Y';
+                this.business_leads_form.controls["IsOther"].setValue('Y')
+
             }
         }
     }
 
     submitData() {
         debugger;
+        const controls = this.business_leads_form.controls;
+        if (this.business_leads_form.invalid) {
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+            this.toaster.error("Please Enter All Required fields");
+            return;
+        }
+        var obj = Object.assign(this.business_leads_form.value)
         this.spinner.show();
-        this.reportsService.submitBusinessLead(this.business_leads_form.value, this.branch.BranchId).subscribe((baseResponse) => {
+        this.reportsService.submitBusinessLead(obj, this.branch?.BranchId).subscribe((baseResponse) => {
             this.spinner.hide();
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("Success", baseResponse.Message);

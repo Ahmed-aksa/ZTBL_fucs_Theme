@@ -44,6 +44,7 @@ export class ReportsService {
     }
 
     submitBusinessLead(value: any, branch_id) {
+        debugger
         let request = new BaseRequestModel();
         request.CustomerLead = value;
         request.CustomerLead.BranchId = branch_id.toString();
