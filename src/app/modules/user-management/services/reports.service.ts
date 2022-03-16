@@ -43,9 +43,10 @@ export class ReportsService {
         );
     }
 
-    submitBusinessLead(value: any) {
+    submitBusinessLead(value: any, branch_id) {
         let request = new BaseRequestModel();
         request.CustomerLead = value;
+        request.CustomerLead.BranchId = branch_id.toString();
         request.CustomerLead.ZoneId = request.CustomerLead?.ZoneId.toString();
         request.User = this.userUtilsService.getUserDetails().User;
         return this.http.post(`${environment.apiUrl}/Customer/AddCustomerLead`, request,

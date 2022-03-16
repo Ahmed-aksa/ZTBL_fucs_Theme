@@ -15,17 +15,6 @@ export class BusinessLeadsComponent implements OnInit {
     branch: any;
     circle: any;
 
-
-    /**
-     * Reasons
-     */
-
-    crop_farming: String = 'N';
-    cattle: String = 'N';
-    tubewell: String = 'N';
-    other: String = 'N';
-
-
     constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private reportsService: ReportsService, private layoutUtilsService: LayoutUtilsService) {
     }
 
@@ -61,32 +50,32 @@ export class BusinessLeadsComponent implements OnInit {
 
     changeCheckbox(field, field_name) {
         if (field_name == 'crop_farming') {
-            if (field.checked) {
-                this.business_leads_form.value.IsCropProd == 'N';
+            if (!field) {
+                this.business_leads_form.value.IsCropProd = 'N';
             } else {
                 this.business_leads_form.value.IsCropProd = 'Y';
             }
         } else if (field_name == 'cattle') {
-            if (field.checked) {
-                this.business_leads_form.value.IsLiveSock == 'N';
+            if (!field) {
+                this.business_leads_form.value.IsLiveSock = 'N';
             } else {
                 this.business_leads_form.value.IsLiveSock = 'Y';
             }
         } else if (field_name == 'tubewell') {
-            if (field.checked) {
-                this.business_leads_form.value.IsTubeWell == 'N';
+            if (!field) {
+                this.business_leads_form.value.IsTubeWell = 'N';
             } else {
                 this.business_leads_form.value.IsTubeWell = 'Y';
             }
         } else if (field_name == 'tractor') {
-            if (field.checked) {
-                this.business_leads_form.value.IsTractor == 'N';
+            if (!field) {
+                this.business_leads_form.value.IsTractor = 'N';
             } else {
                 this.business_leads_form.value.IsTractor = 'Y';
             }
         } else if (field_name == 'other') {
-            if (field.checked) {
-                this.business_leads_form.value.IsOther == 'N';
+            if (!field) {
+                this.business_leads_form.value.IsOther = 'N';
             } else {
                 this.business_leads_form.value.IsOther = 'Y';
             }
@@ -94,11 +83,13 @@ export class BusinessLeadsComponent implements OnInit {
     }
 
     submitData() {
+        debugger;
         this.spinner.show();
-        this.reportsService.submitBusinessLead(this.business_leads_form.value).subscribe((baseResponse) => {
+        this.reportsService.submitBusinessLead(this.business_leads_form.value, this.branch.BranchId).subscribe((baseResponse) => {
             this.spinner.hide();
             if (baseResponse.Success) {
-                console.log(baseResponse);
+                this.layoutUtilsService.alertElementSuccess("Success", baseResponse.Message);
+                this.business_leads_form.reset();
             } else {
                 this.layoutUtilsService.alertElement("Error", baseResponse.Message);
             }
