@@ -165,7 +165,7 @@ export class TourDiaryZmComponent implements OnInit {
         } else {
             this.spinner.show();
             this.tourDiaryService
-                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM')
+                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM', this.gridForm.value.DepartureFromId?.toString(), this.gridForm.value.DepartureFromId?.toString())
                 .pipe(finalize(() => {
                     this.spinner.hide();
                 }))
