@@ -46,6 +46,7 @@ export class BaseRequestModel {
     RefreshToken: any
     EligibilityRequest: any;
     DocumentDetail: any;
+    Pagination: any;
 
 }
 
