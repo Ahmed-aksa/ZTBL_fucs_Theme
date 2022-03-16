@@ -129,7 +129,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
     async LoadLovs() {
 
-        var tempArray = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Relationship})
+        var tempArray = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LegalHeirRelation})
         this.RelationshipLov = tempArray.LOVs;
         this.GenderLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Gender});
         this.GenderLov = this._lovService.SortLovs(this.GenderLov.LOVs);
