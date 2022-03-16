@@ -83,7 +83,7 @@
                 <ng-container matColumnDef="Actions">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
                     <mat-cell *matCellDef="let request">
-                        <button mat-raised-button color="warn" (click)="ChangeStatus(request)"
+                        <button mat-raised-button color="danger" (click)="ChangeStatus(request)"
                                 *ngIf="CheckStatusActivate(request)">Activate
 
                             <!--                            <mat-icon>-->
@@ -91,7 +91,7 @@
 <!--                            </mat-icon>-->
                         </button>
 
-                        <button mat-raised-button color="danger" (click)="ChangeStatus(request)"
+                        <button mat-raised-button color="warn" (click)="ChangeStatus(request)"
                                 *ngIf="CheckStatusDeactivate(request)"
                                >Deactivate
 <!--                            <mat-icon>-->
