@@ -34,10 +34,9 @@
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label>PPNO</mat-label>
-                                    <input appAlphabetOnly autocomplete="off" formControlName="PPNO"
+                                    <input  autocomplete="off" formControlName="PPNO"
                                            matInput
-                                           maxlength="100" placeholder="Enter Customer Name">
-                                    <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                                           placeholder="Enter PPNO">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -93,7 +92,10 @@
 
                 <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
-                    <mat-cell *matCellDef="let request"></mat-cell>
+                    <mat-cell *matCellDef="let request">
+                        <button mat-flat-button color="primary">Allow</button>
+                        <button mat-flat-button color="danger">Reject</button>
+                    </mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">

@@ -50,7 +50,7 @@ export class ApkUploadService {
     // }
 
     FileUpload(file: File) {
-debugger
+
         this.request = new BaseRequestModel();
         var formData = new FormData();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -60,7 +60,7 @@ debugger
 
         console.log("File: "+ formData.get('File'))
 
-debugger
+
         if (formData.append) {
             return this.http
                 .post<any>(
@@ -74,7 +74,7 @@ debugger
     GetGeneralDocuments(Limit, Offset): Observable<BaseResponseModel> {
 
         var request = new BaseRequestModel();
-debugger
+
         request.Pagination={
             "Limit" :Number(Limit),
             "Offset":Number(Offset)
