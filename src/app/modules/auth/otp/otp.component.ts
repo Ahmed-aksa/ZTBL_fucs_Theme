@@ -52,6 +52,7 @@ export class OtpComponent implements OnInit {
      */
     ngOnInit() {
         this.initRegistrationForm();
+        console.log(this.data.loginMode);
     }
 
     /**
@@ -86,14 +87,15 @@ export class OtpComponent implements OnInit {
         this.loading = true;
         this.spinner.show()
 
-        this.auth.SendOTPResuest(this.otpForm.controls['otp'].value).pipe(finalize(() => {
-            this.loading = true, this.spinner.hide()
+        this.auth.SendOTPResuest(this.otpForm.controls['otp'].value, this.data.loginMode).pipe(finalize(() => {
+            this.spinner.hide()
+
         })).subscribe(result => {
+            this.loading = true;
             if (result.Success) {
                 this.onCloseClick(result);
             } else {
                 this.toaster.error(result.Message);
-                localStorage.clear();
             }
         });
         this.otpForm.controls['otp'].value;

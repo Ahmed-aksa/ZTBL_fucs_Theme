@@ -138,7 +138,7 @@ export class AuthSignInComponent implements OnInit {
                             });
                         } else if (result.isWebOTPEnabled) {
                             const dialogRef = this.dialog.open(OtpComponent, {
-                                data: {result},
+                                data: {result,loginMode},
                                 disableClose: true,
                                 panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
                             });

@@ -123,9 +123,6 @@ export class TourDiaryService {
         userInfo.User.ProfileId = this.getProfileId(role)
         request.TourPlan = TourPlan;
         request.TourDiary = TourDiary;
-        console.log(JSON.stringify(request))
-
-
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -189,8 +186,6 @@ export class TourDiaryService {
             this.request.User["ProfileId"] = environment.ZC;
         }
         var req = JSON.stringify(this.request);
-
-        console.log(req);
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourDiary`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -208,9 +203,6 @@ export class TourDiaryService {
         this.request.Circle = circle;
         this.request.User = userInfo.User;
         this.request.TourDiary = TourDiary;
-
-        console.log(JSON.stringify(this.request))
-
         return this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourDiary`,

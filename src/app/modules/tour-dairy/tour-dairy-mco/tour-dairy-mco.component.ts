@@ -536,7 +536,6 @@ export class TourDiaryMcoComponent implements OnInit {
             }
         }
         this.GetTourPlan();
-        this.setDate();
     }
 
 
