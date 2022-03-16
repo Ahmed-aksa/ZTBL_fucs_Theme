@@ -49,4 +49,16 @@ export class BusinessLeadsComponent implements OnInit {
             total_amount: [null, Validators.required],
         });
     }
+
+    changedCrop(){
+
+    }
+
+    showValues(){
+        console.log(this.crop_farming)
+        console.log(this.cattle)
+        console.log(this.tubewell)
+        console.log(this.tractor)
+        console.log(this.other)
+    }
 }

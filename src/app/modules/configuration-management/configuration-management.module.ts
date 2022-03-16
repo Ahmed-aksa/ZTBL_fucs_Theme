@@ -8,6 +8,7 @@ import {ConfigurationEditComponent} from './configuration-edit/configuration-edi
 import {ConfigurationHistoryComponent} from './configuration-history/configuration-history.component';
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
+import {RefreshLovComponent} from "./refresh-lov/refresh-lov.component";
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
                 path: 'document-types',
                 component: DocumentTypeListComponent
             },
+            {
+                path: 'refresh-lovs',
+                component: RefreshLovComponent
+            },
         ]
     }
 ];
@@ -40,6 +45,7 @@ const routes: Routes = [
         ConfigurationListComponent,
         ConfigurationEditComponent,
         ConfigurationHistoryComponent,
+        RefreshLovComponent
     ],
     imports: [
         CommonModule,

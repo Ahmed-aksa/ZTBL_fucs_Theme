@@ -77,17 +77,17 @@
                                     </div>
                                     <div style="display: flex;flex-direction: column;">
 
-                                        <mat-checkbox class="example-margin" [(ngModel)]="crop_farming">Checked
+                                        <mat-checkbox class="example-margin" [checked]="crop_farming">Checked
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [(ngModel)]="cattle">Indeterminate
+                                        <mat-checkbox class="example-margin" [checked]="cattle">Indeterminate
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [(ngModel)]="tubewell">Indeterminate
+                                        <mat-checkbox class="example-margin" [checked]="tubewell">Indeterminate
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [(ngModel)]="tractor">Indeterminate
+                                        <mat-checkbox class="example-margin" [checked]="tractor">Indeterminate
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [(ngModel)]="other">Other</mat-checkbox>
+                                        <mat-checkbox class="example-margin" [checked]="other">Other</mat-checkbox>
                                     </div>
-
+<button (click)="showValues()">show values</button>
                                     <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <input autocomplete="off" formControlName="loan_type" matInput
                                         />

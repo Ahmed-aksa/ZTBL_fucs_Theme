@@ -47,6 +47,7 @@ export class BaseRequestModel {
     EligibilityRequest: any;
     DocumentDetail: any;
     Pagination: any;
+    DeviceMapping: any;
 
 }
 

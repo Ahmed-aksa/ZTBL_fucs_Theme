@@ -82,4 +82,5 @@ export class BaseResponseModel {
     DocumentDetails: any;
     DocumentDetail: any;
     Notification: any;
+    MappingRequests: any;
 }
