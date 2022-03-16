@@ -416,7 +416,6 @@ export class TourDiaryZcComponent implements OnInit {
         } else {
             return 12
         }
-
     }
 
     getAllData(data) {
