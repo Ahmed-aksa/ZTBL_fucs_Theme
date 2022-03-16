@@ -10,7 +10,6 @@ import {LoanersComponent} from './loaners/loaners.component';
 import {DeathOfCustomerComponent} from './death-of-customer/death-of-customer.component';
 import {CnicExpiryLoanerComponent} from './cnic-expiry-loaner/cnic-expiry-loaner.component';
 import {DemandNoticesComponent} from './demand-notices/demand-notices.component';
-import {BusinessLeadsComponent} from './business-leads/business-leads.component';
 import {UpcomingVisitsComponent} from './upcoming-visits/upcoming-visits.component';
 import {LoanDefaultersComponent} from './loan-defaulters/loan-defaulters.component';
 import {NotificationComponent} from './notification/notification.component';
@@ -73,7 +72,6 @@ const routing = [
         DeathOfCustomerComponent,
         CnicExpiryLoanerComponent,
         DemandNoticesComponent,
-        BusinessLeadsComponent,
         UpcomingVisitsComponent,
         LoanDefaultersComponent,
         NotificationComponent,
@@ -95,7 +93,6 @@ const routing = [
         DeathOfCustomerComponent,
         CnicExpiryLoanerComponent,
         DemandNoticesComponent,
-        BusinessLeadsComponent,
         UpcomingVisitsComponent,
         LoanDefaultersComponent,
         NotificationComponent,

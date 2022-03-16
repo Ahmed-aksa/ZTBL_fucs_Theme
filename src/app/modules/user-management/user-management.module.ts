@@ -46,6 +46,7 @@ import {CircleViewMapComponent} from './users/circle-view-map/circle-view-map.co
 import {EligibilityLogsComponent} from './eligibility-logs/eligibility-logs.component';
 import {EligibilityLogDetailComponent} from './eligibility-log-detail/eligibility-log-detail.component';
 import {ApkDeploymentComponent} from './apk-deployment/apk-deployment.component';
+import {BusinessLeadsComponent} from './business-leads/business-leads.component';
 
 
 const route = [
@@ -80,6 +81,10 @@ const route = [
     {
         path: 'add-apk',
         component: ApkDeploymentComponent
+    },
+    {
+        path: 'business-leads',
+        component: BusinessLeadsComponent
     }
 ];
 
@@ -98,6 +103,7 @@ const route = [
         EligibilityLogsComponent,
         EligibilityLogDetailComponent,
         ApkDeploymentComponent,
+        BusinessLeadsComponent,
     ],
     imports: [
         CommonModule,

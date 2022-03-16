@@ -32,6 +32,7 @@ import {
     JvOrganizationalStructureComponentComponent
 } from "../jv-organizational-structure-component/jv-organizational-structure-component.component";
 import {Activity} from "../../../shared/models/activity.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-jv-form',
@@ -163,7 +164,8 @@ export class JvFormComponent implements OnInit, OnDestroy {
         private _recoveryService: RecoveryService,
         private route: ActivatedRoute,
         private spinner: NgxSpinnerService,
-        private _journalVoucherService: JournalVoucherService
+        private _journalVoucherService: JournalVoucherService,
+        private toastr: ToastrService
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -583,11 +585,14 @@ export class JvFormComponent implements OnInit, OnDestroy {
     }
 
     save() {
-
-
         this.errorShow = false;
         this.hasFormErrors = false;
         if (this.JvForm.invalid) {
+            for (const name in this.JvForm.controls) {
+                if (this.JvForm.controls[name].invalid) {
+                    this.toastr.error("Please enter value of" + name, "Error");
+                }
+            }
             const controls = this.JvForm.controls;
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
