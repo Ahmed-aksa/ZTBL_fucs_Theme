@@ -81,6 +81,7 @@ export class LovConfigurationKey {
 
     public static readonly AGPS: string = 'Agps';
     public static readonly Relationship: string = 'Relation';
+    public static readonly LegalHeirRelation: string = 'LegalHeirRelation';
     public static readonly ReschedulingTypes: string = 'ReschedulingTypes';
     public static readonly RescheduleStatus: string = 'RescheduleStatus';
     public static readonly MarkupCalcMode: string = 'MarkupCalcMode';
