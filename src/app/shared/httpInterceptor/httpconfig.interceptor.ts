@@ -50,7 +50,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 return throwError(error);
             }
             if (error instanceof HttpErrorResponse) {
-                
+                debugger;
                 return this.handle401Error(authReq, next);
             }
             if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
