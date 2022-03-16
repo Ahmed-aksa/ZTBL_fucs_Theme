@@ -74,17 +74,26 @@
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
 
-                <ng-container matColumnDef="Description">
+                <ng-container matColumnDef="PPNO">
                     <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-                    <mat-cell *matCellDef="let request">{{request?.Description}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>PPNO</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{request?.PPNO}}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Actions">
+
+                <!--<ng-container matColumnDef="CustomerNumber">
+         <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
+         <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
+        </ng-container>-->
+
+                <ng-container matColumnDef="Details">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{request.Text}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
-                    <mat-cell *matCellDef="let request">
-                        <mat-checkbox ></mat-checkbox>
-                    </mat-cell>
+                    <mat-cell *matCellDef="let request"></mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
@@ -93,8 +102,8 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-<!--            <div *ngIf="!loading && dataSource.data?.length==0" class="mat-table__message">No records found</div>-->
-<!--            <div *ngIf="loading" class="mat-table__message p-3 text-green">Please wait....</div>-->
+            <div *ngIf="!loading && dataSource.data?.length==0" class="mat-table__message">No records found</div>
+            <div *ngIf="loading" class="mat-table__message p-3 text-green">Please wait....</div>
 
 
         </div>

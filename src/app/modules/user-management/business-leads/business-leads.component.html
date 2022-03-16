@@ -32,7 +32,8 @@
                                     <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">Customer CNIC<strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input autocomplete="off" formControlName="cnic" matInput readonly="readonly"/>
+                                        <input autocomplete="off" formControlName="CNIC" matInput appNumberOnly
+                                               maxlength="13"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 400px;">
@@ -40,7 +41,8 @@
                                         <mat-label class="customMatLabel">Customer Name<strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input autocomplete="off" formControlName="name" matInput readonly="readonly"/>
+                                        <input autocomplete="off" formControlName="RequestName" matInput
+                                        />
                                     </mat-form-field>
                                 </div>
 
@@ -49,16 +51,16 @@
                                         <mat-label class="customMatLabel">Mobile Number<strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input autocomplete="off" formControlName="mobile_number" matInput
+                                        <input autocomplete="off" formControlName="MobileNo" matInput
                                                appNumberOnly/>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 400px;">
                                     <mat-label>Do You own the land?</mat-label>
-                                    <mat-radio-group aria-label="Do you own land?" formControlName="own_land">
-                                        <mat-radio-button value="1">Yes</mat-radio-button>
-                                        <mat-radio-button value="2">No</mat-radio-button>
+                                    <mat-radio-group aria-label="Do you own land?" formControlName="IsLandOwner">
+                                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                                        <mat-radio-button value="N">No</mat-radio-button>
                                     </mat-radio-group>
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 400px;">
@@ -66,7 +68,16 @@
                                         <mat-label class="customMatLabel">If Yes, Provide Passbook Number:<strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input autocomplete="off" formControlName="passbook_number" matInput
+                                        <input autocomplete="off" formControlName="PassbookNo" matInput
+                                               appNumberOnly/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 400px;">
+                                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                        <mat-label class="customMatLabel">Total Area of Land you own:<strong
+                                            class="matMandatory">*</strong>
+                                        </mat-label>
+                                        <input autocomplete="off" formControlName="TotalArea" matInput
                                                appNumberOnly/>
                                     </mat-form-field>
                                 </div>
@@ -77,19 +88,26 @@
                                     </div>
                                     <div style="display: flex;flex-direction: column;">
 
-                                        <mat-checkbox class="example-margin" [checked]="crop_farming">Checked
+                                        <mat-checkbox class="example-margin" #crop
+                                                      (change)="changeCheckbox(crop.checked,'crop_farming')">Crop
+                                            farming
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [checked]="cattle">Indeterminate
+                                        <mat-checkbox class="example-margin" #catle
+                                                      (change)="changeCheckbox(catle.checked,'cattle')">Cattle
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [checked]="tubewell">Indeterminate
+                                        <mat-checkbox class="example-margin" #tubewel
+                                                      (change)="changeCheckbox(tubewel.checked,'tubewell')">tube-well
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [checked]="tractor">Indeterminate
+                                        <mat-checkbox class="example-margin" #tractr
+                                                      (change)="changeCheckbox(tractr.checked,'tractor')">Tractor
                                         </mat-checkbox>
-                                        <mat-checkbox class="example-margin" [checked]="other">Other</mat-checkbox>
+                                        <mat-checkbox class="example-margin" #othr
+                                                      (change)="changeCheckbox(othr.checked,'other')">Other
+                                        </mat-checkbox>
                                     </div>
-<button (click)="showValues()">show values</button>
+
                                     <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
-                                        <input autocomplete="off" formControlName="loan_type" matInput
+                                        <input autocomplete="off" formControlName="OtherReason" matInput
                                         />
                                     </mat-form-field>
                                 </div>
@@ -98,7 +116,7 @@
                                         <mat-label class="customMatLabel">Total Loan Required<strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input autocomplete="off" formControlName="total_amount" matInput
+                                        <input autocomplete="off" formControlName="TotalAmount" matInput
                                                appNumberOnly/>
                                     </mat-form-field>
                                 </div>
@@ -113,7 +131,8 @@
                     <div class="row mt-2 mr-1">
                         <div class="col-lg-12 text-right">
                             <button
-                                class="ml-2 bg-green" color="primary" mat-raised-button type="button">
+                                class="ml-2 bg-green" color="primary" mat-raised-button type="button"
+                                (click)="submitData()">
                                 <mat-icon class="mr-2">save</mat-icon>
                                 Submit
                             </button>

@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NgxSpinnerService} from "ngx-spinner";
+import {ReportsService} from "../services/reports.service";
+import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 
 @Component({
     selector: 'app-business-leads',
@@ -17,14 +20,13 @@ export class BusinessLeadsComponent implements OnInit {
      * Reasons
      */
 
-    crop_farming:Boolean;
-    cattle:Boolean;
-    tubewell:Boolean;
-    tractor:Boolean;
-    other:Boolean;
+    crop_farming: String = 'N';
+    cattle: String = 'N';
+    tubewell: String = 'N';
+    other: String = 'N';
 
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private reportsService: ReportsService, private layoutUtilsService: LayoutUtilsService) {
     }
 
     ngOnInit(): void {
@@ -39,26 +41,67 @@ export class BusinessLeadsComponent implements OnInit {
 
     private createForm() {
         this.business_leads_form = this.formBuilder.group({
-            cnic: [null, Validators.required],
-            name: [null, Validators.required],
-            mobile_number: [null, Validators.required],
-            own_land: [null, Validators.required],
-            passbook_number: [null, Validators.required],
-            area_of_land: [null, Validators.required],
-            loan_type: [null, Validators.required],
-            total_amount: [null, Validators.required],
+            CNIC: [null, Validators.required],
+            MobileNo: [null, Validators.required],
+            RequestName: [null, Validators.required],
+            IsLandOwner: ['N', Validators.required],
+            PassbookNo: [null, Validators.required],
+            TotalArea: [null, Validators.required],
+            TotalAmount: [null, Validators.required],
+            IsTractor: ['N', Validators.required],
+            IsLiveSock: ['N', Validators.required],
+            IsCropProd: ['N', Validators.required],
+            IsTubeWell: ['N', Validators.required],
+            IsOther: ['N', Validators.required],
+            Message: ['', Validators.required],
+            OtherReason: ['', Validators.required],
+
         });
     }
 
-    changedCrop(){
-
+    changeCheckbox(field, field_name) {
+        if (field_name == 'crop_farming') {
+            if (field.checked) {
+                this.business_leads_form.value.IsCropProd == 'N';
+            } else {
+                this.business_leads_form.value.IsCropProd = 'Y';
+            }
+        } else if (field_name == 'cattle') {
+            if (field.checked) {
+                this.business_leads_form.value.IsLiveSock == 'N';
+            } else {
+                this.business_leads_form.value.IsLiveSock = 'Y';
+            }
+        } else if (field_name == 'tubewell') {
+            if (field.checked) {
+                this.business_leads_form.value.IsTubeWell == 'N';
+            } else {
+                this.business_leads_form.value.IsTubeWell = 'Y';
+            }
+        } else if (field_name == 'tractor') {
+            if (field.checked) {
+                this.business_leads_form.value.IsTractor == 'N';
+            } else {
+                this.business_leads_form.value.IsTractor = 'Y';
+            }
+        } else if (field_name == 'other') {
+            if (field.checked) {
+                this.business_leads_form.value.IsOther == 'N';
+            } else {
+                this.business_leads_form.value.IsOther = 'Y';
+            }
+        }
     }
 
-    showValues(){
-        console.log(this.crop_farming)
-        console.log(this.cattle)
-        console.log(this.tubewell)
-        console.log(this.tractor)
-        console.log(this.other)
+    submitData() {
+        this.spinner.show();
+        this.reportsService.submitBusinessLead(this.business_leads_form.value).subscribe((baseResponse) => {
+            this.spinner.hide();
+            if (baseResponse.Success) {
+                console.log(baseResponse);
+            } else {
+                this.layoutUtilsService.alertElement("Error", baseResponse.Message);
+            }
+        })
     }
 }

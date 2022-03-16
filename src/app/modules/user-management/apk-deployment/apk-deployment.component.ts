@@ -122,7 +122,7 @@ this.createForm();
     }
 
     Upload() {
-debugger
+
         if (!this.file) {
             var Message;
             var Code;
@@ -135,7 +135,7 @@ debugger
         this.apkUploadService.FileUpload(this.file).pipe(finalize(() => {
             this.spinner.hide();
         })).subscribe((baseResponse)  => {
-            debugger
+            
             if (baseResponse.Success) {
 
                 this.layoutUtilsService.alertElementSuccess(
@@ -173,7 +173,7 @@ debugger
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    debugger
+                    
                     this.dataSource.data = baseResponse.DocumentDetail.GeneralDocuments;
                     this.matTableLenght = true;
                     this.dv = this.dataSource.data;
