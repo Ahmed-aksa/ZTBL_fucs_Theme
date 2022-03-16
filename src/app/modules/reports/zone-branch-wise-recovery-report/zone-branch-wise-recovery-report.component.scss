@@ -1,0 +1,167 @@
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+}
+
+tbody {
+    border-top: none !important;
+
+    td {
+        padding: 0.5rem 0.5rem 0px 0.5rem !important;
+
+    }
+
+    .mat-form-field-fluid {
+        width: 9rem !important;
+    }
+}
+
+.ist-table {
+    thead {
+        border: none !important;
+    }
+
+    thead tr th {
+        font-size: 12px;
+        padding-top: 3px;
+        color: #292929;
+        padding-bottom: 3px;
+        min-width: 80px;
+        font-weight: 700;
+    }
+}
+
+.sec-table {
+    thead {
+        border: none !important;
+    }
+
+    thead tr th {
+        color: #292929;
+        font-size: 12px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        min-width: 220px;
+        font-weight: 700;
+    }
+}
+
+.third-table {
+    thead {
+        border: none !important;
+    }
+
+    thead tr th {
+        color: #292929;
+        font-size: 12px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        min-width: 220px;
+        font-weight: 700;
+    }
+}
+
+
+ul {
+    list-style-type: disc;
+}
+
+thead tr {
+    height: 30px;
+    text-align: center;
+}
+
+/* Center tables for demo */
+table {
+    margin: 0 auto;
+}
+
+/* Default Table Style */
+table {
+    color: #333;
+    background: white;
+    border: 1px solid grey;
+    font-size: 12pt;
+    border-collapse: collapse;
+}
+
+table thead th,
+table tfoot th {
+    color: #777;
+    background: #e7e5e4;
+}
+
+table caption {
+    padding: .5em;
+}
+
+table th,
+table td {
+    padding: .5em;
+    border: 1px solid lightgrey;
+}
+
+/* Zebra Table Style */
+[data-table-theme*=zebra] tbody tr:nth-of-type(odd) {
+    background: #e7e5e4;
+}
+
+[data-table-theme*=zebra][data-table-theme*=dark] tbody tr:nth-of-type(odd) {
+    background: #e7e5e4;
+}
+
+/* Dark Style */
+[data-table-theme*=dark] {
+    color: #ddd;
+    background: #e7e5e4;
+    font-size: 12pt;
+    border-collapse: collapse;
+}
+
+[data-table-theme*=dark] thead th,
+[data-table-theme*=dark] tfoot th {
+    color: #aaa;
+    background: #e7e5e4;
+}
+
+[data-table-theme*=dark] caption {
+    padding: .5em;
+}
+
+[data-table-theme*=dark] th,
+[data-table-theme*=dark] td {
+    padding: .5em;
+    border: 1px solid grey;
+}
+
+tbody tr {
+    background: white !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e7e5e4;
+    border-radius: 32px;
+}
+
+.sub-table {
+    th {
+        background: #f5f5f4 !important;
+    }
+}
+
+::ng-deep ngx-material-timepicker-content {
+    --body-background-color: #fff;
+    --primary-font-family: 'Roboto', sans-serif;
+    --button-color: #207937 !important;
+    --dial-active-color: #fff;
+    --dial-inactive-color: rgba(255, 255, 255, .5);
+    --dial-background-color: #207937 !important;
+    --dial-editable-active-color: #207937 !important;
+    --dial-editable-background-color: #fff;
+    --clock-face-time-active-color: #fff;
+    --clock-face-time-inactive-color: #6c6c6c;
+    --clock-face-inner-time-inactive-color: #929292;
+    --clock-face-time-disabled-color: #c5c5c5;
+    --clock-face-background-color: #f0f0f0;
+    --clock-hand-color: #207937 !important;
+}

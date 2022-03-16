@@ -49,6 +49,7 @@ import {
 } from './changes-to-user-access-rights/changes-to-user-access-rights.component';
 import { TourDiaryReportComponent } from './tour-diary-report/tour-diary-report.component';
 import { StatusLcInitiateByMcoComponent } from './status-lc-initiate-by-mco/status-lc-initiate-by-mco.component';
+import { ZoneBranchWiseRecoveryReportComponent } from './zone-branch-wise-recovery-report/zone-branch-wise-recovery-report.component';
 
 const routing = [
     {
@@ -183,6 +184,10 @@ const routing = [
         path: 'status-lc-initiate-by-mco',
         component: StatusLcInitiateByMcoComponent
     },
+    {
+        path: 'zone-branch-wise-recovery-report',
+        component: ZoneBranchWiseRecoveryReportComponent
+    },
 ]
 
 
@@ -221,6 +226,7 @@ const routing = [
         ChangesToUserAccessRightsComponent,
         TourDiaryReportComponent,
         StatusLcInitiateByMcoComponent,
+        ZoneBranchWiseRecoveryReportComponent,
     ],
     imports: [
         CommonModule,

@@ -1,0 +1,375 @@
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+
+
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Zone Branch Wise Recovery Report</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+
+<!--            <p class="text-right">-->
+<!--                <button aria-controls="collapseExample" aria-expanded="false"-->
+<!--                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"-->
+<!--                        color="primary" onclick="toggleCollapse()" type="button">-->
+<!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
+<!--                    Advance Filter-->
+<!--                </button>-->
+<!--            </p>-->
+
+        </div>
+    </div>
+
+
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="mt-4">
+<!--                <form [formGroup]="bufricationForm" class="kt-form kt-form&#45;&#45;group-seperator-dashed">-->
+
+<!--                    <div class="kt-form">-->
+
+<!--                        <div class="kt-portlet__body">-->
+
+<!--                            <div class="col-lg-12">-->
+<!--                                <div class="flex" style="flex-wrap: wrap;">-->
+
+<!--                                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="bufricationForm"-->
+<!--                                                            [is_required_circle]="false" [required_branch]="true"-->
+<!--                                                            [show_branch]="true"-->
+<!--                                                            [show_circle]="false"></app-zone-branch-circle>-->
+
+
+<!--                                    &lt;!&ndash;                        <div class="col-lg-6 kt-margin-bottom-20-mobile">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                </mat-label>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                <input matInput [matDatepicker]="picker2" formControlName="WorkingDate" maxlength="30"&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                       autocomplete="off" (dateChange)="isEnableWorkingDate()" appNumberOnly/>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                <mat-datepicker #picker2></mat-datepicker>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                            </mat-form-field>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"-->
+<!--                                         style="width: 225px;">-->
+<!--                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">-->
+<!--                                            <mat-label class="customMatLabel">LC#</mat-label>-->
+<!--                                            <input appNumberOnly autocomplete="off" formControlName="LcNO"-->
+<!--                                                   matInput-->
+<!--                                                   maxlength="30" placeholder="Enter LC NO"/>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </div>-->
+<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"-->
+<!--                                         style="width: 225px;">-->
+
+<!--                                        <button (click)="find()" class="bg-gray-500" color="primary" mat-raised-button>-->
+<!--                                            <mat-icon class="mr-2">search</mat-icon>-->
+<!--                                            Find-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+
+<!--                                </div>-->
+
+
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                </form>-->
+                <div class="col-lg-12">
+                    <div class="col-lg-9 col-sm-12">
+                        <div class="heading">General Recovery</div>
+                    </div>
+
+                    <div  class="col-lg-12 p-0 border shadow-xs rounded-sm bg-gray-50 mt-2 mb-2">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th colspan="2">Daily Recovery</th>
+                                <th></th>
+                                <th colspan="2">Monthly Recovery</th>
+                                <th></th>
+                                <th colspan="3">Progressive Recovery {{currentYear}}</th>
+                                <th></th>
+                            </tr>
+
+                            <tr class="table-header-background">
+                                <th>{{currentYear}}</th>
+                                <th>{{lastYear}}</th>
+                                <th>INC/DEC</th>
+                                <th>{{currentYear}}</th>
+                                <th>{{lastYear}}</th>
+                                <th>INC/DEC</th>
+                                <th>O/S</th>
+                                <th>R.able</th>
+                                <th>Recovery</th>
+                                <th>%AGE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div  class="col-lg-12 p-0 border shadow-xs rounded-sm bg-gray-50 mt-2 mb-2">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th colspan="3">Progressive Recovery {{lastYear}}</th>
+                                <th></th>
+                                <th>INC/DEC</th>
+                                <th></th>
+                                <th colspan="2">Mark-up Recovery</th>
+                                <th></th>
+                            </tr>
+
+                            <tr class="table-header-background">
+                                <th>O/S</th>
+                                <th>R.able</th>
+                                <th>Recovery</th>
+                                <th>%AGE</th>
+                                <th>Amount</th>
+                                <th>%AGE</th>
+                                <th>{{currentYear}}</th>
+                                <th>{{lastYear}}</th>
+                                <th>INC/DEC</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="col-lg-9 col-sm-12">
+                        <div class="heading">NPLs</div>
+                    </div>
+
+                    <div class="col-lg-12 p-0  border shadow-xs rounded-sm bg-gray-50 mt-2 mb-2">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th>Category</th>
+                                <th colspan="4">NPLs TOTAL</th>
+                            </tr>
+
+                            <tr class="table-header-background">
+                                <th rowspan="2"></th>
+                                <th colspan="2">NPLs {{currentYear}}</th>
+                                <th colspan="2">NPLs {{lastYear}}</th>
+                            </tr>
+
+                            <tr class="table-header-background">
+                                <th>Amount</th>
+                                <th>%Age with Total</th>
+                                <th>Amount</th>
+                                <th>%Age with Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>OAEM</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Substandard</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Doubtful</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Loss</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-lg-12 p-0  border shadow-xs rounded-sm bg-gray-50 mt-2 mb-2">
+                        <table class="table table-striped">
+                            <thead>
+
+                            <tr class="table-header-background">
+                                <th>NPLs INC/DEC</th>
+                                <th>Outstanding</th>
+                                <th>Ratio with O/S</th>
+                                <th>Outstanding</th>
+                                <th>Ratio with O/S</th>
+                                <th>RATIO INC/DEC</th>
+                                <th>Daily Reduction in NPLs</th>
+                                <th>Daily Reduction in Provision</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-12">
+                    <div class="col-lg-9 col-sm-12">
+                        <div class="heading">Sam Recovery</div>
+                    </div>
+
+                    <div class="col-lg-12 p-0  border shadow-xs rounded-sm bg-gray-50 mt-2 mb-2">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th colspan="2">Daily Recovery</th>
+                                <th></th>
+                                <th colspan="2">Monthly Recovery</th>
+                                <th></th>
+                                <th colspan="3">Progressive Recovery {{currentYear}}</th>
+                            </tr>
+
+                            <tr class="table-header-background">
+                                <th>{{currentYear}}</th>
+                                <th>{{lastYear}}</th>
+                                <th>INC/DEC</th>
+                                <th>{{currentYear}}</th>
+                                <th>{{lastYear}}</th>
+                                <th>INC/DEC</th>
+                                <th>OUTSTANDING</th>
+                                <th>RECOVERY</th>
+                                <th>%AGE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-lg-12 p-0  border shadow-xs rounded-sm bg-gray-50 mt-2 mb-2">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th colspan="3">Progressive Recovery {{lastYear}}</th>
+                                <th colspan="2">INC/DEC</th>
+                                <th colspan="2">SAM ADDITION</th>
+                                <th></th>
+                            </tr>
+
+                            <tr class="table-header-background">
+                                <th>OUTSTANDING</th>
+                                <th>RECOVERY</th>
+                                <th>%AGE</th>
+                                <th>Amount</th>
+                                <th>%AGE</th>
+                                <th>{{currentYear}}</th>
+                                <th>{{lastYear}}</th>
+                                <th>INC/DEC</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="row mt-2 mr-1">
+                    <div class="col-lg-12 text-right">
+                        <button (click)="printReport()"
+                                class="mr-2 bg-green" color="primary" mat-raised-button
+                                type="button">
+                            <mat-icon class="mr-2">print</mat-icon>
+                            Print
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
