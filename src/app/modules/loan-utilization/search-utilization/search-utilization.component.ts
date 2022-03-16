@@ -18,6 +18,7 @@ import {LoanUtilizationService} from '../service/loan-utilization.service';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {LoanUtilizationSearch} from '../Model/loan-utilization.model';
 import {Activity} from "../../../shared/models/activity.model";
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'kt-search-utilization',
@@ -157,11 +158,11 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         this.userInfo = this.userUtilsService.getUserDetails();
         //
         //MCO User
-        if (userInfo.User.userGroup[0].ProfileID == '56') {
+        if (userInfo.User.userGroup[0].ProfileID == environment.MCO_Group_ID) {
             this.isMCO = true;
         }
 
-        if (userInfo.User.userGroup[0].ProfileID == '57') {
+        if (userInfo.User.userGroup[0].ProfileID == environment.BM) {
             this.isBM = true;
         }
         if (userInfo.User.userGroup[0].ProfileID == '9999999') {

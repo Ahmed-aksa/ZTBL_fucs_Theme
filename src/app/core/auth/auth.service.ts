@@ -2,14 +2,12 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable quotes */
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, JsonpClientBackend} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
-import {AuthUtils} from 'app/core/auth/auth.utils';
 import {UserService} from 'app/core/user/user.service';
 import {BaseRequestModel, OTP} from "../../shared/models/base_request.model";
 import {environment} from "../../../environments/environment";
-import {HttpUtilsService} from "../../shared/services/http_utils.service";
 import {BaseResponseModel} from "../../shared/models/base_response.model";
 import {UserUtilsService} from "../../shared/services/users_utils.service";
 
@@ -84,13 +82,18 @@ export class AuthService {
 
     }
 
-    SendOTPResuest(text): Observable<BaseResponseModel> {
-        this.request.OTP = new OTP();
-        this.request.OTP.Id = "1";
-        this.request.OTP.Text = text;
-        return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, this.request,
+    SendOTPResuest(text, loginMode): Observable<BaseResponseModel> {
+        let request = new BaseRequestModel();
+        request.OTP = new OTP();
+        request.OTP.Id = "1";
+        request.OTP.Text = text;
+        request.User = loginMode;
+        request.UserPasswordDetails = loginMode;
+        debugger;
+        return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, request,
             {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
+                debugger;
                 localStorage.setItem('ZTBLUser', JSON.stringify(response));
                 this.accessToken = response.Token;
                 this.ZTBLUserRefreshToke = response.RefreshToken;

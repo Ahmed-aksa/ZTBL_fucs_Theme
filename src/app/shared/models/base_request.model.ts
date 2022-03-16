@@ -42,11 +42,13 @@ export class BaseRequestModel {
     public TourDiary: any;
     public McoTourDiary: any;
     public OTP: OTP;
+    public CustomerLead: any;
     Token: any
     RefreshToken: any
     EligibilityRequest: any;
     DocumentDetail: any;
     Pagination: any;
+    DeviceMapping: any;
 
 }
 

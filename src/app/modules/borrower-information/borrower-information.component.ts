@@ -14,6 +14,7 @@ import {BorrowerInformationService} from './service/borrower-information.service
 import {CircleService} from '../../shared/services/circle.service';
 import {BaseResponseModel} from '../../shared/models/base_response.model';
 import {UserUtilsService} from '../../shared/services/users_utils.service';
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'kt-borrower-information',
@@ -85,7 +86,7 @@ export class BorrowerInformationComponent implements OnInit {
 
         // console.log(userInfo);
         //MCO User
-        if (userInfo.User.userGroup[0].ProfileID == '56') {
+        if (userInfo.User.userGroup[0].ProfileID == environment.MCO_Group_ID) {
             this.PPNOVisible = false;
         }
     }

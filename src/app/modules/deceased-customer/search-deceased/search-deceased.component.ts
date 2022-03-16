@@ -14,6 +14,7 @@ import {DeceasedCustomerService} from "../Services/deceased-customer.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
+import { environment } from 'environments/environment';
 
 
 @Component({
@@ -410,9 +411,9 @@ export class SearchDeceasedComponent implements OnInit {
     checkUser() {
         var userInfo = this.userUtilsService.getUserDetails();
         //
-        if (userInfo.User.userGroup[0].ProfileID == '56') {
+        if (userInfo.User.userGroup[0].ProfileID == environment.MCO_Group_ID) {
             // this.isMCO = true;
-        } else if (userInfo.User.userGroup[0].ProfileID == '57') {
+        } else if (userInfo.User.userGroup[0].ProfileID == environment.BM) {
             // this.isBM = true;
             this.deceasedCustomerSearch.controls.Remarks.setValidators(Validators.required);
         }

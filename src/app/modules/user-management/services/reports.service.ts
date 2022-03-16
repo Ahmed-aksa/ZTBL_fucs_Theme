@@ -42,4 +42,17 @@ export class ReportsService {
             map((res: BaseResponseModel) => res)
         );
     }
+
+    submitBusinessLead(value: any, branch_id) {
+        debugger
+        let request = new BaseRequestModel();
+        request.CustomerLead = value;
+        request.CustomerLead.BranchId = branch_id.toString();
+        request.CustomerLead.ZoneId = request.CustomerLead?.ZoneId.toString();
+        request.User = this.userUtilsService.getUserDetails().User;
+        return this.http.post(`${environment.apiUrl}/Customer/AddCustomerLead`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
 }
