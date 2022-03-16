@@ -7,31 +7,31 @@
                    style="flex-direction: column; overflow-y: scroll" style="background-color: white;">
         <ng-container *ngFor="let item of userGroup">
 
-            <mat-tab *ngIf=" item.ProfileID=='56'" label="MCO" ng-disable="visibleFlag">
+            <mat-tab *ngIf=" item.ProfileID==mco_profile_id" label="MCO" ng-disable="visibleFlag">
                 <app-mco-dashborad [ProfileID]="item.ProfileID"></app-mco-dashborad>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID=='206'" label="Recovery Officer">
+            <mat-tab *ngIf="item.ProfileID==ro_profile_id" label="Recovery Officer">
                 <app-recovery-officer-dashboard [ProfileID]="item.ProfileID"></app-recovery-officer-dashboard>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='57'" label="Branch Manager">
+            <mat-tab *ngIf="item.ProfileID ==bm_profile_id" label="Branch Manager">
                 <app-branch-manager-dashboard [ProfileID]="item.ProfileID"></app-branch-manager-dashboard>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='75'" label="Zonal Chief">
+            <mat-tab *ngIf="item.ProfileID ==zc_profile_id" label="Zonal Chief">
                 <app-zonal-chief-dashboard [ProfileID]="item.ProfileID"></app-zonal-chief-dashboard>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='202'" label="EVP (Operations Division)">
+            <mat-tab *ngIf="item.ProfileID ==evp_od_profile_id" label="EVP (Operations Division)">
                 <app-evp-od-dashboard [ProfileID]="item.ProfileID"></app-evp-od-dashboard>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='200'" label="EVP (Credit Division)">
+            <mat-tab *ngIf="item.ProfileID ==evp_cd_profile_id" label="EVP (Credit Division)">
                 <app-evp-credit-dashboard [ProfileID]="item.ProfileID"></app-evp-credit-dashboard>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='201'" label="EVP (Recovery & SAM Division)">
+            <mat-tab *ngIf="item.ProfileID ==recovery_sam_profile_id" label="EVP (Recovery & SAM Division)">
                 <app-recovery-sam-division [ProfileID]="item.ProfileID"></app-recovery-sam-division>
             </mat-tab>
 
@@ -39,13 +39,13 @@
             <!--                <app-recovery-available [ProfileID]="item.ProfileID"></app-recovery-available>-->
             <!--            </mat-tab>-->
 
-            <mat-tab *ngIf="item.ProfileID =='204'" label="President ZTBL">
+            <mat-tab *ngIf="item.ProfileID ==pz_profile_id" label="President ZTBL">
                 <app-president-ztbl [ProfileID]="item.ProfileID"></app-president-ztbl>
             </mat-tab>
-            <mat-tab *ngIf="item.ProfileID =='203'" label="Regional Chief">
+            <mat-tab *ngIf="item.ProfileID ==rc_profile_id" label="Regional Chief">
                 <app-regional-cheif [ProfileID]="item.ProfileID"></app-regional-cheif>
             </mat-tab>
-            <mat-tab *ngIf="item.ProfileID =='205'" label="Provincial Chief ">
+            <mat-tab *ngIf="item.ProfileID ==pc_profile_id" label="Provincial Chief ">
                 <app-provincial-chief [ProfileID]="item.ProfileID"></app-provincial-chief>
             </mat-tab>
         </ng-container>

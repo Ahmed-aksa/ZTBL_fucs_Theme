@@ -6,39 +6,39 @@
                    style="flex-direction: column; overflow-y: scroll" style="background-color: white;">
         <ng-container *ngFor="let item of userGroup">
 
-            <mat-tab *ngIf=" item.ProfileID=='69'" label="ZM RECOVERY" ng-disable="visibleFlag">
+            <mat-tab *ngIf=" item.ProfileID==zc_profile_id" label="ZM RECOVERY" ng-disable="visibleFlag">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID=='205'" label="Provincial Chief">
+            <mat-tab *ngIf="item.ProfileID==pc_profile_id" label="Provincial Chief">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='68'" label="SVP COD">
+            <mat-tab *ngIf="item.ProfileID ==svp_cod" label="SVP COD">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='199'" label="SVP RECOVERY">
+            <mat-tab *ngIf="item.ProfileID ==svp_recovery" label="SVP RECOVERY">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='207'" label="EVP LMD">
+            <mat-tab *ngIf="item.ProfileID ==evp_lmd_profile_id" label="EVP LMD">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='75'" label="ZONAL CHIEF">
+            <mat-tab *ngIf="item.ProfileID ==zc_profile_id" label="ZONAL CHIEF">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='57'" label="AUTHOR">
+            <mat-tab *ngIf="item.ProfileID ==bm_profile_id" label="AUTHOR">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='56'" label="MAKER">
+            <mat-tab *ngIf="item.ProfileID ==mco_profile_id" label="MAKER">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab *ngIf="item.ProfileID =='203'" label="REGIONAL CHIEF">
+            <mat-tab *ngIf="item.ProfileID ==rc_profile_id" label="REGIONAL CHIEF">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
         </ng-container>

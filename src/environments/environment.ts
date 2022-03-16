@@ -42,6 +42,28 @@ export const environment = {
     PROVINCIAL_CHEIF: '205',//77345
     ZC_BAHAWALNAGAR: '75',//68174
     ZM_1: '75',//16284
+    SVP_COD: '68',//16284
+    EVP_LMD: '207',//16284
+    SVP_RECOVERY: '199',//16284
+
+
+    // MCO_Group_ID: '56',//131694
+    // BM: '57',//80834
+    // RECOVERY_OFFICER: '214',//120203
+    // Regional_CHIEF: '206',//111573
+    // ZM: '69',//81426
+    // SVP_COD: '68',//112664
+    // ZC: '75',//54964
+    // PROVINCIAL_CHEIF: '208',//77345
+    // EVP_CD: '211',//112664
+    // SVP_RECOVERY: '213',//16284
+    // EVP_OD: '209',//116035
+    // EVP_RS: '210',//111537
+    // PZ: '207',//704000
+    // EVP_LMD: '212',//111537
+    // ZC_BAHAWALNAGAR: '75',//68174
+    // ZM_1: '75',//16284
+
 
     // 48326 ZO monitoring
     // 54536 ZDPM

@@ -268,6 +268,7 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
             if (result?.data?.data?.date)
                 this.tourPlanForm.controls["VisitedDate"].setValue(this.datepipe.transform(new Date(result.data.data.date), 'YYYY-MM-dd'))
             this.TourPlanSchedule = result.data?.TourPlanSchedule?.TourPlanSchedule;
+            debugger;
             if (this.TourPlanSchedule == 1) {
                 this.startDate = moment(new Date(result.data.data.date)).startOf('day');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('day');
@@ -457,6 +458,7 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
         } else {
             type = 'Monthly';
         }
+        debugger;
         let dialogRef = this.layoutUtilsService.AlertElementConfirmation('Confirmation', `Tour Plan submission schedule is : <strong>${type}</strong><br>Make sure you have added the Tour Plan From: <strong>${moment(this.startDate).format('DD-MM-YYYY')}</strong> To: <strong>${moment(this.endDate).format('DD-MM-YYYY')}</strong> <br> Once the Tour Plan is submitted, You will no longer be able to add Tour Plan in this date range`);
         dialogRef.afterClosed().subscribe((data) => {
             if (data) {

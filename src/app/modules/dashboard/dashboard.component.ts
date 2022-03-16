@@ -26,6 +26,7 @@ import {
     ApexTitleSubtitle,
     ApexTooltip
 } from "ng-apexcharts";
+import {environment} from "../../../environments/environment";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -38,6 +39,8 @@ export type ChartOptions = {
     noData: ApexNoData;
     tooltip: ApexTooltip;
     dataLabels: ApexDataLabels;
+
+
 };
 
 @Component({
@@ -49,6 +52,18 @@ export type ChartOptions = {
 
 export class DashboardComponent implements OnInit {
 
+
+    mco_profile_id: any;
+    ro_profile_id: any;
+    bm_profile_id: any;
+    zm_profile_id: any;
+    zc_profile_id: any;
+    evp_od_profile_id: any;
+    evp_cd_profile_id: any;
+    recovery_sam_profile_id: any;
+    pz_profile_id: any;
+    rc_profile_id: any;
+    pc_profile_id: any;
     @ViewChild(McoDashboradComponent, {static: false}) mcoDashboardComponent: McoDashboradComponent;
     @ViewChild(RecoveryOfficerDashboardComponent, {static: false}) recoveryOfficerDashboardComponent: RecoveryOfficerDashboardComponent;
     @ViewChild(BranchManagerDashboardComponent, {static: false}) branchManagerDashboardComponent: BranchManagerDashboardComponent;
@@ -74,6 +89,21 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.assignProfileIds();
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
+    }
+
+    private assignProfileIds() {
+        this.mco_profile_id = environment.MCO_Group_ID;
+        this.ro_profile_id = environment.RECOVERY_OFFICER;
+        this.bm_profile_id = environment.BM;
+        this.zm_profile_id = environment.ZM;
+        this.evp_od_profile_id = environment.EVP_OD;
+        this.zc_profile_id = environment.ZC;
+        this.recovery_sam_profile_id = environment.EVP_RS;
+        this.evp_cd_profile_id = environment.EVP_CD;
+        this.pz_profile_id = environment.PZ;
+        this.rc_profile_id = environment.Regional_CHIEF;
+        this.pc_profile_id = environment.PROVINCIAL_CHEIF;
     }
 }

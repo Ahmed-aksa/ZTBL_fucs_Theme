@@ -22,14 +22,19 @@ export const environment = {
         '9QIDAQAB\n' +
         '-----END PUBLIC KEY-----',
     MCO_Group_ID: '56',//131694
-    RECOVERY_OFFICER: '206',//120203
     BM: '57',//80834
-    ZC: '75',//54964
+    RECOVERY_OFFICER: '214',//120203
+    Regional_CHIEF: '206',//111573
     ZM: '69',//81426
-    EVP_CD: '200',//112664
-    EVP_OD: '202',//116035
-    EVP_RS: '201',//111537
-    PZ: '204',//704000
-    Regional_CHIEF: '203',//111573
-    PROVINCIAL_CHEIF: '205',//77345
+    SVP_COD: '68',//112664
+    ZC: '75',//54964
+    PROVINCIAL_CHEIF: '208',//77345
+    EVP_CD: '211',//112664
+    SVP_RECOVERY: '213',//16284
+    EVP_OD: '209',//116035
+    EVP_RS: '210',//111537
+    PZ: '207',//704000
+    EVP_LMD: '212',//111537
+    ZC_BAHAWALNAGAR: '75',//68174
+    ZM_1: '75',//16284
 };
