@@ -1,0 +1,145 @@
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+
+
+    <!-- Header -->
+
+    <div class="row py-3 pb-0">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Re-Register Biometric Fingerprint</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
+                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+
+
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
+            <div [formGroup]="reregister_biometric_form">
+
+                <div>
+
+                    <div class="flex" style="flex-wrap: wrap;">
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label>PPNO</mat-label>
+                                    <input appAlphabetOnly autocomplete="off" formControlName="PPNO"
+                                           matInput
+                                           maxlength="100" placeholder="Enter Customer Name">
+                                    <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                                <button
+                                    class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
+                                    mat-raised-button
+                                    type="button">
+                                    <mat-icon class="mr-2">search</mat-icon>
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-scroll " style="flex-direction: column;">
+
+        <div class="example-table-container ">
+
+            <mat-table #sort1="matSort" #table
+                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: total_requests_length}"
+                       class="lmat-elevation-z8  " matSort
+                       matSortActive="id"
+                       matSortDirection="asc" matSortDisableClear>
+
+                <ng-container matColumnDef="PPNO">
+                    <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>PPNO</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{request?.PPNO}}</mat-cell>
+                </ng-container>
+
+
+                <!--<ng-container matColumnDef="CustomerNumber">
+         <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
+         <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
+        </ng-container>-->
+
+                <ng-container matColumnDef="Details">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
+                    <mat-cell *matCellDef="let request">{{request.Text}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
+                    <mat-cell *matCellDef="let request"></mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
+                </mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+
+            <div *ngIf="!loading && dataSource.data?.length==0" class="mat-table__message">No records found</div>
+            <div *ngIf="loading" class="mat-table__message p-3 text-green">Please wait....</div>
+
+
+        </div>
+
+
+    </div>
+    <div class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
+        <span class="font-bold text-green">Items per page:</span>
+
+        <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                    display="inline"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls (pageChange)="paginate($event)" display="inline"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(MathCeil(total_requests_length/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b class="text-green">{{total_requests_length}}</b> items</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

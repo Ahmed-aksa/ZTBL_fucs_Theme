@@ -47,6 +47,10 @@ import {EligibilityLogsComponent} from './eligibility-logs/eligibility-logs.comp
 import {EligibilityLogDetailComponent} from './eligibility-log-detail/eligibility-log-detail.component';
 import {ApkDeploymentComponent} from './apk-deployment/apk-deployment.component';
 import {BusinessLeadsComponent} from './business-leads/business-leads.component';
+import {ReregisterBiometricComponent} from './reregister-biometric/reregister-biometric.component';
+import {
+    EnableDisableDeviceMappingComponent
+} from './enable-disable-device-mapping/enable-disable-device-mapping.component';
 
 
 const route = [
@@ -85,6 +89,14 @@ const route = [
     {
         path: 'business-leads',
         component: BusinessLeadsComponent
+    },
+    {
+        path: 'reregister-biometric',
+        component: ReregisterBiometricComponent
+    },
+    {
+        path: 'enable-disable-device-mapping',
+        component: EnableDisableDeviceMappingComponent
     }
 ];
 
@@ -104,6 +116,8 @@ const route = [
         EligibilityLogDetailComponent,
         ApkDeploymentComponent,
         BusinessLeadsComponent,
+        ReregisterBiometricComponent,
+        EnableDisableDeviceMappingComponent,
     ],
     imports: [
         CommonModule,
