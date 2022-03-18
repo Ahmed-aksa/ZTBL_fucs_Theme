@@ -62,9 +62,9 @@
                                         <mat-label class="customMatLabel">Tour Plan<strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <mat-select
-                                            [disabled]="!edit_mode && currentActivity?.R"
-                                            formControlName="TourPlanId">
+                                        <mat-select (selectionChange)="setValidators($event.value)"
+                                                    [disabled]="!edit_mode && currentActivity?.R"
+                                                    formControlName="TourPlanId">
                                             <mat-option>
                                                 Select
                                             </mat-option>
@@ -356,7 +356,9 @@
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
-                                        <mat-label class="customMatLabel">No. of Utilizations Checked</mat-label>
+                                        <mat-label class="customMatLabel">No. of Utilizations Checked
+                                            <strong
+                                                class="matMandatory">*</strong></mat-label>
                                         <input [readonly]="!edit_mode && currentActivity?.R" appNumberOnly
                                                autocomplete="off"
                                                formControlName="NoOfUtilizationChecked" matInput
@@ -367,6 +369,8 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
                                     <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">No. Of Sanctioned Mutations Verified
+                                            <strong
+                                                class="matMandatory">*</strong>
                                         </mat-label>
                                         <input [readonly]="!edit_mode && currentActivity?.R" appNumberOnly
                                                autocomplete="off"
@@ -380,6 +384,8 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 255px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. Of Mutations Pending As Previous Month
+                                            <strong
+                                                class="matMandatory">*</strong>
                                         </mat-label>
                                         <input matInput appNumberOnly
                                                placeholder="No. Of Mutations Pending As Previous Month"
@@ -392,6 +398,9 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Mutations Verified During Month
+                                            <strong
+                                                class="matMandatory">*</strong>
+
                                         </mat-label>
                                         <input matInput appNumberOnly placeholder="Mutations Verified During Month"
                                                formControlName="MutationVerifiedDuringMnth" maxlength="30"
@@ -404,6 +413,8 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Utilization Pending Last Date
+                                            <strong
+                                                class="matMandatory">*</strong>
                                         </mat-label>
                                         <input matInput appNumberOnly placeholder="Utilization Pending Last Date"
                                                formControlName="UtilizationPendingLastDate" maxlength="30"
@@ -415,6 +426,8 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Utilization Verified During Month
+                                            <strong
+                                                class="matMandatory">*</strong>
                                         </mat-label>
                                         <input matInput appNumberOnly placeholder="Utilization Verified During Month"
                                                formControlName="UtilizationVerifiedDuringMnth" maxlength="30"

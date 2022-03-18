@@ -176,7 +176,7 @@ export class TourDiaryMcoComponent implements OnInit {
             AnyOtherWorkDone: [null],
             NoOfMutationPendingASOPM: [null],
             MutationVerifiedDuringMnth: [null],
-            UtilizationPendingLastDate: [null],
+            UtilizationPendingLastDate: [null,],
             UtilizationVerifiedDuringMnth: [null],
             Remarks: [null],
             Status: [null]
@@ -184,6 +184,63 @@ export class TourDiaryMcoComponent implements OnInit {
         this.setValue();
     }
 
+    applyValidations(value, form) {
+        if (form) {
+            const controls = form.controls;
+            Object.keys(controls).forEach(controlName => {
+                // controls[controlName].markAsTouched()
+                if (controlName.includes(value)) {
+                    debugger;
+                    controls[controlName].setValidators(Validators.required);
+                }
+            });
+            return;
+
+        }
+    }
+
+    setValidators(value) {
+
+        this.gridForm.controls["NoOfSanctnMutationVerified"].removeValidators(Validators.required);
+        let purpose_name = this.TourPlan.filter(obj => obj.TourPlanId == value)[0]?.PurposeName;
+        if (purpose_name == 'Checking of Mutations') {
+            console.log("Checking of Mutations");
+            this.applyValidations(purpose_name, this.gridForm)
+            this.gridForm.controls["NoOfSanctnMutationVerified"].setValidators(Validators.required);
+            this.gridForm.controls["NoOfMutationPendingASOPM"].setValidators(Validators.required);
+            this.gridForm.controls["MutationVerifiedDuringMnth"].setValidators(Validators.required);
+        } else if (purpose_name == "Checking of Utilization") {
+            console.log("Checking of Utilization");
+
+            this.gridForm.controls["NoOfUtilizationChecked"].setValidators(Validators.required);
+            this.gridForm.controls["UtilizationPendingLastDate"].setValidators(Validators.required);
+            this.gridForm.controls["UtilizationVerifiedDuringMnth"].setValidators(Validators.required);
+
+        } else if (purpose_name == 'Recovery Operations') {
+            this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
+            this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
+            this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
+
+        } else if (purpose_name == 'Dissemination of Technology') {
+            console.log("Dissemination of Technology");
+
+            // this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
+            // this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
+            // this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
+        } else if (purpose_name == "Loan Appraisal") {
+            console.log("Loan Appraisal");
+            //
+            // this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
+            // this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
+            // this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
+        } else if (purpose_name == "Others") {
+            console.log("Others");
+            //
+            // this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
+            // this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
+            // this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
+        }
+    }
 
     saveTourDiary() {
 
@@ -461,6 +518,8 @@ export class TourDiaryMcoComponent implements OnInit {
         // this.gridForm.controls['Remarks']?.setValue(mcoDiary?.Remarks);
         delete mcoDiary.CircleId;
         this.gridForm.patchValue(mcoDiary);
+
+
         this.gridForm.controls['TourDate']?.setValue(this._common.stringToDate(mcoDiary?.TourDate));
 
         this.isUpdate = true;
@@ -543,6 +602,7 @@ export class TourDiaryMcoComponent implements OnInit {
         if (this.data && this.data.hasOwnProperty('TourDiaries')) {
             this.TourDiaryList = [];
             this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.setValidators(this.data?.TourPlanId);
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {
@@ -554,6 +614,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 }))
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
+
                         this.TourDiaryList = [];
                         this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                         this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
