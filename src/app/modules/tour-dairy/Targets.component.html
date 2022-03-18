@@ -2,11 +2,11 @@
     class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
     <!--    <button class="buttonred">sam</button>-->
     <mat-tab-group [ngClass]="applyClass()" animationDuration="200ms"
-                   class="pt-2 flex flex-auto dash-ttab  shadow-xs rounded-sm pb-3"
+                   class="pt-2  dash-ttab  shadow-xs rounded-sm pb-3"
                    style="flex-direction: column; overflow-y: scroll" style="background-color: white;">
         <ng-container *ngFor="let item of userGroup">
 
-            <mat-tab *ngIf=" item.ProfileID==zc_profile_id" label="ZM RECOVERY" ng-disable="visibleFlag">
+            <mat-tab *ngIf=" item.ProfileID==zm_profile_id" label="ZM RECOVERY" ng-disable="visibleFlag">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 

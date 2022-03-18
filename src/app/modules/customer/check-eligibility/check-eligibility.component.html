@@ -17,16 +17,19 @@
                         <div class="form-group kt-form__group row ">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
-                                    <input (keydown)="change_cnic($event.target.value)" (keyup)="change_cnic($event.target.value)" [mask]="maskEnums.cnic" autocomplete="off"
+                                    <input (keydown)="change_cnic($event.target.value)"
+                                           (keyup)="change_cnic($event.target.value)" [mask]="maskEnums.cnic"
+                                           autocomplete="off"
                                            formControlName="Cnic"
                                            matInput
-                                           maxlength="15" placeholder="Enter cnic"/>
+                                           maxlength="16" placeholder="Enter cnic"/>
                                     <mat-hint align="left" class="pt-3">Please enter cnic
                                         <strong>(3210412345678)</strong></mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="col-lg-4 kt-margin-bottom-20-mobile ">
-                                <button (click)="getCustomerInfo()" *ngIf="currentActivity?.C" [disabled]="disable_buttons"
+                                <button (click)="getCustomerInfo()" *ngIf="currentActivity?.C"
+                                        [disabled]="disable_buttons"
                                         [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                         class=" ml-2  btn mt-2 bg-green rounded-md"
                                         mat-flat-button
@@ -115,12 +118,14 @@
                                     <span style="font-size: 14px !important; text-align:center">Please place your finger on scanner</span>
                                 </div>
                                 <div class="col-lg-12 text-center">
-                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C" class="btn btn-primary mt-19 kt-login__btn-primary"
+                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C"
+                                            class="btn btn-primary mt-19 kt-login__btn-primary"
                                             color="primary"
                                             style="width:30%;" type="button">
                                         Capture
                                     </button>&nbsp;
-                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C" class="btn btn-secondary mt-19 kt-login__btn-primary"
+                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C"
+                                            class="btn btn-secondary mt-19 kt-login__btn-primary"
                                             color="primary"
                                             style="width:30%;" type="button">
                                         Verify
@@ -163,7 +168,8 @@
                                     <mat-label class="customMatLabel">CNIC Expiry <strong
                                         class="matMandatory">*</strong></mat-label>
                                     <input [matDatepicker]="picker1" [min]="todayMin" autocomplete="off"
-                                           formControlName="CnicExpiry" matInput maxlength="30" placeholder="Enter cnic expiry"
+                                           formControlName="CnicExpiry" matInput maxlength="30"
+                                           placeholder="Enter cnic expiry"
                                            readonly/>
 
                                     <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
@@ -245,7 +251,8 @@
                                 <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label class="customMatLabel">Date Of Birth<strong
                                         class="matMandatory">*</strong></mat-label>
-                                    <input [disabled]="true" [matDatepicker]="picker" [max]="todayMax" autocomplete="off"
+                                    <input [disabled]="true" [matDatepicker]="picker" [max]="todayMax"
+                                           autocomplete="off"
                                            formControlName="Dob" matInput placeholder="Enter dob"
                                            readonly="readonly">
 
@@ -373,11 +380,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a *ngIf="should_regenerate" [routerLink]="['dashboard']" class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                <a *ngIf="should_regenerate" [routerLink]="['dashboard']"
+                                   class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                                    mat-flat-button>Close/Exit</a>
                             </div>
                         </div>
-                        <div *ngIf="!IsEcibDefaulter" class="form-group kt-form__group row">
+                        <div *ngIf="!IsEcibDefaulter  && !should_regenerate" class="form-group kt-form__group row">
                             <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                 <h5 class="heading">Summary</h5>
                                 <p class=" mb-1"><strong>Customer is eligible due to following
@@ -410,7 +418,8 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a *ngIf="currentActivity?.C" [routerLink]="['dashboard']" class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                <a *ngIf="currentActivity?.C" [routerLink]="['dashboard']"
+                                   class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                                    mat-flat-button>Close/Exit</a>
                             </div>
                         </div>
@@ -418,7 +427,9 @@
                         <div *ngIf="IsEcibDefaulter && should_regenerate" class="py-2">
                             <div class="heading">Regenerate ECIB Request</div>
 
-                            <button (click)="regenerate()" *ngIf="currentActivity?.C" class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button
+                            <button (click)="regenerate()" *ngIf="currentActivity?.C"
+                                    class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                    mat-flat-button
                                     type="button">
                                 Regenerate
                             </button>
@@ -439,7 +450,8 @@
                         </div>
 
                         <div *ngIf="IsEcibDefaulter && should_regenerate && currentActivity?.C">
-                            <button (click)="submitEcibDefaulterForm()" class="bg-green mat-focus-indicator  w-32  mat-flat-button mat-button-base mat-primary"
+                            <button (click)="submitEcibDefaulterForm()"
+                                    class="bg-green mat-focus-indicator  w-32  mat-flat-button mat-button-base mat-primary"
                                     mat-flat-button
                                     type="button">Submit
                             </button>
@@ -468,7 +480,8 @@
                         Save & Next
                     </button>
                     <button (click)="submitCWR()"
-                            *ngIf="BiometricCredentials && currentActivity?.C" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                            *ngIf="BiometricCredentials && currentActivity?.C"
+                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                             class="mat-focus-indicator w-32  mat-flat-button mat-button-base bg-green mat-primary"
                             type="button"
                     >

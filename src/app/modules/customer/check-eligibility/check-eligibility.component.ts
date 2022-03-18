@@ -570,6 +570,7 @@ export class CheckEligibilityComponent implements OnInit {
     }
 
     change_cnic(value: string) {
+        debugger;
         this.Customer = null;
         this.NDCPerform = false;
 

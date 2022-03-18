@@ -30,6 +30,7 @@ export class TargetsComponent implements OnInit {
 
     ngOnInit(): void {
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup;
+        this.assignProfileIds();
     }
 
     applyClass() {
@@ -50,7 +51,7 @@ export class TargetsComponent implements OnInit {
         this.pz_profile_id = environment.PZ;
         this.rc_profile_id = environment.Regional_CHIEF;
         this.pc_profile_id = environment.PROVINCIAL_CHEIF;
-        this.evp_lmd_profile_id = environment.PROVINCIAL_CHEIF;
+        this.evp_lmd_profile_id = environment.EVP_LMD;
         this.svp_cod = environment.SVP_COD;
         this.svp_recovery = environment.SVP_RECOVERY;
     }

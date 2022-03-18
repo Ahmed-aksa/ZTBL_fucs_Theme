@@ -31,13 +31,13 @@ export class AppComponent implements OnInit {
                             var s = event.url;
                             var n = event.url.indexOf(';');
                             event.url = s.substring(0, n != -1 ? n : s.length);
-                            userdate.MenuBar.forEach(x => {
+                            userdate.MenuBar?.forEach(x => {
                                 var childURl = x?.children?.find(y => y.link?.includes(event1?.url));
                                 if (childURl) {
                                     ismatch = true;
                                 }
                             });
-                            event1.url=event1.url.replace('%23', '#');
+                            event1.url = event1.url.replace('%23', '#');
                             if (event1.url.includes('query') || event1.url.includes('tour-diary')) {
                                 ismatch = true;
                             }

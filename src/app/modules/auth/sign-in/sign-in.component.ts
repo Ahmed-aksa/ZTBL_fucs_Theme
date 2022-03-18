@@ -132,13 +132,13 @@ export class AuthSignInComponent implements OnInit {
                                 localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
                                 localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
                             }
-                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/dashboard';
                             this._router.navigateByUrl(redirectURL).then(() => {
                                 window.location.reload();
                             });
                         } else if (result.isWebOTPEnabled) {
                             const dialogRef = this.dialog.open(OtpComponent, {
-                                data: {result,loginMode},
+                                data: {result, loginMode},
                                 disableClose: true,
                                 panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
                             });
@@ -149,7 +149,7 @@ export class AuthSignInComponent implements OnInit {
                                         localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
                                         localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
                                         localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
-                                        const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                                        const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/dashboard';
                                         this._router.navigateByUrl(redirectURL).then(() => {
                                             window.location.reload();
                                         });
