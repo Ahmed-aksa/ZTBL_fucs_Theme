@@ -164,7 +164,8 @@
                     <p class="heading mb-2 text-lg">Resources Count</p>
                     <table class="table  table-striped">
                         <tbody>
-                        <tr *ngFor="let item of ResourcesCount">
+                        <tr *ngFor="let item of ResourcesCount;let i=index">
+                            <td>{{i + 1}}</td>
                             <td [innerHTML]="item.Value" style></td>
                             <td>{{item.Key}}</td>
                         </tr>
