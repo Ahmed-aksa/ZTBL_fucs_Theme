@@ -143,6 +143,7 @@
 
                         <thead>
                         <tr class="table-header-background">
+                            <th scope="col">Zone</th>
                             <th scope="col">Branch</th>
                             <th scope="col">Disbursement</th>
                             <th scope="col">Recovery</th>
@@ -153,6 +154,7 @@
                         </thead>
                         <tbody *ngIf="CirclePositions">
                         <tr *ngFor="let item of CirclePositions | paginate: { itemsPerPage: 5, currentPage: p }">
+                            <td>{{item?.ZoneName}}</td>
                             <td>{{item.Name}}</td>
                             <td>{{item.TotalDisbursment}}</td>
                             <td>{{item.TotalRecovery}}</td>

@@ -12,6 +12,7 @@ import {environment} from '../../../../../environments/environment';
 import {Profile} from "../../../user-management/activity/activity.model";
 import {TourPlan} from "../../../tour-plan/Model/tour-plan.model";
 import moment, {Moment} from "moment";
+import {Validators} from "@angular/forms";
 
 @Injectable({
     providedIn: 'root',
@@ -440,6 +441,60 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
+    removeValidators(form) {
+        this.removeValidations('mutation', form)
+        this.removeValidations('utilization', form)
+        this.removeValidations('rec', form)
+        this.removeValidations('technology', form)
+        this.removeValidations('loan', form)
+        this.removeValidations('other', form)
+    }
+
+    removeValidations(value, form) {
+        if (form) {
+            const controls = form.controls;
+            Object.keys(controls).forEach(controlName => {
+                    if (controlName.toLocaleLowerCase().includes(value)) {
+                        controls[controlName].removeValidators(Validators.required);
+                    }
+                }
+            );
+
+        }
+    }
+
+    applyValidations(value, form) {
+        if (form) {
+            const controls = form.controls;
+            Object.keys(controls).forEach(controlName => {
+                    if (controlName.toLocaleLowerCase().includes(value)) {
+                        controls[controlName].setValidators(Validators.required);
+                        if (form.controls[controlName].value == null)
+                            form.controls[controlName].setValue(null);
+                    }
+                }
+            );
+
+        }
+    }
+
+    changeValidators(gridForm, TourPlan, value) {
+        this.removeValidators(gridForm);
+        let purpose_name = TourPlan.filter(obj => obj.TourPlanId == value)[0]?.PurposeName;
+        if (purpose_name == 'Checking of Mutations') {
+            this.applyValidations('mutation', gridForm)
+        } else if (purpose_name == "Checking of Utilization") {
+            this.applyValidations('utilization', gridForm)
+        } else if (purpose_name == 'Recovery Operations') {
+            this.applyValidations('rec', gridForm)
+        } else if (purpose_name == 'Dissemination of Technology') {
+            this.applyValidations('technology', gridForm)
+        } else if (purpose_name == "Loan Appraisal") {
+            this.applyValidations('loan', gridForm)
+        } else if (purpose_name == "Others") {
+            this.applyValidations('other', gridForm)
+        }
+    }
 }
 
 export class Targets {
