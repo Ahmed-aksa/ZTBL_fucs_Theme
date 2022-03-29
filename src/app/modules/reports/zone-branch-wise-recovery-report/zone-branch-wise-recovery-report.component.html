@@ -8,75 +8,76 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
-<!--            <p class="text-right">-->
-<!--                <button aria-controls="collapseExample" aria-expanded="false"-->
-<!--                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"-->
-<!--                        color="primary" onclick="toggleCollapse()" type="button">-->
-<!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
-<!--                    Advance Filter-->
-<!--                </button>-->
-<!--            </p>-->
+            <p class="text-right">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
+                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
 
         </div>
     </div>
 
-
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
+            <div class="card card-body">
+                <form [formGroup]="reportForm" class="kt-form kt-form--group-seperator-dashed">
+
+                    <div class="kt-form">
+
+                        <div class="kt-portlet__body">
+
+                            <div class="col-lg-12">
+                                <div class="flex" style="flex-wrap: wrap;">
+
+                                    <!--                                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="bufricationForm"-->
+                                    <!--                                                            [is_required_circle]="false" [required_branch]="true"-->
+                                    <!--                                                            [show_branch]="true"-->
+                                    <!--                                                            [show_circle]="false"></app-zone-branch-circle>-->
+
+
+                                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>
+                                            </mat-label>
+                                            <input matInput [matDatepicker]="picker2" formControlName="WorkingDate" maxlength="30"
+                                                   autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+
+                                        <button (click)="find()" class="bg-gray-500" color="primary" mat-raised-button>
+                                            <mat-icon class="mr-2">search</mat-icon>
+                                            Find
+                                        </button>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div id="Kt-portlet-margin-top" *ngIf="showTable">
+        <div class="collapse show" id="collapseExample">
             <div class="mt-4">
-<!--                <form [formGroup]="bufricationForm" class="kt-form kt-form&#45;&#45;group-seperator-dashed">-->
-
-<!--                    <div class="kt-form">-->
-
-<!--                        <div class="kt-portlet__body">-->
-
-<!--                            <div class="col-lg-12">-->
-<!--                                <div class="flex" style="flex-wrap: wrap;">-->
-
-<!--                                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="bufricationForm"-->
-<!--                                                            [is_required_circle]="false" [required_branch]="true"-->
-<!--                                                            [show_branch]="true"-->
-<!--                                                            [show_circle]="false"></app-zone-branch-circle>-->
-
-
-<!--                                    &lt;!&ndash;                        <div class="col-lg-6 kt-margin-bottom-20-mobile">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                </mat-label>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                <input matInput [matDatepicker]="picker2" formControlName="WorkingDate" maxlength="30"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                       autocomplete="off" (dateChange)="isEnableWorkingDate()" appNumberOnly/>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                <mat-datepicker #picker2></mat-datepicker>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                            </mat-form-field>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"-->
-<!--                                         style="width: 225px;">-->
-<!--                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">-->
-<!--                                            <mat-label class="customMatLabel">LC#</mat-label>-->
-<!--                                            <input appNumberOnly autocomplete="off" formControlName="LcNO"-->
-<!--                                                   matInput-->
-<!--                                                   maxlength="30" placeholder="Enter LC NO"/>-->
-<!--                                        </mat-form-field>-->
-<!--                                    </div>-->
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"-->
-<!--                                         style="width: 225px;">-->
-
-<!--                                        <button (click)="find()" class="bg-gray-500" color="primary" mat-raised-button>-->
-<!--                                            <mat-icon class="mr-2">search</mat-icon>-->
-<!--                                            Find-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-
-<!--                                </div>-->
-
-
-<!--                            </div>-->
-
-<!--                        </div>-->
-<!--                    </div>-->
-
-
-<!--                </form>-->
                 <div class="col-lg-12">
                     <div class="col-lg-9 col-sm-12">
                         <div class="heading">General Recovery</div>
