@@ -56,11 +56,16 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
       this.reportForm = this.fb.group({
           WorkingDate: [null, Validators.required]
       })
-      this.currentYear = this.currentTime.getFullYear();
-      this.lastYear = this.currentTime.getFullYear()-1;
+
   }
 
-  setDate(){}
+  setDate(){
+      const date = this.reportForm.controls.WorkingDate.value;
+      console.log(this.currentTime)
+      console.log(date)
+      this.currentYear = date?._d?.getFullYear();
+      this.lastYear = date?._d?.getFullYear()-1;
+  }
 
   find(){
       this.showTable = true;
