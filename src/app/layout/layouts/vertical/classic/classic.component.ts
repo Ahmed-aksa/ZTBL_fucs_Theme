@@ -57,7 +57,10 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
 
         this.userInfo = this.userUtils.getUserDetails().User.userGroup;
         this.userInfo.forEach((single_group) => {
-            this.role = this.role + environment[single_group.ProfileID];
+            if (this.role == '')
+                this.role = environment[single_group.ProfileID];
+            else
+                this.role = this.role + ' , ' + environment[single_group.ProfileID];
         })
         this._navigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))

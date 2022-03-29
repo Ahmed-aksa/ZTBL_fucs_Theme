@@ -4,7 +4,6 @@ import {environment} from 'environments/environment';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BaseRequestModel} from '../models/base_request.model';
-import {BaseResponseModel} from '../models/base_response.model';
 import {HttpUtilsService} from './http_utils.service';
 import {UserUtilsService} from './users_utils.service';
 import {ChartOptions} from "../../modules/dashboard/dashboard.component";
@@ -64,16 +63,18 @@ export class DashboardService {
             var labels = [];
             if (data)
                 (Object.keys(data))?.forEach(x => {
-                    //if (Number(data[x]) != 0) {
+                    if (this.getCamelCase(x) == 'Audit Paras')
+                        labels.push(this.getCamelCase(x) + ' (Not Yet Digitalized)');
+                    else
                         labels.push(this.getCamelCase(x));
-                        obj.push(data[x]);
+                    obj.push(data[x]);
                     //}
 
                 });
 
             var series = [];
-            var sliceSize = 100/obj.length
-            for (let i=0; i < obj?.length; i++){
+            var sliceSize = 100 / obj.length
+            for (let i = 0; i < obj?.length; i++) {
                 series.push(sliceSize)
             }
             return {
@@ -96,18 +97,18 @@ export class DashboardService {
                     enabled: true,
                     formatter: function (val, object) {
                         let data = obj[object.seriesIndex];
-                        if(isNaN(data) && data.includes(",")){
-                            return  data.split(",")
-                        }else {
+                        if (isNaN(data) && data.includes(",")) {
+                            return data.split(",")
+                        } else {
                             return obj[object.seriesIndex];
                         }
                     }
                 },
                 tooltip: {
-                    custom: function({ series, seriesIndex, dataPointIndex, w }) {
+                    custom: function ({series, seriesIndex, dataPointIndex, w}) {
                         let value = data[w.config.labels[seriesIndex].replaceAll(" ", "")];
 
-                        return "<div class='px-3 py-2' style='background-color:"+colors[seriesIndex]+"'>" +w.config.labels[seriesIndex]+" : "+value + "</div>";
+                        return "<div class='px-3 py-2' style='background-color:" + colors[seriesIndex] + "'>" + w.config.labels[seriesIndex] + " : " + value + "</div>";
                     }
                 },
                 responsive: [
@@ -150,20 +151,20 @@ export class DashboardService {
                 (Object.keys(data))?.forEach(x => {
                     //if (Number(data[x]) != 0) {
                     let key = this.getCamelCase(x);
-                        if(key.includes("Deposit")){
-                            key += " (For Complete Branch)"
-                            labels.push(key);
-                        }else{
-                            labels.push(key);
-                        }
-                        obj.push(data[x]);
+                    if (key.includes("Deposit")) {
+                        key += " (For Complete Branch)"
+                        labels.push(key);
+                    } else {
+                        labels.push(key);
+                    }
+                    obj.push(data[x]);
                     //}
 
                 });
 
             var series = [];
-            var sliceSize = 100/obj.length
-            for (let i=0; i < obj?.length; i++){
+            var sliceSize = 100 / obj.length
+            for (let i = 0; i < obj?.length; i++) {
                 series.push(sliceSize)
             }
             return {
@@ -186,22 +187,22 @@ export class DashboardService {
                     enabled: true,
                     formatter: function (val, object) {
                         let data = obj[object.seriesIndex];
-                        if(isNaN(data) && data.includes(",")){
-                            return  data.split(",")
-                        }else {
+                        if (isNaN(data) && data.includes(",")) {
+                            return data.split(",")
+                        } else {
                             return obj[object.seriesIndex];
                         }
                     }
                 },
                 tooltip: {
-                    custom: function({ series, seriesIndex, dataPointIndex, w }) {
+                    custom: function ({series, seriesIndex, dataPointIndex, w}) {
 
                         let key = w.config.labels[seriesIndex].replaceAll(" ", "")
-                        if(key.includes("(For")){
+                        if (key.includes("(For")) {
                             key = key.split("(")[0];
                         }
                         let value = data[key];
-                        return "<div class='px-3 py-2' style='background-color:"+colors[seriesIndex]+"'>" +w.config.labels[seriesIndex]+" : "+value + "</div>";
+                        return "<div class='px-3 py-2' style='background-color:" + colors[seriesIndex] + "'>" + w.config.labels[seriesIndex] + " : " + value + "</div>";
                     }
                 },
                 responsive: [
@@ -278,8 +279,8 @@ export class DashboardService {
             return resultArray
         }, [])
 
-        
-        if(result.length > 3){
+
+        if (result.length > 3) {
             // inorder to fix the table view as per given view in FSD.
             [result[1], result[3]] = [result[3], result[1]];
             [result[2], result[3]] = [result[3], result[2]];
