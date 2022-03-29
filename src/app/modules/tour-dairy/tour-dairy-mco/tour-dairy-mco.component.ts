@@ -184,67 +184,13 @@ export class TourDiaryMcoComponent implements OnInit {
         this.setValue();
     }
 
-    applyValidations(value, form) {
-        if (form) {
-            const controls = form.controls;
-            Object.keys(controls).forEach(controlName => {
-                // controls[controlName].markAsTouched()
-                if (controlName.includes(value)) {
-                    debugger;
-                    controls[controlName].setValidators(Validators.required);
-                }
-            });
-            return;
-
-        }
-    }
 
     setValidators(value) {
-
-        this.gridForm.controls["NoOfSanctnMutationVerified"].removeValidators(Validators.required);
-        let purpose_name = this.TourPlan.filter(obj => obj.TourPlanId == value)[0]?.PurposeName;
-        if (purpose_name == 'Checking of Mutations') {
-            console.log("Checking of Mutations");
-            this.applyValidations(purpose_name, this.gridForm)
-            this.gridForm.controls["NoOfSanctnMutationVerified"].setValidators(Validators.required);
-            this.gridForm.controls["NoOfMutationPendingASOPM"].setValidators(Validators.required);
-            this.gridForm.controls["MutationVerifiedDuringMnth"].setValidators(Validators.required);
-        } else if (purpose_name == "Checking of Utilization") {
-            console.log("Checking of Utilization");
-
-            this.gridForm.controls["NoOfUtilizationChecked"].setValidators(Validators.required);
-            this.gridForm.controls["UtilizationPendingLastDate"].setValidators(Validators.required);
-            this.gridForm.controls["UtilizationVerifiedDuringMnth"].setValidators(Validators.required);
-
-        } else if (purpose_name == 'Recovery Operations') {
-            this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
-            this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
-            this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
-
-        } else if (purpose_name == 'Dissemination of Technology') {
-            console.log("Dissemination of Technology");
-
-            // this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
-            // this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
-            // this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
-        } else if (purpose_name == "Loan Appraisal") {
-            console.log("Loan Appraisal");
-            //
-            // this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
-            // this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
-            // this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
-        } else if (purpose_name == "Others") {
-            console.log("Others");
-            //
-            // this.gridForm.controls["RecNoOfNoticeDelivered"].setValidators(Validators.required);
-            // this.gridForm.controls["RecNoOfLegalNoticeDelivered"].setValidators(Validators.required);
-            // this.gridForm.controls["RecNoOfDefaulterContacted"].setValidators(Validators.required);
-        }
+        this.tourDiaryService.changeValidators(this.gridForm, this.TourPlan, value);
     }
 
+
     saveTourDiary() {
-
-
         if (!this.zone) {
 
             return;
@@ -263,8 +209,13 @@ export class TourDiaryMcoComponent implements OnInit {
 
         if (this.gridForm.invalid) {
             const controls = this.gridForm.controls;
-            Object.keys(controls).forEach(controlName =>
-                controls[controlName].markAsTouched()
+            Object.keys(controls).forEach(controlName => {
+                    if (controls[controlName].invalid) {
+                        this.toastr.error("Please add " + controlName);
+                        controls[controlName].markAsTouched()
+                        return;
+                    }
+                }
             );
             return;
         }
@@ -494,28 +445,6 @@ export class TourDiaryMcoComponent implements OnInit {
         if (mcoDiary?.DiaryId) {
             this.checkDisable = false;
         }
-        // this.gridForm.controls['DiaryId']?.setValue(mcoDiary?.DiaryId);
-        // this.gridForm.controls['TourPlanId']?.setValue(mcoDiary?.TourPlanId);
-        // this.gridForm.controls['TourDate']?.setValue(this._common.stringToDate(mcoDiary?.TourDate));
-        // this.gridForm.controls['DepartureFromPlace']?.setValue(mcoDiary?.DepartureFromPlace);
-        // this.gridForm.controls['DepartureFromTime']?.setValue(mcoDiary?.DepartureFromTime);
-        // this.gridForm.controls['ArrivalAtPlace']?.setValue(mcoDiary?.ArrivalAtPlace);
-        // this.gridForm.controls['ArrivalAtTime']?.setValue(mcoDiary?.ArrivalAtTime);
-        // this.gridForm.controls['DisbNoOfCasesReceived']?.setValue(mcoDiary?.DisbNoOfCasesReceived);
-        // this.gridForm.controls['DisbNoOfCasesAppraised']?.setValue(mcoDiary?.DisbNoOfCasesAppraised);
-        // this.gridForm.controls['DisbNoOfRecordVerified']?.setValue(mcoDiary?.DisbNoOfRecordVerified);
-        // this.gridForm.controls['DisbNoOfSanctionedAuthorized']?.setValue(mcoDiary?.DisbNoOfSanctionedAuthorized);
-        // this.gridForm.controls['DisbSanctionLetterDelivered']?.setValue(mcoDiary?.DisbSanctionLetterDelivered);
-        // this.gridForm.controls['DisbSupplyOrderDelivered']?.setValue(mcoDiary?.DisbSupplyOrderDelivered);
-        // this.gridForm.controls['NoOfSanctnMutationVerified']?.setValue(mcoDiary?.NoOfSanctnMutationVerified);
-        // this.gridForm.controls['NoOfUtilizationChecked']?.setValue(mcoDiary?.NoOfUtilizationChecked);
-        // this.gridForm.controls['RecNoOfNoticeDelivered']?.setValue(mcoDiary?.RecNoOfNoticeDelivered);
-        // this.gridForm.controls['RecNoOfLegalNoticeDelivered']?.setValue(mcoDiary?.RecNoOfLegalNoticeDelivered);
-        // this.gridForm.controls['RecNoOfDefaulterContacted']?.setValue(mcoDiary?.RecNoOfDefaulterContacted);
-        // this.gridForm.controls['TOTFarmersContacted']?.setValue(mcoDiary?.TOTFarmersContacted);
-        // this.gridForm.controls['TOTNoOfFarmersVisisted']?.setValue(mcoDiary?.TOTNoOfFarmersVisisted);
-        // this.gridForm.controls['AnyOtherWorkDone']?.setValue(mcoDiary?.AnyOtherWorkDone);
-        // this.gridForm.controls['Remarks']?.setValue(mcoDiary?.Remarks);
         delete mcoDiary.CircleId;
         this.gridForm.patchValue(mcoDiary);
 

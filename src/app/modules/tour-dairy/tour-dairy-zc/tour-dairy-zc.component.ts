@@ -97,7 +97,7 @@ export class TourDiaryZcComponent implements OnInit {
             if (this.data) {
                 if (!this.zone) {
                     this.zone = {
-                        ZoneId: this.data.TourDiaries[0].ZoneId
+                        ZoneId: this.data.ZoneId
                     };
                 }
 
@@ -124,6 +124,18 @@ export class TourDiaryZcComponent implements OnInit {
                 '',
                 Message,
                 null
+            );
+            return;
+        }
+        if (this.gridForm.invalid) {
+            const controls = this.gridForm.controls;
+            Object.keys(controls).forEach(controlName => {
+                    if (controls[controlName].invalid) {
+                        this.toastr.error("Please add " + controlName);
+                        controls[controlName].markAsTouched()
+                        return;
+                    }
+                }
             );
             return;
         }
@@ -324,8 +336,8 @@ export class TourDiaryZcComponent implements OnInit {
         }
         this.gridForm.patchValue(zcDiary);
         this.gridForm.get('TourDate').patchValue(this._common.stringToDate(zcDiary.TourDate));
-        // this.ArrivalAtId = zcDiary?.ArrivalAtId;
-        // this.DepartureFromId = zcDiary?.DepartureFromId;
+        this.ArrivalAtId = zcDiary?.ArrivalAtId;
+        this.DepartureFromId = zcDiary?.DepartureFromId;
         this.isUpdate = true;
 
         this.date = zcDiary.TourDate;
@@ -454,5 +466,9 @@ export class TourDiaryZcComponent implements OnInit {
         this.location.back();
     }
 
+
+    setValidators(value) {
+        this.tourDiaryService.changeValidators(this.gridForm, this.TourPlan, value);
+    }
 }
 
