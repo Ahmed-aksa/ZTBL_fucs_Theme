@@ -38,7 +38,15 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
     statusLov: any;
     loading = false;
 
+    table_1: any;
+    table_2: any;
+    table_3: any;
+    total_table2: any;
+
+    response: any;
+
     public reports = new Bufrication();
+
   constructor(
       private fb: FormBuilder,
       private userUtilsService: UserUtilsService,
@@ -61,48 +69,60 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
 
   setDate(){
       const date = this.reportForm.controls.WorkingDate.value;
-      console.log(this.currentTime)
-      console.log(date)
       this.currentYear = date?._d?.getFullYear();
       this.lastYear = date?._d?.getFullYear()-1;
+      this.showTable = false;
   }
 
   find(){
-      this.showTable = true;
+      //this.showTable = true;
 
-      // if (this.reportForm.invalid) {
-      //     this.toastr.error("Please Enter Required values");
-      //     this.reportForm.markAllAsTouched();
-      //     return;
-      // }
-      //
-      // this.reports = Object.assign(this.reports, this.reportForm.value);
-      // this.reports.ReportsNo = "35";
-      // //this.reports.ReportFormatType = "2";
-      //
-      //
-      // this.spinner.show();
-      // this._reports.reportDynamic(this.reports)
-      //     .pipe(
-      //         finalize(() => {
-      //             this.loaded = true;
-      //             this.loading = false;
-      //             this.spinner.hide();
-      //         })
-      //     )
-      //     .subscribe((baseResponse: any) => {
-      //         if (baseResponse.Success === true) {
-      //             //this.showTable = true;  Set After API Integrated
-      //             //this.controlReset();
-      //             //window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
-      //         } else {
-      //             this.layoutUtilsService.alertElement("", baseResponse.Message);
-      //         }
-      //     })
+      if (this.reportForm.invalid) {
+          this.toastr.error("Please Enter Required values");
+          this.reportForm.markAllAsTouched();
+          return;
+      }
+
+      this.reports = Object.assign(this.reports, this.reportForm.value);
+      this.reports.ReportsNo = "35";
+      this.reports.WorkingDate = this.datePipe.transform(this.reports.WorkingDate, 'ddMMyyyy');
+      //this.reports.ReportFormatType = "2";
+
+
+      this.spinner.show();
+      this._reports.reportDynamic(this.reports)
+          .pipe(
+              finalize(() => {
+                  this.loaded = true;
+                  this.loading = false;
+                  this.spinner.hide();
+              })
+          )
+          .subscribe((baseResponse: any) => {
+              if (baseResponse.Success === true) {
+                  debugger
+                  this.showTable = true;  //Set After API Integrated
+                  //this.controlReset();
+                  this.response = JSON.parse(baseResponse?.Resp)
+                  this.table_1 = this.response?.dataTable
+                  this.table_2 = this.response?.dataTable2
+                  this.table_3 = this.response?.dataTable3
+                  console.log(this.response)
+                  //window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+              } else {
+                  this.layoutUtilsService.alertElement("", baseResponse.Message);
+              }
+          })
   }
 
   printReport(){
+      debugger
+      var printContents = document.getElementById('table').innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
       window.print();
+      document.body.innerHTML = originalContents;
+      //window.close();
   }
 
 }

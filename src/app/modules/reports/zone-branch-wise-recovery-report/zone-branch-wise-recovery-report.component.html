@@ -42,10 +42,10 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                                             </mat-label>
-                                            <input matInput [matDatepicker]="picker2" formControlName="WorkingDate" maxlength="30" [max]="currentTime"
+                                            <input matInput [matDatepicker]="picker" formControlName="WorkingDate" maxlength="30" [max]="currentTime"
                                                    autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
-                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker2></mat-datepicker>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
                                         </mat-form-field>
                                     </div>
 
@@ -77,7 +77,7 @@
 
     <div id="Kt-portlet-margin-top" *ngIf="showTable">
         <div class="collapse show" id="collapseExample">
-            <div class="mt-4">
+            <div class="mt-4" id="table">
                 <div class="col-lg-12">
                     <div class="col-lg-9 col-sm-12">
                         <div class="heading">General Recovery</div>
@@ -110,17 +110,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let data of table_1">
+                                <td>{{data?.RECY_AMT_DAILY_N}}</td>
+                                <td>{{data?.RECY_AMT_DAILY_O}}</td>
+                                <td>{{data?.INC_DEC_D}}</td>
+                                <td>{{data?.RECY_AMT_MON_N}}</td>
+                                <td>{{data?.RECY_AMT_MON_O}}</td>
+                                <td>{{data?.INC_DEC_M}}</td>
+                                <td>{{data?.OS_ASOF_N}}</td>
+                                <td>{{data?.R_ABLE_N}}</td>
+                                <td>{{data?.RECY_AMT_PROG_N}}</td>
+                                <td>{{data?.PER_N}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -153,16 +153,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let data of table_1">
+                                <td>{{data?.OS_ASOF_O}}</td>
+                                <td>{{data?.R_ABLE_O}}</td>
+                                <td>{{data?.RECY_AMT_PROG_O}}</td>
+                                <td>{{data?.PER_O}}</td>
+                                <td>{{data?.INC_DEC_P}}</td>
+                                <td>{{data?.PER_U}}</td>
+                                <td>{{data?.RECY_MK_PROG_N}}</td>
+                                <td>{{data?.RECY_MK_PROG_O}}</td>
+                                <td>{{data?.INC_DEC_MK_P}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -182,61 +182,45 @@
                             <thead>
                             <tr class="table-header-background">
                                 <th>Category</th>
-                                <th colspan="4">NPLs TOTAL</th>
+                                <th colspan="6">NPLs TOTAL</th>
                             </tr>
 
                             <tr class="table-header-background">
                                 <th rowspan="2"></th>
-                                <th colspan="2">NPLs {{currentYear}}</th>
-                                <th colspan="2">NPLs {{lastYear}}</th>
+                                <th colspan="3">NPLs {{currentYear}}</th>
+                                <th colspan="3">NPLs {{lastYear}}</th>
                             </tr>
 
                             <tr class="table-header-background">
                                 <th>Amount</th>
                                 <th>%Age with Total</th>
+                                <th>Total</th>
                                 <th>Amount</th>
                                 <th>%Age with Total</th>
+                                <th>Total</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>OAEM</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let data2 of table_2">
+                                <td>{{data2?.CATEGORY_N}}</td>
+                                <td>{{data2?.AMOUNT_N}}</td>
+                                <td>{{data2?.PERCENTAGE_TOTAL_N}}</td>
+                                <td>{{data2?.TOAL_NPL_N}}</td>
+                                <td>{{data2?.AMOUNT_O}}</td>
+                                <td>{{data2?.PERCENTAGE_TOTAL_O}}</td>
+                                <td>{{data2?.TOAL_NPL_O}}</td>
                             </tr>
-                            <tr>
-                                <td>Substandard</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Doubtful</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Loss</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Total</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <td>Total</td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                            </tr>-->
                             </tbody>
                         </table>
                     </div>
+
 
                     <div class="col-lg-12 p-0  border shadow-xs rounded-sm bg-gray-50 mt-2 mb-2">
                         <table class="table table-striped">
@@ -254,15 +238,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let data2 of table_2">
+                                <td>{{data2?.NPL_INC_DEC}}</td>
+                                <td>{{data2?.TOTAL_OS_N}}</td>
+                                <td>{{data2?.RATIO_OS_N}}</td>
+                                <td>{{data2?.TOTAL_OS_O}}</td>
+                                <td>{{data2?.RATIO_OS_O}}</td>
+                                <td>{{data2?.RATIO_INC_DEC}}</td>
+                                <td>{{data2?.DAILY_RED_NPL}}</td>
+                                <td>{{data2?.DAILY_RED_PRV}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -300,14 +284,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr *ngFor="let data3 of table_3">
+                                <td>{{data3?.RECOVERY_DAY}}</td>
+                                <td>{{data3?.RECOVERY_DAY_P}}</td>
                                 <td></td>
+                                <td>{{data3?.RECOVERY_MONTH}}</td>
+                                <td>{{data3?.RECOVERY_MONTH_P}}</td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{data3?.OS_CYEAR}}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -337,8 +321,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
+                            <tr *ngFor="let data3 of table_3">
+                                <td>{{data3?.OS_LYEAR}}</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -353,21 +337,21 @@
 
                 </div>
 
-                <div class="row mt-2 mr-1">
-                    <div class="col-lg-12 text-right">
-                        <button (click)="printReport()"
-                                class="mr-2 bg-green" color="primary" mat-raised-button
-                                type="button">
-                            <mat-icon class="mr-2">print</mat-icon>
-                            Print
-                        </button>
-                    </div>
-                </div>
-
             </div>
 
         </div>
 
+    </div>
+
+    <div class="row mt-2 mr-1" *ngIf="showTable">
+        <div class="col-lg-12 text-right">
+            <button (click)="printReport()"
+                    class="mr-2 bg-green" color="primary" mat-raised-button
+                    type="button">
+                <mat-icon class="mr-2">print</mat-icon>
+                Print
+            </button>
+        </div>
     </div>
 
 
