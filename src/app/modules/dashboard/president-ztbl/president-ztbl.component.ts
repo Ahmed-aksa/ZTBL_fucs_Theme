@@ -47,7 +47,7 @@ export class PresidentZtblComponent implements OnInit {
         this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank  Book');
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No. Of Borrowers');
-        this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfAccountHolder, 'No. Of Accounts');
+        this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfAccountHolder, 'No. Of Deposit Accounts');
         this.ResourcesCount = DashboardReport?.ResourcesCount;
         this.CountryWorst5 = DashboardReport?.CountryWorst5;
         this.CountryTop5 = DashboardReport?.CountryTop5;

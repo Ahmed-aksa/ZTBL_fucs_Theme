@@ -1,13 +1,15 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { Navigation } from 'app/core/navigation/navigation.types';
-import { NavigationService } from 'app/core/navigation/navigation.service';
-import { UserUtilsService } from "../../../../shared/services/users_utils.service";
-import { SessionExpireService } from 'app/shared/services/session-expire.service';
+import {Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
+import {FuseNavigationService, FuseVerticalNavigationComponent} from '@fuse/components/navigation';
+import {Navigation} from 'app/core/navigation/navigation.types';
+import {NavigationService} from 'app/core/navigation/navigation.service';
+import {UserUtilsService} from "../../../../shared/services/users_utils.service";
+import {SessionExpireService} from 'app/shared/services/session-expire.service';
+import {environment} from "../../../../../environments/environment";
+
 @Component({
     selector: 'classic-layout',
     templateUrl: './classic.component.html',
@@ -26,7 +28,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     showMapViolate = false;
     showMapReq = false;
     showNotification = false;
-
+    role = '';
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -40,7 +42,6 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService,
         private _sessionExpireService: SessionExpireService,
-
     ) {
 
     }
@@ -48,14 +49,16 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     get currentYear(): number {
         return new Date().getFullYear();
     }
+
     ngOnInit(): void {
 
 
         this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
 
         this.userInfo = this.userUtils.getUserDetails().User.userGroup;
-        console.log(this.userInfo)
-
+        this.userInfo.forEach((single_group) => {
+            this.role = this.role + environment[single_group.ProfileID];
+        })
         this._navigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((navigation: Navigation) => {
@@ -64,12 +67,12 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
 
         this._fuseMediaWatcherService.onMediaChange$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(({ matchingAliases }) => {
+            .subscribe(({matchingAliases}) => {
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
         this.SessionStart();
-        
-        
+
+
     }
 
     IsIconVisable(url) {
@@ -81,50 +84,54 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
                 var childURl = x?.children?.find(y => y.link?.includes(url))
                 if (childURl) {
                     ismatch = true;
-                }
-                else {
+                } else {
 
                 }
 
             });
             return ismatch;
-        }}
+        }
+    }
 
     ngOnDestroy(): void {
         // this._sessionExpireService.timerUnSubject();
         // this._unsubscribeAll.next();
         // this._unsubscribeAll.complete();
     }
+
     SessionStart() {
         this.setSessionTime();
-            this._sessionExpireService.count.subscribe(c => {
-                if (c == 0) {
-                    this.Logout();
-                    return;
-                }
-                if (c < 60) {
-                    this.popup = true;
-                    this.beep()
-                }
-                if(c>60){
-                    this.popup = false;
-                }
+        this._sessionExpireService.count.subscribe(c => {
+            if (c == 0) {
+                this.Logout();
+                return;
+            }
+            if (c < 60) {
+                this.popup = true;
+                this.beep()
+            }
+            if (c > 60) {
+                this.popup = false;
+            }
 
-                this.time =this.secondsToHms(c); //c.toString();
-            });
+            this.time = this.secondsToHms(c); //c.toString();
+        });
     }
+
     toggleNavigation(name: string): void {
         const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
         if (navigation) {
             navigation.toggle();
         }
     }
+
     @HostListener('window:keydown')
     @HostListener('window:mousedown')
     // @HostListener('mousemove')
     checkUserActivity() {
         this.setSessionTime();
     }
+
     setSessionTime() {
         this.sessionTime = JSON.parse(localStorage.getItem("ZTBLUser"))?.SessionExpiryTime;
         this._sessionExpireService.timer(Number(this.sessionTime));
@@ -151,7 +158,8 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
 
         this.popup = false;
     }
-     secondsToHms(d) {
+
+    secondsToHms(d) {
         d = Number(d);
         var h = Math.floor(d / 3600);
         var m = Math.floor(d % 3600 / 60);
@@ -162,5 +170,9 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
         return hDisplay + mDisplay + sDisplay;
     }
-    
+
+    getRoleName() {
+        console.log(this.userInfo);
+        // return this.userInfo;
+    }
 }
