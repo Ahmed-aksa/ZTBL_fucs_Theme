@@ -100,6 +100,11 @@ export class TourDiaryZcComponent implements OnInit {
                         ZoneId: this.data.ZoneId
                     };
                 }
+                if (!this.branch) {
+                    this.branch = {
+                        BranchId: this.data?.BranchId,
+                    }
+                }
 
                 if (this.data.hasOwnProperty('TourDiaries'))
                     this.edit(this.data.TourDiaries[0])
@@ -308,7 +313,17 @@ export class TourDiaryZcComponent implements OnInit {
             this.TourDiary.TourPlanId = data["TourPlanId"];
             this.TourDiary.Ppno = data["Ppno"];
         }
-
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
+        if (arrival_datetime < departure_datetime) {
+            var Message = 'Arrival Time should be greater than departure time';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
         this.spinner.show();
         this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'ZC')
             .pipe(

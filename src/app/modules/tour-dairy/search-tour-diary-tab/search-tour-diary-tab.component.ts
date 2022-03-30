@@ -54,7 +54,6 @@ export class SearchTourDiaryTabComponent implements OnInit {
     }
 
     redirectTourDiary(data: any, mode) {
-        debugger;
         if (data?.RedirectTo) {
 
             if (this.zone.ZoneId)
