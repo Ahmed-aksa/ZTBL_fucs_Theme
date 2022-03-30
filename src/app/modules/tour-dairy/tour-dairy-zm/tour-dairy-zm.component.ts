@@ -163,8 +163,9 @@ export class TourDiaryZmComponent implements OnInit {
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {
-            this.spinner.show();
-            this.spinner.show();
+            debugger
+            setTimeout(() => { this.spinner.show(); }, 30);
+            //this.spinner.show();
             this.tourDiaryService
                 .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM', this.gridForm.value.DepartureFromId?.toString(), this.gridForm.value.DepartureFromId?.toString())
                 .pipe(finalize(() => {
@@ -388,7 +389,6 @@ export class TourDiaryZmComponent implements OnInit {
         this.gridForm.patchValue(zmDiary);
         this.date = zmDiary.TourDate;
         this.isUpdate = true;
-        this.spinner.show();
         this.GetTourPlan()
     }
 
