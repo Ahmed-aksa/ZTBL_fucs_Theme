@@ -93,17 +93,17 @@ export class TourDiaryZmComponent implements OnInit {
 
         if (this.data) {
             if (!this.zone) {
-                if (this.data && this.data.hasOwnProperty('TourDiaries')) {
-                    this.zone = {
-                        ZoneId: this.data.TourDiaries[0].ZoneId
-                    };
-                } else {
-                    this.zone = {
-                        ZoneId: this.data.ZoneId
-                    };
+                this.zone = {
+                    ZoneId: this.data.ZoneId
+                };
+            }
+            if (!this.branch) {
+                this.branch = {
+                    BranchId: this.data?.BranchId.toString(),
                 }
             }
-            if (this.data && this.data.hasOwnProperty('TourDiaries'))
+
+            if (this.data.hasOwnProperty('TourDiaries'))
                 this.edit(this.data.TourDiaries[0])
             else {
                 this.edit(this.data)
@@ -163,6 +163,7 @@ export class TourDiaryZmComponent implements OnInit {
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {
+            this.spinner.show();
             this.spinner.show();
             this.tourDiaryService
                 .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM', this.gridForm.value.DepartureFromId?.toString(), this.gridForm.value.DepartureFromId?.toString())
@@ -263,10 +264,8 @@ export class TourDiaryZmComponent implements OnInit {
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
         }
-        // this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
-            // this.spinner.hide()
         });
     }
 
@@ -389,6 +388,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.gridForm.patchValue(zmDiary);
         this.date = zmDiary.TourDate;
         this.isUpdate = true;
+        this.spinner.show();
         this.GetTourPlan()
     }
 

@@ -479,6 +479,7 @@ export class TourDiaryService {
     }
 
     changeValidators(gridForm, TourPlan, value) {
+        debugger;
         this.removeValidators(gridForm);
         let purpose_name = TourPlan.filter(obj => obj.TourPlanId == value)[0]?.PurposeName;
         if (purpose_name == 'Checking of Mutations') {
