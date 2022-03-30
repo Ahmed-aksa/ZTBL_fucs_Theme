@@ -287,6 +287,7 @@ export class TourDiaryBmComponent implements OnInit {
         if (this.data && this.data.hasOwnProperty('TourDiaries')) {
             this.TourDiaryList = [];
             this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.setValidators(this.data?.TourPlanId);
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {
@@ -313,6 +314,10 @@ export class TourDiaryBmComponent implements OnInit {
                     }
                 });
         }
+    }
+
+    setValidators(value) {
+        this.tourDiaryService.changeValidators(this.gridForm, this.TourPlan, value);
     }
 
     assignValues() {
@@ -441,10 +446,6 @@ export class TourDiaryBmComponent implements OnInit {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
-    }
-
-    getTourDiary(event) {
-
     }
 
     editData(tour_list) {

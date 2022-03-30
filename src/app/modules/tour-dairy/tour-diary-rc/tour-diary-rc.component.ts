@@ -444,6 +444,7 @@ export class TourDiaryRcComponent implements OnInit {
 
                     this.TourDiaryList = []
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+                    this.setValidators(this.data?.TourPlanId);
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 } else {
@@ -456,6 +457,10 @@ export class TourDiaryRcComponent implements OnInit {
                 }
             });
 
+    }
+
+    setValidators(value) {
+        this.tourDiaryService.changeValidators(this.gridForm, this.TourPlan, value);
     }
 
     getTourDiary(val) {

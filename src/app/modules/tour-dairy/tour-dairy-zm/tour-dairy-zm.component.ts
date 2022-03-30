@@ -111,6 +111,10 @@ export class TourDiaryZmComponent implements OnInit {
         }
     }
 
+    setValidators(value) {
+        this.tourDiaryService.changeValidators(this.gridForm, this.TourPlan, value);
+    }
+
     setDate() {
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {
@@ -160,6 +164,7 @@ export class TourDiaryZmComponent implements OnInit {
         if (this.data && this.data.hasOwnProperty('TourDiaries')) {
             this.TourDiaryList = [];
             this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.setValidators(this.data?.TourPlanId);
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {

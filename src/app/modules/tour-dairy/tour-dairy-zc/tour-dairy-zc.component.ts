@@ -403,6 +403,7 @@ export class TourDiaryZcComponent implements OnInit {
         if (this.data?.hasOwnProperty('TourDiaries')) {
             this.TourDiaryList = [];
             this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.setValidators(this.data?.TourPlanId);
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {

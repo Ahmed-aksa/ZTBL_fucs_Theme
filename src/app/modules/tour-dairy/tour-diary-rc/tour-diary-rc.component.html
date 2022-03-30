@@ -81,7 +81,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field appearance="outline" class=" mat-form-field-fluid w-full">
                                         <mat-label>Tour Plan<strong class="matMandatory">*</strong></mat-label>
-                                        <mat-select [disabled]="!edit_mode && currentActivity?.R"
+                                        <mat-select (selectionChange)="setValidators($event.value)" [disabled]="!edit_mode && currentActivity?.R"
                                                     formControlName="TourPlanId">
                                             <mat-option>
                                                 Select
