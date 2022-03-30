@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Bufrication} from "../class/reports";
 import {DatePipe} from "@angular/common";
@@ -13,6 +13,12 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
+//PDF MAKER
+import jsPDF from 'jspdf';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import htmlToPdfmake from 'html-to-pdfmake';
 
 @Component({
     selector: 'app-zone-branch-wise-recovery-report',
@@ -46,6 +52,10 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
     response: any;
 
     public reports = new Bufrication();
+
+    title = 'htmltopdf';
+
+    @ViewChild('pdfTable') pdfTable: ElementRef;
 
   constructor(
       private fb: FormBuilder,
@@ -100,7 +110,7 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
           )
           .subscribe((baseResponse: any) => {
               if (baseResponse.Success === true) {
-                  debugger
+
                   this.showTable = true;  //Set After API Integrated
                   //this.controlReset();
                   this.response = JSON.parse(baseResponse?.Resp)
@@ -116,13 +126,21 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
   }
 
   printReport(){
-      debugger
-      var printContents = document.getElementById('table').innerHTML;
-      var originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
+      // debugger
+      // var printContents = document.getElementById('table').innerHTML;
+      // var originalContents = document.body.innerHTML;
+      // document.body.innerHTML = printContents;
+      // window.print();
+      // document.body.innerHTML = originalContents;
       //window.close();
+      const doc = new jsPDF();
+
+      const pdfTable = this.pdfTable.nativeElement;
+
+      var html = htmlToPdfmake(pdfTable.innerHTML);
+
+      const documentDefinition = { content: html };
+      pdfMake.createPdf(documentDefinition).open();
   }
 
 }

@@ -77,7 +77,7 @@
 
     <div id="Kt-portlet-margin-top" *ngIf="showTable">
         <div class="collapse show" id="collapseExample">
-            <div class="mt-4" id="table">
+            <div class="mt-4" id="pdfTable" #pdfTable>
                 <div class="col-lg-12">
                     <div class="col-lg-9 col-sm-12">
                         <div class="heading">General Recovery</div>
@@ -194,10 +194,10 @@
                             <tr class="table-header-background">
                                 <th>Amount</th>
                                 <th>%Age with Total</th>
-                                <th>Total</th>
+                                <th>Total {{currentYear}}</th>
                                 <th>Amount</th>
                                 <th>%Age with Total</th>
-                                <th>Total</th>
+                                <th>Total {{lastYear}}</th>
                             </tr>
                             </thead>
                             <tbody>
