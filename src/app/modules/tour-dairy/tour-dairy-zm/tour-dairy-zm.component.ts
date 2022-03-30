@@ -168,8 +168,7 @@ export class TourDiaryZmComponent implements OnInit {
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {
-            debugger
-            setTimeout(() => { this.spinner.show(); }, 30);
+            setTimeout(() => { this.spinner.show(); }, 1000);
             //this.spinner.show();
             this.tourDiaryService
                 .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM', this.gridForm.value.DepartureFromId?.toString(), this.gridForm.value.DepartureFromId?.toString())
