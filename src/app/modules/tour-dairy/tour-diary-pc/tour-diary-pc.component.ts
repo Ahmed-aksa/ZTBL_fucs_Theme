@@ -301,6 +301,7 @@ export class TourDiaryPcComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.TourDiaryList = [];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+                    this.setValidators(this.data?.TourPlanId);
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated = baseResponse?.TourDiary?.SystemGeneratedData;
                 } else {
@@ -312,6 +313,10 @@ export class TourDiaryPcComponent implements OnInit {
                 }
             });
 
+    }
+
+    setValidators(value) {
+        this.tourDiaryService.changeValidators(this.gridForm, this.TourPlan, value);
     }
 
     assignValues() {

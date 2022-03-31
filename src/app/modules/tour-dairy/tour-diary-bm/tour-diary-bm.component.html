@@ -73,7 +73,7 @@
                                     <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">Tour Plan<strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <mat-select (selectionChange)="getTourDiary($event)"
+                                        <mat-select (selectionChange)="setValidators($event.value)"
                                                     [disabled]="!edit_mode && currentActivity?.R"
                                                     formControlName="TourPlanId">
                                             <mat-option>
