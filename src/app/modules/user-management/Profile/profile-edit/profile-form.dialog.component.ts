@@ -527,5 +527,32 @@ export class ProfileFormDialogComponent implements OnInit {
         });
     }
 
+    updateAllActivityDetails(event, ActivityID: any, child: any, from_all = null) {
+        if (!from_all) {
+            // @ts-ignore
+            document.getElementById(ActivityID + 'activity').checked = false;
+        }
+        if (event.target.checked) {
+            child.C = child.R = child.U = child.D = false;
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'create', child.C ? true : false)
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'read', child.R ? true : false)
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'update', child.U ? true : false)
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'delete', child.D ? true : false)
+        } else {
+            child.C = child.R = child.U = child.D = true;
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'create', child.C ? true : false)
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'read', child.R ? true : false)
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'update', child.U ? true : false)
+            this.updateActivityDetails(ActivityID, child.ActivityID, 'delete', child.D ? true : false)
+        }
+    }
+
+    updateGeneralActivityDetails($event: Event, activity) {
+        activity.ChildActvities.forEach(single_child => {
+            this.updateAllActivityDetails($event, activity.ActivityID, single_child, true);
+            // @ts-ignore
+            document.getElementById(single_child.ActivityID).checked = $event.target.checked;
+        })
+    }
 }
 

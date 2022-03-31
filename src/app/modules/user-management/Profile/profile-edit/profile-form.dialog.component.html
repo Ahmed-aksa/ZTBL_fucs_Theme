@@ -90,6 +90,8 @@
                             <table class="table table-responsive" style="display: inline-table !important;">
                                 <thead class="thead-light">
                                 <tr class="table-header-background">
+                                    <th><input type="checkbox"
+                                               (change)="updateGeneralActivityDetails($event,activity)" [id]="activity.ActivityID+'activity'"></th>
                                     <th>Activity Name</th>
                                     <th>Activity URL</th>
                                     <th>Create</th>
@@ -100,19 +102,31 @@
                                 </thead>
                                 <tbody>
                                 <tr *ngFor="let child of activity.ChildActvities">
+                                    <td><input type="checkbox"
+                                               (change)="updateAllActivityDetails($event,activity.ActivityID,child)"
+                                               [id]="child.ActivityID">
+                                    </td>
                                     <td>{{child.ActivityName}}</td>
                                     <td>{{child.ActivityUrl}}</td>
-                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'create',child.C?true:false)" [checked]="child.C"
-                                               type="checkbox">
+                                    <td><input
+                                        (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'create',child.C?true:false)"
+                                        [checked]="child.C"
+                                        type="checkbox">
                                     </td>
-                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'read',child.R?true:false)" [checked]="child.R"
-                                               type="checkbox">
+                                    <td><input
+                                        (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'read',child.R?true:false)"
+                                        [checked]="child.R"
+                                        type="checkbox">
                                     </td>
-                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'update',child.U?true:false)" [checked]="child.U"
-                                               type="checkbox">
+                                    <td><input
+                                        (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'update',child.U?true:false)"
+                                        [checked]="child.U"
+                                        type="checkbox">
                                     </td>
-                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'delete',child.D?true:false)" [checked]="child.D"
-                                               type="checkbox">
+                                    <td><input
+                                        (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'delete',child.D?true:false)"
+                                        [checked]="child.D"
+                                        type="checkbox">
                                     </td>
                                 </tr>
                                 </tbody>
