@@ -139,8 +139,21 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
 
       var html = htmlToPdfmake(pdfTable.innerHTML);
 
-      const documentDefinition = { content: html };
-      pdfMake.createPdf(documentDefinition).open();
+      // const documentDefinition = {
+      //     info: {
+      //         title: 'Zone_Branch_Wise_Recovery_Report',
+      //         author: 'Ztbl',
+      //         subject: 'Zone_Branch_Wise_Recovery_Report',
+      //         keywords: 'Zone_Branch_Wise_Recovery_Report'
+      //     },
+      //     content: html
+      // };
+      const documentDefinition = {
+          content: html
+      };
+
+      //pdfMake.createPdf(documentDefinition).open();
+      pdfMake.createPdf(documentDefinition).download('Zone_Branch_Wise_Recovery_Report.pdf');
   }
 
 }
