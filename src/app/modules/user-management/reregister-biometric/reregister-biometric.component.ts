@@ -100,7 +100,7 @@ export class ReregisterBiometricComponent implements OnInit {
         this.getRequests();
     }
 
-    changeStatus(status: string, ppno: number) {
+    changeStatus(status: string, ppno: number,id) {
         let _title = "Confirmation?";
         let _description = "";
         if (status == 'A') {
@@ -117,7 +117,7 @@ export class ReregisterBiometricComponent implements OnInit {
             this.spinner.show();
 
             this.loading = true;
-            this.reportsService.changeBiometricReportsStatus(status, ppno)
+            this.reportsService.changeBiometricReportsStatus(status, ppno,id)
                 .pipe(
                     finalize(() => {
                         this.loading = false;

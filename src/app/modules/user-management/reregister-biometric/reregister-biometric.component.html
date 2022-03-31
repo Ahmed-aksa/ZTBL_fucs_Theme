@@ -87,7 +87,7 @@
 
                 <ng-container matColumnDef="Details">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
-                    <mat-cell *matCellDef="let request">{{request.Description}}</mat-cell>
+                    <mat-cell *matCellDef="let request">{{request.Created}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
@@ -100,12 +100,17 @@
                 <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
                     <mat-cell *matCellDef="let request">
-                        <button mat-raised-button color="primary" (click)="changeStatus('A',request.PPNo)"
-                                *ngIf="request.Status=='P' || request.Status=='C'">Allow
-                        </button>
-                        <button mat-raised-button color="warn" (click)="changeStatus('C',request.PPNo)"
-                                *ngIf="request.Status=='P' || request.Status=='A'">Reject
-                        </button>
+                        <div *ngIf="request.Enabled==null">
+
+                            <button mat-raised-button color="primary"
+                                    (click)="changeStatus('A',request.PPNo,request.Id)"
+                                    *ngIf="request.Status=='P' || request.Status=='C'">Allow
+                            </button>
+                            <button mat-raised-button color="warn" (click)="changeStatus('C',request.PPNo,request.Id)"
+                                    *ngIf="request.Status=='P' || request.Status=='A'">Reject
+                            </button>
+                        </div>
+
                     </mat-cell>
                 </ng-container>
 

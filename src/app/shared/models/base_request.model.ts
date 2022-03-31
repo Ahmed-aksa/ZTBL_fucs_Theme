@@ -43,6 +43,7 @@ export class BaseRequestModel {
     public McoTourDiary: any;
     public OTP: OTP;
     public CustomerLead: any;
+    public BiometricRequest: any;
     Token: any
     RefreshToken: any
     EligibilityRequest: any;

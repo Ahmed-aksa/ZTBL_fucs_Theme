@@ -31,11 +31,12 @@ export class ReportsService {
         );
     }
 
-    changeBiometricReportsStatus(status: string, ppno) {
+    changeBiometricReportsStatus(status: string, ppno, id) {
         let request = new BaseRequestModel();
-        request.Notification = {"Status": status}
-        request.UserInfo = {
-            "UserName": ppno
+        request.BiometricRequest = {
+            "PPNo": ppno,
+            "Id": id,
+            "Status": status
         }
         return this.http.post(`${environment.apiUrl}/Account/UpdateBiometricRegisteration`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
