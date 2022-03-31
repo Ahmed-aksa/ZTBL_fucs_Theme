@@ -129,7 +129,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <div *ngIf="!loading && dataSource.data?.length==0" class="mat-table__message">No records found</div>
+            <div *ngIf="!loading && dataSource?.data?.length==0" class="mat-table__message">No records found</div>
             <div *ngIf="loading" class="mat-table__message p-3 text-green">Please wait....</div>
 
 
