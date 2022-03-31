@@ -10,7 +10,7 @@ export const environment = {
     isMockEnabled: true, // You have to switch this, when your real back-end is done
     authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
     // apiUrl: 'http://172.16.1.228:8070/ZTBL.Api',
-     apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl,
+    apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl,
     //apiUrl: 'http://10.1.103.102:8091/UAT_APIS', //Ztbl,
     publicRSAKey: '-----BEGIN PUBLIC KEY-----\n' +
         'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3yl4HMI9P5i6cFmUCwg5\n' +
@@ -57,7 +57,9 @@ export const environment = {
     '201': 'EVP RS',
     '204': 'President',
     '207': 'EVP LMD',
-
+    '55': 'Super Admin',
+    '60': 'Ho Monitoring',
+    '67': 'BIOMET',
 
     /**
      * UAT
@@ -90,4 +92,8 @@ export const environment = {
     // '210': 'EVP RS',
     // '207': 'President',
     // '212': 'EVP LMD',
+    // '55':'Super Admin',
+    //     '60':'Ho Monitoring',
+    //     '67':'BIOMET',
+
 };

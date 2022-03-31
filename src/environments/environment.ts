@@ -67,6 +67,9 @@ export const environment = {
     '201': 'EVP RS',
     '204': 'President',
     '207': 'EVP LMD',
+    '55':'Super Admin',
+    '60':'Ho Monitoring',
+    '67':'BIOMET',
 
     /**
      * UAT
@@ -99,7 +102,9 @@ export const environment = {
     // '210': 'EVP RS',
     // '207': 'President',
     // '212': 'EVP LMD',
-
+    // '55':'Super Admin',
+    // '60':'Ho Monitoring',
+    // '67':'BIOMET',
     // 48326 ZO monitoring
     // 54536 ZDPM
     // 69996 ZM recovery
