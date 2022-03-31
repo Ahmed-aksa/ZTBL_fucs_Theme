@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe, Location} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
 import {DateFormats} from '../../../shared/classes/lov.class';
@@ -66,7 +66,8 @@ export class TourDiaryZmComponent implements OnInit {
         private router: Router,
         private toastr: ToastrService,
         private _common: CommonService,
-        private location: Location
+        private location: Location,
+        private cdRef: ChangeDetectorRef
     ) {
         this.loggedInUser = userUtilsService.getUserDetails();
     }
@@ -108,6 +109,8 @@ export class TourDiaryZmComponent implements OnInit {
             else {
                 this.edit(this.data)
             }
+
+            this.cdRef.detectChanges()
         }
     }
 
@@ -116,6 +119,7 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     setDate() {
+        debugger
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {
             try {
@@ -168,7 +172,12 @@ export class TourDiaryZmComponent implements OnInit {
             this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
             this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
         } else {
-            setTimeout(() => { this.spinner.show(); }, 1000);
+            if(this.has_previous == true){
+                setTimeout(() => { this.spinner.show(); }, 1000);
+            }else{
+                this.spinner.show()
+            }
+
             //this.spinner.show();
             this.tourDiaryService
                 .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZM', this.gridForm.value.DepartureFromId?.toString(), this.gridForm.value.DepartureFromId?.toString())
@@ -181,7 +190,7 @@ export class TourDiaryZmComponent implements OnInit {
 
                         this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                         this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                        this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                        this.systemGenerated = baseResponse?.TourDiary?.SystemGeneratedData;
                     } else {
                         this.layoutUtilsService.alertElement(
                             '',
@@ -390,7 +399,12 @@ export class TourDiaryZmComponent implements OnInit {
             this.checkDisable = false;
         }
         this.btnText = 'Update';
+
         this.gridForm.patchValue(zmDiary);
+
+        this.gridForm.controls['TourDate']?.setValue(this._common.stringToDate(zmDiary?.TourDate));
+        this.gridForm.controls['RecNoOfDefaulterContacted']?.setValue(zmDiary?.NoOfDefaulterContacted);
+
         this.date = zmDiary.TourDate;
         this.isUpdate = true;
         this.GetTourPlan()
