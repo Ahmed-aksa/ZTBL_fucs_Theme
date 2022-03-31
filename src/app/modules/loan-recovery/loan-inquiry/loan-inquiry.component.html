@@ -984,6 +984,56 @@
                     </div>
                 </div>
 
+                <div *ngIf="dataFetched==true && dataFound" class="form-group kt-form__group row">
+
+                    <div class="col-lg-12">
+                        <h3 class="heading">DBR</h3>
+
+                        <h6 class="sub-heading">Salary/Income from Different Sources:</h6>
+                        <div class="table-responsive">
+                            <table *ngIf="dynamicList?.dtIncome?.length>0"
+                                   class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background dis-table">
+                                    <th>Item Name</th>
+                                    <th>Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of dynamicList?.dtIncome; let i = index;">
+                                    <td>{{item?.ITEM_NAME}}</td>
+                                    <td>{{item?.VALUE}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p *ngIf="dynamicList?.dtIncome?.length==0">Data not found.</p>
+
+                        <h6 class="sub-heading">Loan/Liabilities:</h6>
+                        <div class="table-responsive">
+                            <table *ngIf="dynamicList?.dtLiabilities?.length>0"
+                                   class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background dis-table">
+                                    <th>Item Name</th>
+                                    <th>Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of dynamicList?.dtLiabilities; let i = index;">
+                                    <td>{{item?.ITEM_NAME}}</td>
+                                    <td>{{item?.VALUE}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p *ngIf="dynamicList?.dtLiabilities?.length==0">Data not found.</p>
+
+                    </div>
+
+
+                </div>
+
             </div>
 
         </div>
