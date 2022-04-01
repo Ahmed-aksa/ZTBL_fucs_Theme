@@ -100,7 +100,7 @@
                 <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
                     <mat-cell *matCellDef="let request">
-                        <div *ngIf="request.Ended==null">
+                        <div *ngIf='request.Ended==null || request.Ended==""'>
 
                             <button mat-raised-button color="primary"
                                     (click)="changeStatus('A',request.PPNo,request.Id)"
