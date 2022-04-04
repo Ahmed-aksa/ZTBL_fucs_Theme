@@ -12,7 +12,7 @@ export const environment = {
     Profile_id: '57',
     // apiUrl: 'http://172.16.1.228:8070/ZTBL.Api', //admins
     // apiUrl: 'http://10.250.10.139/ZTBL.Apis', //mustansar_bhai_pc
-     apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl DEV    ENV
+    apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl DEV    ENV
     // apiUrl: 'http://10.1.103.102:8091/UAT_APIS', //Ztbl UAT ENV,
     // apiUrl: 'http://10.1.32.105/ZTBL.Apis', //ZtblPCMustanser
     // apiUrl: 'http://10.1.33.158/ZTBL.Apis', //ZtblPCMustanser
@@ -67,9 +67,11 @@ export const environment = {
     '201': 'EVP RS',
     '204': 'President',
     '207': 'EVP LMD',
-    '55':'Super Admin',
-    '60':'Ho Monitoring',
-    '67':'BIOMET',
+    '55': 'Super Admin',
+    '60': 'Ho Monitoring',
+    '67': 'BIOMET',
+    '61': 'ZO MONITORING',
+    '76': 'ZONAL COMMITTE',
 
     /**
      * UAT
@@ -105,16 +107,9 @@ export const environment = {
     // '55':'Super Admin',
     // '60':'Ho Monitoring',
     // '67':'BIOMET',
-    // 48326 ZO monitoring
-    // 54536 ZDPM
-    // 69996 ZM recovery
-    // 70001 Zonal committee
-    // 81426 zonal manager ops
-    // 96387 Zonal chief
-    // 131694 MCO Sahiwal
-    // 128870 MCO Sargodha
-    // 118128 MCO Faisalabad
-    // 80834 BM Sargodha
+    // '61': 'ZO MONITORING',
+    // '76': 'ZONAL COMMITTE',
+
 
 };
 

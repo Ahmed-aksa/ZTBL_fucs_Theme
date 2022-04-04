@@ -60,6 +60,8 @@ export const environment = {
     '55': 'Super Admin',
     '60': 'Ho Monitoring',
     '67': 'BIOMET',
+    '61': 'ZO MONITORING',
+    '76': 'ZONAL COMMITTE',
 
     /**
      * UAT
@@ -95,5 +97,8 @@ export const environment = {
     // '55':'Super Admin',
     //     '60':'Ho Monitoring',
     //     '67':'BIOMET',
+    // '61': 'ZO MONITORING',
+    // '76': 'ZONAL COMMITTE',
+
 
 };
