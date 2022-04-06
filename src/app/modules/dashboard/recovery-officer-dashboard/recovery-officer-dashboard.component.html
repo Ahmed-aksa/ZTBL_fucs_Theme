@@ -118,6 +118,7 @@
                         <thead>
                         <tr class="table-header-background">
                             <th scope="col">Circle</th>
+                            <th scope="col">S #</th>
                             <th scope="col">Disbursement</th>
                             <th scope="col">Recovery</th>
                             <th scope="col">NPL</th>
@@ -126,7 +127,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let item of circlePositions">
+                        <tr *ngFor="let item of circlePositions;let i=index">
+                            <th>{{i + 1 }}</th>
                             <th>{{item?.Name}}</th>
                             <td>{{item?.TotalDisbursment}}</td>
                             <td>{{item?.TotalRecovery}}</td>

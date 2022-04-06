@@ -64,7 +64,7 @@ export class DashboardService {
             if (data)
                 (Object.keys(data))?.forEach(x => {
                     if (this.getCamelCase(x) == 'Audit Paras')
-                        labels.push(this.getCamelCase(x) + ' (Not Yet Digitalized)');
+                        labels.push(this.getCamelCase(x) + ' (Not Digitalized)');
                     else
                         labels.push(this.getCamelCase(x));
                     obj.push(data[x]);
@@ -106,8 +106,14 @@ export class DashboardService {
                 },
                 tooltip: {
                     custom: function ({series, seriesIndex, dataPointIndex, w}) {
-                        let value = data[w.config.labels[seriesIndex].replaceAll(" ", "")];
-
+                        debugger
+                        let value
+                        if(w.config.labels[seriesIndex].includes("(")){
+                            let d = w.config.labels[seriesIndex].split("(")[0].toString().trim()
+                            value = data[d.replaceAll(" ", "")]
+                        }else{
+                            value = data[w.config.labels[seriesIndex].replaceAll(" ", "")]
+                        }
                         return "<div class='px-3 py-2' style='background-color:" + colors[seriesIndex] + "'>" + w.config.labels[seriesIndex] + " : " + value + "</div>";
                     }
                 },

@@ -204,4 +204,20 @@ export class ClPendingLoanComponent implements OnInit {
             Lcno: updateLoan.LoanCaseNo
         }], {relativeTo: this.activatedRoute});
     }
+
+    isLoanEditable(loan) {
+        if ((loan.AppStatus == 1 || loan.AppStatus == 2 || loan.AppStatus == 9 || loan.AppStatus == 7) && loan.CreatedBy == JSON.parse(localStorage.getItem('ZTBLUser')).User.UserId) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    ViewOrr(updateLoan) {
+        this.router.navigate(
+            ['../../loan-recovery/loan-inquiry',
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
+            {relativeTo: this.activatedRoute}
+        );
+    }
 }

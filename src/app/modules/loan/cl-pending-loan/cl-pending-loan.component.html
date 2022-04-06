@@ -8,7 +8,8 @@
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
                 <button aria-controls="collapseExample" aria-expanded="false"
-                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" data-bs-target="#collapseExample"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" data-bs-target="#collapseExample"
                         data-bs-toggle="collapse" type="button">
                     <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
                     <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
@@ -151,9 +152,15 @@
                         <ng-container matColumnDef="Action">
                             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                             <mat-cell *matCellDef="let loan">
-                                <button (click)="editLoan(loan)" *ngIf="currentActivity?.U" color="primary"
+                                <button (click)="editLoan(loan)" *ngIf="isLoanEditable(loan) && currentActivity?.U" color="primary"
                                         mat-icon-button>
-                                    <mat-icon style="margin-left: 5px;" title="View Loan">accessibility_new</mat-icon>
+                                    <mat-icon style="margin-left: 5px;" title="Edit Loan">edit</mat-icon>
+                                </button>
+                                <button (click)="ViewOrr(loan)" *ngIf="!isLoanEditable(loan) && currentActivity?.R" color="primary"
+                                        mat-icon-button>
+                                    <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">
+                                        visibility
+                                    </mat-icon>
                                 </button>
                             </mat-cell>
                         </ng-container>

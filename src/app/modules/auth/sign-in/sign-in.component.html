@@ -27,13 +27,13 @@
 
                 <!-- Email field -->
                 <mat-form-field class="w-full">
-                    <mat-label>Name</mat-label>
+                    <mat-label>PP No.</mat-label>
                     <input
                         [formControlName]="'DisplayName'"
                         id="DisplayName"
                         matInput>
                     <mat-error *ngIf="signInForm.get('DisplayName').hasError('required')">
-                        Please enter a valid Display Name
+                        Please enter a valid Display PP No.
                     </mat-error>
                 </mat-form-field>
 
@@ -103,7 +103,8 @@
         <svg class="absolute -top-16 -right-16 text-gray-700"
              fill="none" height="192" viewBox="0 0 220 192" width="220">
             <defs>
-                <pattern height="20" id="837c3e70-6c3a-44e6-8854-cc48c737b659" patternUnits="userSpaceOnUse" width="20" x="0"
+                <pattern height="20" id="837c3e70-6c3a-44e6-8854-cc48c737b659" patternUnits="userSpaceOnUse" width="20"
+                         x="0"
                          y="0">
                     <rect fill="currentColor" height="4" width="4" x="0" y="0"></rect>
                 </pattern>

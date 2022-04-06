@@ -206,6 +206,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr class="table-header-background">
+                            <th>S #</th>
                             <th>MCO Circles</th>
                             <th>Disbursement</th>
                             <th>Recovery</th>
@@ -219,7 +220,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let item of CirclePositions">
+                        <tr *ngFor="let item of CirclePositions;let i=index">
+                            <td>{{i+1}}</td>
                             <td>{{item?.Name}}</td>
                             <td>{{item?.TotalDisbursment}}</td>
                             <td>{{item?.TotalRecovery}}</td>
