@@ -50,6 +50,7 @@ import {
 import { TourDiaryReportComponent } from './tour-diary-report/tour-diary-report.component';
 import { StatusLcInitiateByMcoComponent } from './status-lc-initiate-by-mco/status-lc-initiate-by-mco.component';
 import { ZoneBranchWiseRecoveryReportComponent } from './zone-branch-wise-recovery-report/zone-branch-wise-recovery-report.component';
+import {AccountStatementComponent} from './account-statement/account-statement.component';
 
 const routing = [
     {
@@ -188,6 +189,10 @@ const routing = [
         path: 'zone-branch-wise-recovery-report',
         component: ZoneBranchWiseRecoveryReportComponent
     },
+    {
+        path: 'account-statement',
+        component: AccountStatementComponent
+    },
 ]
 
 
@@ -227,6 +232,7 @@ const routing = [
         TourDiaryReportComponent,
         StatusLcInitiateByMcoComponent,
         ZoneBranchWiseRecoveryReportComponent,
+        AccountStatementComponent,
     ],
     imports: [
         CommonModule,
