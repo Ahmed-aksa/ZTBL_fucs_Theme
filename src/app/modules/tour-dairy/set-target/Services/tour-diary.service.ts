@@ -451,11 +451,14 @@ export class TourDiaryService {
     }
 
     removeValidations(value, form) {
+
         if (form) {
             const controls = form.controls;
             Object.keys(controls).forEach(controlName => {
                     if (controlName.toLocaleLowerCase().includes(value)) {
                         controls[controlName].removeValidators(Validators.required);
+                        controls[controlName].updateValueAndValidity();
+                        controls[controlName].markAsUntouched()
                     }
                 }
             );
@@ -464,11 +467,14 @@ export class TourDiaryService {
     }
 
     applyValidations(value, form) {
+
         if (form) {
             const controls = form.controls;
             Object.keys(controls).forEach(controlName => {
                     if (controlName.toLocaleLowerCase().includes(value)) {
                         controls[controlName].setValidators(Validators.required);
+                        controls[controlName].updateValueAndValidity();
+                        controls[controlName].markAsTouched()
                         if (form.controls[controlName].value == null)
                             form.controls[controlName].setValue(null);
                     }
@@ -479,6 +485,7 @@ export class TourDiaryService {
     }
 
     changeValidators(gridForm, TourPlan, value) {
+
         this.removeValidators(gridForm);
         let purpose_name = TourPlan.filter(obj => obj.TourPlanId == value)[0]?.PurposeName;
         if (purpose_name == 'Checking of Mutations') {
