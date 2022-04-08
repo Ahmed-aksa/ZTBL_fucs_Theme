@@ -15,6 +15,7 @@ import {Router} from "@angular/router";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {MatDialog} from "@angular/material/dialog";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-pc',
@@ -59,15 +60,16 @@ export class TourDiaryApprovalPcComponent implements OnInit {
         private _cdf: ChangeDetectorRef,
         private router: Router,
         private toastr: ToastrService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private enc: EncryptDecryptService
     ) {
         this.loggedInUser = userService.getSearchResultsDataOfZonesBranchCircle();
     }
 
     ngOnInit(): void {
         this.currentActivity = this.userService.getActivity('Tour Diary Approval For PC')
-        this.data = JSON.parse(localStorage.getItem('TourDiary'));
-        if (JSON.parse(localStorage.getItem('TourDiary'))) {
+        this.data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')));
+        if (JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')))) {
             localStorage.removeItem('TourDiary');
         } else {
             this.toastr.error("No Tour Diary For Approval Found");

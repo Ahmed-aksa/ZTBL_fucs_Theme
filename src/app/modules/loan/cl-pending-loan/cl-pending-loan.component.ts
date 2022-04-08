@@ -17,6 +17,7 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 
 @Component({
@@ -76,7 +77,8 @@ export class ClPendingLoanComponent implements OnInit {
         private _lovService: LovService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private enc: EncryptDecryptService
     ) {
         this.Math = Math;
     }
@@ -206,7 +208,7 @@ export class ClPendingLoanComponent implements OnInit {
     }
 
     isLoanEditable(loan) {
-        if ((loan.AppStatus == 1 || loan.AppStatus == 2 || loan.AppStatus == 9 || loan.AppStatus == 7) && loan.CreatedBy == JSON.parse(localStorage.getItem('ZTBLUser')).User.UserId) {
+        if ((loan.AppStatus == 1 || loan.AppStatus == 2 || loan.AppStatus == 9 || loan.AppStatus == 7) && loan.CreatedBy == JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser'))).User.UserId) {
             return true;
         } else {
             return false;

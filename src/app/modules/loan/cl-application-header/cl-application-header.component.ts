@@ -21,6 +21,7 @@ import {LovService} from 'app/shared/services/lov.service';
 import {ClUploadDocumentComponent} from "../cl-upload-document/cl-upload-document.component";
 import {ActivatedRoute} from "@angular/router";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'kt-cl-application-header',
@@ -90,7 +91,8 @@ export class ClApplicationHeaderComponent implements OnInit {
         private datePipe: DatePipe,
         private _common: CommonService,
         private _lovService: LovService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private enc: EncryptDecryptService
     ) {
     }
 
@@ -422,9 +424,9 @@ export class ClApplicationHeaderComponent implements OnInit {
                     this.loanApplicationReq.LoanCaseNo = this.applicationHeaderForm.controls.LoanCaseNo.value;
                     this.loanApplicationReq.RefDepositAcc = this.applicationHeaderForm.controls.RefDepositAcc.value;
 
-                    localStorage.setItem('loan_case_number', this.loanApplicationReq.LoanCaseNo);
-                    localStorage.setItem('loan_app_id', this.loanApplicationReq.LoanAppID);
-                    localStorage.setItem('loan_ref_deposit', this.loanApplicationReq.RefDepositAcc);
+                    localStorage.setItem('loan_case_number',this.enc.encryptStorageData(  this.loanApplicationReq.LoanCaseNo));
+                    localStorage.setItem('loan_app_id',this.enc.encryptStorageData(  this.loanApplicationReq.LoanAppID));
+                    localStorage.setItem('loan_ref_deposit',this.enc.encryptStorageData(  this.loanApplicationReq.RefDepositAcc));
 
                     const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
 

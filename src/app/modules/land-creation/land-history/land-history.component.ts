@@ -11,6 +11,7 @@ import {AppState} from "../../../shared/reducers";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {MatTableDataSource} from "@angular/material/table";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-land-history',
@@ -39,15 +40,15 @@ export class LandHistoryComponent implements OnInit {
                 private _landService: LandService,
                 private userUtilsService: UserUtilsService,
                 private _circleService: CircleService,
-                private cdRef: ChangeDetectorRef) {
+                private cdRef: ChangeDetectorRef,
+                private enc: EncryptDecryptService) {
     }
 
     ngOnInit() {
 
 
-        var u = new UserUtilsService();
         this.GetZones();
-        var userDetails = u.getUserDetails();
+        var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
         //this.LandInfo = this.route.landInfo;
         this.LandInfo.Id = this.route.snapshot.params['lID'];
@@ -150,9 +151,9 @@ export class LandHistoryComponent implements OnInit {
                 this.Branches = baseResponse.Branches;
                 Land.Branch = this.Branches.filter(x => x.BranchId == Land.BranchId);
                 Land.Zone = this.Zones.filter(x => x.ZoneId == Land.ZoneID);
-                localStorage.setItem('SearchLandData', JSON.stringify(Land));
-                localStorage.setItem('EditLandData', '1');
-                localStorage.setItem('HistoryLandInfoId', Land.ID);
+                localStorage.setItem('SearchLandData', this.enc.encryptStorageData(JSON.stringify(Land)));
+                localStorage.setItem('EditLandData', this.enc.encryptStorageData('1'));
+                localStorage.setItem('HistoryLandInfoId', this.enc.encryptStorageData(Land.ID));
                 this.router.navigate(['/land-creation/land-info-add', {upFlag: "1"}], {relativeTo: this.activatedRoute});
             } else
                 this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);

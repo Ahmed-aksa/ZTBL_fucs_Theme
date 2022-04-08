@@ -9,6 +9,7 @@ import {NavigationService} from 'app/core/navigation/navigation.service';
 import {UserUtilsService} from "../../../../shared/services/users_utils.service";
 import {SessionExpireService} from 'app/shared/services/session-expire.service';
 import {environment} from "../../../../../environments/environment";
+import {EncryptDecryptService} from "../../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'classic-layout',
@@ -42,6 +43,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService,
         private _sessionExpireService: SessionExpireService,
+        private enc: EncryptDecryptService
     ) {
 
     }
@@ -53,7 +55,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
 
 
-        this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+        this.user = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser'))).User;
 
         this.userInfo = this.userUtils.getUserDetails().User.userGroup;
         this.userInfo.forEach((single_group) => {
@@ -80,7 +82,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
 
     IsIconVisable(url) {
         var ismatch = false
-        var user = localStorage.getItem("ZTBLUser")
+        var user = this.enc.decryptStorageData(localStorage.getItem('ZTBLUser'))
         if (user) {
             var userdate = JSON.parse(user);
             userdate.MenuBar.forEach(x => {
@@ -136,7 +138,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     }
 
     setSessionTime() {
-        this.sessionTime = JSON.parse(localStorage.getItem("ZTBLUser"))?.SessionExpiryTime;
+        this.sessionTime = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser')))?.SessionExpiryTime;
         this._sessionExpireService.timer(Number(this.sessionTime));
         //this._sessionExpireService.timer(1);
     }

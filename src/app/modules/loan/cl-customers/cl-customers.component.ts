@@ -16,6 +16,7 @@ import {finalize} from 'rxjs/operators';
 import {MatDialog} from "@angular/material/dialog";
 import {CustLoanlistComponent} from "../customer-list/cust-list.component";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'kt-cl-customers',
@@ -56,7 +57,8 @@ export class ClCustomersComponent implements OnInit {
                 private _loanService: LoanService,
                 private spinner: NgxSpinnerService,
                 private _customerService: CustomerService,
-                public dialog: MatDialog,) {
+                public dialog: MatDialog,
+                private enc: EncryptDecryptService ) {
     }
 
     ngOnInit() {
@@ -68,7 +70,7 @@ export class ClCustomersComponent implements OnInit {
     }
 
     callfromPartnet() {
-        this.loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));
+        this.loan_data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('customer_loan_list')));
     }
 
     createForm() {
@@ -158,7 +160,7 @@ export class ClCustomersComponent implements OnInit {
 
                     this._loanService.getLoanDetails(loan_case_number, loan_case_id).subscribe((data: any) => {
                         this.loan_data = data.Loan.CustomersLoanAppList
-                        localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+                        localStorage.setItem('customer_loan_list', this.enc.encryptStorageData( JSON.stringify(this.loan_data)));
                     })
                     this.loanCustomerForm.controls['CNIC'].setValue("");
                     this.loanCustomerForm.controls['AGPS'].setValue("");
@@ -250,7 +252,7 @@ export class ClCustomersComponent implements OnInit {
             } else {
                 if (customerObj.CustLoanAppID == null || customerObj.CustLoanAppID == undefined || customerObj.CustLoanAppID == "") {
                     this.loan_data.splice(index, 1);
-                    localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+                    localStorage.setItem('customer_loan_list',this.enc.encryptStorageData(  JSON.stringify(this.loan_data)));
                     this.cdRef.detectChanges();
                     return true;
                 } else {
@@ -266,8 +268,8 @@ export class ClCustomersComponent implements OnInit {
                             if (baseResponse.Success === true) {
                                 const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                                 this.loan_data.splice(index, 1);
-                                localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
-                                localStorage.setItem('delete_security', 'true');
+                                localStorage.setItem('customer_loan_list',this.enc.encryptStorageData(  JSON.stringify(this.loan_data)));
+                                localStorage.setItem('delete_security',this.enc.encryptStorageData(  'true'));
                             } else {
                                 this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                             }

@@ -21,6 +21,7 @@ import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {SubmitDocumentsComponent} from "../submit-documents/submit-documents.component";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'kt-customer-profile',
@@ -135,6 +136,7 @@ export class CustomerProfileComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
         private dialogRef: MatDialog,
+        private enc: EncryptDecryptService
     ) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -154,10 +156,10 @@ export class CustomerProfileComponent implements OnInit {
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('Create Customer');
         this.images.push(this.ProfileImageSrc);
-        this.bit = localStorage.getItem('CreateCustomerBit');
+        this.bit = this.enc.decryptStorageData(localStorage.getItem('CreateCustomerBit'));
 
         if (this.bit == null || this.bit == undefined || this.bit == '' || this.bit == '10' || this.bit == '1') {
-            localStorage.setItem('CreateCustomerBit', '1');
+            localStorage.setItem('CreateCustomerBit',this.enc.encryptStorageData( '1'));
             this.router.navigate(['/customer/check-eligibility'], {relativeTo: this.activatedRoute});
             this.IsLoadPreviousData = false;
             return;
@@ -168,7 +170,7 @@ export class CustomerProfileComponent implements OnInit {
             this.IsLoadPreviousData = false;
             localStorage.removeItem('CreateCustomerBit');
         }
-        let is_edit_mode = localStorage.getItem('is_view');
+        let is_edit_mode = this.enc.decryptStorageData(localStorage.getItem('is_view'));
         if (is_edit_mode) {
             this.HideShowSaveButton = false;
             localStorage.removeItem('is_view');
@@ -177,7 +179,7 @@ export class CustomerProfileComponent implements OnInit {
         this.CurrentDate = new Date();
         this.CurrentDate = this.datePipe.transform(this.CurrentDate, MaskEnum.DateFormat);
         this.LoadLovs();
-        this.createCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
+        this.createCustomer = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('SearchCustomerStatus')));
         this.UrduFatherName = this.createCustomer.UrduFatherName
         this.UrduName = this.createCustomer.UrduName;
         this.UrduBirthPlace = this.createCustomer.UrduBirthPlace;
@@ -212,7 +214,7 @@ export class CustomerProfileComponent implements OnInit {
                 this.filterOccupation();
             });
 
-        let should_alert = localStorage.getItem('ShouldAlert');
+        let should_alert =this.enc.decryptStorageData( localStorage.getItem('ShouldAlert'));
         if (should_alert == 'true') {
             localStorage.removeItem('ShouldAlert');
         }
@@ -679,7 +681,7 @@ export class CustomerProfileComponent implements OnInit {
 
     LoadPreviousData() {
 
-        this.ObjSearchCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
+        this.ObjSearchCustomer = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('SearchCustomerStatus')));
         if (this.ObjSearchCustomer != null && this.ObjSearchCustomer != '') {
 
 
@@ -810,8 +812,8 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     ReadWriteForm() {
-        var customerStatus = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-        var user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+        var customerStatus = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('SearchCustomerStatus')));
+        var user = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser'))).User;
         if (customerStatus?.CustomerStatus.toLowerCase() == 'a' || customerStatus?.CustomerStatus.toLowerCase() == 'p')
             if (customerStatus.CreatedBy != user.UserId) {
                 this.roleForm.disable();
@@ -1104,7 +1106,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     viewHistory() {
-        localStorage.setItem('CustomerNumber', this.createCustomer.CustomerNumber);
+        localStorage.setItem('CustomerNumber',this.enc.encryptStorageData(  this.createCustomer.CustomerNumber));
         // this.router.navigate(['/customer/customer-history'])
         let url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
         url = '#' + url;

@@ -14,6 +14,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'kt-cl-upload-document',
@@ -106,6 +107,7 @@ export class ClUploadDocumentComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private cdRef: ChangeDetectorRef,
+        private enc: EncryptDecryptService
     ) {
         this.PostDocument = frmbuilder.group({
             ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
@@ -534,11 +536,11 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     assignLoanCaseNo() {
-        if (localStorage.getItem('loan_case_number')) {
+        if (this.enc.decryptStorageData(localStorage.getItem('loan_case_number'))) {
 
-            this.PostDocument.controls['LcNo'].setValue(localStorage.getItem('loan_case_number'));
-            this.loanAppID = localStorage.getItem('loan_app_id');
-            this.refDepositAccount = localStorage.getItem('loan_ref_deposit');
+            this.PostDocument.controls['LcNo'].setValue(this.enc.decryptStorageData(localStorage.getItem('loan_case_number')));
+            this.loanAppID = this.enc.decryptStorageData(localStorage.getItem('loan_app_id'));
+            this.refDepositAccount = this.enc.decryptStorageData(localStorage.getItem('loan_ref_deposit'));
 
             this.getLoanDocument()
             this.checkReadOnly();

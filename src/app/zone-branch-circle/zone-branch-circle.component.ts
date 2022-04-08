@@ -4,6 +4,7 @@ import {UserUtilsService} from "../shared/services/users_utils.service";
 import {FormControl, Validators} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
+import {EncryptDecryptService} from "../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-zone-branch-circle',
@@ -58,19 +59,20 @@ export class ZoneBranchCircleComponent implements OnInit {
     selected_single_zone = null;
     selected_single_branch = null;
 
-    constructor(private userUtilsService: UserUtilsService, private spinner: NgxSpinnerService, private toastr: ToastrService) {
+    constructor(private userUtilsService: UserUtilsService, private spinner: NgxSpinnerService, private toastr: ToastrService,
+                private enc: EncryptDecryptService) {
     }
 
     ngOnInit(): void {
 
-        if (localStorage.getItem('selected_single_zone')) {
-            this.selected_single_zone = JSON.parse(localStorage.getItem('selected_single_zone'));
+        if (this.enc.decryptStorageData(localStorage.getItem('selected_single_zone'))) {
+            this.selected_single_zone = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('selected_single_zone')));
         }
-        if (localStorage.getItem('selected_single_branch')) {
-            this.selected_single_branch = JSON.parse(localStorage.getItem('selected_single_branch'));
+        if (this.enc.decryptStorageData(localStorage.getItem('selected_single_branch'))) {
+            this.selected_single_branch = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('selected_single_branch')));
         }
-        if (localStorage.getItem('selected_single_circle')) {
-            this.selected_single_circle = JSON.parse(localStorage.getItem('selected_single_circle'));
+        if (this.enc.decryptStorageData(localStorage.getItem('selected_single_circle'))) {
+            this.selected_single_circle = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('selected_single_circle')));
 
         }
 
@@ -140,7 +142,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         }
-        if (localStorage.getItem('selected_single_zone')) {
+        if (this.enc.decryptStorageData(localStorage.getItem('selected_single_zone'))) {
             this.spinner.show();
 
             if (this.SelectedZones && this.SelectedZones.length != 0) {
@@ -273,7 +275,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     private addFormControls() {
-        let localStorageData = JSON.parse(localStorage.getItem('ZTBLUser'));
+        let localStorageData = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser')));
 
         if (this.required_branch && localStorageData.Branch) {
             this.form.addControl('BranchCode', new FormControl(null, Validators.required))

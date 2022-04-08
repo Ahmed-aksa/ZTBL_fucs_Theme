@@ -15,6 +15,7 @@ import {ToastrService} from "ngx-toastr";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {CommonService} from "../../../shared/services/common.service";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-zc',
@@ -68,7 +69,8 @@ export class TourDiaryZcComponent implements OnInit {
         private router: Router,
         private toastr: ToastrService,
         private _common: CommonService,
-        private location: Location
+        private location: Location,
+        private enc: EncryptDecryptService
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -80,11 +82,11 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        this.data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')))
         if (this.data) {
             this.has_previous = true;
             localStorage.removeItem('TourDiary');
-            if (localStorage.getItem('visibility') == 'false') {
+            if (this.enc.decryptStorageData(localStorage.getItem('visibility')) == 'false') {
                 this.edit_mode = true;
             } else {
                 this.edit_mode = false;
@@ -478,7 +480,7 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     previous() {
-        localStorage.setItem('back_to_list', 'true');
+        localStorage.setItem('back_to_list',this.enc.encryptStorageData( 'true'));
         this.location.back();
     }
 

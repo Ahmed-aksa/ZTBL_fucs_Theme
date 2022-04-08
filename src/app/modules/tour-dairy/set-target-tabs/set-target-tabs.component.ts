@@ -15,6 +15,7 @@ import {finalize} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {BankTarget, Target} from "../set-target/Models/set-target.model";
 import {SetTargetService} from "../set-target/Services/set-target.service";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 class SetTarget {
     Id: number;
@@ -116,7 +117,8 @@ export class SetTargetTabsComponent implements OnInit {
         private _setTarget: SetTargetService,
         private dialog: MatDialog,
         private route: ActivatedRoute,
-        private _common: CommonService
+        private _common: CommonService,
+        private enc: EncryptDecryptService
     ) {
         router.events.subscribe((val: any) => {
             if (val.url == '/set-targettomer/customers') {
@@ -203,7 +205,7 @@ export class SetTargetTabsComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
+        this.userGroup = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("ZTBLUser")))?.User?.userGroup
         debugger
         this.GetTragetDuration();
         this.createForm();

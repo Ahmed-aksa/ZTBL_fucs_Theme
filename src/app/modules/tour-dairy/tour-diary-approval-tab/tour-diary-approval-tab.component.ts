@@ -8,6 +8,7 @@ import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-to
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-tab',
@@ -38,7 +39,8 @@ export class TourApprovalTabComponent implements OnInit {
         private tourDiaryService: TourDiaryService,
         private spinner: NgxSpinnerService,
         private router: Router,
-        private activatedRoute: ActivatedRoute,) {
+        private activatedRoute: ActivatedRoute,
+        private enc: EncryptDecryptService ) {
     }
 
     ngOnInit(): void {
@@ -223,11 +225,11 @@ export class TourApprovalTabComponent implements OnInit {
     redirectTourDiary(data: any) {
 
         if (data?.RedirectTo) {
-            localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+            localStorage.setItem('selected_single_zone',this.enc.encryptStorageData(  JSON.stringify(this.zone.ZoneId)));
             if (this.branch)
-                localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
+                localStorage.setItem('selected_single_branch',this.enc.encryptStorageData(  JSON.stringify(this.branch?.BranchCode)));
             localStorage.removeItem('TourDiary')
-            localStorage.setItem('TourDiary', JSON.stringify(data));
+            localStorage.setItem('TourDiary',this.enc.encryptStorageData(  JSON.stringify(data)));
             this.router.navigate([data?.RedirectTo], {
                 relativeTo: this.activatedRoute
             });

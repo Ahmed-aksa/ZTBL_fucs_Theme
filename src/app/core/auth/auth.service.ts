@@ -10,6 +10,7 @@ import {BaseRequestModel, OTP} from "../../shared/models/base_request.model";
 import {environment} from "../../../environments/environment";
 import {BaseResponseModel} from "../../shared/models/base_response.model";
 import {UserUtilsService} from "../../shared/services/users_utils.service";
+import {EncryptDecryptService} from "../../shared/services/encrypt_decrypt.service";
 
 @Injectable()
 export class AuthService {
@@ -21,30 +22,31 @@ export class AuthService {
         private httpUtils: HttpClient,
         private _userService: UserService,
         private _userUtilsService: UserUtilsService,
+        private enc: EncryptDecryptService
     ) {
 
     }
 
     set accessToken(token: string) {
         if (typeof token != 'undefined') {
-            localStorage.setItem('accessToken', token);
+            localStorage.setItem('accessToken', this.enc.encryptStorageData(token));
 
         }
     }
 
     get accessToken(): string {
-        return localStorage.getItem('accessToken') ?? '';
+        return this.enc.decryptStorageData(localStorage.getItem('accessToken')) ?? '';
     }
 
     set ZTBLUserRefreshToke(token: string) {
         if (typeof token != 'undefined') {
-            localStorage.setItem('ZTBLUserRefreshToke', token);
+            localStorage.setItem('ZTBLUserRefreshToke', this.enc.encryptStorageData(token));
 
         }
     }
 
     get ZTBLUserRefreshToke(): string {
-        return localStorage.getItem('ZTBLUserRefreshToke') ?? '';
+        return this.enc.decryptStorageData(localStorage.getItem('ZTBLUserRefreshToke')) ?? '';
     }
 
     forgotPassword(email: string): Observable<any> {
@@ -70,7 +72,7 @@ export class AuthService {
             {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
                 if (response.Success && !response.isWebOTPEnabled) {
-                    localStorage.setItem('ZTBLUser', JSON.stringify(response));
+                    localStorage.setItem('ZTBLUser', this.enc.encryptStorageData(JSON.stringify(response)));
                     this.accessToken = response.Token;
                     this.ZTBLUserRefreshToke = response.RefreshToken;
                     this._authenticated = true;
@@ -89,12 +91,10 @@ export class AuthService {
         request.OTP.Text = text;
         request.User = loginMode;
         request.UserPasswordDetails = loginMode;
-        debugger;
         return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, request,
             {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
-                debugger;
-                localStorage.setItem('ZTBLUser', JSON.stringify(response));
+                localStorage.setItem('ZTBLUser', this.enc.encryptStorageData(JSON.stringify(response)));
                 this.accessToken = response.Token;
                 this.ZTBLUserRefreshToke = response.RefreshToken;
                 this._authenticated = true;
@@ -106,8 +106,8 @@ export class AuthService {
     refreshToken(token: string) {
 
         this.request = new BaseRequestModel();
-        const refreshToken = (localStorage.getItem('ZTBLUserRefreshToke'));
-        const expiredToken = (localStorage.getItem('accessToken'));
+        const refreshToken = this.enc.decryptStorageData(localStorage.getItem('ZTBLUserRefreshToke'));
+        const expiredToken = this.enc.decryptStorageData(localStorage.getItem('accessToken'));
         this.request.Token = expiredToken;
         this.request.RefreshToken = refreshToken;
 
@@ -231,7 +231,7 @@ export class AuthService {
     changePassword(old_password, new_password) {
         var request: any;
         request = {
-            User: JSON.parse(localStorage.getItem('ZTBLUser')).User,
+            User: JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser'))).User,
             UserPasswordDetails: {
                 OldPassword: old_password,
                 Password: new_password

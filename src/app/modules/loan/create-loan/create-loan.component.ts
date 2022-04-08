@@ -18,6 +18,7 @@ import {ClPurposeComponent} from '../cl-purpose/cl-purpose.component';
 import {ClSecuritiesComponent} from '../cl-securities/cl-securities.component';
 import {ClUploadDocumentComponent} from '../cl-upload-document/cl-upload-document.component';
 import {ToastrService} from "ngx-toastr";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'kt-create-loan',
@@ -62,6 +63,7 @@ export class CreateLoanComponent implements OnInit {
                 private spinner: NgxSpinnerService,
                 private router: Router,
                 private toastr: ToastrService,
+                private enc: EncryptDecryptService
     ) {
 
         router.events.subscribe((val: any) => {
@@ -150,7 +152,7 @@ export class CreateLoanComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     console.log(baseResponse)
                     var loanRes = baseResponse.Loan;
-                    localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList.reverse()));
+                    localStorage.setItem('customer_loan_list',this.enc.encryptStorageData(  JSON.stringify(loanRes.CustomersLoanAppList.reverse())));
                     this.CustomersLoanAppList = loanRes.CustomersLoanAppList
                     this.loanApplicationReq = new Loan();
                     this.loanApplicationReq.TranId = baseResponse.TranId;

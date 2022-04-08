@@ -42,6 +42,7 @@ export class AuthSignInComponent implements OnInit {
         private _common: CommonService,
         private encryptDecryptService: EncryptDecryptService,
         private spinner: NgxSpinnerService,
+        private enc: EncryptDecryptService,
     ) {
     }
 
@@ -57,7 +58,7 @@ export class AuthSignInComponent implements OnInit {
             return;
         }
         this.signInForm.disable();
-        var user = localStorage.getItem("ZTBLUser")
+        var user = this.enc.decryptStorageData(localStorage.getItem("ZTBLUser"))
         if (!user) {
             let key = this.getNewKey();
             let UDID = this._common.newGuid();
@@ -95,8 +96,8 @@ export class AuthSignInComponent implements OnInit {
                 this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel, options).subscribe((result: any) => {
                     if (result.Success) {
                         let Keydata = this.encryptDecryptService.AESdecrypt(key, result.Resp);
-                        localStorage.setItem("ztblKey", JSON.parse(Keydata).Key);
-                        localStorage.setItem("ztbludid", UDID);
+                        localStorage.setItem("ztblKey", this.enc.encryptStorageData(JSON.parse(Keydata).Key));
+                        localStorage.setItem("ztbludid", this.enc.encryptStorageData(UDID));
                         this.finalSignIn();
                     }
                 });
@@ -120,7 +121,6 @@ export class AuthSignInComponent implements OnInit {
         this.showAlert = false;
         var loginMode = this.signInForm.value;
         loginMode['App'] = 1;
-
         this._authService.signIn(loginMode)
             .subscribe((result) => {
                     this.spinner.hide();
@@ -128,9 +128,9 @@ export class AuthSignInComponent implements OnInit {
                         this.toaster.success(result.Message);
                         if (!result.isWebOTPEnabled) {
                             if (result.LoanUtilization) {
-                                localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
-                                localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
-                                localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
+                                localStorage.setItem('MaxNumberOfImages', this.enc.encryptStorageData(JSON.stringify(result.LoanUtilization["MaxNumberOfImages"])));
+                                localStorage.setItem('MaxNumberOfVideo', this.enc.encryptStorageData(JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"])));
+                                localStorage.setItem('VideoTimeLimit', this.enc.encryptStorageData(JSON.stringify(result.LoanUtilization["VideoTimeLimit"])));
                             }
                             const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/dashboard';
                             this._router.navigateByUrl(redirectURL).then(() => {
@@ -146,9 +146,9 @@ export class AuthSignInComponent implements OnInit {
                             dialogRef.afterClosed().subscribe(res => {
                                 if (res.data.data.Success) {
                                     if (res.data.data.Token) {
-                                        localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
-                                        localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
-                                        localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
+                                        localStorage.setItem('MaxNumberOfImages', this.enc.encryptStorageData(JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"])));
+                                        localStorage.setItem('MaxNumberOfVideo', this.enc.encryptStorageData(JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"])));
+                                        localStorage.setItem('MaxNumberOfVideo', this.enc.encryptStorageData(JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"])));
                                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/dashboard';
                                         this._router.navigateByUrl(redirectURL).then(() => {
                                             window.location.reload();

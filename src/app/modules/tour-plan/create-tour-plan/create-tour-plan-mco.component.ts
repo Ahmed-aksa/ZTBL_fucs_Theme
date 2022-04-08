@@ -21,6 +21,7 @@ import {AppInjector} from '../tour-plan.module';
 import {MatPaginator} from '@angular/material/paginator';
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 const moment = _rollupMoment || _moment;
 
@@ -98,7 +99,8 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
                 private cdRef: ChangeDetectorRef,
                 public datepipe: DatePipe,
                 public toastr: ToastrService,
-                private userUtilsService: UserUtilsService
+                private userUtilsService: UserUtilsService,
+                private enc: EncryptDecryptService
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -109,9 +111,9 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
             }
         });
 
-        var CheckEdit = localStorage.getItem("EditTourPlan");
+        var CheckEdit = this.enc.decryptStorageData(localStorage.getItem("EditTourPlan"));
         if (CheckEdit == '0') {
-            localStorage.setItem("SearchTourPlan", "");
+            localStorage.setItem("SearchTourPlan",this.enc.encryptStorageData( ""));
         }
     }
 
@@ -125,11 +127,11 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
         this.disAbleDate = [];
 
         var upFlag = this.activatedRoute.snapshot.params['upFlag'];
-        this.isEdit = localStorage.getItem("EditViewTourPlan");
-        let visibility = localStorage.getItem('Visibility')
+        this.isEdit = this.enc.decryptStorageData(localStorage.getItem("EditViewTourPlan"));
+        let visibility =this.enc.decryptStorageData( localStorage.getItem('Visibility'))
 
         if (this.isEdit != null && this.isEdit != "0") {
-            this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
+            this.tourPlanEditView = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("SearchTourPlan")));
             this.EditViewMode = true;
             if (visibility == 'true') {
                 this.viewMode = true
@@ -141,7 +143,7 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
         this.upFlag = upFlag
         if (upFlag == "1" && this.isEdit == "1") {
 
-            localStorage.setItem('EditViewTourPlan', '0');
+            localStorage.setItem('EditViewTourPlan',this.enc.encryptStorageData( '0'));
             localStorage.removeItem('SearchTourPlan')
             this.spinner.show();
             setTimeout(() => this.editTourPlan(this.tourPlanEditView), 1000);

@@ -27,6 +27,7 @@ import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {ConsentFormComponent} from "../consent-form/consent-form.component";
 import {ImagePopupComponent} from "../image-popup/image-popup.component";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-eligibility-request',
@@ -116,7 +117,8 @@ export class EligibilityRequestComponent implements OnInit {
                 private userUtilsService: UserUtilsService,
                 private _common: CommonService,
                 public datePipe: DatePipe,
-                private http: HttpClient) {
+                private http: HttpClient ,
+                private  enc: EncryptDecryptService) {
     }
 
     ngOnInit() {
@@ -388,8 +390,8 @@ export class EligibilityRequestComponent implements OnInit {
 
     editCustomer(Customer: any) {
 
-        localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
-        localStorage.setItem('CreateCustomerBit', '2');
+        localStorage.setItem('SearchCustomerStatus',this.enc.encryptStorageData(  JSON.stringify(Customer)));
+        localStorage.setItem('CreateCustomerBit',this.enc.encryptStorageData( '2'));
         // this.router.navigate(['../customer/customerProfile', { id: id }], { relativeTo: this.activatedRoute });
         this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
     }

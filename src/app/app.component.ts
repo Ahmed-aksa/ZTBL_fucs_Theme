@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
             if (event instanceof NavigationStart) {
                 if (event1?.url) {
                     if (!event1?.url.includes('auth') && !event1?.url.includes('sign-out')) {
-                        var user = localStorage.getItem("ZTBLUser")
+                        var user = this.encryptDecryptService.decryptStorageData(localStorage.getItem("ZTBLUser"));
                         if (user) {
                             var userdate = JSON.parse(user);
                             var ismatch = false

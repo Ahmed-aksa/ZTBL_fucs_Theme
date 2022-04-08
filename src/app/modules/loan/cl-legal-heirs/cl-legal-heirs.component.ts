@@ -13,6 +13,7 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 
 @Component({
@@ -53,7 +54,8 @@ export class ClLegalHeirsComponent implements OnInit {
         private _common: CommonService,
         private cdRef: ChangeDetectorRef,
         private _lovService: LovService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private enc: EncryptDecryptService
     ) {
 
     }
@@ -87,7 +89,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
     loadCustomers() {
         this.getLegalHeirs();
-        this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
+        this.loanDetail.CustomersLoanList = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('customer_loan_list')));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
                 this.SelectedCustomersList = [];

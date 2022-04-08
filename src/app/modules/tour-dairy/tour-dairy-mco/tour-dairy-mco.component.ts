@@ -14,6 +14,7 @@ import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -80,7 +81,8 @@ export class TourDiaryMcoComponent implements OnInit {
         private scroll: ViewportScroller,
         private router: Router,
         private toastr: ToastrService,
-        private location: Location
+        private location: Location,
+        private enc: EncryptDecryptService,
     ) {
 
     }
@@ -115,11 +117,11 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        this.data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')))
         if (this.data) {
             this.has_previous = true;
             localStorage.removeItem('TourDiary');
-            if (localStorage.getItem('visibility') == 'false') {
+            if (this.enc.decryptStorageData(localStorage.getItem('visibility') == 'false')) {
                 this.edit_mode = true;
             } else {
                 this.edit_mode = false;
@@ -570,7 +572,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     previousPage() {
-        localStorage.setItem('back_to_list', 'true');
+        localStorage.setItem('back_to_list',this.enc.encryptStorageData( 'true'));
         this.location.back();
     }
 }

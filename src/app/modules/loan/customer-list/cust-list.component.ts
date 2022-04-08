@@ -13,6 +13,7 @@ import {Branch} from 'app/shared/models/branch.model';
 import {CreateCustomer} from 'app/shared/models/customer.model';
 import {CircleService} from 'app/shared/services/circle.service';
 import {CustomerService} from 'app/shared/services/customer.service';
+import { EncryptDecryptService } from 'app/shared/services/encrypt_decrypt.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
@@ -80,6 +81,7 @@ export class CustLoanlistComponent implements OnInit {
         private _cdf: ChangeDetectorRef,
         private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService,
+        private enc: EncryptDecryptService,
         public dialogRef: MatDialogRef<CustLoanlistComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,) {
     }
@@ -203,8 +205,8 @@ export class CustLoanlistComponent implements OnInit {
     }
 
     editCustomer(Customer: any) {
-        localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
-        localStorage.setItem('CreateCustomerBit', '2');
+        localStorage.setItem('SearchCustomerStatus',this.enc.encryptStorageData( JSON.stringify(Customer)));
+        localStorage.setItem('CreateCustomerBit',this.enc.encryptStorageData( '2'));
         this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
     }
 

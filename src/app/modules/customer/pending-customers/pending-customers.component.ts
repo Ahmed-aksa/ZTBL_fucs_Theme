@@ -15,6 +15,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Activity} from 'app/shared/models/activity.model';
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 //src/app/core/_base/crud/utils/user-utils.service
 
@@ -67,7 +68,8 @@ export class PendingCustomersComponent implements OnInit {
         private _lovService: LovService,
         private layoutUtilsService: LayoutUtilsService,
         private userUtilsService: UserUtilsService,
-        private spinner: NgxSpinnerService) {
+        private spinner: NgxSpinnerService,
+        private enc: EncryptDecryptService) {
     }
 
     ngOnInit() {
@@ -190,17 +192,17 @@ export class PendingCustomersComponent implements OnInit {
 
 
     editCustomer(Customer: any) {
-        localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
-        localStorage.setItem('CreateCustomerBit', '2');
+        localStorage.setItem('SearchCustomerStatus',this.enc.encryptStorageData( JSON.stringify(Customer)));
+        localStorage.setItem('CreateCustomerBit', this.enc.encryptStorageData('2'));
         this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
 
     }
 
     viewCustomer(Customer: any) {
-        localStorage.setItem('is_view', '1');
+        localStorage.setItem('is_view', this.enc.encryptStorageData( '1'));
 
-        localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
-        localStorage.setItem('CreateCustomerBit', '2');
+        localStorage.setItem('SearchCustomerStatus', this.enc.encryptStorageData(JSON.stringify(Customer)));
+        localStorage.setItem('CreateCustomerBit', this.enc.encryptStorageData('2'));
         this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
 
     }

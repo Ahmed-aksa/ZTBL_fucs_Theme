@@ -14,6 +14,7 @@ import {MatSelectChange} from '@angular/material/select';
 import {finalize} from 'rxjs/operators';
 import {Activity} from "../../../shared/models/activity.model";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'kt-cl-securities',
@@ -67,7 +68,8 @@ export class ClSecuritiesComponent implements OnInit {
         private userUtilService: UserUtilsService,
         private datePipe: DatePipe,
         private layoutUtilsService: LayoutUtilsService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private enc: EncryptDecryptService
     ) {
 
     }
@@ -250,7 +252,7 @@ export class ClSecuritiesComponent implements OnInit {
             return;
         }
 
-        let deleted = localStorage.getItem('delete_security');
+        let deleted = this.enc.decryptStorageData(localStorage.getItem('delete_security'));
         localStorage.removeItem('delete_security');
 
         if (deleted == 'true') {

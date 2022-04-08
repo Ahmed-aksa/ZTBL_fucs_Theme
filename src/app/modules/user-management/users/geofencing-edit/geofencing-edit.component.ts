@@ -172,8 +172,8 @@ export class GeofencingEditComponent implements OnInit {
             });
         });
 
-        var u = new UserUtilsService();
-        this._currentActivity = u.getActivity('Create Fence');
+
+        this._currentActivity = this.userUtilsService.getActivity('Create Fence');
 
     }
 

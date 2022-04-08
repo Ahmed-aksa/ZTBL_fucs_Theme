@@ -27,6 +27,7 @@ import {
     ApexTooltip
 } from "ng-apexcharts";
 import {environment} from "../../../environments/environment";
+import {EncryptDecryptService} from "../../shared/services/encrypt_decrypt.service";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -84,13 +85,14 @@ export class DashboardComponent implements OnInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    constructor(private _sessionExpireService: SessionExpireService, private _router: Router, private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
+    constructor(private _sessionExpireService: SessionExpireService, private _router: Router, private spinner: NgxSpinnerService,
+                private enc: EncryptDecryptService,private _dashboardService: DashboardService) {
 
     }
 
     ngOnInit(): void {
         this.assignProfileIds();
-        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
+        this.userGroup = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("ZTBLUser")))?.User?.userGroup
     }
 
     private assignProfileIds() {

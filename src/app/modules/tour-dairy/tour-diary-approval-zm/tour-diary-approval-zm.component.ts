@@ -15,6 +15,7 @@ import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {ToastrService} from "ngx-toastr";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-zm',
@@ -62,6 +63,7 @@ export class TourDiaryApprovalZmComponent implements OnInit {
         private router: Router,
         private toastr: ToastrService,
         private userService: UserUtilsService,
+        private enc: EncryptDecryptService
     ) {
         this.loggedInUser = userUtilsService.getUserDetails();
         console.log(this.loggedInUser)
@@ -69,7 +71,7 @@ export class TourDiaryApprovalZmComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For ZM')
-        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        this.data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')))
         if (this.data) {
             localStorage.removeItem('TourDiary');
         } else {

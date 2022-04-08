@@ -3,6 +3,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-search-tour-plan-tab',
@@ -24,7 +25,8 @@ export class SearchTourPlanTabComponent implements OnInit {
     dv: number | any; //use later
     currentActivity: Activity;
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute, private userUtilsService: UserUtilsService) {
+    constructor(private router: Router, private activatedRoute: ActivatedRoute, private userUtilsService: UserUtilsService,
+                private enc: EncryptDecryptService) {
     }
 
     ngOnInit(): void {
@@ -57,19 +59,19 @@ export class SearchTourPlanTabComponent implements OnInit {
         if (data?.RedirectTo) {
 
             if (this.zone.ZoneId)
-                localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+                localStorage.setItem('selected_single_zone',this.enc.encryptStorageData( JSON.stringify(this.zone.ZoneId)));
             if (this.branch?.BranchCode)
-                localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
+                localStorage.setItem('selected_single_branch',this.enc.encryptStorageData( JSON.stringify(this.branch?.BranchCode)));
             if (data?.CircleId)
-                localStorage.setItem('selected_single_circle', JSON.stringify((data?.CircleId)?.toString()));
+                localStorage.setItem('selected_single_circle',this.enc.encryptStorageData( JSON.stringify((data?.CircleId)?.toString())));
             var tourDiary = JSON.stringify(data)
-            localStorage.setItem('SearchTourPlan', tourDiary);
-            localStorage.setItem('EditViewTourPlan', '1');
+            localStorage.setItem('SearchTourPlan',this.enc.encryptStorageData( tourDiary));
+            localStorage.setItem('EditViewTourPlan', this.enc.encryptStorageData('1'));
             if (mode == 'V') {
-                localStorage.setItem('visibility', 'true');
+                localStorage.setItem('visibility',this.enc.encryptStorageData( 'true'));
             } else {
                 if (mode == 'E') {
-                    localStorage.setItem('visibility', 'false');
+                    localStorage.setItem('visibility',this.enc.encryptStorageData( 'false'));
                 }
             }
             // this.router.navigate([data?.RedirectTo], {

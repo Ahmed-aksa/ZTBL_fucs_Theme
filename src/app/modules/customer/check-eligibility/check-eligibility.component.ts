@@ -17,6 +17,7 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ToastrService} from "ngx-toastr";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 
 @Component({
@@ -118,7 +119,8 @@ export class CheckEligibilityComponent implements OnInit {
         private datePipe: DatePipe,
         private _common: CommonService,
         private spinner: NgxSpinnerService,
-        private toaster: ToastrService
+        private toaster: ToastrService,
+        private enc: EncryptDecryptService
     ) {
     }
 
@@ -424,7 +426,7 @@ export class CheckEligibilityComponent implements OnInit {
                         this.should_regenerate = false;
                         this.IsEcibDefaulter = false;
                         this.ECIBPerformSuccess = true;
-                        localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
+                        localStorage.setItem('SearchCustomerStatus', this.enc.encryptStorageData(JSON.stringify(this.Customer)));
                     }
                     if (this.CustomerECIB.Code == '551') {
                         this.ECIBPerform = false;
@@ -439,7 +441,7 @@ export class CheckEligibilityComponent implements OnInit {
 
                     if (this.CustomerECIB.Message == "Eligible") {
                         this.ECIBPerformSuccess = true;
-                        localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
+                        localStorage.setItem('SearchCustomerStatus', this.enc.encryptStorageData(JSON.stringify(this.Customer)));
                     }
 
 
@@ -484,10 +486,10 @@ export class CheckEligibilityComponent implements OnInit {
                         this.customer_number = baseResponse.Customer.CustomerNumber;
                         this.CustomerECIB = baseResponse.Ecib;
 
-                        localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
-                        var bit = localStorage.getItem("CreateCustomerBit");
+                        localStorage.setItem('SearchCustomerStatus', this.enc.encryptStorageData(JSON.stringify(this.Customer)));
+                        var bit = this.enc.decryptStorageData(localStorage.getItem("CreateCustomerBit"));
                         if (bit == '10') {
-                            localStorage.setItem('CreateCustomerBit', '5');
+                            localStorage.setItem('CreateCustomerBit', this.enc.decryptStorageData('5'));
                             this.ECIBPerform = false;
                             this.ECIBPerformSuccess = true;
                         } else {
@@ -517,17 +519,17 @@ export class CheckEligibilityComponent implements OnInit {
         // if (localStorage.getItem('CreateCustomerBit') == '1') {
         //     this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         // }
-        var bit = localStorage.getItem("CreateCustomerBit");
+        var bit = this.enc.decryptStorageData(localStorage.getItem("CreateCustomerBit"));
         if (bit == '10') {
-            localStorage.setItem('CreateCustomerBit', '5');
-            bit = localStorage.getItem("CreateCustomerBit");
+            localStorage.setItem('CreateCustomerBit', this.enc.encryptStorageData('5'));
+            bit = this.enc.decryptStorageData(localStorage.getItem("CreateCustomerBit"));
         }
         //console.log(bit)
         if (bit == '1') {
-            localStorage.setItem('CreateCustomerBit', '2')
-            localStorage.setItem('ShouldAlert', 'true');
+            localStorage.setItem('CreateCustomerBit', this.enc.encryptStorageData('2'));
+            localStorage.setItem('ShouldAlert', this.enc.encryptStorageData('true'));
             this.Customer.CustomerNumber = this.customer_number
-            localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
+            localStorage.setItem('SearchCustomerStatus', this.enc.encryptStorageData(JSON.stringify(this.Customer)));
 
             this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         } else {

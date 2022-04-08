@@ -31,6 +31,7 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {LargeFilesUploadComponent} from "../large-files-upload/large-files-upload.component";
 import {AreaConverterComponent} from "../area-converter/area-converter.component";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-cust-land-information',
@@ -177,19 +178,20 @@ export class CustLandInformationComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private _common: CommonService,
         private _circleService: CircleService,
+        private enc: EncryptDecryptService
     ) {
         this.currentActivity = this.userUtilsService.getActivity('Create Land');
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        var CheckEdit = localStorage.getItem("EditLandData");
+        var CheckEdit = this.enc.decryptStorageData(localStorage.getItem("EditLandData"));
         if (CheckEdit == '0') {
-            localStorage.setItem("SearchLandData", "");
+            localStorage.setItem("SearchLandData", this.enc.encryptStorageData( ""));
         }
     }
 
     ngOnInit() {
-        this.isEditMode = localStorage.getItem("EditLandData");
+        this.isEditMode =this.enc.decryptStorageData( localStorage.getItem("EditLandData"));
         if (this.isEditMode != "0") {
-            this.LandInfoSearchData = JSON.parse(localStorage.getItem("SearchLandData"));
+            this.LandInfoSearchData = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("SearchLandData")));
         }
         this.LandInfo.LandingProcedure = "IP";
         this.isFormReadonly = false;
@@ -210,7 +212,7 @@ export class CustLandInformationComponent implements OnInit {
             .subscribe(() => {
                 this.filterPostCode();
             });
-        var historyLandInfoId = localStorage.getItem("HistoryLandInfoId");
+        var historyLandInfoId = this.enc.decryptStorageData(localStorage.getItem("HistoryLandInfoId"));
         var upFlag = this.route.snapshot.params['upFlag'];
         if (upFlag == 1 && historyLandInfoId && this.isEditMode == "1") {
             this.hasHistoryLandInfoId = true;

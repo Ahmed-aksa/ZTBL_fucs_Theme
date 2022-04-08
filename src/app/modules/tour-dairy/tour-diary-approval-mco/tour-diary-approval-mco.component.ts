@@ -15,6 +15,7 @@ import {ToastrService} from "ngx-toastr";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {MatDialog} from "@angular/material/dialog";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -78,7 +79,8 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         private _cdf: ChangeDetectorRef,
         private router: Router,
         private toastr: ToastrService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private enc: EncryptDecryptService
     ) {
 
     }
@@ -113,7 +115,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentActivity = this.userService.getActivity('Tour Diary Approval For MCO')
-        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        this.data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')))
         if (this.data) {
             localStorage.removeItem('TourDiary');
         } else {

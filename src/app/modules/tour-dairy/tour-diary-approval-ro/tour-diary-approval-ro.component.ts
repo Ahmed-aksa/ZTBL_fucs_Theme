@@ -14,6 +14,7 @@ import {finalize} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-ro',
@@ -53,14 +54,15 @@ export class TourDiaryApprovalRoComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         public dialog: MatDialog,
         private router: Router,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private enc: EncryptDecryptService
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
 
     ngOnInit(): void {
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For RO')
-        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        this.data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')))
         if (this.data) {
             localStorage.removeItem('TourDiary');
         } else {

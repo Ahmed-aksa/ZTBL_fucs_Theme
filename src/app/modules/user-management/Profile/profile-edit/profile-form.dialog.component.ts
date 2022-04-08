@@ -75,6 +75,7 @@ export class ProfileFormDialogComponent implements OnInit {
         public dialog: MatDialog,
         private _snackBar: MatSnackBar,
         private spinner: NgxSpinnerService,
+        private userUtilsService: UserUtilsService
     ) {
     }
 
@@ -101,8 +102,7 @@ export class ProfileFormDialogComponent implements OnInit {
 
         this.GetAllProfiles();
 
-        var u = new UserUtilsService();
-        // this._currentActivity = u.getActivity('Pages');
+        this._currentActivity = this.userUtilsService.getActivity('Pages');
 
     }
 

@@ -6,6 +6,7 @@ import {BaseResponseModel} from "../models/base_response.model";
 import {Activity} from "../models/activity.model";
 import {HttpClient} from "@angular/common/http";
 import {BaseRequestModel} from '../models/base_request.model';
+import {EncryptDecryptService} from "./encrypt_decrypt.service";
 
 @Injectable()
 export class UserUtilsService {
@@ -13,7 +14,8 @@ export class UserUtilsService {
     tempResponse: BaseResponseModel;
     search_data: any = {Branch: null, UserCircleMappings: null, zone: null};
 
-    constructor(private http: HttpClient = null,) {
+    constructor(private http: HttpClient = null,
+                private enc: EncryptDecryptService) {
 
     }
 
@@ -44,7 +46,7 @@ export class UserUtilsService {
          *      First hit API  ---->getZone<----
          *      All Will be enabled as discussed in Case 3
          */
-        let user_data = JSON.parse(localStorage.getItem('ZTBLUser'));
+        let user_data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser')));
         if (user_data) {
             this.search_data.User = user_data.User;
             /**
@@ -106,7 +108,7 @@ export class UserUtilsService {
     public getUserDetails(): BaseResponseModel {
 
 
-        var userMenu = localStorage.getItem(environment.userInfoKey) //this.getUserMenu();
+        var userMenu = this.enc.decryptStorageData(localStorage.getItem(environment.userInfoKey)) //this.getUserMenu();
         if (userMenu) {
             return JSON.parse(userMenu);
         }
@@ -115,8 +117,8 @@ export class UserUtilsService {
 
     public setUserDetails(response: BaseResponseModel) {
 
-        localStorage.setItem(environment.menuBar, JSON.stringify(response.MenuBar));
-        localStorage.setItem(environment.userActivities, JSON.stringify(response.Activities));
+        localStorage.setItem(environment.menuBar, this.enc.encryptStorageData(JSON.stringify(response.MenuBar)));
+        localStorage.setItem(environment.userActivities,this.enc.encryptStorageData( JSON.stringify(response.Activities)));
         this.tempResponse = new BaseResponseModel();
         this.tempResponse.User = response.User;
         this.tempResponse.User.App = 1;
@@ -142,15 +144,15 @@ export class UserUtilsService {
     }
 
     public setUserMenu(menu) {
-        localStorage.setItem(environment.menuBar, menu);
+        localStorage.setItem(environment.menuBar,this.enc.encryptStorageData( menu));
     }
 
     public getUserMenu() {
-        return JSON.parse(localStorage.getItem(environment.menuBar)).MenuBar;
+        return JSON.parse(this.enc.decryptStorageData(localStorage.getItem(environment.menuBar))).MenuBar;
     }
 
     public getUserActivities() {
-        return JSON.parse(localStorage.getItem('ZTBLUser'))?.Activities;
+        return JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser')))?.Activities;
     }
 
     public getActivity(activityName: string): Activity {
@@ -174,7 +176,7 @@ export class UserUtilsService {
             return true;
 
         //this.getUserDetails();
-        var activities = JSON.parse(localStorage.getItem(environment.userActivities));
+        var activities = JSON.parse(this.enc.decryptStorageData(localStorage.getItem(environment.userActivities)));
         if (activities != null && activities != undefined) {
             var result = activities.filter(x => x.ActivityUrl == url)[0];
 

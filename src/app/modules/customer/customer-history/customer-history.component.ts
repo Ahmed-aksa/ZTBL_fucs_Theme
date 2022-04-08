@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {CustomerService} from "../../../shared/services/customer.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-customer-history',
@@ -13,12 +14,13 @@ export class CustomerHistoryComponent implements OnInit {
     customer_number: string;
     customer_histories: any;
 
-    constructor(private router: Router, private customerService: CustomerService, private layoutService: LayoutUtilsService, private spinner: NgxSpinnerService) {
+    constructor(private router: Router, private customerService: CustomerService, private layoutService: LayoutUtilsService,
+                private enc: EncryptDecryptService, private spinner: NgxSpinnerService) {
     }
 
     ngOnInit(): void {
-        if (localStorage.getItem('CustomerNumber')) {
-            this.customer_number = localStorage.getItem('CustomerNumber');
+        if (this.enc.decryptStorageData((localStorage.getItem('CustomerNumber')))) {
+            this.customer_number = this.enc.decryptStorageData(localStorage.getItem('CustomerNumber'));
             localStorage.removeItem('CustomerNumber')
             this.getCustomerHistory();
         } else {

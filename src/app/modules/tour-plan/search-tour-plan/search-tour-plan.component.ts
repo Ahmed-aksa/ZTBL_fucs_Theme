@@ -21,6 +21,7 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DatePipe} from "@angular/common";
 import {ToastrService} from 'ngx-toastr';
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'search-loan-utilization',
@@ -96,7 +97,8 @@ export class SearchTourPlanComponent implements OnInit {
                 private _cdf: ChangeDetectorRef,
                 private datePipe: DatePipe,
                 private toastr: ToastrService,
-                private userUtilsService: UserUtilsService) {
+                private userUtilsService: UserUtilsService,
+                private enc: EncryptDecryptService) {
         this.loggedInUser = userUtilsService.getUserDetails();
         this.Math = Math;
     }
@@ -435,8 +437,8 @@ export class SearchTourPlanComponent implements OnInit {
 
         //
         // utilization = {Status:this.TourPlan.controls["Status"].value}
-        localStorage.setItem('SearchTourPlan', v);
-        localStorage.setItem('EditViewTourPlan', '1');
+        localStorage.setItem('SearchTourPlan',this.enc.encryptStorageData( v));
+        localStorage.setItem('EditViewTourPlan', this.enc.encryptStorageData('1'));
         this.router.navigate(['../tour-plan', {upFlag: "1"}], {relativeTo: this.activatedRoute});
         // this.router.navigate(['../tour-plan'], {
         //     state: {example: tourPlan, flag: 1},

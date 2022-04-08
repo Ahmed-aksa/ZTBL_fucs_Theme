@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
+import {EncryptDecryptService} from "../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-Targets',
@@ -25,11 +26,12 @@ export class TargetsComponent implements OnInit {
     svp_cod: any;
     svp_recovery: any;
 
-    constructor() {
+    constructor( private enc: EncryptDecryptService) {
+
     }
 
     ngOnInit(): void {
-        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup;
+        this.userGroup = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("ZTBLUser")))?.User?.userGroup;
         this.assignProfileIds();
     }
 

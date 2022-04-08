@@ -33,6 +33,7 @@ import {
 } from "../jv-organizational-structure-component/jv-organizational-structure-component.component";
 import {Activity} from "../../../shared/models/activity.model";
 import {ToastrService} from "ngx-toastr";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-jv-form',
@@ -165,7 +166,8 @@ export class JvFormComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private spinner: NgxSpinnerService,
         private _journalVoucherService: JournalVoucherService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private enc: EncryptDecryptService
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -176,9 +178,9 @@ export class JvFormComponent implements OnInit, OnDestroy {
             }
         });
 
-        var CheckEdit = localStorage.getItem("EditJvData");
+        var CheckEdit = this.enc.decryptStorageData(localStorage.getItem("EditJvData"));
         if (CheckEdit == '0') {
-            localStorage.setItem("SearchJvData", "");
+            localStorage.setItem("SearchJvData",this.enc.encryptStorageData( ""));
         }
 
         // var CheckView = localStorage.getItem("ViewJvData");
@@ -189,9 +191,9 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('J.V Transaction');
-        this.isEditMode = localStorage.getItem("EditJvData");
+        this.isEditMode = this.enc.decryptStorageData(localStorage.getItem("EditJvData"));
         if (this.isEditMode != "0") {
-            this.JvSearchData = JSON.parse(localStorage.getItem("SearchJvData"));
+            this.JvSearchData = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("SearchJvData")));
 
             if (this.JvSearchData != null) {
                 this.jvObject = this.JvSearchData.obj;
@@ -243,7 +245,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
         var upFlag = this.route.snapshot.params['upFlag'];
         if (upFlag == "1" && this.isEditMode == "1") {
 
-            localStorage.setItem('EditJvData', '0');
+            localStorage.setItem('EditJvData', this.enc.encryptStorageData( '0'));
             this.getJvInfo();
         }
 

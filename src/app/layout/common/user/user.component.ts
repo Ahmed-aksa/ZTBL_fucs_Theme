@@ -19,6 +19,7 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {AuthService} from "../../../core/auth/auth.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'user',
@@ -47,7 +48,8 @@ export class UserComponent implements OnInit, OnDestroy {
         private matDialogRef: MatDialog,
         private authService: AuthService,
         private layoutUtilsService: LayoutUtilsService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private enc: EncryptDecryptService
     ) {
     }
 
@@ -59,7 +61,7 @@ export class UserComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+        this.user = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser'))).User;
     }
 
     /**

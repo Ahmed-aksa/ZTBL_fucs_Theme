@@ -14,6 +14,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {ToastrService} from "ngx-toastr";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-tour-diary-approval-rc',
@@ -53,7 +54,8 @@ export class TourDiaryApprovalRcComponent implements OnInit {
         public dialog: MatDialog,
         private router: Router,
         private datePipe: DatePipe,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private enc: EncryptDecryptService
     ) {
         this.loggedInUser = userUtilsService.getUserDetails();
     }
@@ -61,8 +63,8 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     ngOnInit(): void {
 
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For RC')
-        this.data = JSON.parse(localStorage.getItem('TourDiary'));
-        if (JSON.parse(localStorage.getItem('TourDiary'))) {
+        this.data = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')));
+        if (JSON.parse(this.enc.decryptStorageData(localStorage.getItem('TourDiary')))) {
             localStorage.removeItem('TourDiary');
         } else {
             this.toastr.error("No Tour Diary For Approval Found");

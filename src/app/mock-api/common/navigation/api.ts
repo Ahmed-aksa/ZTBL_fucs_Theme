@@ -8,6 +8,7 @@ import {
     futuristicNavigation,
     horizontalNavigation
 } from 'app/mock-api/common/navigation/data';
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,7 @@ export class NavigationMockApi {
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService) {
+    constructor(private _fuseMockApiService: FuseMockApiService, private enc: EncryptDecryptService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -34,20 +35,7 @@ export class NavigationMockApi {
      * Register Mock API handlers
      */
     registerHandlers(): void {
-        let menus = JSON.parse(localStorage.getItem('ZTBLUser'))?.MenuBar;
-        // if (menus) {
-        //     menus?.forEach((single_menu, index_parent) => {
-        //         if (single_menu.isActive) {
-        //             single_menu?.submenu?.forEach((single_child_menu, index) => {
-        //                 if (!single_child_menu.isActive) {
-        //                     menus[index_parent].submenu.splice(index, 1);
-        //                 }
-        //             });
-        //         } else {
-        //             menus.splice(index_parent, 1)
-        //         }
-        //     });
-        // }
+        let menus = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser')))?.MenuBar;
         this._fuseMockApiService
             .onGet('api/common/navigation')
             .reply(() => {

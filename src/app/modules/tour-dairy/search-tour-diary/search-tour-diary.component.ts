@@ -22,6 +22,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {environment} from "../../../../environments/environment";
 import {Activity} from "../../../shared/models/activity.model";
 import {CommonService} from "../../../shared/services/common.service";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'search-tour-diary',
@@ -94,7 +95,8 @@ export class SearchTourDiaryComponent implements OnInit {
                 private _cdf: ChangeDetectorRef,
                 private datePipe: DatePipe,
                 private _common: CommonService,
-                private userUtilsService: UserUtilsService) {
+                private userUtilsService: UserUtilsService,
+                private enc: EncryptDecryptService) {
         this.loggedInUser = userUtilsService.getUserDetails();
         this.Math = Math;
     }
@@ -117,7 +119,7 @@ export class SearchTourDiaryComponent implements OnInit {
 
             if (sessionData) {
                 sessionStorage.removeItem('search-page');
-                let back_to_list = localStorage.getItem('back_to_list');
+                let back_to_list = this.enc.decryptStorageData(localStorage.getItem('back_to_list'));
                 if (back_to_list && back_to_list == 'true') {
                     localStorage.removeItem('back_to_list')
                     let data = JSON.parse(sessionData);

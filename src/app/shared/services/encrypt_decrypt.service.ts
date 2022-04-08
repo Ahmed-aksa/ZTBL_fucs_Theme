@@ -8,12 +8,14 @@ import {environment} from 'environments/environment';
 @Injectable({providedIn: 'root'})
 export class EncryptDecryptService {
     public request = new BaseRequestModel();
+    encryptSecretKey: string;
 
     constructor() {
+        this.encryptSecretKey = environment.AesKey;
     }
 
     getKey() {
-        let key = localStorage.getItem("ztblKey");
+        let key = this.decryptStorageData(localStorage.getItem("ztblKey"));
         if (key && key.length == 40) {
 
             key = key.substring(0, 8).concat(key.substring(16, 40));
@@ -24,7 +26,7 @@ export class EncryptDecryptService {
     }
 
     getUDID() {
-        let udid = localStorage.getItem("ztbludid");
+        let udid = this.decryptStorageData(localStorage.getItem("ztbludid"));
         if (udid) {
             return udid;
         } else {
@@ -78,6 +80,31 @@ export class EncryptDecryptService {
         var encrypt = (rsa1.encrypt(key));
         encrypt = window.btoa(encrypt);
         return encrypt;
+    }
+
+    encryptStorageData(data) {
+
+        try {
+            return CryptoJS.AES.encrypt(JSON.stringify(data), this.encryptSecretKey).toString();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    decryptStorageData(data) {
+
+        try {
+            if (data) {
+                const bytes = CryptoJS.AES.decrypt(data, this.encryptSecretKey);
+                if (bytes.toString()) {
+                    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                }
+                return data;
+            }
+            return null;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 }
