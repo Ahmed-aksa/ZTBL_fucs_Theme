@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -61,7 +61,7 @@ export class AccountStatementComponent implements OnInit {
 
     createForm() {
         this.bufricationForm = this.fb.group({
-            LcNO: [null],
+            LcNO: [null, Validators.required],
             GLCode: [null]
         })
     }
