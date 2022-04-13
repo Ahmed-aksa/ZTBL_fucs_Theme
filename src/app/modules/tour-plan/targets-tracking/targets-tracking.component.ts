@@ -6,6 +6,7 @@ import {MatDatepicker} from "@angular/material/datepicker";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 
 export const MY_FORMATS = {
     parse: {
@@ -43,7 +44,7 @@ export class TargetsTrackingComponent implements OnInit {
 
     date = new FormControl(moment());
 
-    constructor(private formBuilder: FormBuilder, private trackingService: TourPlanService, private spinner: NgxSpinnerService) {
+    constructor(private formBuilder: FormBuilder, private trackingService: TourPlanService, private spinner: NgxSpinnerService, private layoutUtilsService: LayoutUtilsService) {
     }
 
     ngOnInit(): void {
@@ -62,6 +63,7 @@ export class TargetsTrackingComponent implements OnInit {
         this.spinner.show();
         this.trackingService.getTargetsTracks(id, next, year_date).subscribe((data) => {
             this.spinner.hide();
+            debugger;
             if (data.Success) {
                 if (next == 1) {
                     this.target_1 = data.Target.Heading;
@@ -77,6 +79,17 @@ export class TargetsTrackingComponent implements OnInit {
                 else {
                     incoming_data[index].Target = data.Target.Targets;
                 }
+            } else {
+                if (next == 1) {
+                    this.target_1 = "No Target Found";
+                } else if (next == 2) {
+                    this.target_2 = "No Target Found";
+                } else if (next == 3) {
+                    this.target_3 = "No Target Found";
+                } else if (next == 4) {
+                    this.target_4 = "No Target Found";
+                }
+                this.layoutUtilsService.alertElement("Error", data.Message);
             }
         });
     }
