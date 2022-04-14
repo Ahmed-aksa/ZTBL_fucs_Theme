@@ -55,7 +55,7 @@
 
 
             <mat-expansion-panel #exppanel
-                                 (click)="getTargetTracks(single_provincial_target.Id,1,i,target_0?.Targets)"
+                                 (click)="getTargetTracks(single_provincial_target.Id,1,i,target_0?.Targets,exppanel)"
                                  *ngFor="let single_provincial_target of target_0?.Targets ;let i=index"
                                  class="api-table shadow-none mb-4 p-0"
                                  style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
@@ -98,7 +98,7 @@
 
 
                             <mat-expansion-panel #exppanel1
-                                                 (click)="$event.stopPropagation();getTargetTracks(target_1.Id,2,i1,single_provincial_target?.Target)"
+                                                 (click)="$event.stopPropagation();getTargetTracks(target_1.Id,2,i1,single_provincial_target?.Target,exppanel1)"
                                                  *ngFor="let target_1 of single_provincial_target?.Target ;let i1=index"
                                                  class="api-table shadow-none mb-4 p-0 mt-2"
                                                  style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
@@ -144,7 +144,7 @@
                                             style="overflow-y:scroll;">
 
                                             <mat-expansion-panel #exppanel2
-                                                                 (click)="$event.stopPropagation();getTargetTracks(target_2.Id,3,i2,target_1?.Target)"
+                                                                 (click)="$event.stopPropagation();getTargetTracks(target_2.Id,3,i2,target_1?.Target,exppanel2)"
                                                                  *ngFor="let target_2 of target_1?.Target ;let i2=index"
                                                                  class="api-table shadow-none mb-4 p-0 mt-2"
                                                                  style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
@@ -191,8 +191,8 @@
 
 
                                                             <mat-expansion-panel
-                                                                #exppanel
-                                                                (click)="$event.stopPropagation();getTargetTracks(target_3.Id,1,i3,target_2?.Target)"
+                                                                #exppanel3
+                                                                (click)="$event.stopPropagation();getTargetTracks(target_3.Id,1,i3,target_2?.Target,exppanel3)"
                                                                 *ngFor="let target_3 of target_2?.Target ;let i3=index"
                                                                 class="api-table shadow-none mb-4 p-0 mt-2"
                                                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
@@ -219,11 +219,12 @@
                                                                     <div
                                                                         class="custom-accordion-body bg-gray-50 border-t rounded">
                                                                         <!--                                                                      <! Level 4 -->
-                                                                        <section
-                                                                            class="mat-elevation-z2 bg-gray-400 mat-header-row bg-green api-table"
-                                                                            matSort>
-            <span class="mat-header-cell text-white" mat-sort-header="Name"
-                  style="width: 10px;">{{target_4?.Name}}</span>
+                                                                        <section *ngIf="target_4"
+                                                                                 class="mat-elevation-z2 bg-gray-400 mat-header-row bg-green api-table"
+                                                                                 matSort>
+                                                                            <span class="mat-header-cell text-white"
+                                                                                  mat-sort-header="Name"
+                                                                                  style="width: 10px;">{{target_4?.Name}}</span>
                                                                             <span class="mat-header-cell text-white"
                                                                                   mat-sort-header="DepositAmount">{{target_4?.DepositAmount ? target_4?.DepositAmount : 'No Record Found'}}</span>
                                                                             <span class="mat-header-cell text-white"
@@ -243,8 +244,8 @@
 
 
                                                                             <mat-expansion-panel
-                                                                                #exppanel
-                                                                                (click)="$event.stopPropagation();getTargetTracks(target_4.Id,1,i4,target_3?.Target)"
+                                                                                #exppanel4
+                                                                                (click)="$event.stopPropagation();getTargetTracks(target_4.Id,1,i4,target_3?.Target,exppanel4)"
                                                                                 *ngFor="let target_4 of target_3?.Targets ;let i4=index"
                                                                                 class="api-table shadow-none mb-4 mt-2 p-0"
                                                                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">

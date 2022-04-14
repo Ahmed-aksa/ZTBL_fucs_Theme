@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import moment, {Moment} from "moment";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
+import {MatAccordion, MatExpansionPanel} from "@angular/material/expansion";
 
 export const MY_FORMATS = {
     parse: {
@@ -41,6 +42,7 @@ export class TargetsTrackingComponent implements OnInit {
     target_2: any;
     target_3: any;
     target_4: any;
+    @ViewChild(MatExpansionPanel) expannel?: MatExpansionPanel;
 
     date = new FormControl(moment());
 
@@ -57,13 +59,20 @@ export class TargetsTrackingComponent implements OnInit {
     }
 
 
-    getTargetTracks(id = 0, next = 0, index = 0, incoming_data = null) {
+    getTargetTracks(id = 0, next = 0, index = 0, incoming_data = null, event: MatExpansionPanel = null) {
+        if (event) {
+            if (event.expanded) {
+                event.open()
+            } else {
+                event.close();
+                return;
+            }
+        }
         let date: Moment = this.date.value;
         let year_date = date.format('DD-MMMM-YYYY');
         this.spinner.show();
         this.trackingService.getTargetsTracks(id, next, year_date).subscribe((data) => {
             this.spinner.hide();
-            debugger;
             if (data.Success) {
                 if (next == 1) {
                     this.target_1 = data.Target.Heading;
@@ -80,15 +89,7 @@ export class TargetsTrackingComponent implements OnInit {
                     incoming_data[index].Target = data.Target.Targets;
                 }
             } else {
-                if (next == 1) {
-                    this.target_1 = "No Target Found";
-                } else if (next == 2) {
-                    this.target_2 = "No Target Found";
-                } else if (next == 3) {
-                    this.target_3 = "No Target Found";
-                } else if (next == 4) {
-                    this.target_4 = "No Target Found";
-                }
+                event.close();
                 this.layoutUtilsService.alertElement("Error", data.Message);
             }
         });
