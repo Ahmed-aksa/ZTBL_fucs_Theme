@@ -14,6 +14,7 @@ import {finalize} from "rxjs/operators";
 import {JournalVocherData} from "../models/journal_voucher.model";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {Activity} from "../../../shared/models/activity.model";
+import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
 
 @Component({
     selector: 'app-search-jv-pending',
@@ -78,6 +79,7 @@ export class SearchJvPendingComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         private fb: FormBuilder,
         private datePipe: DatePipe,
+        private enc: EncryptDecryptService
     ) {
         this.loggedInUserDetails = this.userUtilsService.getUserDetails();
         this.Math = Math;
@@ -202,7 +204,7 @@ export class SearchJvPendingComponent implements OnInit {
         Jv.Branch = this.Branches;
         Jv.Zone = this.Zones;
         localStorage.setItem('SearchJvData', JSON.stringify(Jv));
-        localStorage.setItem('EditJvData', '1');
+        localStorage.setItem('EditJvData', JSON.stringify('1'));
         this.router.navigate(['../form', {upFlag: "1"}], {relativeTo: this.activatedRoute});
     }
 
@@ -215,6 +217,8 @@ export class SearchJvPendingComponent implements OnInit {
         Jv.Branch = this.Branches;
         Jv.Zone = this.Zones;
         Jv.obj = "o";
+        // localStorage.setItem('SearchJvData', this.enc.encryptStorageData(Jv));
+        // localStorage.setItem('EditJvData', this.enc.encryptStorageData('1'));
         localStorage.setItem('SearchJvData', JSON.stringify(Jv));
         localStorage.setItem('EditJvData', '1');
         this.router.navigate(['../form', {upFlag: "1"}], {relativeTo: this.activatedRoute});

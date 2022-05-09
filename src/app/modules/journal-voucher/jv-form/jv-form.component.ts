@@ -178,9 +178,9 @@ export class JvFormComponent implements OnInit, OnDestroy {
             }
         });
 
-        var CheckEdit = this.enc.decryptStorageData(localStorage.getItem("EditJvData"));
+        var CheckEdit = localStorage.getItem("EditJvData");
         if (CheckEdit == '0') {
-            localStorage.setItem("SearchJvData",this.enc.encryptStorageData( ""));
+            localStorage.setItem("SearchJvData", "");
         }
 
         // var CheckView = localStorage.getItem("ViewJvData");
@@ -191,9 +191,10 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('J.V Transaction');
-        this.isEditMode = this.enc.decryptStorageData(localStorage.getItem("EditJvData"));
+        debugger;
+        this.isEditMode = localStorage.getItem("EditJvData");
         if (this.isEditMode != "0") {
-            this.JvSearchData = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("SearchJvData")));
+            this.JvSearchData = JSON.parse(localStorage.getItem("SearchJvData"));
 
             if (this.JvSearchData != null) {
                 this.jvObject = this.JvSearchData.obj;
@@ -245,7 +246,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
         var upFlag = this.route.snapshot.params['upFlag'];
         if (upFlag == "1" && this.isEditMode == "1") {
 
-            localStorage.setItem('EditJvData', this.enc.encryptStorageData( '0'));
+            localStorage.setItem('EditJvData', this.enc.encryptStorageData('0'));
             this.getJvInfo();
         }
 
