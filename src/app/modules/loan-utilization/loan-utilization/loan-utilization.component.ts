@@ -17,6 +17,8 @@ import {LoanUtilizationService} from '../service/loan-utilization.service';
 import {ViewFileComponent} from '../view-file/view-file.component';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {Activity} from "../../../shared/models/activity.model";
+import {environment} from "../../../../environments/environment";
+import { EncryptDecryptService } from 'app/shared/services/encrypt_decrypt.service';
 
 @Component({
     selector: 'kt-loan-utilization',
@@ -149,7 +151,10 @@ export class LoanUtilizationComponent implements OnInit {
         private _loanutilization: LoanUtilizationService,
         private dialog: MatDialog,
         private route: ActivatedRoute,
+        private enc: EncryptDecryptService
+
     ) {
+
 //
         // this.loggedInUser = userUtilsService.getUserDetails();
         // if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
@@ -260,9 +265,9 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     setMediaLimits() {
-        this.MaxNumberOfImages = JSON.parse(localStorage.getItem('MaxNumberOfImages'));
-        this.MaxNumberOfVideo = JSON.parse(localStorage.getItem('MaxNumberOfVideo'));
-        this.VideoTimeLimit = JSON.parse(localStorage.getItem('VideoTimeLimit'));
+        this.MaxNumberOfImages = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('MaxNumberOfImages')));
+        this.MaxNumberOfVideo = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('MaxNumberOfVideo')));
+        this.VideoTimeLimit = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('VideoTimeLimit')));
     }
 
     hasError(controlName: string, errorName: string): boolean {
