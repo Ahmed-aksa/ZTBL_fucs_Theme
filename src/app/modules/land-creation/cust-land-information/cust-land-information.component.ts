@@ -191,7 +191,8 @@ export class CustLandInformationComponent implements OnInit {
     ngOnInit() {
         this.isEditMode =this.enc.decryptStorageData( localStorage.getItem("EditLandData"));
         if (this.isEditMode != "0") {
-            this.LandInfoSearchData = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("SearchLandData")));
+            // this.LandInfoSearchData = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("SearchLandData")));
+            this.LandInfoSearchData = this.enc.decryptStorageData(JSON.parse(localStorage.getItem("SearchLandData")));
         }
         this.LandInfo.LandingProcedure = "IP";
         this.isFormReadonly = false;
