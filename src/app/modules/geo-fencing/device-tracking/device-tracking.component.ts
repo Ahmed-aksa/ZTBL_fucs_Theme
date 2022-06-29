@@ -166,6 +166,11 @@ export class DeviceTrackingComponent implements OnInit {
     }
 
     SearchGeoFencePoint() {
+
+        if(this.viewForm.controls['PPNo'].value == ''){
+            this.viewForm.controls['PPNo'].setValue(null)
+        }
+
         var request = {
             LocationHistory: {
                 PPNo: this.viewForm.controls.PPNo.value,
