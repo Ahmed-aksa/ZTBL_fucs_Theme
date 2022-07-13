@@ -45,12 +45,12 @@ export class MapNotificationStatusComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        debugger
         if (this.data.type == 'violation') {
             this.violat = true
         }
 
-        this.getStatus();
+        // this.getStatus();
     }
 
     getStatus() {
