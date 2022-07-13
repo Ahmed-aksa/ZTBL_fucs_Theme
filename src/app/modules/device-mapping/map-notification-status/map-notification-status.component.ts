@@ -50,7 +50,7 @@ export class MapNotificationStatusComponent implements OnInit {
             this.violat = true
         }
 
-        // this.getStatus();
+        this.getStatus();
     }
 
     getStatus() {
