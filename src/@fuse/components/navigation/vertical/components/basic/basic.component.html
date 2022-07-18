@@ -93,8 +93,7 @@
     <ng-container *ngIf="item.icon">
         <mat-icon
             class="fuse-vertical-navigation-item-icon"
-            [ngClass]="item.classes?.icon"
-            [svgIcon]="item.icon"></mat-icon>
+            [ngClass]="item.classes?.icon">{{item.icon}}</mat-icon>
     </ng-container>
 
     <!-- Title & Subtitle -->

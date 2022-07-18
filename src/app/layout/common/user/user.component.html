@@ -9,7 +9,7 @@
             [src]="user?.avatar">
         <mat-icon
             *ngIf="!showAvatar || !user?.avatar"
-            [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+            >account_circle</mat-icon>
         <span
             class="absolute right-0 bottom-0 w-2 h-2 rounded-full"
             [ngClass]="{'mr-px mb-px': !showAvatar || !user?.avatar,
@@ -23,7 +23,7 @@
 
 <mat-menu
     [xPosition]="'before'"
-    #userActions="matMenu" 
+    #userActions="matMenu"
     class="shadow">
     <button mat-menu-item class="p-0 bg-green">
         <span class="flex flex-col leading-none p-2 px-4">
@@ -55,7 +55,7 @@
 
     </button>
     <button class="border-t"
-        mat-menu-item 
+        mat-menu-item
         (click)="signOut()">
         <mat-icon  class="text-green text-lg">logout</mat-icon>
         <span  class=" text-base">Sign out</span>

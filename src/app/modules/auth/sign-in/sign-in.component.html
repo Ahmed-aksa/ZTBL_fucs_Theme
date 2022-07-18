@@ -53,12 +53,10 @@
                         type="button">
                         <mat-icon
                             *ngIf="passwordField.type === 'password'"
-                            [svgIcon]="'heroicons_solid:eye'"
-                            class="icon-size-5"></mat-icon>
+                            class="icon-size-5">visibility</mat-icon>
                         <mat-icon
                             *ngIf="passwordField.type === 'text'"
-                            [svgIcon]="'heroicons_solid:eye-off'"
-                            class="icon-size-5"></mat-icon>
+                            class="icon-size-5">visibility_off</mat-icon>
                     </button>
                     <mat-error>
                         Password is required
