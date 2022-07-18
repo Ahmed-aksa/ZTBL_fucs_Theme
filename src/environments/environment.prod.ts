@@ -10,10 +10,9 @@ export const environment = {
     AesKey: 'abcdefghijklmnopqrstuvxwyz',
     isMockEnabled: true, // You have to switch this, when your real back-end is done
     authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
-    // apiUrl: 'http://172.16.1.228:8070/ZTBL.Api',
-    // apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl,
-    // apiUrl: 'http://10.1.103.102:8091/UAT_APIS', //Ztbl,
-    apiUrl: 'https://10.100.32.33', //Ztbl, //Production
+     //apiUrl: 'http://172.16.1.228:8070/ZTBL.Api',
+    //apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl,
+     apiUrl: 'http://10.1.103.102:8091/UAT_APIS', //Ztbl,
     publicRSAKey: '-----BEGIN PUBLIC KEY-----\n' +
         'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3yl4HMI9P5i6cFmUCwg5\n' +
         'j/VwIHSLL1i13PkTLfzXhmcxMCJ9m9BqtQQ0HFAMAMvqbtbGVWjwV8uvPv2juRFj\n' +
@@ -67,46 +66,46 @@ export const environment = {
     // '61': 'ZO MONITORING',
     // '76': 'ZONAL COMMITTE',
     // '181': 'ZONAL MANAGER OPS'
-    //
+
 
     /**
      * UAT
      */
-    // MCO_Group_ID: '56',//131694
-    // BM: '57',//80834
-    // RECOVERY_OFFICER: '214',//120203
-    // Regional_CHIEF: '206',//111573
-    // ZM: '69',//81426
-    // SVP_COD: '68',//112664
-    // ZC: '75',//54964
-    // PROVINCIAL_CHEIF: '208',//77345
-    // EVP_CD: '211',//112664
-    // SVP_RECOVERY: '213',//16284
-    // EVP_OD: '209',//116035
-    // EVP_RS: '210',//111537
-    // PZ: '207',//704000
-    // EVP_LMD: '212',//111537
-    // ZM_CAD: '78',//81426
-    // '56': 'Maker',
-    // '57': 'Branch Manager',
-    // '214': 'Recovery Officer',
-    // '206': 'Regional Chief',
-    // '69': 'Zonal Manager',
-    // '68': 'SVP COD',
-    // '75': 'Zonal Chief',
-    // '208': 'Provincial Chief',
-    // '211': 'EVP CD',
-    // '213': 'SVP Recovery',
-    // '209': 'EVP OD',
-    // '210': 'EVP RS',
-    // '207': 'President',
-    // '212': 'EVP LMD',
-    // '55': 'Super Admin',
-    // '60': 'Ho Monitoring',
-    // '67': 'BIOMET',
-    // '61': 'ZO MONITORING',
-    // '76': 'ZONAL COMMITTE',
-    // '78': 'ZONAL MANAGER CAD'
+    MCO_Group_ID: '56',//131694
+    BM: '57',//80834
+    RECOVERY_OFFICER: '214',//120203
+    Regional_CHIEF: '206',//111573
+    ZM: '69',//81426
+    SVP_COD: '68',//112664
+    ZC: '75',//54964
+    PROVINCIAL_CHEIF: '208',//77345
+    EVP_CD: '211',//112664
+    SVP_RECOVERY: '213',//16284
+    EVP_OD: '209',//116035
+    EVP_RS: '210',//111537
+    PZ: '207',//704000
+    EVP_LMD: '212',//111537
+    ZM_CAD: '78',//81426
+    '56': 'Maker',
+    '57': 'Branch Manager',
+    '214': 'Recovery Officer',
+    '206': 'Regional Chief',
+    '69': 'Zonal Manager',
+    '68': 'SVP COD',
+    '75': 'Zonal Chief',
+    '208': 'Provincial Chief',
+    '211': 'EVP CD',
+    '213': 'SVP Recovery',
+    '209': 'EVP OD',
+    '210': 'EVP RS',
+    '207': 'President',
+    '212': 'EVP LMD',
+    '55': 'Super Admin',
+    '60': 'Ho Monitoring',
+    '67': 'BIOMET',
+    '61': 'ZO MONITORING',
+    '76': 'ZONAL COMMITTE',
+    '78': 'ZONAL MANAGER CAD'
 
 
 
@@ -114,40 +113,40 @@ export const environment = {
      * Production
      */
 
-    MCO_Group_ID: '56',//131694
-    BM: '57',//80834
-    RECOVERY_OFFICER: '206',//120203
-    Regional_CHIEF: '211',//111573
-    ZM: '69',//81426
-    SVP_COD: '68',//112664
-    ZC: '75',//54964
-    PROVINCIAL_CHEIF: '210',//77345
-    EVP_CD: '215',//112664
-    SVP_RECOVERY: '208',//16284
-    EVP_OD: '213',//116035
-    EVP_RS: '214',//111537
-    PZ: '212',//704000
-    EVP_LMD: '209',//111537
-    ZM_CAD: '78',//81426
-    '56': 'Maker',
-    '57': 'Branch Manager',
-    '206': 'Recovery Officer',
-    '211': 'Regional Chief',
-    '69': 'Zonal Manager',
-    '68': 'SVP COD',
-    '75': 'Zonal Chief',
-    '210': 'Provincial Chief',
-    '215': 'EVP CD',
-    '208': 'SVP Recovery',
-    '213': 'EVP OD',
-    '214': 'EVP RS',
-    '212': 'President',
-    '209': 'EVP LMD',
-    '55':'Super Admin',
-        '60':'Ho Monitoring',
-        '67':'BIOMET',
-    '61': 'ZO MONITORING',
-    '76': 'ZONAL COMMITTE',
-    '78': 'ZONAL MANAGER CAD'
+    // MCO_Group_ID: '56',//131694
+    // BM: '57',//80834
+    // RECOVERY_OFFICER: '206',//120203
+    // Regional_CHIEF: '211',//111573
+    // ZM: '69',//81426
+    // SVP_COD: '68',//112664
+    // ZC: '75',//54964
+    // PROVINCIAL_CHEIF: '210',//77345
+    // EVP_CD: '215',//112664
+    // SVP_RECOVERY: '208',//16284
+    // EVP_OD: '213',//116035
+    // EVP_RS: '214',//111537
+    // PZ: '212',//704000
+    // EVP_LMD: '209',//111537
+    // ZM_CAD: '78',//81426
+    // '56': 'Maker',
+    // '57': 'Branch Manager',
+    // '206': 'Recovery Officer',
+    // '211': 'Regional Chief',
+    // '69': 'Zonal Manager',
+    // '68': 'SVP COD',
+    // '75': 'Zonal Chief',
+    // '210': 'Provincial Chief',
+    // '215': 'EVP CD',
+    // '208': 'SVP Recovery',
+    // '213': 'EVP OD',
+    // '214': 'EVP RS',
+    // '212': 'President',
+    // '209': 'EVP LMD',
+    // '55':'Super Admin',
+    //     '60':'Ho Monitoring',
+    //     '67':'BIOMET',
+    // '61': 'ZO MONITORING',
+    // '76': 'ZONAL COMMITTE',
+    // '78': 'ZONAL MANAGER CAD'
 
 };

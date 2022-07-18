@@ -274,7 +274,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button (click)="saveCustomerLandInfo()" *ngIf="currentActivity?.C" class="py-2" color="primary"
+            <button (click)="saveCustomerLandInfo()" *ngIf="currentActivity?.C && !isFormReadonly " class="py-2" color="primary"
                     mat-raised-button style="background-color: #01671B;"
                     type="button">
                 <mat-icon class="mr-2">save</mat-icon>
@@ -290,7 +290,7 @@
         </div>
         <mat-form-field appearance="outline" class="mat-form-field-fluid w-4/12 py-2">
             <mat-label>Select Customer:</mat-label>
-            <mat-select (selectionChange)="SelectionChangePushData($event)" formControlName="LandCustID">
+            <mat-select (selectionChange)="SelectionChangePushData($event)" formControlName="LandCustID" [disabled]="isFormReadonly" >
                 <mat-option *ngFor="let obj of CustomerLov" [value]="obj.LandCustID">
                     {{obj.CustomerName}}
                 </mat-option>

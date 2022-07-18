@@ -59,7 +59,6 @@ export class MappingViolationService {
     }
 
     getNotificationStatus(maping) {
-
         var request = {
             Notification: {
                 Id: maping.Id
