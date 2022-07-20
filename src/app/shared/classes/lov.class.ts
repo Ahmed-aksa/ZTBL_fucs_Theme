@@ -95,6 +95,8 @@ export class LovConfigurationKey {
     public static readonly JvStatus: string = 'JvStatus';
     public static readonly Nature: string = 'Nature';
 
+    public static readonly NadraAccountTypes: string = 'NadraAccountTypes';
+
     //Deceased
     public static readonly DeceasedCustomerStatus: string = 'DeceasedCustomerStatus';
 

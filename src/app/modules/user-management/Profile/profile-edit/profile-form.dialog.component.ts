@@ -158,42 +158,6 @@ export class ProfileFormDialogComponent implements OnInit {
         });
     }
 
-    isShowActivity(activityId: number, action: string, parentactivityId: string) {
-
-        if (parentactivityId == '0') {
-            return false;
-        }
-        if (this.baseActivities.length == 0) {
-            return true;
-        }
-        var activity = this.baseActivities.filter(x => x.ActivityID == activityId)[0];
-        if (action == 'Cr') {
-            if (activity.C == false) {
-                return false;
-            } else {
-                return true;
-            }
-        } else if (action == 'R') {
-            if (activity.R == false) {
-                return false;
-            } else {
-                return true;
-            }
-        } else if (action == 'U') {
-            if (activity.U == false) {
-                return false;
-            } else {
-                return true;
-            }
-        } else if (action == 'D') {
-            if (activity.D == false) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-
     getProfile(ProfileID) {
 
         this.spinner.show()
@@ -217,6 +181,7 @@ export class ProfileFormDialogComponent implements OnInit {
                 )
                 .subscribe((baseResponse: any) => {
                     if (baseResponse.Success) {
+                        debugger
                         this.userActivities = baseResponse.Activities;
                         document.getElementById('focus-removal').className = document.getElementById('focus-removal').className.replace('mat-focused', '');
                         var newActivities = this.userActivities;
@@ -250,86 +215,11 @@ export class ProfileFormDialogComponent implements OnInit {
         }
     }
 
-    cbti(value: boolean) {
-        if (value) {
-            return '1';
-        }
-        return '0';
-    }
-
-    hasError(controlName: string, errorName: string): boolean {
-        return this.profileForm.controls[controlName].hasError(errorName);
-    }
-
-    changeActivityCheckbox(activityId: number, value: boolean) {
-
-        this.isActivityStringValid = true;
-        var activity = this.activities.filter(x => x.ActivityID == activityId)[0];
-        if (activity.ParentActivityID == 0) {
-            var childActivities = this.activities.filter(
-                x => {
-                    x.ParentActivityID == activityId
-                }
-            );
-            childActivities.forEach((o, i) => {
-                this.activities.forEach((oo, i) => {
-                    if (oo.ActivityID == o.ActivityID) {
-                        oo.C = value;
-                        oo.R = value;
-                        oo.U = value;
-                        oo.D = value;
-                        oo.isActivityChecked = value;
-                    }
-                });
-            });
-        } else {
-            this.activities.forEach((o, i) => {
-                if (o.ActivityID == activityId) {
-                    o.C = value;
-                    o.R = value;
-                    o.U = value;
-                    o.D = value;
-                }
-            });
-            this.checkParentActivityCheckbox(activityId);
-
-        }
-
-    }
-
-    checkDefault(activityId: number, action: string, value: boolean) {
-        var activity = this.baseActivities.filter(x => x.ActivityID == activityId)[0];
-        if (action == 'C') {
-            if (activity.C == false) {
-                return false;
-            } else {
-                return value;
-            }
-        } else if (action == 'R') {
-            if (activity.R == false) {
-                return false;
-            } else {
-                return value;
-            }
-        } else if (action == 'U') {
-            if (activity.U == false) {
-                return false;
-            } else {
-                return value;
-            }
-        } else if (action == 'D') {
-            if (activity.D == false) {
-                return false;
-            } else {
-                return value;
-            }
-        }
-    }
 
     changeActivityItemCheckbox(activityId: number) {
 
         this.isActivityStringValid = true;
-        var parent = this.activities.filter(x => x.ActivityID == activityId)[0];
+        var parent = this.userActivities.filter(x => x.ActivityID == activityId)[0];
 
         this.activities.forEach((o, i) => {
             if (o.ActivityID == activityId) {
@@ -347,9 +237,9 @@ export class ProfileFormDialogComponent implements OnInit {
 
     checkParentActivityCheckbox(activityId: number) {
 
-        var parentActivityId = this.activities.filter(x => x.ActivityID == activityId)[0].ParentActivityID;
+        var parentActivityId = this.userActivities.filter(x => x.ActivityID == activityId)[0]?.ParentActivityID;
         var isParentChecked = false;
-        var childActivities = this.activities.filter(x => x.ParentActivityID == parentActivityId);
+        var childActivities = this.userActivities.filter(x => x.ParentActivityID == parentActivityId);
         childActivities.forEach((o, i) => {
             if (o.isActivityChecked == true) {
                 isParentChecked = true;
@@ -390,62 +280,6 @@ export class ProfileFormDialogComponent implements OnInit {
 
     }
 
-    deleteRole() {
-        const _title = 'Role';
-        const _description = 'Are you sure to permanently delete this Role?';
-        const _waitDesciption = 'Role is deleting...';
-        const _deleteMessage = `Role has been deleted`;
-
-        const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-        dialogRef.afterClosed().subscribe(res => {
-            if (!res) {
-                return;
-            }
-            var profile = new Profile();
-            profile = this.SingleProfile[0];
-            this._profileService.DeleteRole(profile).pipe(
-                finalize(() => {
-                })
-            ).subscribe(baseResponse => {
-                if (baseResponse.Success) {
-                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
-                    this.GetAllProfiles();
-                } else {
-                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
-                }
-
-            });
-
-        });
-        this._cdf.detectChanges();
-    }
-
-    editRole() {
-        var profile = new Profile();
-        profile = this.SingleProfile[0];
-        const dialogRef = this.dialog.open(RoleEditComponent, {data: {profile: profile}, disableClose: true});
-        dialogRef.afterClosed().subscribe(res => {
-            if (!res) {
-                return;
-            }
-            this.GetAllProfiles();
-
-        });
-        this._cdf.detectChanges();
-    }
-
-    addRole() {
-        var profile = new Profile();
-        const dialogRef = this.dialog.open(RoleEditComponent, {data: {profile: profile}, disableClose: true});
-        dialogRef.afterClosed().subscribe(res => {
-            if (!res) {
-                return;
-            }
-            this.GetAllProfiles();
-        });
-        this._cdf.detectChanges();
-        this.expendTable();
-    }
 
     /**
      * On destroy
@@ -456,11 +290,6 @@ export class ProfileFormDialogComponent implements OnInit {
         }
     }
 
-    expendTable() {
-        this.lists_record.forEach(i => {
-            document.getElementById('table_' + i).style.display = 'block';
-        });
-    }
 
     /**
      * Returns role for save
@@ -520,14 +349,7 @@ export class ProfileFormDialogComponent implements OnInit {
 
     }
 
-    private addCheckboxes() {
-        this.activities.forEach((o, i) => {
-            const control = new FormControl(); // if first item set to true, else false
-            (this.profileForm.controls.orders as FormArray).push(control);
-        });
-    }
-
-    updateAllActivityDetails(event, ActivityID: any, child: any, from_all = null) {
+    updateAllActivityDetails(event=null, ActivityID: any, child: any, from_all = null) {
         if (!from_all) {
             // @ts-ignore
             document.getElementById(ActivityID + 'activity').checked = false;
@@ -548,11 +370,32 @@ export class ProfileFormDialogComponent implements OnInit {
     }
 
     updateGeneralActivityDetails($event: Event, activity) {
+        debugger
         activity.ChildActvities.forEach(single_child => {
             this.updateAllActivityDetails($event, activity.ActivityID, single_child, true);
             // @ts-ignore
             document.getElementById(single_child.ActivityID).checked = $event.target.checked;
         })
     }
+
+    SelectedAllStatus(activityId){
+        debugger
+        var status=true;
+        this.userActivities.forEach((x)=>{
+            if(x.ActivityID==activityId){
+                    x.ChildActvities.forEach((y)=>{
+                        if(y.C == false || y.R == false || y.U == false || y.D== false){
+                            if(status){
+                                status = false;
+                            }
+                        }
+                    })
+            }
+        });
+        return status;
+    }
 }
 
+export interface ActivityId{
+    ActivityID: any;
+}

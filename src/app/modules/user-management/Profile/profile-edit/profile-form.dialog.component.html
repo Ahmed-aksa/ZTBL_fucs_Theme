@@ -91,7 +91,7 @@
                                 <thead class="thead-light">
                                 <tr class="table-header-background">
                                     <th><input type="checkbox"
-                                               (change)="updateGeneralActivityDetails($event,activity)" [id]="activity.ActivityID+'activity'"></th>
+                                               (change)="updateGeneralActivityDetails($event,activity)" [id]="activity.ActivityID+'activity'" [checked]="SelectedAllStatus(activity.ActivityID)"></th>
                                     <th>Activity Name</th>
                                     <th>Activity URL</th>
                                     <th>Create</th>
@@ -104,7 +104,7 @@
                                 <tr *ngFor="let child of activity.ChildActvities">
                                     <td><input type="checkbox"
                                                (change)="updateAllActivityDetails($event,activity.ActivityID,child)"
-                                               [id]="child.ActivityID">
+                                               [id]="child.ActivityID"[checked]="child.C && child.R && child.U && child.D" >
                                     </td>
                                     <td>{{child.ActivityName}}</td>
                                     <td>{{child.ActivityUrl}}</td>
