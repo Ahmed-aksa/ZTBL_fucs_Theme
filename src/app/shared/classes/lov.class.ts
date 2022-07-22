@@ -10,6 +10,7 @@ export class Lov {
     //public ParentId: number;
 }
 
+
 export class ChildLov {
     public TagName: string;
     public ParentId: number;

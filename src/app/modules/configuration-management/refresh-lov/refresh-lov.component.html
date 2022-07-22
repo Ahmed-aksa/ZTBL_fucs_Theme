@@ -15,4 +15,75 @@
         </div>
     </div>
 
+    <div class="card card-body">
+
+        <div>
+
+            <div class="flex" style="flex-wrap: wrap;">
+
+
+                <div class="mx-2">
+
+                    <div class="col-md-12 kt-margin-bottom-10-mobile"
+                         style="width: 225px;">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-100">
+                            <mat-label> Tag Name </mat-label>
+                            <mat-icon matPrefix class="mr-2">search</mat-icon>
+                            <input autocomplete="off" appAlphabetOnly (keyup)="applyFilter($event)" matInput placeholder="Search here"/>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-auto mt-2"
+         style="flex-direction: column;">
+        <div [style.height]="gridHeight" class="flex flex-col flex-auto  overflow-auto">
+            <mat-table
+                #sort1="matSort"
+                #table
+                [dataSource]="dataSource"
+                matSort
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear>
+
+                <ng-container matColumnDef="KeyId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                    <mat-cell *matCellDef="let lovs">{{lovs.Value}}Id</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="KeyValue">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Value</mat-header-cell>
+                    <mat-cell *matCellDef="let lovs">{{lovs.Value}}</mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="KeyName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tag Name</mat-header-cell>
+                    <mat-cell *matCellDef="let lovs">{{lovs.TagName}}</mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+            </mat-table>
+            <mat-paginator pageSize="10" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+
+
+<!--            <div class="mat-table__message">No records found</div>-->
+            <div *ngIf="loading" class="mat-table__message">Please wait....</div>
+
+        </div>
+
+
+    </div>
+
 </div>

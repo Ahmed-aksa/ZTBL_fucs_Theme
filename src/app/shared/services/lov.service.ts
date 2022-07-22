@@ -17,6 +17,16 @@ export class LovService {
     ) {
     }
 
+    public async GetLovsByPage(DataObj) {
+        var req = {LovPagination: DataObj.LovPagination};
+        return this.http
+            .post(`${environment.apiUrl}/LOV/GetLOVsByPage`, req, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res))
+            .toPromise();
+    }
+
     public async CallLovAPI(DataObj: Lov) {
 
         var req = {LovPagination: {TagName: DataObj.TagName}};
