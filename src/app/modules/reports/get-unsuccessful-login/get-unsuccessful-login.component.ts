@@ -12,6 +12,7 @@ import {SearchLoanCaseByCnic} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-get-unsuccessful-login',
@@ -93,7 +94,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

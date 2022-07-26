@@ -14,6 +14,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
 import {MatCheckboxChange} from "@angular/material/checkbox";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-disbursement-performance-report',
@@ -166,7 +167,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

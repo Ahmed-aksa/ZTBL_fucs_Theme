@@ -15,6 +15,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {ProfileService} from "../../../shared/services/profile.service";
 import {Profile} from "../../user-management/activity/activity.model";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-changes-to-user-access-rights',
@@ -243,7 +244,7 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
                     this.controlReset();
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

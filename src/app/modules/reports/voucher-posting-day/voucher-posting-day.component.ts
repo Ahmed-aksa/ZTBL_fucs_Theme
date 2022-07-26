@@ -13,6 +13,7 @@ import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-voucher-posting-day',
@@ -218,7 +219,7 @@ export class VoucherPostingDayComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
