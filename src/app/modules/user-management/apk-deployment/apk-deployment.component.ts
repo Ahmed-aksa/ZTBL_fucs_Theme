@@ -8,6 +8,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-apk-deployment',
@@ -135,7 +136,7 @@ this.createForm();
         this.apkUploadService.FileUpload(this.file).pipe(finalize(() => {
             this.spinner.hide();
         })).subscribe((baseResponse)  => {
-            
+
             if (baseResponse.Success) {
 
                 this.layoutUtilsService.alertElementSuccess(
@@ -173,7 +174,7 @@ this.createForm();
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    
+
                     this.dataSource.data = baseResponse.DocumentDetail.GeneralDocuments;
                     this.matTableLenght = true;
                     this.dv = this.dataSource.data;
@@ -196,7 +197,7 @@ this.createForm();
     }
 
     downloadFile(url) {
-        window.open(url)
+        window.open(environment.apiUrl+url)
     }
 
 }

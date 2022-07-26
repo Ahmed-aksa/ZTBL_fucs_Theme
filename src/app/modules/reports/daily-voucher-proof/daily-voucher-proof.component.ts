@@ -13,6 +13,7 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-daily-voucher-proof',
@@ -231,7 +232,7 @@ export class DailyVoucherProofComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

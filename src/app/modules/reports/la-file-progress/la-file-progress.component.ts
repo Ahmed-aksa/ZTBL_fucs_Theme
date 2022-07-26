@@ -13,6 +13,7 @@ import {ReportsService} from "../service/reports.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {finalize} from "rxjs/operators";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {environment} from "../../../../environments/environment";
 
 
 @Component({
@@ -92,7 +93,7 @@ export class LaFileProgressComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

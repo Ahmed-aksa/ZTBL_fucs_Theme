@@ -118,7 +118,7 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
                   this.table_2 = this.response?.dataTable2
                   this.table_3 = this.response?.dataTable3
                   console.log(this.response)
-                  //window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                  //window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
               } else {
                   this.layoutUtilsService.alertElement("", baseResponse.Message);
               }

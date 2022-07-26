@@ -11,6 +11,7 @@ import {ToastrService} from "ngx-toastr";
 import {Lov} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {MatTableDataSource} from "@angular/material/table";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-print-loan-booklet',
@@ -92,7 +93,7 @@ export class PrintLoanBookletComponent implements OnInit, AfterViewInit {
                     this.dataSource = baseResponse.ReportsFilterCustom.LoanBookletList;
                     this.bookletList = baseResponse.ReportsFilterCustom.LoanBookletList;
                     this.table = true;
-                    //window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    //window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
@@ -115,7 +116,7 @@ export class PrintLoanBookletComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
