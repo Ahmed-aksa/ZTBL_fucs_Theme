@@ -559,12 +559,12 @@ export class LoanUtilizationComponent implements OnInit {
                                     this.Lat.push(utilizationFiles[i].Lat);
                                     this.Lng.push(utilizationFiles[i].Lng);
                                     this.images.push(utilizationFiles[i]);
-                                    this.imageUrl.push(utilizationFiles[i].ImageFilePath);
+                                    this.imageUrl.push(environment.apiUrl+utilizationFiles[i].ImageFilePath);
                                 } else {
                                     this.video_lng.push(utilizationFiles[i].Lng);
                                     this.video_lat.push(utilizationFiles[i].Lat);
                                     this.videos.push(utilizationFiles[i]);
-                                    this.videoUrl.push(utilizationFiles[i].VideoFilePath);
+                                    this.videoUrl.push(environment.apiUrl+utilizationFiles[i].VideoFilePath);
                                 }
                             }
                         }
