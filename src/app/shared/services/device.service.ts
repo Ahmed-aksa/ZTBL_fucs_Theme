@@ -69,7 +69,7 @@ export class DeviceService {
             Id: value.Id,
             Status: status,
         }
-        debugger
+
         return this.http
             .post<any>(
                 `${environment.apiUrl}/Account/ChangeMappingStatus`,

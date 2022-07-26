@@ -51,7 +51,7 @@ export class BusinessLeadsComponent implements OnInit {
     }
 
     changeCheckbox(field, field_name) {
-        debugger
+
         if (field_name == 'crop_farming') {
             if (!field) {
                 this.business_leads_form.controls["IsCropProd"].setValue('N')
@@ -91,7 +91,7 @@ export class BusinessLeadsComponent implements OnInit {
     }
 
     submitData() {
-        debugger;
+
         const controls = this.business_leads_form.controls;
         if (this.business_leads_form.invalid) {
             Object.keys(controls).forEach(controlName =>

@@ -70,6 +70,10 @@ export class CreateCustomer {
     // FamilyNo: string;
     //PlaceOfBirth: string;
     EmployeeNo: number;
+    FingerIndex : string;
+    AccountType : string;
+    FingerTemplate  : string;
+
     //FatherSpouseCnic: string;
     //BusinessProfPosition: string;
     //PhoneOff: "";

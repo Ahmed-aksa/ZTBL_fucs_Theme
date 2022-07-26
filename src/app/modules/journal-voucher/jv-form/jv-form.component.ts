@@ -191,7 +191,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('J.V Transaction');
-        debugger;
+
         this.isEditMode = localStorage.getItem("EditJvData");
         if (this.isEditMode != "0") {
             this.JvSearchData = JSON.parse(localStorage.getItem("SearchJvData"));

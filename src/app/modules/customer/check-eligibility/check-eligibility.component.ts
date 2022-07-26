@@ -18,6 +18,7 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ToastrService} from "ngx-toastr";
 import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
+import {BiometricSecuGenService} from "../../../shared/services/biometricSecuGen.service";
 
 
 @Component({
@@ -58,6 +59,7 @@ export class CheckEligibilityComponent implements OnInit {
     tran_id: any;
     public LovCall = new Lov();
     public GenderLov: any;
+    public AccountType: any;
 
     submitCwrLoading = false;
     refreshEcibLoading = false;
@@ -106,9 +108,18 @@ export class CheckEligibilityComponent implements OnInit {
     private rawData: any = [];
     private customer_number: any;
 
+    //finger Print
+    biometricTemplate: any;
+    isSuccess: boolean = false;
+    fingerIndex: string;
+    // private subscription: Subscription;
+    biometricImage: any = "assets/images/biometric_1.png";
+    public Text: any;
+
     constructor(
         private formBuilder: FormBuilder,
         private _customerService: CustomerService,
+        private _biometricService: BiometricSecuGenService,
         private userUtilsService: UserUtilsService,
         private layoutUtilsService: LayoutUtilsService,
         private _cdf: ChangeDetectorRef,
@@ -126,12 +137,16 @@ export class CheckEligibilityComponent implements OnInit {
 
     get f(): any {
         return this.customerInfo.controls;
+        this.fingerIndex = "1";
+        this.Text = this.FingerType(this.fingerIndex);// "Place Your Right Thumb";
     }
+
 
 
     ///By Pass screens in terms of data
 
     ngOnInit() {
+        this.InitializeFinger();
         this.currentActivity = this.userUtilsService.getActivity('Check Eligibility');
         this.NDCPerform = false;
         this.IsNdcDefaulter = false;
@@ -156,8 +171,11 @@ export class CheckEligibilityComponent implements OnInit {
     }
 
     async LoadLovs() {
+
         this.GenderLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Gender})
+        this.AccountType = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.NadraAccountTypes})
         this.GenderLov.LOVs = this._lovService.SortLovs(this.GenderLov.LOVs);
+        this.AccountType.LOVs = this._lovService.SortLovs(this.AccountType.LOVs);
     }
 
     //Get Customer Info
@@ -350,12 +368,150 @@ export class CheckEligibilityComponent implements OnInit {
         }
 
     }
-
+    image:string=null;
     //Perform biomatric
     performBiomatric() {
         this.BiMatricCasePerfom = false;
         this.BioMetricCapture = true;
     }
+
+    //biometric Start
+
+    VerifyCustomerNADRA(){
+
+        if (this.customerInfo.controls["FingerTemplate"].value == null ||this.customerInfo.controls["FingerTemplate"].value == "") {
+            var Message = 'Please capture finger first';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        this._customer = Object.assign(this._customer, this.customerInfo.value);
+        this.spinner.show();
+        this._biometricService.VerifyCustomerNADRA(this._customer)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((res:any) => {
+                console.log(res)
+
+            });
+    }
+
+    InitializeFinger(){
+
+        this.spinner.show();
+        this._biometricService.InitializeFinger()
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((res) => {
+
+            });
+    }
+    captureBiometric() {
+
+        if (this.customerInfo.controls["FingerIndex"].value == null ||this.customerInfo.controls["FingerIndex"].value == "") {
+            var Message = 'Please select finger index';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+        this.spinner.show();
+        this._biometricService.CaptureFinger(this.customerInfo.controls["FingerIndex"].value)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((res) => {
+                if(res.code=="00"){
+
+                    this.customerInfo.controls["FingerTemplate"].setValue(res.value);
+                    this.image='data:image/jpeg;base64,'+res.image;
+                }
+                if(res.code=="07"){
+                    this.InitializeFinger();
+                }
+
+            });
+
+
+
+        // return this.http.get<any>('https://localhost:9999/ASW/captureFinger?template=2&finger=1')
+        //     .pipe(map(response => {
+        //
+        //         return response;
+        //     }));
+
+
+    }
+
+    FingerType(fingerIndex: string) {
+
+        switch (fingerIndex) {
+
+            case "7":
+
+                return "Place Your Left Index Finger";
+
+            case "6":
+
+                return "Place Your Left Thumb";
+
+            case "2":
+
+                return "Place Your Right Index Finger";
+
+            case "1":
+
+                return "Place Your Right Thumb";
+
+            case "3":
+
+                return "Place Your Right Middle Finger";
+
+            case "4":
+
+                return "Place Your Right Ring Finger";
+
+            case "5":
+
+                return "Place Your Right Little Finger";
+
+            case "8":
+
+                return "Place Your Left Middle Finger";
+
+            case "9":
+
+                return "Place Your Left Ring Finger";
+
+            case "10":
+
+                return "Place Your Left Little Finger";
+
+            default:
+
+                return "No finger Index available";
+
+
+
+        }
+
+    }
+
+    //biometric End
 
     //Submit biomatric
     saveBiomatricdata() {
@@ -546,6 +702,10 @@ export class CheckEligibilityComponent implements OnInit {
             FatherName: [this._customer.FatherName, [Validators.required]],
             CurrentAddress: [this._customer.CurrentAddress, [Validators.required]],
             Gender: [this._customer.Gender],
+            AccountType: [this._customer.AccountType],
+            FingerIndex: [this._customer.FingerIndex, [Validators.required]],
+            CellNumber: [this._customer.CellNumber ,[Validators.required]],
+            FingerTemplate: [this._customer.FingerTemplate],
             District: [null, [Validators.required]]
         });
     }
@@ -572,7 +732,7 @@ export class CheckEligibilityComponent implements OnInit {
     }
 
     change_cnic(value: string) {
-        debugger;
+
         this.Customer = null;
         this.NDCPerform = false;
 
@@ -631,14 +791,23 @@ export class CheckEligibilityComponent implements OnInit {
             Remarks: this.remarks,
             status: 'P'
         };
-
-        this._customerService.addEligibilityRequest(data, this.tran_id).subscribe((data) => {
+        this.spinner.show();
+        this._customerService.addEligibilityRequest(data, this.tran_id).pipe(
+            finalize(() => {
+                this.spinner.hide();
+            })
+        ).subscribe((data) => {
             if (data.Success) {
                 this.toaster.success(data.Message);
 
 
                 this.rawData.forEach((single_file, index) => {
-                    this._customerService.addFiles(data.EligibilityRequest.Id, single_file).subscribe((data) => {
+                    this.spinner.show()
+                    this._customerService.addFiles(data.EligibilityRequest.Id, single_file).pipe(
+                        finalize(() => {
+                            this.spinner.hide();
+                        })
+                    ).subscribe((data) => {
                         if (index + 2 == this.number_of_files) {
                             this.router.navigate(['dashboard']);
                         }
@@ -682,6 +851,22 @@ export class CheckEligibilityComponent implements OnInit {
 
 
     }
+    finger: Finger[] = [
+        {Name: 'Right Thumb', value: "1"},
+        {Name: 'Right Index Finger', value: "2"},
+        {Name: 'Right Middle Finger', value: "3"},
+        {Name: 'Right Ring Finger', value: "4"},
+        {Name: 'Right Little Finger', value: "5"},
+        {Name: 'Left Thumb', value: "6"},
+        {Name: 'Left Index Finger', value: "7"},
+        {Name: 'Left Middle Finger', value: "8"},
+        {Name: 'Left Ring Finger', value: "9"},
+        {Name: 'Left Little Finger', value: "10"}
+    ];
 
+}
+interface Finger {
+    Name: string;
+    value: string;
 }
 

@@ -106,7 +106,7 @@ export class DashboardService {
                 },
                 tooltip: {
                     custom: function ({series, seriesIndex, dataPointIndex, w}) {
-                        debugger
+
                         let value
                         if(w.config.labels[seriesIndex].includes("(")){
                             let d = w.config.labels[seriesIndex].split("(")[0].toString().trim()
