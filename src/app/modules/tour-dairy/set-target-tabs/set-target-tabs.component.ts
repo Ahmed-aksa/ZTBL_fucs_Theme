@@ -206,7 +206,7 @@ export class SetTargetTabsComponent implements OnInit {
     ngOnInit(): void {
 
         this.userGroup = JSON.parse(this.enc.decryptStorageData(localStorage.getItem("ZTBLUser")))?.User?.userGroup
-        debugger
+
         this.GetTragetDuration();
         this.createForm();
         this.UserID;

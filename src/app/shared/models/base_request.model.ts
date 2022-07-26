@@ -51,6 +51,7 @@ export class BaseRequestModel {
     Pagination: any;
     DeviceMapping: any;
     DeviceInfo: any;
+    NadraRequestResponse: any;
 
 }
 

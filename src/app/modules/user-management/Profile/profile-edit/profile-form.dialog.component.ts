@@ -181,7 +181,7 @@ export class ProfileFormDialogComponent implements OnInit {
                 )
                 .subscribe((baseResponse: any) => {
                     if (baseResponse.Success) {
-                        debugger
+
                         this.userActivities = baseResponse.Activities;
                         document.getElementById('focus-removal').className = document.getElementById('focus-removal').className.replace('mat-focused', '');
                         var newActivities = this.userActivities;
@@ -370,7 +370,7 @@ export class ProfileFormDialogComponent implements OnInit {
     }
 
     updateGeneralActivityDetails($event: Event, activity) {
-        debugger
+
         activity.ChildActvities.forEach(single_child => {
             this.updateAllActivityDetails($event, activity.ActivityID, single_child, true);
             // @ts-ignore
@@ -379,7 +379,7 @@ export class ProfileFormDialogComponent implements OnInit {
     }
 
     SelectedAllStatus(activityId){
-        debugger
+
         var status=true;
         this.userActivities.forEach((x)=>{
             if(x.ActivityID==activityId){

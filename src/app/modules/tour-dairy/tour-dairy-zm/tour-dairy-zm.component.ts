@@ -121,7 +121,7 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     setDate() {
-        debugger
+
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {
             try {

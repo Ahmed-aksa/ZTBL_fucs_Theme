@@ -83,7 +83,7 @@ export class EnableDisableDeviceMappingComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                debugger
+
                 if (baseResponse.Success) {
                     this.dataSource.data = baseResponse.MappingRequests;
                     this.matTableLenght = true;
@@ -139,7 +139,7 @@ export class EnableDisableDeviceMappingComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                debugger
+
                 if (baseResponse.Success) {
                     this.searchDevice();
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);

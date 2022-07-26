@@ -98,6 +98,56 @@
                     <!--BioMatric Case Perform-->
                     <div *ngIf="BiMatricCasePerfom">
                         <div class="form-group kt-form__group row">
+                            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label class="customMatLabel">CNIC <strong
+                                        class="matMandatory">*</strong></mat-label>
+                                    <input [mask]="maskEnums.cnic" autocomplete="off" formControlName="Cnic" matInput
+                                           maxlength="30" placeholder="Enter cnic" readonly/>
+                                    <mat-hint align="left">Please enter cnic <strong>(32104-1234567-8)</strong>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label class="customMatLabel">Cell Number<strong
+                                        class="matMandatory">*</strong></mat-label>
+                                    <input appNumberOnly autocomplete="off" formControlName="CellNumber" matInput
+                                           maxlength="12" placeholder="Cell Number"/>
+                                    <mat-hint align="left">Please Cell Number <strong></strong></mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label class="customMatLabel">Select Account Type <strong
+                                        class="matMandatory">*</strong></mat-label>
+                                    <mat-select formControlName="AccountType">
+                                        <mat-option *ngFor="let obj of AccountType?.LOVs" [value]="obj.Value">
+                                            {{obj.Name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-hint align="left">Please select Account Type <strong></strong></mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                    <mat-label class="customMatLabel">Select Finger <strong
+                                        class="matMandatory">*</strong></mat-label>
+                                    <mat-select formControlName="FingerIndex">
+                                        <mat-option *ngFor="let obj of finger" [value]="obj.value">
+                                            {{obj.Name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-hint align="left">Please select Finger <strong></strong></mat-hint>
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <div class="form-group kt-form__group row mt-4">
                             <div class="col-lg-2 kt-margin-bottom-20-mobile">
 
                             </div>
@@ -108,27 +158,38 @@
                                 <div class="col-lg-12 text-center">
                                     <span style="font-size: 14px !important; text-align:center">Please Place your fingertip on the scanner to verify your identity</span>
                                 </div>
-                                <div class="col-lg-12 text-center mt-1 mb-3">
+                                <div *ngIf="!image" class="col-lg-12 text-center mt-1 mb-3">
                                     <img alt="icon"
                                          src="./assets/media/icons/capture.jpg"
+                                         style="height: 20%; margin: auto;width: 20%;"/>
+                                </div>
+                                <div *ngIf="image" class="col-lg-12 text-center mt-1 mb-3">
+                                    <img alt="icon"
+                                         [src]="image"
                                          style="height: 20%; margin: auto;width: 20%;"/>
                                 </div>
                                 <div class="col-lg-12 text-center mt-5 mb-3">
                                     <span style="font-size: 14px !important; text-align:center">Please place your finger on scanner</span>
                                 </div>
                                 <div class="col-lg-12 text-center">
-                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C"
+                                    <button (click)="captureBiometric()" *ngIf="currentActivity?.C"
                                             class="btn btn-primary mt-19 kt-login__btn-primary"
                                             color="primary"
                                             style="width:30%;" type="button">
                                         Capture
                                     </button>&nbsp;
-                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C"
+                                    <button (click)="VerifyCustomerNADRA()" *ngIf="currentActivity?.C"
                                             class="btn btn-secondary mt-19 kt-login__btn-primary"
                                             color="primary"
                                             style="width:30%;" type="button">
                                         Verify
                                     </button>
+<!--                                    <button (click)="performBiomatric()" *ngIf="currentActivity?.C"-->
+<!--                                            class="btn btn-secondary mt-19 kt-login__btn-primary"-->
+<!--                                            color="primary"-->
+<!--                                            style="width:30%;" type="button">-->
+<!--                                        dummy-->
+<!--                                    </button>-->
                                 </div>
                             </div>
                             <div class="col-lg-2 kt-margin-bottom-20-mobile">

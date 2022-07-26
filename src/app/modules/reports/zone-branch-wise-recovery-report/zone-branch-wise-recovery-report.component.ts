@@ -126,7 +126,7 @@ export class ZoneBranchWiseRecoveryReportComponent implements OnInit {
   }
 
   printReport(){
-      // debugger
+      //
       // var printContents = document.getElementById('table').innerHTML;
       // var originalContents = document.body.innerHTML;
       // document.body.innerHTML = printContents;
