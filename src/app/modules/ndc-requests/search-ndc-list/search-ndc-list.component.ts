@@ -30,6 +30,7 @@ import {CircleService} from '../../../shared/services/circle.service';
 import {Router} from '@angular/router';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {Activity} from "../../../shared/models/activity.model";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-search-ndc-list',
@@ -307,7 +308,7 @@ export class SearchNdcListComponent implements OnInit {
                     //
                     //this.router.navigateByUrl(baseResponse.Ndc.ndcFilePath)
 
-                    window.open(baseResponse.Ndc.ndcFilePath, 'Download');
+                    window.open(environment.apiUrl+baseResponse.Ndc.ndcFilePath, 'Download');
 
                     this.layoutUtilsService.alertElementSuccess(
                         '',
