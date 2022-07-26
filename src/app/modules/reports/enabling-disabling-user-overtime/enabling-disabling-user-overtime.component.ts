@@ -214,7 +214,7 @@ export class EnablingDisablingUserOvertimeComponent implements OnInit {
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
                     this.controlReset();
-                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+"/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

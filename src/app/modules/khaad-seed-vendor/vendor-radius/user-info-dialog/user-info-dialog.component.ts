@@ -20,6 +20,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {VendorDetail} from '../../class/vendor-detail';
 import {KhaadSeedVendorService} from '../../service/khaad-seed-vendor.service';
+import {environment} from "../../../../../environments/environment";
 
 @Component({
     selector: 'app-user-info-dialog',
@@ -75,7 +76,7 @@ export class UserInfoDialogComponent implements OnInit {
                     this.vendorDetailForm.controls["PhoneNumber"].setValue(this.vendorInfo.PhoneNumber);
                     this.vendorDetailForm.controls["Address"].setValue(this.vendorInfo.Address);
 
-                    this.images.push(this.vendorInfo.FilePath);
+                    this.images.push(environment.apiUrl+"/"+this.vendorInfo.FilePath);
 
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);

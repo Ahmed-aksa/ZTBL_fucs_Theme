@@ -142,7 +142,7 @@ export class LoanInquiryComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     var documents = baseResponse.ViewDocumnets;
-                    window.open(environment.apiUrl+documents.Path, "_blank");
+                    window.open(environment.apiUrl+"/"+documents.Path, "_blank");
                     this.cdRef.detectChanges();
                 } else {
                     this.layoutUtilsService.alertMessage("", baseResponse.Message);

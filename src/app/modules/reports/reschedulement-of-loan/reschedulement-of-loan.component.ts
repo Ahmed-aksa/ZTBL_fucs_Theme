@@ -93,7 +93,7 @@ export class ReschedulementOfLoanComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+"/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

@@ -91,7 +91,7 @@ export class GetCustomerLegalHeirsComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    window.open(environment.apiUrl+baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+"/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
