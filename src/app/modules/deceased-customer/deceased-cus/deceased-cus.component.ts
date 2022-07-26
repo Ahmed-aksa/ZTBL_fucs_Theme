@@ -19,6 +19,7 @@ import {ViewFileComponent} from "../view-file/view-file.component";
 import {CircleService} from "../../../shared/services/circle.service";
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-deceased-cus',
@@ -484,7 +485,7 @@ export class DeceasedCusComponent implements OnInit {
 
             if (id == this.DeceasedCustomerAttachedFile[a].ID) {
 
-                this.url = this.DeceasedCustomerAttachedFile[a].Path
+                this.url = environment.apiUrl+this.DeceasedCustomerAttachedFile[a].Path
             }
         }
 

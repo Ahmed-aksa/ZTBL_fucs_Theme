@@ -22,6 +22,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SubmitDocumentsComponent} from "../submit-documents/submit-documents.component";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
 import {EncryptDecryptService} from "../../../shared/services/encrypt_decrypt.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'kt-customer-profile',
@@ -723,7 +724,7 @@ export class CustomerProfileComponent implements OnInit {
                             if (customerobj.ProfilePicturePath != null && customerobj.ProfilePicturePath != undefined) {
 
 
-                                var PreviousUploadProfile = customerobj.ProfilePicturePath;
+                                var PreviousUploadProfile = environment.apiUrl+customerobj.ProfilePicturePath;
                                 if (PreviousUploadProfile != undefined && PreviousUploadProfile != null) {
 
                                     this.images = [];

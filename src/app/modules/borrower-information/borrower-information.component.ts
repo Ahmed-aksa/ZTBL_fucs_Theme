@@ -167,25 +167,7 @@ export class BorrowerInformationComponent implements OnInit {
         );
     }
 
-    viewInquiry(borrower) {
-        var Lcno = borrower.LoanCaseNo;
-        //var LnTransactionID = this.JvForm.controls.LoanDisbID.value;
 
-        const url = this.router.serializeUrl(
-            this.router.createUrlTree(
-                [
-                    '../loan-recovery/loan-inquiry',
-                    {
-                        LnTransactionID: '',
-                        Lcno: Lcno,
-                    },
-                ],
-                {relativeTo: this.activatedRoute}
-            )
-            //this.router.createUrlTree(['../loan-inquiry', { LnTransactionID: LnTransactionID, Lcno: Lcno }], { relativeTo: this.activatedRoute })
-        );
-        window.open(url, '_blank');
-    }
 
     MathCeil(value: any) {
         return Math.ceil(value);

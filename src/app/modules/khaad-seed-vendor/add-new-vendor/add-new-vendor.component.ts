@@ -31,6 +31,7 @@ import {KhaadSeedVendorService} from '../service/khaad-seed-vendor.service';
 import {AddressLocationComponent} from './address-location/address-location.component';
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-add-new-vendor',
@@ -226,7 +227,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
                     }
 
                     this.images = [];
-                    this.images.push(this.vendorInfo.FilePath);
+                    this.images.push(environment.apiUrl+this.vendorInfo.FilePath);
                     this.khaadSeedVendor.Id = this.vendorInfo.Id;
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);

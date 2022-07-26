@@ -8,6 +8,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {RecoveryService} from 'app/shared/services/recovery.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'kt-loan-inquiry',
@@ -141,7 +142,7 @@ export class LoanInquiryComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     var documents = baseResponse.ViewDocumnets;
-                    window.open(documents.Path, "_blank");
+                    window.open(environment.apiUrl+documents.Path, "_blank");
                     this.cdRef.detectChanges();
                 } else {
                     this.layoutUtilsService.alertMessage("", baseResponse.Message);
