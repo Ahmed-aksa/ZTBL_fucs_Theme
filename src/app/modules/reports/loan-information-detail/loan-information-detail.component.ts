@@ -102,7 +102,7 @@ export class LoanInformationDetailComponent implements OnInit {
                     this.table = true
                     console.log(baseResponse)
                     this.LoanInfoDetail = baseResponse.ReportsFilterCustom.LoanInformationList;
-                    //window.open(environment.apiUrl+"/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    //window.open(environment.apiUrl+"/documents/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
@@ -126,7 +126,7 @@ export class LoanInformationDetailComponent implements OnInit {
                     this.table = true
                     console.log(baseResponse)
                     this.LoanInfoDetail = baseResponse.ReportsFilterCustom.LoanInformationList;
-                    //window.open(environment.apiUrl+"/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    //window.open(environment.apiUrl+"/documents/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

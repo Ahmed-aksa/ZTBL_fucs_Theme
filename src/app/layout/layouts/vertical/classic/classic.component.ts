@@ -25,7 +25,9 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     navigation: Navigation;
     sessionTime: any;
     popup: any = false;
-
+    isViewNotification: boolean = false;
+    isViewViolations: boolean = false;
+    isViewMapping: boolean = false;
     showMapViolate = false;
     showMapReq = false;
     showNotification = false;
@@ -77,14 +79,17 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
             });
         this.SessionStart();
 
-
+        this.isViewNotification = this.IsIconVisable('/notifications/notification-details');
+        this.isViewViolations = this.IsIconVisable('/mapping-violation');
+        this.isViewMapping = this.IsIconVisable('/mapping-request');
     }
 
     IsIconVisable(url) {
+        debugger
         var ismatch = false
-        var user = this.enc.decryptStorageData(localStorage.getItem('ZTBLUser'))
-        if (user) {
-            var userdate = JSON.parse(user);
+        var userdate = JSON.parse(this.enc.decryptStorageData(localStorage.getItem('ZTBLUser')))
+        if (userdate) {
+            // var userdate = JSON.parse(user);
             userdate.MenuBar.forEach(x => {
                 var childURl = x?.children?.find(y => y.link?.includes(url))
                 if (childURl) {

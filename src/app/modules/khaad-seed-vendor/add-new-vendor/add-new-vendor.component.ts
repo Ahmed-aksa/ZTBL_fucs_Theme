@@ -227,7 +227,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
                     }
 
                     this.images = [];
-                    this.images.push(environment.apiUrl+"/"+this.vendorInfo.FilePath);
+                    this.images.push(environment.apiUrl+"/documents/"+this.vendorInfo.FilePath);
                     this.khaadSeedVendor.Id = this.vendorInfo.Id;
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);

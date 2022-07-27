@@ -197,7 +197,7 @@ this.createForm();
     }
 
     downloadFile(url) {
-        window.open(environment.apiUrl+"/"+url)
+        window.open(environment.apiUrl+"/documents/"+url)
     }
 
 }

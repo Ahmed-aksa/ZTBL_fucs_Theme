@@ -308,7 +308,7 @@ export class SearchNdcListComponent implements OnInit {
                     //
                     //this.router.navigateByUrl(baseResponse.Ndc.ndcFilePath)
 
-                    window.open(environment.apiUrl+"/"+baseResponse.Ndc.ndcFilePath, 'Download');
+                    window.open(environment.apiUrl+"/documents/"+baseResponse.Ndc.ndcFilePath, 'Download');
 
                     this.layoutUtilsService.alertElementSuccess(
                         '',

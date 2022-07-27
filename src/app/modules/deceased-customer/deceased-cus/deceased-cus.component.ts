@@ -485,7 +485,7 @@ export class DeceasedCusComponent implements OnInit {
 
             if (id == this.DeceasedCustomerAttachedFile[a].ID) {
 
-                this.url = environment.apiUrl+"/"+this.DeceasedCustomerAttachedFile[a].Path
+                this.url = environment.apiUrl+"/documents/"+this.DeceasedCustomerAttachedFile[a].Path
             }
         }
 

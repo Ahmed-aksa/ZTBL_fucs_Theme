@@ -167,7 +167,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(environment.apiUrl+"/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    window.open(environment.apiUrl+"/documents/"+baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

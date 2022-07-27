@@ -23,18 +23,18 @@ const layoutModules = [
     EmptyLayoutModule,
 
     // Horizontal navigation
-    CenteredLayoutModule,
-    EnterpriseLayoutModule,
-    MaterialLayoutModule,
-    ModernLayoutModule,
+    // CenteredLayoutModule,
+    // EnterpriseLayoutModule,
+    // MaterialLayoutModule,
+    // ModernLayoutModule,
 
     // Vertical navigation
     ClassicLayoutModule,
-    ClassyLayoutModule,
-    CompactLayoutModule,
-    DenseLayoutModule,
-    FuturisticLayoutModule,
-    ThinLayoutModule
+    // ClassyLayoutModule,
+    // CompactLayoutModule,
+    // DenseLayoutModule,
+    // FuturisticLayoutModule,
+    // ThinLayoutModule
 ];
 
 @NgModule({
@@ -47,7 +47,7 @@ const layoutModules = [
         MatTooltipModule,
         FuseDrawerModule,
         SharedModule,
-        SettingsModule,
+        // SettingsModule,
         ...layoutModules,
     ],
     entryComponents: [ChangePasswordComponent],
