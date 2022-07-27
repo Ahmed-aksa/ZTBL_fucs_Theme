@@ -13,13 +13,13 @@ export const environment = {
      //apiUrl: 'http://172.16.1.228:8070/ZTBL.Api', //admins
     // apiUrl: 'http://10.250.10.139/ZTBL.Apis', //mustansar_bhai_pc
     // apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl DEV    ENV
-    // apiUrl: 'http://10.1.103.102:8091/UAT_APIS', //Ztbl UAT ENV,
+    apiUrl: 'http://10.1.103.102:8091/UAT_APIS', //Ztbl UAT ENV,
     // apiUrl: 'http://10.1.32.105/ZTBL.Apis', //ZtblPCMustanser
     // apiUrl: 'http://10.1.33.158/ZTBL.Apis', //ZtblPCMustanser
     // apiUrl: 'https://localhost:44346/ZTBL.Api', //admins
     // apiUrl: 'http://10.1.32.105/ZTBL.Apis', //ztbl2
     //apiUrl: 'http://203.215.160.154:8070/ZTBL.Api',//without
-     apiUrl: 'https://10.100.32.33', //Ztbl, //Production
+    //  apiUrl: 'https://10.100.32.33', //Ztbl, //Production
     AesKey: 'abcdefghijklmnopqrstuvxwyz',
     publicRSAKey: '-----BEGIN PUBLIC KEY-----\n' +
         'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3yl4HMI9P5i6cFmUCwg5\n' +
